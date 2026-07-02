@@ -1,0 +1,464 @@
+<style>
+  /* Reset and base styles */
+  .privacy-container * {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* html selector is usually global, you can scope it if you want like this:
+     * but beware it might affect scroll-behavior elsewhere if multiple uses of html exist
+     */
+  .privacy-container html {
+    scroll-behavior: smooth !important;
+  }
+
+  .privacy-container {
+    font-family: 'Open Sans', Arial, sans-serif !important;
+    line-height: 1.6 !important;
+    color: #333 !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Skip link for accessibility */
+  .privacy-container .skip-link {
+    position: absolute !important;
+    top: -40px !important;
+    left: 6px !important;
+    background: #000 !important;
+    color: #fff !important;
+    padding: 8px !important;
+    text-decoration: none !important;
+    border-radius: 0 0 4px 4px !important;
+    z-index: 1000 !important;
+    transition: top 0.3s !important;
+  }
+
+  .privacy-container .skip-link:focus {
+    top: 0 !important;
+  }
+
+  /* Container */
+  .privacy-container .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+  }
+
+  /* Header */
+  .privacy-container header {
+    background-color: #f8f9fa !important;
+    border-bottom: 2px solid #e9ecef !important;
+    padding: 2rem 0 !important;
+  }
+
+  .privacy-container .page-title {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: navy !important;
+    text-align: center !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .privacy-container .last-updated {
+    text-align: center !important;
+    font-size: 1rem !important;
+    color: #666 !important;
+  }
+
+  /* Main content */
+  .privacy-container main {
+    padding: 3rem 0 !important;
+    min-height: calc(100vh - 200px) !important;
+  }
+
+  .privacy-container .policy-section {
+    background: #fff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    padding: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Typography */
+  .privacy-container h2 {
+    font-size: 2rem !important;
+    color: #9b0606 !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+    border-bottom: 2px solid navy !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .privacy-container h3 {
+    font-size: 1.5rem !important;
+    color: #34495e !important;
+    margin: 2rem 0 1rem 0 !important;
+    padding-left: 0.5rem !important;
+    border-left: 4px solid navy !important;
+  }
+
+  .privacy-container p {
+    margin-bottom: 1rem !important;
+    text-align: justify !important;
+    color: #555 !important;
+  }
+
+  /* Lists */
+  .privacy-container ul {
+    margin: 1rem 0 !important;
+    padding-left: 2rem !important;
+  }
+
+  .privacy-container li {
+    margin-bottom: 0.5rem !important;
+    color: #555 !important;
+  }
+
+  /* Articles */
+  .privacy-container article {
+    margin-bottom: 2.5rem !important;
+    padding: 1.5rem !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 6px !important;
+    background-color: #fafafa !important;
+  }
+
+  .privacy-container article:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Links */
+  .privacy-container a {
+    color: navy !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+  }
+
+  .privacy-container a:hover,
+  .privacy-container a:focus {
+    color: #cc7700 !important;
+    text-decoration: underline !important;
+  }
+
+  .privacy-container a:focus {
+    outline: 2px solid navy !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Address styling */
+  .privacy-container address {
+    font-style: normal !important;
+    background: #f8f9fa !important;
+    padding: 1rem !important;
+    border-radius: 4px !important;
+    border-left: 4px solid navy !important;
+  }
+
+  /* Footer */
+  .privacy-container footer {
+    background-color: #2c3e50 !important;
+    color: #ecf0f1 !important;
+    text-align: center !important;
+    padding: 2rem 0 !important;
+    margin-top: 3rem !important;
+  }
+
+  .privacy-container footer a {
+    color: navy !important;
+  }
+
+  .privacy-container footer ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin-top: 1rem !important;
+  }
+
+  .privacy-container footer li {
+    display: inline-block !important;
+    margin: 0 1rem !important;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .privacy-container .container {
+      padding: 0 15px !important;
+    }
+
+    .privacy-container .page-title {
+      font-size: 2rem !important;
+    }
+
+    .privacy-container h2 {
+      font-size: 1.75rem !important;
+    }
+
+    .privacy-container h3 {
+      font-size: 1.25rem !important;
+    }
+
+    .privacy-container .policy-section {
+      padding: 1.5rem !important;
+    }
+
+    .privacy-container article {
+      padding: 1rem !important;
+    }
+
+    .privacy-container main {
+      padding: 2rem 0 !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .privacy-container .page-title {
+      font-size: 1.75rem !important;
+    }
+
+    .privacy-container h2 {
+      font-size: 1.5rem !important;
+    }
+
+    .privacy-container h3 {
+      font-size: 1.1rem !important;
+    }
+
+    .privacy-container .policy-section {
+      padding: 1rem !important;
+    }
+
+    .privacy-container article {
+      padding: 0.75rem !important;
+    }
+
+    .privacy-container ul {
+      padding-left: 1.5rem !important;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+
+    .privacy-container .skip-link,
+    .privacy-container footer nav {
+      display: none !important;
+    }
+
+    .privacy-container body {
+      color: #000 !important;
+      background: #fff !important;
+    }
+
+    .privacy-container .policy-section {
+      box-shadow: none !important;
+      border: 1px solid #000 !important;
+    }
+
+    .privacy-container a {
+      color: #000 !important;
+      text-decoration: underline !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .privacy-container body {
+      background: #fff !important;
+      color: #000 !important;
+    }
+
+    .privacy-container .policy-section {
+      border: 2px solid #000 !important;
+      background: #fff !important;
+    }
+
+    .privacy-container article {
+      border: 1px solid #000 !important;
+      background: #fff !important;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .privacy-container html {
+      scroll-behavior: auto !important;
+    }
+
+    .privacy-container .skip-link {
+      transition: none !important;
+    }
+
+    .privacy-container a {
+      transition: none !important;
+    }
+  }
+
+  /* Focus styles for better accessibility */
+  .privacy-container *:focus {
+    outline: 2px solid navy !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Ensure adequate color contrast */
+  .privacy-container .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+</style>
+<div class="privacy-container" style="direction: ltr!important;">
+  <!-- Skip to main content link for keyboard navigation -->
+  <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+
+  <header role="banner" aria-labelledby="page-title">
+    <div class="container">
+      <h1 id="page-title" class="page-title">Our Privacy Policy</h1>
+      <p class="last-updated" aria-label="Document last updated">
+        <strong>Last update:</strong> 1st November 2025
+      </p>
+    </div>
+  </header>
+
+  <main id="main-content" role="main" aria-labelledby="page-title">
+    <div class="container">
+      <section aria-labelledby="overview-heading" class="policy-section">
+
+        <article role="article" aria-labelledby="data-collection-heading">
+          <h3 id="data-collection-heading">Data Collection and Use</h3>
+          <p>
+            Bekeirat Software may collect, store, and use your personal information in connection with developing and
+            providing its products, software applications (whether on third-party sites or as applications on mobile
+            devices), sites, and other services (collectively, "Services").
+          </p>
+
+          <p>
+            At Bekeirat Software, we take your privacy seriously. We operate on the principle that your personal
+            information belongs to you and only you can decide who you want to share it with and why. This is
+            fundamental to our approach, and we are committed to providing a secure environment for you to store and
+            share your personal information with others when you choose to do so.
+          </p>
+        </article>
+
+        <article role="article" aria-labelledby="policy-scope-heading">
+          <h3 id="policy-scope-heading">Policy Scope and Consent</h3>
+          <p>
+            This privacy policy ("Privacy Policy") explains how personal and other information is collected and used
+            by us. Please read it carefully, as all of our Services are governed by this Privacy Policy.
+          </p>
+
+          <p>
+            By using or accessing any Service you agree to and give consent to this collection, processing,
+            transmission, retention and use of such information and data related to you. You may withdraw such consent
+            at any time by contacting us through the methods outlined in this policy.
+          </p>
+        </article>
+        <article role="article" aria-labelledby="Third-Party-Ads">
+          <h3 id="Third-Party-Ads">Third-Party Advertising Networks</h3>
+          <p>
+            We serve third-party advertisements in Tile Master 2048 to keep the service free. These ad networks (such as
+            Google AdMob or Unity Ads) may collect and use technical device identifiers (e.g., Windows Advertising ID,
+            IP address, and device model) to serve relevant, contextual, or personalized ads
+          </p>
+          <p>
+            You can control or reset your ad tracking preferences at any time directly through your operating system
+            settings (e.g., in Windows by going to<b>Settings > Privacy > Advertising ID)</b>.
+          </p>
+        </article>
+        <article>
+          <h3>In-App Purchases and Payments</h3>
+          <p>
+            Our game supports digital in-app purchases. All monetary transactions, credit card handling, and payment
+            processing are securely managed directly by the Microsoft Store Commerce System. Bekeirat Software does not
+            view, collect, or store your credit card numbers or billing address information.
+          </p>
+        </article>
+        <article>
+          <h3>Children’s Data Protection</h3>
+          <p>
+            Tile Master 2048 is designed for a general audience. We do not knowingly collect, request, or store personal
+            information (such as names, emails, or phone numbers) from children under the age of 13 (or under 16 in the
+            EEA). If you are a parent or guardian and believe your child has submitted personal information to us,
+            please contact us immediately at bekerat.mawlay@gmail.com so we can delete the data immediately.
+          </p>
+        </article>
+        <article role="article" aria-labelledby="information-types-heading">
+          <h3 id="information-types-heading">Types of Information We Collect</h3>
+          <ul role="list" aria-label="Types of information collected">
+            <li>Personal identification information (name, email address, phone number)</li>
+            <li>Usage data and analytics</li>
+            <li>Device and technical information</li>
+            <li>Communication preferences</li>
+          </ul>
+        </article>
+
+        <article role="article" aria-labelledby="data-usage-heading">
+          <h3 id="data-usage-heading">How We Use Your Information</h3>
+          <ul role="list" aria-label="How information is used">
+            <li>To provide and improve our services</li>
+            <li>To communicate with you about our services</li>
+            <li>To ensure security and prevent fraud</li>
+            <li>To comply with legal obligations</li>
+          </ul>
+        </article>
+
+        <article role="article" aria-labelledby="data-sharing-heading">
+          <h3 id="data-sharing-heading">Information Sharing</h3>
+          <p>
+            We do not sell, trade, or otherwise transfer your personal information to third parties without your
+            explicit consent, except as described in this Privacy Policy. We may share information in the following
+            circumstances:
+          </p>
+          <ul role="list" aria-label="Information sharing circumstances">
+            <li>With your explicit consent</li>
+            <li>To comply with legal requirements</li>
+            <li>To protect our rights and safety</li>
+            <li>With trusted service providers who assist in our operations</li>
+          </ul>
+        </article>
+
+        <article role="article" aria-labelledby="user-rights-heading">
+          <h3 id="user-rights-heading">Your Rights</h3>
+          <p>You have the right to:</p>
+          <ul role="list" aria-label="User rights">
+            <li>Access your personal information</li>
+            <li>Correct inaccurate information</li>
+            <li>Request deletion of your information</li>
+            <li>Withdraw consent for data processing</li>
+            <li>Data portability</li>
+          </ul>
+        </article>
+
+        <article role="article" aria-labelledby="security-heading">
+          <h3 id="security-heading">Data Security</h3>
+          <p>
+            We implement appropriate technical and organizational measures to protect your personal information against
+            unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the
+            internet or electronic storage is completely secure.
+          </p>
+        </article>
+
+        <article role="article" aria-labelledby="contact-heading">
+          <h3 id="contact-heading">Contact Information</h3>
+          <p>
+            If you have any questions about this Privacy Policy or our data practices, please contact us at:
+          </p>
+          <address role="contentinfo" aria-label="Contact information">
+            <strong>Bekeirat Software</strong><br />
+            Email: <a href="mailto:bekerat.mawlay@gmail.com"
+              aria-label="Email privacy team">bekerat.mawlay@gmail.com</a><br />
+          </address>
+        </article>
+      </section>
+    </div>
+  </main>
+  <ul role="list">
+    <li><a href="#main-content" aria-label="Back to top">Back to Top</a></li>
+  </ul>
+</div>
