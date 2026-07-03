@@ -1,0 +1,116 @@
+{
+  "id": "/Magic-Block-Blitz-2026/",
+  "name": "Magic Block Blitz 2026: Block Puzzle",
+  "short_name": "Magic Block Blitz 2026: Block Puzzle",
+  "description": "Match, clear, and master colorful block puzzles in a fun brain-training challenge with endless gameplay.",
+  "start_url": "/Magic-Block-Blitz-2026/index.html",
+  "scope": "/Magic-Block-Blitz-2026/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1c1f26",
+  "theme_color": "#00e5ff",
+  "lang": "en",
+  "dir": "auto",
+  "categories": [
+    "games",
+    "puzzle"
+  ],
+  "iarc_rating_id": "bdf25900-7a21-8676-8850-3f4ba3247fc8",
+  "icons": [
+    {
+      "src": "assets/apple-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/manifest-icon-192.any.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/manifest-icon-512.any.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/Screenshot-1.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Title screen and game start"
+    },
+    {
+      "src": "assets/Screenshot-2.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Gameplay view with blocks"
+    },
+    {
+      "src": "assets/Screenshot-3.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Game over state"
+    },
+    {
+      "src": "assets/Screenshot-4.png",
+      "sizes": "768x1366",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Title screen and gameplay"
+    },
+    {
+      "src": "assets/Screenshot-5.png",
+      "sizes": "768x1366",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Game over state"
+    },
+    {
+      "src": "assets/Screenshot-6.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Title and setting screen"
+    },
+    {
+      "src": "assets/Screenshot-7.png",
+      "sizes": "768x1366",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Title and setting screen"
+    },
+    {
+      "src": "assets/Screenshot-8.png",
+      "sizes": "768x1366",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Title and daily quest"
+    },
+    {
+      "src": "assets/Screenshot-9.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Title and daily quest"
+    }
+  ]
+}
