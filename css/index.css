@@ -74,19 +74,70 @@ main {
 }
 
 /* Footer Styles */
+.flex.flex-wrap.justify-center.gap-4.md\:gap-6.mb-8{
+  background-color: #b6baaa !important;
+  /* color: #ffffff !important; */
+  padding: 1rem !important;
+  text-align: center !important;
+}
+
 .social-icon {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: 44px !important;
   height: 44px !important;
+  font-size: 30px !important;
   border-radius: 50% !important;
-  background-color: #334155 !important;
+  background-color: #000000 !important;
   color: white !important;
   transition: background-color 0.3s, transform 0.2s !important;
 }
 
+.social-icon>i {
+  color: white !important;
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.social-icon.twitter > svg > path {
+  color: white !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .social-icon:hover {
-  background-color: #3b82f6 !important;
+  /* background-color: #3b82f6 !important; */
   transform: scale(1.1) !important;
+}
+
+.social-icon.facebook>i:hover {
+  background-color: #1877F2 !important;
+}
+
+.social-icon.twitter:hover {
+  background-color: #ccc !important;
+}
+
+.social-icon.youtybe>i:hover {
+  background-color: #FF0000 !important;
+}
+
+.social-icon.instagram>i:hover {
+  background-color: #E4405F !important;
+}
+
+.social-icon.tiktok>i:hover {
+  background-color: #000000 !important;
+}
+
+.social-icon.blogger>i:hover {
+  background-color: #F57C00 !important;
 }
