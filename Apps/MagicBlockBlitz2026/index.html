@@ -2076,6 +2076,14 @@
         }
 
     </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Using folder-relative pathing to guarantee clean subdirectory registration compatibility
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(() => console.log('PWA active'))
+                .catch(err => console.log('PWA error:', err));
+        }
+    </script>
 </body>
 
 </html>
