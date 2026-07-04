@@ -1,10 +1,10 @@
 {
-  "id": "/Magic-Block-Blitz-2026/",
+  "id": "/Apps/MagicBlockBlitz2026/",
   "name": "Magic Block Blitz 2026: Block Puzzle",
   "short_name": "Magic Block Blitz 2026: Block Puzzle",
   "description": "Match, clear, and master colorful block puzzles in a fun brain-training challenge with endless gameplay.",
-  "start_url": "/Magic-Block-Blitz-2026/index.html",
-  "scope": "/Magic-Block-Blitz-2026/",
+  "start_url": "/Apps/MagicBlockBlitz2026/index.html",
+  "scope": "/Apps/MagicBlockBlitz2026/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#1c1f26",
