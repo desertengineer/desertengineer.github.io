@@ -120,7 +120,7 @@
 <body>
 
     <!-- Top Navigation Bar -->
-     
+
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
         <!-- Linked Logo -->
         <a href="https://desertengineer.github.io"
@@ -145,7 +145,7 @@
             <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
             <a href="./about.html" class="nav-btn">About Us</a>
             <a href="./Games.html" class="nav-btn">Games</a>
-            <a href="./contact us.html" class="nav-btn">Contacts</a>
+            <a href="./contact  us.html" class="nav-btn">Contacts</a>
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
@@ -234,36 +234,41 @@
                 <h2 class="text-2xl font-bold text-white mb-6">Send Us a Message</h2>
 
                 <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <!-- Web3Forms Hidden Access Key -->
+                    <input type="hidden" name="access_key" value="c509c6fc-cfc5-44a3-b1c3-e33c567823d2">
+                    <input type="hidden" name="subject" value="New Contact Form Submission - Bekeirat Software">
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Your Full Name <span
                                     class="text-sky-400">*</span></label>
-                            <input type="text" id="name" required class="bek-input" placeholder="John Doe">
+                            <input type="text" id="name" name="name" required class="bek-input" placeholder="John Doe">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Your Email Address
                                 <span class="text-sky-400">*</span></label>
-                            <input type="email" id="email" required class="bek-input" placeholder="john@example.com">
+                            <input type="email" id="email" name="email" required class="bek-input"
+                                placeholder="john@example.com">
                         </div>
                     </div>
 
                     <div>
-                        <label for="subject" class="block text-sm font-medium text-slate-300 mb-2">Subject <span
+                        <label for="msg_subject" class="block text-sm font-medium text-slate-300 mb-2">Subject <span
                                 class="text-sky-400">*</span></label>
-                        <input type="text" id="subject" required class="bek-input"
+                        <input type="text" id="msg_subject" name="custom_subject" required class="bek-input"
                             placeholder="App Support / Partnership Inquiry">
                     </div>
 
                     <div>
                         <label for="message" class="block text-sm font-medium text-slate-300 mb-2">Your Message <span
                                 class="text-sky-400">*</span></label>
-                        <textarea id="message" rows="5" required class="bek-input"
+                        <textarea id="message" name="message" rows="5" required class="bek-input"
                             placeholder="Describe your questions or feedback in detail..."></textarea>
                     </div>
 
-                    <button type="submit" class="bek-btn">
-                        <span>Send Message</span>
-                        <i class="fa-solid fa-paper-plane"></i>
+                    <button type="submit" id="submitBtn" class="bek-btn">
+                        <span id="btnText">Send Message</span>
+                        <i id="btnIcon" class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
@@ -271,16 +276,16 @@
         </div>
     </main>
 
-    <!-- Custom Success Modal -->
+    <!-- Custom Success/Error Modal -->
     <div id="successModal" class="bek-modal">
         <div class="bek-modal-content">
-            <div
+            <div id="modalIcon"
                 class="h-14 w-14 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-emerald-500/20">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Message Prepared!</h3>
-            <p class="text-slate-300 text-sm mb-6">
-                Your email client is opening to send your message directly to <strong
+            <h3 id="modalTitle" class="text-xl font-bold text-white mb-2">Message Sent!</h3>
+            <p id="modalDesc" class="text-slate-300 text-sm mb-6">
+                Thank you for reaching out. Your message has been successfully sent to <strong
                     class="text-sky-400">3.worksmoulay@gmail.com</strong>. We will get back to you shortly!
             </p>
             <button onclick="closeModal()" class="bek-btn w-full !py-2 !rounded-lg">
