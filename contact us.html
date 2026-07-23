@@ -370,30 +370,76 @@
             }
         });
 
-        // Form submit handler that formats mailto link and sends to 3.worksmoulay@gmail.com
-        function handleFormSubmit(event) {
+        // Form submit handler using Web3Forms AJAX API
+        async function handleFormSubmit(event) {
             event.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value.trim();
-            const message = document.getElementById('message').value.trim();
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
 
-            const recipientEmail = "3.worksmoulay@gmail.com";
-            const emailSubject = encodeURIComponent(`[Bekeirat Software Contact] ${subject} - from ${name}`);
-            const emailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            // Show loading indicator on button
+            submitBtn.disabled = true;
+            btnText.textContent = "Sending...";
+            btnIcon.className = "fa-solid fa-spinner fa-spin";
 
-            // Trigger mailto client opening to target address
-            window.location.href = `mailto:${recipientEmail}?subject=${emailSubject}&body=${emailBody}`;
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
 
-            // Show custom confirmation modal
-            const modal = document.getElementById('successModal');
-            if (modal) {
-                modal.classList.add('active');
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: json
+                });
+
+                const result = await response.json();
+
+                const modal = document.getElementById('successModal');
+                const modalIcon = document.getElementById('modalIcon');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalDesc = document.getElementById('modalDesc');
+
+                if (response.status === 200) {
+                    modalIcon.className = "h-14 w-14 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-emerald-500/20";
+                    modalIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    modalTitle.textContent = "Message Sent Successfully!";
+                    modalDesc.innerHTML = 'Thank you for reaching out. Your message has been sent directly to <strong class="text-sky-400">3.worksmoulay@gmail.com</strong>. We will reply promptly!';
+                    form.reset();
+                } else {
+                    modalIcon.className = "h-14 w-14 bg-red-500/10 text-red-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-red-500/20";
+                    modalIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                    modalTitle.textContent = "Submission Failed";
+                    modalDesc.textContent = result.message || "Something went wrong! Please try again later or email us directly.";
+                }
+
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            } catch (error) {
+                const modal = document.getElementById('successModal');
+                const modalIcon = document.getElementById('modalIcon');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalDesc = document.getElementById('modalDesc');
+
+                modalIcon.className = "h-14 w-14 bg-red-500/10 text-red-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-red-500/20";
+                modalIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                modalTitle.textContent = "Network Error";
+                modalDesc.textContent = "Please check your internet connection and try again.";
+
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            } finally {
+                submitBtn.disabled = false;
+                btnText.textContent = "Send Message";
+                btnIcon.className = "fa-solid fa-paper-plane";
             }
-
-            // Reset form fields
-            document.getElementById('contactForm').reset();
         }
 
         function closeModal() {
