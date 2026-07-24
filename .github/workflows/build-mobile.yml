@@ -42,18 +42,14 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      # 🚀 Updated Fix Block
+      # 🚀 Updated Safe Exclusion Step
       - name: Resolve Android Kotlin Duplicate Classes
         run: |
           cat << 'EOF' >> android/build.gradle
           allprojects {
-              configurations.all {
-                  resolutionStrategy {
-                      dependencySubstitution {
-                          substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk7') using module('org.jetbrains.kotlin:kotlin-stdlib:1.8.22')
-                          substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk8') using module('org.jetbrains.kotlin:kotlin-stdlib:1.8.22')
-                      }
-                  }
+              configurations.configureEach { configuration ->
+                  configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+                  configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
               }
           }
           EOF
