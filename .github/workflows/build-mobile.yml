@@ -2,14 +2,14 @@ name: Build Tile Master 2048
 
 on:
   push:
-    branches: 
-      - main
+    branches: [ main ]
+    paths:
+      - 'Apps/TileMaster2048/**'
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
   build-android:
     runs-on: ubuntu-latest
-    # Tells GitHub to execute every step inside your game folder
     defaults:
       run:
         working-directory: Apps/TileMaster2048
@@ -64,7 +64,6 @@ jobs:
   # --- SIGNED iOS BUILD ---
   build-ios:
     runs-on: macos-latest
-    # Tells GitHub to execute every step inside your game folder
     defaults:
       run:
         working-directory: Apps/TileMaster2048
