@@ -8,6 +8,10 @@ jobs:
   # --- SIGNED ANDROID BUILD ---
   build-android:
     runs-on: ubuntu-latest
+    # Tells GitHub to execute every step inside your game folder
+    defaults:
+      run:
+        working-directory: Apps/TileMaster2048
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -17,7 +21,6 @@ jobs:
         with:
           node-version: 20
 
-      # Copies every item explicitly seen in your Windows folder screenshot
       - name: Prepare Web Directory
         run: |
           mkdir dist
@@ -55,11 +58,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-Android-Release
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: Apps/TileMaster2048/android/app/build/outputs/apk/release/app-release.apk
 
   # --- SIGNED iOS BUILD ---
   build-ios:
     runs-on: macos-latest
+    # Tells GitHub to execute every step inside your game folder
+    defaults:
+      run:
+        working-directory: Apps/TileMaster2048
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -69,7 +76,6 @@ jobs:
         with:
           node-version: 20
 
-      # Copies every item explicitly seen in your Windows folder screenshot
       - name: Prepare Web Directory
         run: |
           mkdir dist
@@ -144,4 +150,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-iOS-Release
-          path: ios/App/output/*.ipa
+          path: Apps/TileMaster2048/ios/App/output/*.ipa
