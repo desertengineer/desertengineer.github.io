@@ -2,7 +2,8 @@ name: Build Tile Master 2048
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
