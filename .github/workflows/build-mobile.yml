@@ -5,7 +5,6 @@ on:
     branches: [ main ]
     paths:
       - 'Apps/TileMaster2048/**'
-
 jobs:
   # --- SIGNED ANDROID BUILD ---
   build-android:
@@ -42,7 +41,7 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      # 🚀 FIX STEP: Resolves the duplicate Kotlin class error by overriding configuration forces
+      # 🏆 FIX STEP: Resolves the duplicate Kotlin class error by overriding configuration forces
       - name: Resolve Android Kotlin Duplicate Classes
         run: |
           cat << 'EOF' >> android/build.gradle
