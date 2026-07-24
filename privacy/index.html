@@ -1,94 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Magic Block Blitz 2026: Block Puzzle</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #34495e;
-            margin-top: 30px;
-        }
-        p {
-            margin-bottom: 15px;
-        }
-        ul {
-            margin-bottom: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .date {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bekeirat Software</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="privacy.css" /> 
+  <link rel="stylesheet" href="../css/index.css" /> 
 </head>
+
 <body>
-    <div class="container">
-        <h1>Privacy Policy for Magic Block Blitz 2026</h1>
-        
-        <p class="date"><strong>Last Updated:</strong> June 28, 2026</p>
+  <!-- Top Navigation Bar -->
+  <nav id="top-nav" class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
+    <!-- Linked Logo -->
+    <a href="https://desertengineer.github.io"
+      class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+      <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+        class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+        onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
+      Bekeirat Software
+    </a>
 
-        <p>Your privacy is extremely important to us. This Privacy Policy document outlines the types of information that is or is not collected, recorded, and used by <strong>Magic Block Blitz 2026: Block Puzzle</strong> (referred to as "the Game") when distributed through the Microsoft Store.</p>
+    <!-- Hamburger Icon for Mobile -->
+    <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
 
-        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <a href="mailto:bekerat.mawlay@gmail.com">bekerat.mawlay@gmail.com</a>.</p>
-
-        <h2>1. Information Collection and Use</h2>
-        <p>The Game is designed to be a local puzzle game and respects your absolute privacy:</p>
-        <ul>
-            <li><strong>Personal Information:</strong> The Game <strong>does not</strong> collect, store, transmit, or share any personally identifiable information (PII) such as names, email addresses, physical addresses, telephone numbers, or location data.</li>
-            <li><strong>No Server Connections:</strong> The Game runs entirely locally on your Windows or Xbox device. It does not establish network connections to private external servers to track user activity.</li>
-            <li><strong>No Cookies or Tracking Pixels:</strong> The Game does not use cookies, tracking pixels, or any telemetry tools to trace your behavior over time.</li>
-        </ul>
-
-        <h2>2. Platform & Diagnostic Data (Microsoft Store)</h2>
-        <p>Because the Game is distributed through the Microsoft Store, Microsoft may collect standard diagnostics, anonymous crash logs, or installation telemetry associated with your Microsoft Account to ensure software stability and compatibility.</p>
-        <p>This data is collected directly by Microsoft under the terms of the <strong>Microsoft Privacy Statement</strong>, and we do not have access to your personal identity through this aggregate data.</p>
-
-        <h2>3. Children's Information (COPPA Compliance)</h2>
-        <p>We believe it is vital to provide added protection for children using the internet and digital applications.</p>
-        <p>The Game is a non-violent, family-friendly puzzle game. We do not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child has provided any personal information while using this Game through external services, please contact us immediately, and we will do our best to promptly address the matter.</p>
-
-        <h2>4. Third-Party Websites & Services</h2>
-        <p>This Privacy Policy applies solely to our Game. If you use a web link inside our game or store listing to navigate to an external site (such as our developer website or feedback page), please note that we do not have control over those external websites and recommend reviewing their respective privacy policies.</p>
-
-        <h2>5. Consent</h2>
-        <p>By installing and playing the Game on your Windows or Xbox device, you hereby consent to our Privacy Policy and agree to its terms.</p>
-
-        <h2>6. Contact Information</h2>
-        <p>If you have any questions, suggestions, or feedback regarding this Privacy Policy, please contact the developer at:</p>
-        <ul>
-            <li><strong>Developer Email:</strong> <a href="mailto:bekerat.mawlay@gmail.com">bekerat.mawlay@gmail.com</a></li>
-        </ul>
+    <!-- Desktop Navigation Buttons -->
+    <div class="hidden md:flex space-x-2 items-center">
+      <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
+      <a href="../pages/about.html" class=" nav-btn">About Us</a>
+      <a href="../pages/games.html" class="nav-btn">Games</a>
+      <a href="../pages/contact us.html" class="nav-btn">Contacts</a>
     </div>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
+      <nav class="flex flex-col">
+        <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
+        <a href="../pages/about.html" class="mobile-btn">About Us</a>
+        <a href="../pages/games.html" class="mobile-btn">Games</a>
+        <a href="../pages/contact us.html" class="mobile-btn border-none">Contacts</a>
+      </nav>
+    </div>
+  </nav>
+
+  <main>
+    <!-- What's New Section -->
+    <section class="max-w-6xl mx-auto py-16 px-4 md:px-8">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+
+
+        <div class="privacy-container" style="direction: ltr!important;">
+          <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+
+          <header role="banner" aria-labelledby="page-title">
+            <div class="container">
+              <h1 id="page-title" class="page-title">Our Privacy Policy</h1>
+              <p class="last-updated" aria-label="Document last updated">
+                <strong>Last update:</strong> 24th July 2026
+              </p>
+            </div>
+          </header>
+
+          <main id="main-content" role="main" aria-labelledby="page-title">
+            <div class="container">
+              <section aria-labelledby="overview-heading" class="policy-section">
+
+                <article role="article" aria-labelledby="data-collection-heading">
+                  <h3 id="data-collection-heading">Data Collection and Use</h3>
+                  <p>
+                    Bekeirat Software may collect, store, and use your personal information in connection with
+                    developing and
+                    providing its products, software applications (whether on third-party sites or as applications on
+                    mobile
+                    devices), sites, and other services (collectively, "Services").
+                  </p>
+
+                  <p>
+                    At Bekeirat Software, we take your privacy seriously. We operate on the principle that your personal
+                    information belongs to you and only you can decide who you want to share it with and why. This is
+                    fundamental to our approach, and we are committed to providing a secure environment for you to store
+                    and
+                    share your personal information with others when you choose to do so.
+                  </p>
+                </article>
+
+                <article role="article" aria-labelledby="policy-scope-heading">
+                  <h3 id="policy-scope-heading">Policy Scope and Consent</h3>
+                  <p>
+                    This privacy policy ("Privacy Policy") explains how personal and other information is collected and
+                    used
+                    by us. Please read it carefully, as all of our Services are governed by this Privacy Policy.
+                  </p>
+
+                  <p>
+                    By using or accessing any Service you agree to and give consent to this collection, processing,
+                    transmission, retention and use of such information and data related to you. You may withdraw such
+                    consent
+                    at any time by contacting us through the methods outlined in this policy.
+                  </p>
+                </article>
+                <article role="article" aria-labelledby="Third-Party-Ads">
+                  <h3 id="Third-Party-Ads">Third-Party Advertising Networks</h3>
+                  <p>
+                    We serve third-party advertisements in Tile Master 2048 to keep the service free. These ad networks
+                    (such as
+                    Google AdMob or Unity Ads) may collect and use technical device identifiers (e.g., Windows
+                    Advertising ID,
+                    IP address, and device model) to serve relevant, contextual, or personalized ads
+                  </p>
+                  <p>
+                    You can control or reset your ad tracking preferences at any time directly through your operating
+                    system
+                    settings (e.g., in Windows by going to<b>Settings > Privacy > Advertising ID)</b>.
+                  </p>
+                </article>
+                <article>
+                  <h3>In-App Purchases and Payments</h3>
+                  <p>
+                    Our game supports digital in-app purchases. All monetary transactions, credit card handling, and
+                    payment
+                    processing are securely managed directly by the Microsoft Store Commerce System. Bekeirat Software
+                    does not
+                    view, collect, or store your credit card numbers or billing address information.
+                  </p>
+                </article>
+                <article>
+                  <h3>Children’s Data Protection</h3>
+                  <p>
+                    Tile Master 2048 is designed for a general audience. We do not knowingly collect, request, or store
+                    personal
+                    information (such as names, emails, or phone numbers) from children under the age of 13 (or under 16
+                    in the
+                    EEA). If you are a parent or guardian and believe your child has submitted personal information to
+                    us,
+                    please contact us immediately at bekerat.mawlay@gmail.com so we can delete the data immediately.
+                  </p>
+                </article>
+                <article role="article" aria-labelledby="information-types-heading">
+                  <h3 id="information-types-heading">Types of Information We Collect</h3>
+                  <ul role="list" aria-label="Types of information collected">
+                    <li>Personal identification information (name, email address, phone number)</li>
+                    <li>Usage data and analytics</li>
+                    <li>Device and technical information</li>
+                    <li>Communication preferences</li>
+                  </ul>
+                </article>
+
+                <article role="article" aria-labelledby="data-usage-heading">
+                  <h3 id="data-usage-heading">How We Use Your Information</h3>
+                  <ul role="list" aria-label="How information is used">
+                    <li>To provide and improve our services</li>
+                    <li>To communicate with you about our services</li>
+                    <li>To ensure security and prevent fraud</li>
+                    <li>To comply with legal obligations</li>
+                  </ul>
+                </article>
+
+                <article role="article" aria-labelledby="data-sharing-heading">
+                  <h3 id="data-sharing-heading">Information Sharing</h3>
+                  <p>
+                    We do not sell, trade, or otherwise transfer your personal information to third parties without your
+                    explicit consent, except as described in this Privacy Policy. We may share information in the
+                    following
+                    circumstances:
+                  </p>
+                  <ul role="list" aria-label="Information sharing circumstances">
+                    <li>With your explicit consent</li>
+                    <li>To comply with legal requirements</li>
+                    <li>To protect our rights and safety</li>
+                    <li>With trusted service providers who assist in our operations</li>
+                  </ul>
+                </article>
+
+                <article role="article" aria-labelledby="user-rights-heading">
+                  <h3 id="user-rights-heading">Your Rights</h3>
+                  <p>You have the right to:</p>
+                  <ul role="list" aria-label="User rights">
+                    <li>Access your personal information</li>
+                    <li>Correct inaccurate information</li>
+                    <li>Request deletion of your information</li>
+                    <li>Withdraw consent for data processing</li>
+                    <li>Data portability</li>
+                  </ul>
+                </article>
+
+                <article role="article" aria-labelledby="security-heading">
+                  <h3 id="security-heading">Data Security</h3>
+                  <p>
+                    We implement appropriate technical and organizational measures to protect your personal information
+                    against
+                    unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over
+                    the
+                    internet or electronic storage is completely secure.
+                  </p>
+                </article>
+
+                <article role="article" aria-labelledby="contact-heading">
+                  <h3 id="contact-heading">Contact Information</h3>
+                  <p>
+                    If you have any questions about this Privacy Policy or our data practices, please contact us at:
+                  </p>
+                  <address role="contentinfo" aria-label="Contact information">
+                    <strong>Bekeirat Software</strong><br />
+                    Email: <a href="mailto:bekerat.mawlay@gmail.com"
+                      aria-label="Email privacy team">bekerat.mawlay@gmail.com</a><br />
+                  </address>
+                </article>
+              </section>
+            </div>
+          </main>
+          <ul role="list">
+            <li><a href="#top-nav" aria-label="Back to top">Back to Top</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </section> 
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
+    <div class="max-w-4xl mx-auto flex flex-col items-center">
+
+      <!-- Centered Social Media Links Bar -->
+      <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
+        <!-- Twitter / X -->
+        <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
+          <!-- <i class="fa-brands fa-x-twitter"></i> -->
+          <svg xmlns="http://w3.org" width="20" height="20" viewBox="0 0 512 512" fill="currentColor"
+            style="display: block;">
+            <path
+              d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook"
+          aria-label="Facebook" target="_blank">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtybe"
+          aria-label="YouTube">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <!-- TikTok (Custom outline representation) -->
+        <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <!-- Blogger -->
+        <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger" aria-label="Blogger">
+          <i class="fa-brands fa-blogger"></i>
+        </a>
+      </div>
+
+      <!-- Copyright Accreditations -->
+      <div>
+        <p class="text-sm">
+          &copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.
+        </p>
+        <p class="text-xs mt-2 text-gray-500">
+          Designed and built for apps and games excellence.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/index.js"> </script>
+  <script src=""> </script> 
+
 </body>
+
 </html>

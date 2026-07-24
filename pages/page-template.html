@@ -1,14 +1,17 @@
-'90
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bekeirat Software</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tailwindcss.js"></script><!--  TO DO -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/all.min.css" />
     <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="stylesheet" href="./css/index.css" />
+    
+    <link rel="stylesheet" href="../css/index.css" />
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
     </script>
@@ -18,10 +21,10 @@
 
     <!-- Top Navigation Bar -->
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
-        <!-- Linked Logo --> 
-        <a href="./index.html"
+        <!-- Linked Logo -->
+        <a href="https://desertengineer.github.io"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-            <img src="./assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
@@ -39,61 +42,29 @@
         <!-- Desktop Navigation Buttons -->
         <div class="hidden md:flex space-x-2 items-center">
             <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
-            <a href="./about.html" class="nav-btn">About Us</a>
-            <a href="./games.html" class="nav-btn">Games</a>
-            <a href="./contact us.html" class="nav-btn">Contacts</a>
+            <a href="about.html" class=" nav-btn">About Us</a>
+            <a href="games.html" class="nav-btn">Games</a>
+            <a href="contact us.html" class="nav-btn">Contacts</a>
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
                 <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
-                <a href="./about.html" class="mobile-btn">About Us</a>
-                <a href="./games.html" class="mobile-btn">Games</a>
-                <a href="./contact us.html" class="mobile-btn border-none">Contacts</a>
+                <a href="about.html" class="mobile-btn">About Us</a>
+                <a href="games.html" class="mobile-btn">Games</a>
+                <a href="contact us.html" class="mobile-btn border-none">Contacts</a>
             </nav>
         </div>
     </nav>
-
-    <!-- Header / Banner -->
-    <header class="hero-banner"> 
-        <div class="px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to Bekeirat Software</h1>
-            <p class="text-xl md:text-2xl mb-8 drop-shadow-md">Innovative Apps & Immersive Games for Everyone</p>
-            <a href="./games.html"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg">Explore Our Games</a>
-        </div>
-    </header>
 
     <main>
         <!-- What's New Section -->
         <section class="max-w-6xl mx-auto py-16 px-4 md:px-8">
             <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-4 border-blue-500 inline-block pb-2">
-                        What's New</h2>
-                    <p class="text-gray-600 leading-relaxed text-lg mb-6">
-                        We are thrilled to announce our latest project currently in the Microsoft Store! <b>Magic Block
-                            Blitz 2026: Block Puzzle</b>>.
-                        <br><br>
-                        Stay tuned for our upcoming beta release where you can be among the first to experience the next
-                        generation of Bekeirat Software entertainment.
-                    </p>
-                    <a href="./Apps/MagicBlockBlitz2026/"
-                        class="text-blue-600 font-semibold hover:underline flex items-center gap-2">
-                        Read More
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="md:w-1/2 w-full">
 
-                    <img src="./Apps/MagicBlockBlitz2026/assets/game-preview-520x384.png" alt="New Game Preview"
-                        class="rounded-xl shadow-2xl w-full object-cover h-64 md:h-96 transition-transform hover:scale-105 duration-300">
-                </div>
+                <!-- Dynamic data should be here -->
+
             </div>
         </section>
         <div id='wortise:BANNER_ID' style='min-width: WIDTHpx; min-height: HEIGHTpx;'></div>
@@ -105,7 +76,7 @@
 
             <!-- Privacy Policy -->
             <div class="mb-8">
-                <a href="./privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
+                <a href="../privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
             </div>
 
             <!-- Centered Social Media Links Bar -->
@@ -155,7 +126,8 @@
             </div>
         </div>
     </footer>
-    <script src="./js/index.js"> </script>
+    <script src="../js/index.js"> </script>
+    <script src=""> </script>
     <script type="text/javascript">
         aclib.runAutoTag({
             zoneId: 'u7ubdfazfu',
