@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'Apps/TileMaster2048/**'
+      - '.github/workflows/build-mobile.yml'
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
