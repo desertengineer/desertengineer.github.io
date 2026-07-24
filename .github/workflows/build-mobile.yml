@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'Apps/TileMaster2048/**'
+
 jobs:
   # --- SIGNED ANDROID BUILD ---
   build-android:
@@ -41,19 +42,16 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      # 🏆 FIX STEP: Resolves the duplicate Kotlin class error by overriding configuration forces
+      # 🚀 Updated Fix Block
       - name: Resolve Android Kotlin Duplicate Classes
         run: |
           cat << 'EOF' >> android/build.gradle
-          subprojects {
-              subprojects {
-                  configurations.configureEach {
-                      resolutionStrategy {
-                          eachDependency { DependencyResolveDetails details ->
-                              if (details.requested.group == 'org.jetbrains.kotlin') {
-                                  details.useVersion '1.8.22'
-                              }
-                          }
+          allprojects {
+              configurations.all {
+                  resolutionStrategy {
+                      dependencySubstitution {
+                          substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk7') using module('org.jetbrains.kotlin:kotlin-stdlib:1.8.22')
+                          substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk8') using module('org.jetbrains.kotlin:kotlin-stdlib:1.8.22')
                       }
                   }
               }
