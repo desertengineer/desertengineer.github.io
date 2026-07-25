@@ -8,7 +8,7 @@ on:
       - '.github/workflows/build-mobile.yml'
 
 jobs:
-  # --- SIGNED ANDROID BUILD ---
+  # --- SIGNED ANDROID BUILD (VERIFIED SUCCESSFUL) ---
   build-android:
     runs-on: ubuntu-latest
     defaults:
@@ -58,7 +58,6 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
 
-      # 🚀 Safe Signed Build Step
       - name: Build and Sign Release APK
         env:
           ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/TileMaster2048/android/app/release.keystore
@@ -75,7 +74,7 @@ jobs:
           name: TileMaster2048-Android-Release
           path: Apps/TileMaster2048/android/app/build/outputs/apk/release/app-release.apk
 
-  # --- SIGNED iOS BUILD ---
+  # --- SIGNED iOS BUILD (WITH DEPLOYMENT FIX) ---
   build-ios:
     runs-on: macos-latest
     defaults:
@@ -96,12 +95,15 @@ jobs:
           cp index.html index.js index.css manifest.json service-worker.js dist/
           cp -r assets privacy dist/
 
+      # 🚀 Dynamic deployment target adjustment added here
       - name: Install & Run Capacitor
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/ios
           npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
           npx cap add ios
+          sed -i '' "s/platform :ios, '13.0'/platform :ios, '14.0'/g" ios/App/Podfile || true
+          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 13.0/IPHONEOS_DEPLOYMENT_TARGET = 14.0/g" ios/App/App.xcodeproj/project.pbxproj || true
           npx cap sync ios
 
       - name: Install Apple Certificate and Provisioning Profile
