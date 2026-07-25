@@ -58,15 +58,16 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
 
-      # 🚀 Explicit Path Sign Step
+      # 🚀 Safe Signed Build Step
       - name: Build and Sign Release APK
+        env:
+          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/TileMaster2048/android/app/release.keystore
+          ORG_GRADLE_PROJECT_androidInjectedSigningStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/Apps/TileMaster2048/android/app/release.keystore \
-            -Pandroid.injected.signing.store.password=${{ secrets.ANDROID_KEYSTORE_PASSWORD }} \
-            -Pandroid.injected.signing.key.alias=${{ secrets.ANDROID_KEY_ALIAS }} \
-            -Pandroid.injected.signing.key.password=${{ secrets.ANDROID_KEY_PASSWORD }}
+          ./gradlew assembleRelease
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
