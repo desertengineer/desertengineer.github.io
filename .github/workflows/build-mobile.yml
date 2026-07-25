@@ -8,7 +8,7 @@ on:
       - '.github/workflows/build-mobile.yml'
 
 jobs:
-  # --- SIGNED ANDROID BUILD (VERIFIED SUCCESSFUL) ---
+  # --- SIGNED ANDROID BUILD ---
   build-android:
     runs-on: ubuntu-latest
     defaults:
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Prepare Web Directory
         run: |
@@ -68,11 +68,12 @@ jobs:
           cd android
           ./gradlew assembleRelease
 
+      # 🚀 WILDCARD FIX: Grabs whatever production APK file the compiler produces
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-Android-Release
-          path: Apps/TileMaster2048/android/app/build/outputs/apk/release/app-release.apk
+          path: Apps/TileMaster2048/android/app/build/outputs/apk/release/*.apk
 
   # --- SIGNED iOS BUILD ---
   build-ios:
@@ -87,7 +88,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Prepare Web Directory
         run: |
@@ -95,21 +96,23 @@ jobs:
           cp index.html index.js index.css manifest.json service-worker.js dist/
           cp -r assets privacy dist/
 
+      # 🚀 iOS STRUCTURAL TEMPLATE FIX: Pre-declares specific deployment targets
       - name: Install & Run Capacitor
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/ios
           npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
           npx cap add ios
+          
           cat << 'EOF' > ios/App/Podfile
           platform :ios, '15.0'
           use_frameworks!
-
+          
           target 'App' do
             pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
             pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
           end
-
+          
           post_install do |installer|
             installer.pods_project.targets.each do |target|
               target.build_configurations.each do |config|
@@ -118,6 +121,7 @@ jobs:
             end
           end
           EOF
+          
           npx cap sync ios
 
       - name: Install Apple Certificate and Provisioning Profile
