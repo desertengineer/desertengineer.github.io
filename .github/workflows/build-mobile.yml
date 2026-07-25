@@ -102,7 +102,7 @@ jobs:
           npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
           npx cap add ios
           cat << 'EOF' > ios/App/Podfile
-          platform :ios, '14.0'
+          platform :ios, '15.0'
           use_frameworks!
 
           target 'App' do
@@ -113,7 +113,7 @@ jobs:
           post_install do |installer|
             installer.pods_project.targets.each do |target|
               target.build_configurations.each do |config|
-                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
               end
             end
           end
