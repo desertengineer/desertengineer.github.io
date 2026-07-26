@@ -126,11 +126,14 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          # 🚀 AUTOMATION FIX: Reads the Team ID directly from the decoded provisioning profile
+          TEAM_ID=$(security cms -D -i "$PP_PATH" | grep -A 1 "TeamIdentifier" | grep "<string>" | sed -E 's/<\/?string>//g' | tr -d '[:space:]')
+          echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
 
       - name: Setup Xcode Command Line Tools
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      # 🚀 FIX: Swapped out -workspace parameter for -project parameter to match Capacitor 6 SPM layout rules
       - name: Build and Archive iOS App
         run: |
           cd ios/App
@@ -142,6 +145,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
 
+      # 🚀 FIX: Injected extracted teamID and switched to the non-deprecated method name
       - name: Export IPA Package
         run: |
           cat <<EOF > exportOptions.plist
@@ -150,7 +154,9 @@ jobs:
           <plist version="1.0">
           <dict>
             <key>method</key>
-            <string>app-store</string>
+            <string>app-store-connect</string>
+            <key>teamID</key>
+            <string>${{ env.APPLE_TEAM_ID }}</string>
             <key>compileBitcode</key>
             <false/>
             <key>signingStyle</key>
