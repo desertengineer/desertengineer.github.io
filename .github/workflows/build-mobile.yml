@@ -68,12 +68,12 @@ jobs:
           cd android
           ./gradlew assembleRelease
 
-      # 🚀 WILDCARD FIX: Grabs whatever production APK file the compiler produces
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-Android-Release
           path: Apps/TileMaster2048/android/app/build/outputs/apk/release/*.apk
+
 
   # --- SIGNED iOS BUILD ---
   build-ios:
@@ -96,23 +96,20 @@ jobs:
           cp index.html index.js index.css manifest.json service-worker.js dist/
           cp -r assets privacy dist/
 
-      # 🚀 iOS STRUCTURAL TEMPLATE FIX: Pre-declares specific deployment targets
+      # 🚀 iOS STRUCTURAL TEMPLATE FIX: Pre-declares specific deployment targets & installs Workspace Pods
       - name: Install & Run Capacitor
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/ios
           npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
           npx cap add ios
-          
           cat << 'EOF' > ios/App/Podfile
           platform :ios, '15.0'
           use_frameworks!
-          
           target 'App' do
             pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
             pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
           end
-          
           post_install do |installer|
             installer.pods_project.targets.each do |target|
               target.build_configurations.each do |config|
@@ -121,7 +118,9 @@ jobs:
             end
           end
           EOF
-          
+          cd ios/App
+          pod install
+          cd ../..
           npx cap sync ios
 
       - name: Install Apple Certificate and Provisioning Profile
@@ -134,17 +133,13 @@ jobs:
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
-
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
-
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
 
@@ -167,14 +162,13 @@ jobs:
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://apple.com">
           <plist version="1.0">
           <dict>
-              <key>method</key>
-              <string>app-store</string>
-              <key>compileBitcode</key>
-              <false/>
+            <key>method</key>
+            <string>app-store</string>
+            <key>compileBitcode</key>
+            <false/>
           </dict>
           </plist>
           EOF
-          
           xcodebuild -exportArchive \
             -archivePath $RUNNER_TEMP/App.xcarchive \
             -exportOptionsPlist exportOptions.plist \
