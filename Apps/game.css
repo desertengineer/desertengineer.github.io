@@ -1,12 +1,26 @@
+body {
+  display: block !important;
+  width: 100% !important;
+}
+
 #game-detail-container {
   font-family: 'Poppins', sans-serif !important;
   background-color: #0f111a !important;
   color: #ffffff !important;
   padding: 0 !important;
   max-width: 1200px !important;
-  margin: 0 auto !important;
+  margin: 0 auto 30px !important;
   border-radius: 12px !important;
   overflow: hidden !important;
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+footer {
+  clear: both !important;
+  width: 100% !important;
+  display: block !important;
 }
 
 .game-hero {
@@ -54,19 +68,18 @@
 
 #play-area {
   display: none;
-  position: relative !important;
-  top: 50px !important;
-  margin-top: 20px !important;
-  transform: scale(0.8) !important;
+  position: fixed !important;
+  top: 64px !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
   transform-origin: top center !important;
-  width: 125% !important;
-  margin-left: -12.5% !important;
 }
 
 #play-area iframe {
   width: 100% !important;
   height: 800px !important;
-  top: 120px !important;
 }
 
 .close-play-btn {
@@ -120,11 +133,13 @@
 }
 
 .game-section h2 {
-  font-size: 1.6rem !important;
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
   color: #00ffcc !important;
   /* border-bottom: 2px solid #2d313f !important; */
   padding-bottom: 8px !important;
-  margin-bottom: 15px !important;
+  margin-bottom: 10px !important;
 }
 
 .game-section p {
@@ -175,6 +190,7 @@
   animation: goldGlow 1.5s infinite ease-in-out !important;
   /* animation: flashTitle 1s infinite !important; */
 }
+
 
 /***
  * Keyframes for the animations.
@@ -293,15 +309,168 @@
 }
 
 .screenshot-item img {
-  width: 100% !important;
-  height: auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+  max-height: 60vh !important;
+  object-fit: contain !important;
   border-radius: 6px !important;
   border: 1px solid #2d313f !important;
   transition: transform 0.2s ease !important;
+  cursor: pointer !important;
 }
 
 .screenshot-item img:hover {
   transform: scale(1.03) !important;
+}
+
+/* STREAMING_CHUNK: Adding Lightbox Modal Styles */
+.lightbox-modal {
+  display: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  z-index: 2000 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.lightbox-img {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7) !important;
+  animation: zoomIn 0.3s ease !important;
+}
+
+.lightbox-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 30px !important;
+  color: #ffffff !important;
+  font-size: 45px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  z-index: 2001 !important;
+  transition: color 0.2s !important;
+  line-height: 1 !important;
+}
+
+.lightbox-close:hover {
+  color: #00ffcc !important;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8) !important;
+    opacity: 0 !important;
+  }
+
+  to {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* STREAMING_CHUNK: Adding animated background layer */
+.animated-bg-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  background: linear-gradient(135deg, #0f111a 0%, #1a1c23 100%) !important;
+  overflow: hidden !important;
+}
+
+.wave {
+  position: absolute !important;
+  width: 200% !important;
+  height: 200% !important;
+  top: -50% !important;
+  left: -50% !important;
+  background: radial-gradient(circle, rgba(0, 255, 204, 0.05) 0%, transparent 70%) !important;
+  animation: rotate 20s linear infinite !important;
+}
+
+.wave:nth-child(2) {
+  animation: rotate 30s linear infinite reverse !important;
+  background: radial-gradient(circle, rgba(66, 153, 225, 0.05) 0%, transparent 70%) !important;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) !important;
+  }
+
+  to {
+    transform: rotate(360deg) !important;
+  }
+}
+
+/* STREAMING_CHUNK: Social Sharing Styles */
+.share-section {
+  margin-top: 20px !important;
+  padding: 20px !important;
+  background: #1a1c23 !important;
+  border-radius: 12px !important;
+  border: 1px solid #2d313f !important;
+  text-align: center !important;
+}
+
+.share-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin-top: 15px !important;
+}
+
+.share-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: transform 0.2s, background 0.2s !important;
+  font-size: 1.1rem !important;
+}
+
+.share-btn:hover {
+  transform: scale(1.15) !important;
+}
+
+.share-whatsapp {
+  background: #25D366 !important;
+}
+
+.share-twitter {
+  background: #000000 !important;
+}
+
+.share-facebook {
+  background: #4267B2 !important;
+}
+
+.share-linkedin {
+  background: #0077b5 !important;
+}
+
+.share-reddit {
+  background: #FF4500 !important;
+}
+
+.share-telegram {
+  background: #0088cc !important;
 }
 
 /* Mobile Responsive Adjustments */

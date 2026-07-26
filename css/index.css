@@ -18,7 +18,7 @@ body {
   z-index: 50 !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
   padding-top: 0.25rem !important;
-  padding-bottom: 0 !important;
+  padding-bottom: 0.25rem !important;
 }
 
 .nav-btn {

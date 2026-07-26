@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Block Blitz 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../js/tailwindcss.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/index.css" />
+  <link rel="stylesheet" href="../game.css" />
+  <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
+    wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
+  </script>
+</head>
+
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
+    <!-- Linked Logo -->
+    <a href="../../index.html"
+      class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+      <img src="../../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+        class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+        onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
+      Bekeirat Software
+    </a>
+
+    <!-- Hamburger Icon for Mobile -->
+    <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+
+    <!-- Desktop Navigation Buttons -->
+    <div class="hidden md:flex space-x-2 items-center">
+      <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
+      <a href="../../pages/about.html" class="nav-btn">About Us</a>
+      <a href="../../pages/games.html" class="nav-btn">Games</a>
+      <a href="../../pages/contact us.html" class="nav-btn">Contacts</a>
+    </div>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
+      <nav class="flex flex-col">
+        <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
+        <a href="../../pages/about.html" class="mobile-btn">About Us</a>
+        <a href="../../pages/games.html" class="mobile-btn">Games</a>
+        <a href="../../pages/contact us.html" class="mobile-btn border-none">Contacts</a>
+      </nav>
+    </div>
+  </nav>
+
+  <div id="game-detail-container">
+
+    <div class="game-hero">
+      <img src="./assets/screenshot-1-1366x768.png" alt="Game Banner" class="hero-bg" />
+      <div class="hero-overlay">
+        <div class="hero-text-content">
+          <span class="game-genre-badge">Puzzle / Strategy</span>
+          <h1>Magic Block Blitz 2026</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-main-layout">
+
+      <div class="game-left-col">
+        <section class="game-section">
+          <h2>About The Game</h2>
+          <p>Welcome to Magic Block Blitz 2026, the ultimate block-matching strategy game designed to test your spatial
+            skills, logic, and quick thinking!</p>
+          <p>Whether you want a relaxing mental workout or an exhilarating high-score challenge, Magic Block Blitz 2026
+            delivers endless hours of satisfying gameplay. Drag, drop, and place colorful magical blocks onto the grid
+            to clear complete rows and columns.</p>
+        </section>
+
+        <section class="game-section">
+          <h2>Key Features</h2>
+          <ul class="features-list">
+            <li>🎮 <strong>Classic & Blitz Modes:</strong>Play at your own pace in Classic Mode or race against the
+              clock in Blitz Mode.</li>
+            <li>🏆 <strong>Satisfying Combos:</strong> Clear multiple lines simultaneously to trigger spectacular magic
+              visual effects and massive score multipliers.</li>
+            <li>🧠 <strong>Brain-Boosting Puzzles:</strong> Easy to learn, but difficult to master! Train your focus and
+              logic with every drop.</li>
+            <li>🛜 <strong>Offline Play:</strong> No Wi-Fi or active internet connection required—enjoy the puzzle fun
+              anytime, anywhere.</li>
+            <li>🎯 <strong>Sleek 2026 Visuals & Smooth Controls:</strong> Optimized for all modern iOS devices with
+              responsive touch controls and vibrant animations.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="game-right-col">
+        <div class="store-box">
+          <h3>🎉 Play or Download Now 🎉</h3>
+          <p>Available on web, mobile platforms and desktop marketplaces.</p>
+
+          <div class="links-stack">
+            <button id="live-play-btn"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg">Play
+              Online</button>
+            <!-- <a href="YOUR_GOOGLE_PLAY_LINK" class="store-link android-btn" target="_blank">Get it on Google Play</a> -->
+            <a href="YOUR_APP_STORE_LINK" class="store-link apple-btn" target="_blank">Download on App Store</a>
+            <a href="YOUR_STEAM_LINK" class="store-link steam-btn" target="_blank">Wishlist on Steam</a>
+            <a href="https://mawlay.itch.io/" class="store-link itch-btn" target="_blank">Buy on Itch.io</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="section-divider" />
+    <!-- Live game play section  -->
+    <div id="play-area" class="play-modal">
+      <button id="close-play-btn" class="close-play-btn">
+        ✕
+      </button>
+      <iframe src="./play/index.html" title="Gameplay" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+        scrolling="yes">
+      </iframe>
+    </div>
+    <section class="game-section game-media">
+      <h2>Trailers & Screenshots</h2>
+
+      <div class="video-container">
+        <iframe
+          src="file:///E:/0.MyProjects/0.%20Microsoft%20Store/6.%20My%20Apps/MagicBlockBlitz2026/3.%20Videos/Brain%20Training%201.mp4"
+          title="Gameplay Trailer" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <iframe src="E:\0.MyProjects\0. Microsoft Store\6. My Apps\MagicBlockBlitz2026\3. Videos\Brain Training 2.mp4"
+          title="Gameplay Trailer" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+
+      <div class="screenshot-gallery">
+        <div class="screenshot-item"><img src="./assets/screenshot-10-768x1366.png" alt="Gameplay Screen 1" /></div>
+        <div class="screenshot-item"><img src="./assets/screenshot-2-1366x768.png" alt="Gameplay Screen 2" /></div>
+        <div class="screenshot-item"><img src="./assets/screenshot-3-1366x768.png" alt="Gameplay Screen 3" /></div>
+      </div>
+    </section>
+
+  </div>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
+    <div class="max-w-4xl mx-auto flex flex-col items-center">
+
+      <!-- Privacy Policy -->
+      <div class="mb-8">
+        <a href="../../privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
+      </div>
+
+      <!-- Centered Social Media Links Bar -->
+      <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
+        <!-- Twitter / X -->
+        <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor"
+            style="display: block;">
+            <path
+              d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook"
+          aria-label="Facebook" target="_blank">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtybe"
+          aria-label="YouTube">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <!-- Blogger -->
+        <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger" aria-label="Blogger">
+          <i class="fa-brands fa-blogger"></i>
+        </a>
+      </div>
+
+      <!-- Copyright Accreditations -->
+      <div>
+        <p class="text-sm">
+          &copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.
+        </p>
+        <p class="text-xs mt-2 text-gray-500">
+          Designed and built for apps and games excellence.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const livePlayBtn = document.getElementById('live-play-btn');
+      const livePlayArea = document.getElementById('play-area');
+      const closeBtn = document.getElementById("close-play-btn");
+
+      livePlayBtn.addEventListener('click', () => {
+        livePlayArea.style.display = 'block';
+        livePlayArea.style.position = 'fixed';
+        livePlayArea.style.top = '64px';
+        livePlayArea.style.left = '0';
+        livePlayArea.style.right = '0';
+        livePlayArea.style.width = '100%';
+        livePlayArea.style.transform = 'scale(.85)';
+        livePlayArea.style.zIndex = '1000';
+        livePlayArea.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+      closeBtn.addEventListener("click", () => {
+        livePlayArea.style.display = "none";
+        livePlayArea.style.position = "";
+        livePlayArea.style.top = "";
+        livePlayArea.style.left = "";
+        livePlayArea.style.transform = "";
+        livePlayArea.style.zIndex = "";
+      });
+    });
+
+  </script>
+
+  <script type="text/javascript">
+    aclib.runAutoTag({
+      zoneId: 'u7ubdfazfu',
+    });
+  </script>
+</body>
+
+</html>
