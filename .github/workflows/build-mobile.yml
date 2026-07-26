@@ -99,7 +99,6 @@ jobs:
           cp $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/index.js $GITHUB_WORKSPACE/index.css $GITHUB_WORKSPACE/manifest.json $GITHUB_WORKSPACE/service-worker.js dist/ || true
           cp -r $GITHUB_WORKSPACE/assets $GITHUB_WORKSPACE/privacy dist/ || true
 
-      # 🚀 FIX: Removed manual Podfile writing entirely to stop duplicate linking errors.
       - name: Install & Run Capacitor
         run: |
           npm init -y
@@ -131,11 +130,12 @@ jobs:
       - name: Setup Xcode Command Line Tools
         run: sudo xcode-select -s /Applications/Xcode.app
 
+      # 🚀 FIX: Swapped out -workspace parameter for -project parameter to match Capacitor 6 SPM layout rules
       - name: Build and Archive iOS App
         run: |
           cd ios/App
           xcodebuild archive \
-            -workspace App.xcworkspace \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -archivePath $RUNNER_TEMP/App.xcarchive \
@@ -167,4 +167,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-iOS-Release
-          path: Apps/ios/App/output/*.ipa 
+          path: Apps/ios/App/output/*.ipa
