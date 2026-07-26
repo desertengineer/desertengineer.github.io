@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 
 <body>
 
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar --> 
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
         <!-- Linked Logo -->
         <a href="../index.html"
@@ -27,16 +27,6 @@
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
-        <header class="hub-header">
-            <h1>Our Games Collection</h1>
-            <div class="filter-wrapper">
-                <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
-                <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
-                <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
-                <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
-                <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
-            </div>
-        </header>
 
         <!-- Hamburger Icon for Mobile -->
         <button id="hamburger-btn"
@@ -59,43 +49,41 @@
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
                 <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
-                <a href="./about.html" class=" nav-btn">About Us</a>
-                <a href="./games.html" class="nav-btn">Games</a>
-                <a href="./contact us.html" class="nav-btn">Contacts</a>
+            <a href="./about.html" class=" nav-btn">About Us</a>
+            <a href="./games.html" class="nav-btn">Games</a>
+            <a href="./contact us.html" class="nav-btn">Contacts</a>
             </nav>
         </div>
     </nav>
-    <!-- <div class="filter-wrapper">
-        <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
-        <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
-        <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
-        <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
-        <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
-    </div> -->
 
     <div id="games-hub-container">
-        <!-- <div class="filter-wrapper">
+
+        <header class="hub-header">
+            <h1>Our Games Collection</h1>
+            <p><i>Our latest releases, indie projects, and prototypes.</i> </p>
+        </header>
+
+        <div class="filter-wrapper">
             <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
             <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
             <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
             <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
             <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
-        </div> -->
+        </div>
 
         <div class="games-grid">
 
             <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
                     <a href="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png" target="_blank">
-                        <img src="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png?auto=format&fit=crop&w=600&q=80"
-                            alt="Magic Block Blitz 2026" title="Magic Block Blitz 2026" />
-                    </a>
+                    <img src="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png?auto=format&fit=crop&w=600&q=80"
+                        alt="Magic Block Blitz 2026" title="Magic Block Blitz 2026" />
+</a>
                 </div>
                 <div class="card-content">
                     <span class="card-tag">Puzzle / Strategy</span>
                     <h3>Magic Block Blitz 2026</h3>
-                    <p>Challenge your brain in Magic Block Blitz 2026! Master colorful grid puzzles, clear combo lines,
-                        and conquer daily challenges. Play free offline today!</p>
+                    <p>Challenge your brain in Magic Block Blitz 2026! Master colorful grid puzzles, clear combo lines, and conquer daily challenges. Play free offline today!</p>
                     <a href="../Apps/EnBlocks2026/index.html" class="card-btn">View Game</a>
                 </div>
             </div>
@@ -103,17 +91,15 @@
             <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
                     <a href="../Apps/EnTiles2048/assets/Screenshot-2.png" target="_blank">
-                        <img src="../Apps/EnTiles2048/assets/Screenshot-2.png?auto=format&fit=crop&w=378&q=80"
-                            alt="Grid Logic Cover" />
+                    <img src="../Apps/EnTiles2048/assets/Screenshot-2.png?auto=format&fit=crop&w=378&q=80"
+                        alt="Grid Logic Cover" />
                     </a>
                 </div>
                 <div class="card-content">
                     <span class="card-tag">Puzzle / Strategy</span>
                     <h3>Tile Master 2048</h3>
                     <p>
-                        Challenge your brain with Tile Master 2048! Slide matching number tiles to merge them, reach the
-                        2048 tile, and chase your ultimate high score in this responsive, beautifully designed classic
-                        game.
+                        Challenge your brain with Tile Master 2048! Slide matching number tiles to merge them, reach the 2048 tile, and chase your ultimate high score in this responsive, beautifully designed classic game.
                     </p>
                     <a href="../Apps/EnTiles2048/index.html" class="card-btn">View Game</a>
                 </div>
@@ -218,4 +204,4 @@
     <script src="./games.js"></script>
 </body>
 
-</html>
+</html> 

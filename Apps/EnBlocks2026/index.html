@@ -98,10 +98,13 @@
 
       <div class="game-right-col">
         <div class="store-box">
-          <h3>Download Now</h3>
-          <p>Available on mobile platforms and desktop marketplaces.</p>
+          <h3>🎉 Play or Download Now 🎉</h3>
+          <p>Available on web, mobile platforms and desktop marketplaces.</p>
 
           <div class="links-stack">
+            <button id="live-play-btn"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg">Play
+              Online</button>
             <!-- <a href="YOUR_GOOGLE_PLAY_LINK" class="store-link android-btn" target="_blank">Get it on Google Play</a> -->
             <a href="YOUR_APP_STORE_LINK" class="store-link apple-btn" target="_blank">Download on App Store</a>
             <a href="YOUR_STEAM_LINK" class="store-link steam-btn" target="_blank">Wishlist on Steam</a>
@@ -111,15 +114,18 @@
       </div>
     </div>
     <hr class="section-divider" />
-    <section class="game-section media-section">
-      <h2>Play Online</h2>
-      <a href="./play/"
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg"
-        target="_blank">Play Now</a> 
+    <!-- Live game play section  -->
+    <section class="game-section game-play">
+      <div id="play-area" class="play-modal">
+        <button id="close-play-btn" class="close-play-btn">
+          ✕
+        </button>
+        <iframe src="./play/index.html" title="Gameplay" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </section>
-
-    <hr class="section-divider" />
-
     <section class="game-section media-section">
       <h2>Trailers & Screenshots</h2>
 
@@ -199,6 +205,39 @@
     </div>
   </footer>
   <script src="../../js/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const livePlayBtn = document.getElementById('live-play-btn');
+      const livePlayArea = document.getElementById('play-area');
+      const closeBtn = document.getElementById("close-play-btn");
+
+      livePlayBtn.addEventListener('click', () => {
+        console.log('clicked');
+        livePlayArea.style.display = 'block';
+        livePlayArea.scrollIntoView({
+          behavior: "smooth"
+        });
+        livePlayArea.style.top = '120px';
+      });
+      closeBtn.addEventListener("click", () => {
+        livePlayArea.style.display = "none";
+      });
+    });
+
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    window.addEventListener("pageshow", function () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant"
+      });
+    });
+  </script>
+
   <script type="text/javascript">
     aclib.runAutoTag({
       zoneId: 'u7ubdfazfu',
