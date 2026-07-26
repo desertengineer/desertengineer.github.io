@@ -127,8 +127,9 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
           
-          # 🚀 AUTOMATION FIX: Reads the Team ID directly from the decoded provisioning profile
-          TEAM_ID=$(security cms -D -i "$PP_PATH" | grep -A 1 "TeamIdentifier" | grep "<string>" | sed -E 's/<\/?string>//g' | tr -d '[:space:]')
+          # 🚀 ROBUST PLIST FIX: Uses PlistBuddy to safely extract Team ID out of the decoded profile array blocks
+          security cms -D -i "$PP_PATH" > $RUNNER_TEMP/profile.plist
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" $RUNNER_TEMP/profile.plist)
           echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
 
       - name: Setup Xcode Command Line Tools
@@ -145,7 +146,6 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
 
-      # 🚀 FIX: Injected extracted teamID and switched to the non-deprecated method name
       - name: Export IPA Package
         run: |
           cat <<EOF > exportOptions.plist
