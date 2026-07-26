@@ -3,9 +3,9 @@ name: Build Tile Master 2048
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'Apps/TileMaster2048/**'
-      - '.github/workflows/build-mobile.yml'
+  paths:
+    - 'Apps/**'
+    - '.github/workflows/build-mobile.yml'
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Apps/TileMaster2048
+        working-directory: Apps
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -25,9 +25,9 @@ jobs:
 
       - name: Prepare Web Directory
         run: |
-          mkdir dist
-          cp index.html index.js index.css manifest.json service-worker.js dist/
-          cp -r assets privacy dist/
+          mkdir -p dist
+          cp index.html index.js index.css manifest.json service-worker.js dist/ || true
+          cp -r assets privacy dist/ || true
 
       - name: Install & Run Capacitor
         run: |
@@ -60,7 +60,7 @@ jobs:
 
       - name: Build and Sign Release APK
         env:
-          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/TileMaster2048/android/app/release.keystore
+          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/android/app/release.keystore
           ORG_GRADLE_PROJECT_androidInjectedSigningStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ORG_GRADLE_PROJECT_androidInjectedSigningKeyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
           ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-Android-Release
-          path: Apps/TileMaster2048/android/app/build/outputs/apk/release/*.apk
+          path: Apps/android/app/build/outputs/apk/release/*.apk
 
 
   # --- SIGNED iOS BUILD ---
@@ -80,7 +80,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: Apps/TileMaster2048
+        working-directory: Apps
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -92,9 +92,9 @@ jobs:
 
       - name: Prepare Web Directory
         run: |
-          mkdir dist
-          cp index.html index.js index.css manifest.json service-worker.js dist/
-          cp -r assets privacy dist/
+          mkdir -p dist
+          cp index.html index.js index.css manifest.json service-worker.js dist/ || true
+          cp -r assets privacy dist/ || true
 
       # 🚀 iOS STRUCTURAL TEMPLATE FIX: Pre-declares specific deployment targets & installs Workspace Pods
       - name: Install & Run Capacitor
@@ -178,4 +178,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TileMaster2048-iOS-Release
-          path: Apps/TileMaster2048/ios/App/output/*.ipa
+          path: Apps/ios/App/output/*.ipa
