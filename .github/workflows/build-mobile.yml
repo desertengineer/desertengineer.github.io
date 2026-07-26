@@ -6,6 +6,9 @@ on:
     paths:
       - 'Apps/**'
       - '.github/workflows/build-mobile.yml'
+      - 'index.html'
+      - 'index.js'
+      - 'index.css'
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
@@ -26,8 +29,9 @@ jobs:
       - name: Prepare Web Directory
         run: |
           mkdir -p dist
-          cp index.html index.js index.css manifest.json service-worker.js dist/ || true
-          cp -r assets privacy dist/ || true
+          # Copy assets from the root repository directory into the Apps/dist directory
+          cp $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/index.js $GITHUB_WORKSPACE/index.css $GITHUB_WORKSPACE/manifest.json $GITHUB_WORKSPACE/service-worker.js dist/ || true
+          cp -r $GITHUB_WORKSPACE/assets $GITHUB_WORKSPACE/privacy dist/ || true
 
       - name: Install & Run Capacitor
         run: |
@@ -93,8 +97,9 @@ jobs:
       - name: Prepare Web Directory
         run: |
           mkdir -p dist
-          cp index.html index.js index.css manifest.json service-worker.js dist/ || true
-          cp -r assets privacy dist/ || true
+          # Copy assets from the root repository directory into the Apps/dist directory
+          cp $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/index.js $GITHUB_WORKSPACE/index.css $GITHUB_WORKSPACE/manifest.json $GITHUB_WORKSPACE/service-worker.js dist/ || true
+          cp -r $GITHUB_WORKSPACE/assets $GITHUB_WORKSPACE/privacy dist/ || true
 
       # 🚀 iOS STRUCTURAL TEMPLATE FIX: Pre-declares specific deployment targets & installs Workspace Pods
       - name: Install & Run Capacitor
