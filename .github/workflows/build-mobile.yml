@@ -145,8 +145,8 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
           
-          # 🚀 AUTOMATION FIX: Extracts UUID from provisioning profile for xcodebuild signature matching
-          UUID=$(grep -a -A 1 "UUID" $PP_PATH | grep -o "[-A-Z0-9]\{36\}")
+          # 🚀 FIX: Decodes the cryptographically signed profile to extract its UUID cleanly
+          UUID=$(security cms -D -i "$PP_PATH" | grep -a -A 1 "UUID" | grep -o "[-A-Z0-9]\{36\}")
           echo "PROFILE_UUID=$UUID" >> $GITHUB_ENV
 
       - name: Setup Xcode Command Line Tools
