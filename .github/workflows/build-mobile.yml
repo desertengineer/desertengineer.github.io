@@ -3,9 +3,9 @@ name: Build Tile Master 2048
 on:
   push:
     branches: [ main ]
-  paths:
-    - 'Apps/**'
-    - '.github/workflows/build-mobile.yml'
+    paths:
+      - 'Apps/**'
+      - '.github/workflows/build-mobile.yml'
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
