@@ -10,8 +10,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
      crossorigin="anonymous"></script>
       <script async src="https://googlesyndication.com" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="index.css" />
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./index.css" /> 
 </head>
 
 <body>
@@ -97,15 +96,7 @@
         </div>
     </div>
 
-    <script src="index.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            // Using folder-relative pathing to guarantee clean subdirectory registration compatibility
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(() => console.log('PWA active'))
-                .catch(err => console.log('PWA error:', err));
-        }
-    </script>
+    <script src="./index.js"></script> 
 
 </body>
 

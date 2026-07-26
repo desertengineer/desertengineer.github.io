@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!-- Todos checklist -->
+     <!-- Add offline styles -->
 
 <head>
     <meta charset="UTF-8">
@@ -9,18 +11,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="games.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="./games.css" />
 </head>
 
 <body>
 
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar --> 
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
         <!-- Linked Logo -->
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-            <img src="assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
@@ -38,71 +40,92 @@
         <!-- Desktop Navigation Buttons -->
         <div class="hidden md:flex space-x-2 items-center">
             <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
-            <a href="about.html" class="nav-btn">About Us</a>
-            <a href="Games.html" class="nav-btn">Games</a>
-            <a href="contact us.html" class="nav-btn">Contacts</a>
+            <a href="./about.html" class=" nav-btn">About Us</a>
+            <a href="./games.html" class="nav-btn">Games</a>
+            <a href="./contact us.html" class="nav-btn">Contacts</a>
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
                 <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
-                <a href="about.html" class="mobile-btn">About Us</a>
-                <a href="Games.html" class="mobile-btn">Games</a>
-                <a href="contact us.html" class="mobile-btn border-none">Contacts</a>
+            <a href="./about.html" class=" nav-btn">About Us</a>
+            <a href="./games.html" class="nav-btn">Games</a>
+            <a href="./contact us.html" class="nav-btn">Contacts</a>
             </nav>
         </div>
     </nav>
+
     <div id="games-hub-container">
 
         <header class="hub-header">
             <h1>Our Games Collection</h1>
-            <p>Explore Our latest releases, indie projects, and prototypes.</p>
+            <p><i>Our latest releases, indie projects, and prototypes.</i> </p>
         </header>
 
         <div class="filter-wrapper">
             <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
             <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
+            <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
             <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
             <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
         </div>
 
         <div class="games-grid">
 
-            <div class="game-card puzzle">
+            <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
-                    <img src="../Apps/EnBlocks2026/screenshot-3-1366x768.png"
+                    <a href="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png" target="_blank">
+                    <img src="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png?auto=format&fit=crop&w=600&q=80"
                         alt="Magic Block Blitz 2026" title="Magic Block Blitz 2026" />
+</a>
                 </div>
                 <div class="card-content">
-                    <span class="card-tag">Puzzle</span>
+                    <span class="card-tag">Puzzle / Strategy</span>
                     <h3>Magic Block Blitz 2026</h3>
                     <p>Challenge your brain in Magic Block Blitz 2026! Master colorful grid puzzles, clear combo lines, and conquer daily challenges. Play free offline today!</p>
-                    <a href="../Apps/MagicBlockBlitz2026.html" class="card-btn">View Game</a>
+                    <a href="../Apps/EnBlocks2026/index.html" class="card-btn">View Game</a>
                 </div>
             </div>
 
-            <div class="game-card puzzle">
+            <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+                    <a href="../Apps/EnTiles2048/assets/Screenshot-2.png" target="_blank">
+                    <img src="../Apps/EnTiles2048/assets/Screenshot-2.png?auto=format&fit=crop&w=378&q=80"
                         alt="Grid Logic Cover" />
+                    </a>
                 </div>
                 <div class="card-content">
-                    <span class="card-tag">Puzzle</span>
-                    <h3>Grid Logic Paradox</h3>
-                    <p>A mind-bending spatial puzzle game that challenges your perception of dimensions and symmetry.
+                    <span class="card-tag">Puzzle / Strategy</span>
+                    <h3>Tile Master 2048</h3>
+                    <p>
+                        Challenge your brain with Tile Master 2048! Slide matching number tiles to merge them, reach the 2048 tile, and chase your ultimate high score in this responsive, beautifully designed classic game.
                     </p>
-                    <a href="YOUR_GAME_PAGE_URL_2" class="card-btn">View Game</a>
+                    <a href="../Apps/EnTiles2048/index.html" class="card-btn">View Game</a>
                 </div>
             </div>
 
-            <div class="game-card rpg">
+            <div class="game-card word">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80"
                         alt="Shadow Chronicles Cover" />
                 </div>
                 <div class="card-content">
-                    <span class="card-tag">RPG</span>
+                    <span class="card-tag">Word</span>
+                    <h3>Shadow Chronicles</h3>
+                    <p>An open-world pixel art RPG featuring deep tactical combat, rich lore, and meaningful choices.
+                    </p>
+                    <a href="YOUR_GAME_PAGE_URL_3" class="card-btn">View Game</a>
+                </div>
+            </div>
+
+            <div class="game-card trivia">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80"
+                        alt="Shadow Chronicles Cover" />
+                </div>
+                <div class="card-content">
+                    <span class="card-tag">Trivia</span>
                     <h3>Shadow Chronicles</h3>
                     <p>An open-world pixel art RPG featuring deep tactical combat, rich lore, and meaningful choices.
                     </p>
@@ -119,7 +142,7 @@
 
             <!-- Privacy Policy -->
             <div class="mb-8">
-                <a href="#" class="hover:text-white transition-colors underline">Privacy Policy</a>
+                <a href="../privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
             </div>
 
             <!-- Centered Social Media Links Bar -->
