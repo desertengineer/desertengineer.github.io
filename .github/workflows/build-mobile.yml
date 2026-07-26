@@ -148,7 +148,12 @@ jobs:
       - name: Setup Xcode Command Line Tools
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      # 🚀 FIX: Switched from using profile UUID directly to profile fallback name assignment
+      # 🚀 FIX: Patching Xcode project metadata to bypass automatic code signing requirements
+      - name: Patch Xcode Project for Manual Signing
+        run: |
+          sed -i '' 's/ProvisioningStyle = Automatic;/ProvisioningStyle = Manual;/g' ios/App/App.xcodeproj/project.pbxproj
+          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' ios/App/App.xcodeproj/project.pbxproj
+
       - name: Build and Archive iOS App
         run: |
           cd ios/App
