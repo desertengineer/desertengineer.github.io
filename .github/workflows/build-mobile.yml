@@ -144,11 +144,14 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          # 🚀 AUTOMATION FIX: Extracts UUID from provisioning profile for xcodebuild signature matching
+          UUID=$(grep -a -A 1 "UUID" $PP_PATH | grep -o "[-A-Z0-9]\{36\}")
+          echo "PROFILE_UUID=$UUID" >> $GITHUB_ENV
 
       - name: Setup Xcode Command Line Tools
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      # 🚀 FIX: Forcing manual signing switches & disabling automatic provisioning checks
       - name: Build and Archive iOS App
         run: |
           cd ios/App
@@ -159,7 +162,7 @@ jobs:
             -archivePath $RUNNER_TEMP/App.xcarchive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER=""
+            PROVISIONING_PROFILE="${{ env.PROFILE_UUID }}"
 
       - name: Export IPA Package
         run: |
