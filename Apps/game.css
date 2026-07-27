@@ -421,15 +421,18 @@ footer {
   background: #1a1c23 !important;
   border-radius: 12px !important;
   border: 1px solid #2d313f !important;
-  text-align: center !important;
+  text-align: center !important; 
+  /* Making the social buttons arranged in a grid of three columns and 2 rows */
+
 }
 
 .share-buttons {
-  display: flex !important;
-  flex-wrap: wrap !important;
+  display: grid !important;  
   justify-content: center !important;
   gap: 10px !important;
   margin-top: 15px !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: repeat(2, 1fr) !important;
 }
 
 .share-btn {
@@ -455,6 +458,7 @@ footer {
 
 .share-twitter {
   background: #000000 !important;
+  color: white !important;
 }
 
 .share-facebook {
