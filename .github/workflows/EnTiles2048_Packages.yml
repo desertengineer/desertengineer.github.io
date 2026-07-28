@@ -176,39 +176,56 @@ jobs:
       - name: Setup Xcode Command Line Tools
         run: sudo xcode-select -s /Applications/Xcode.app
 
+      - name: Install CocoaPods Dependencies
+        run: |
+          cd ios/App
+          pod repo update
+          pod install --repo-update
+
       - name: Build and Archive iOS App
         run: |
           cd ios/App
           xcodebuild archive \
-            -project App.xcodeproj \
+            -workspace App.xcworkspace \
             -scheme App \
             -configuration Release \
             -archivePath $RUNNER_TEMP/App.xcarchive \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            -derivedDataPath $RUNNER_TEMP/DerivedData \
+            CODE_SIGNING_IDENTITY="Apple Distribution" \
+            CODE_SIGN_STYLE="Manual" \
+            DEVELOPMENT_TEAM="${{ env.APPLE_TEAM_ID }}" \
+            -allowProvisioningUpdates \
+            PROVISIONING_PROFILE_SPECIFIER="iOS Distribution"
 
       - name: Export IPA Package
         run: |
+          mkdir -p ios/App/output
           cat <<EOF > exportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://apple.com">
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
             <key>method</key>
             <string>app-store</string>
             <key>teamID</key>
             <string>${{ env.APPLE_TEAM_ID }}</string>
-            <key>compileBitcode</key>
-            <false/>
             <key>signingStyle</key>
             <string>manual</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.desertengineer.tilemaster2048</key>
+              <string>iOS Distribution</string>
+            </dict>
           </dict>
           </plist>
           EOF
           xcodebuild -exportArchive \
             -archivePath $RUNNER_TEMP/App.xcarchive \
             -exportOptionsPlist exportOptions.plist \
-            -exportPath ios/App/output
+            -exportPath ios/App/output \
+            -allowProvisioningUpdates
 
       - name: Upload Signed IPA to Artifacts
         uses: actions/upload-artifact@v4.6.1
@@ -216,7 +233,7 @@ jobs:
           name: EnTiles2048-iOS-Release
           path: Apps/EnTiles2048/ios/App/output/*.ipa
 
-      - name: Transmit Deployment to Apple TestFlight
+      - name: Verify IPA and Upload to TestFlight
         env:
           KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
@@ -225,8 +242,22 @@ jobs:
           API_KEYS_DIR=~/private_keys
           mkdir -p "$API_KEYS_DIR"
           echo "$KEY_CONTENT" > "$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
+          chmod 600 "$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
           
           IPA_PATH=$(find ios/App/output -name "*.ipa" | head -n 1)
           
-          echo "Uploading package asset directly to App Store Connect TestFlight..."
-          xcrun altool --upload-app -f "$IPA_PATH" -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
+          if [ -z "$IPA_PATH" ]; then
+            echo "❌ ERROR: IPA file not found in output directory!"
+            exit 1
+          fi
+          
+          echo "✅ IPA found: $IPA_PATH"
+          echo "📦 Uploading to TestFlight via App Store Connect API..."
+          
+          xcrun notarytool submit "$IPA_PATH" \
+            --key-id "$KEY_ID" \
+            --issuer-id "$ISSUER_ID" \
+            --key "$API_KEYS_DIR/AuthKey_$KEY_ID.p8" \
+            --wait
+          
+          echo "✅ TestFlight upload complete!"
