@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'Apps/EnTiles2048/**'
-      - '.github/workflows/build-mobile.yml'
+      - '.github/workflows/EnTiles2048_Packages.yml'
   workflow_dispatch:
 
 permissions:
