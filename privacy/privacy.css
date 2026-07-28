@@ -44,30 +44,28 @@
     }
 
     /* Header */
-    .privacy-container header {
-      background-color: #f8f9fa !important;
-      border-bottom: 2px solid #e9ecef !important;
-      padding: 2rem 0 !important;
+    header {
+      text-align: center;
     }
 
-    .privacy-container .page-title {
+    #page-title {
       font-family: 'Playfair Display', serif !important;
       font-size: 2.5rem !important;
       font-weight: 700 !important;
-      color: navy !important;
+      color: white !important;
       text-align: center !important;
-      margin-bottom: 1rem !important;
+      margin-bottom: .25rem !important;
     }
 
-    .privacy-container .last-updated {
+    header .last-updated {
       text-align: center !important;
       font-size: 1rem !important;
-      color: #666 !important;
+      color: white !important;
     }
 
     /* Main content */
     .privacy-container main {
-      padding: 3rem 0 !important;
+      padding: 2rem 0 !important;
       min-height: calc(100vh - 200px) !important;
     }
 
@@ -91,33 +89,45 @@
 
     .privacy-container h3 {
       font-size: 1.5rem !important;
+      font-weight: 600 !important;
       color: #34495e !important;
-      margin: 2rem 0 1rem 0 !important;
+      margin: 1rem 0 !important;
       padding-left: 0.5rem !important;
       border-left: 4px solid navy !important;
+    }
+
+    article p { 
+      text-align: justify !important;
+    }
+    
+    article p b::before{ 
+      content: " " !important;
     }
 
     .privacy-container p {
       margin-bottom: 1rem !important;
       text-align: justify !important;
       color: #555 !important;
+      font-size: 1.2rem !important;
     }
 
     /* Lists */
     .privacy-container ul {
       margin: 1rem 0 !important;
       padding-left: 2rem !important;
+      list-style: disc !important;
     }
 
     .privacy-container li {
       margin-bottom: 0.5rem !important;
       color: #555 !important;
+      font-size: 1.2rem !important;
     }
 
     /* Articles */
     .privacy-container article {
-      margin-bottom: 2.5rem !important;
-      padding: 1.5rem !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0.8rem !important;
       border: 1px solid #e9ecef !important;
       border-radius: 6px !important;
       background-color: #fafafa !important;
@@ -176,6 +186,12 @@
     .privacy-container footer li {
       display: inline-block !important;
       margin: 0 1rem !important;
+    }
+
+    #back-top{
+      padding: 1rem !important;
+      font-size: 1.7rem !important;
+      margin-left: 9rem !important;
     }
 
     /* Responsive design */
