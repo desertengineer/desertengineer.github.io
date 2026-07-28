@@ -74,6 +74,7 @@ body {
 
 main {
   flex: 1 !important;
+  background-color: rgb(243, 236, 170) !important;
 }
 
 /* Footer Styles */
@@ -82,6 +83,10 @@ main {
   /* color: #ffffff !important; */
   padding: 1rem !important;
   text-align: center !important;
+}
+
+section p {
+  color: #38404b !important;
 }
 
 .social-icon {

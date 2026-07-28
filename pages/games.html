@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- !IMP TODOs -->
+<!-- The website favicon -->
+<!-- cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation  -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,170 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
     <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="./games.css" />
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
+        wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
+    </script>
+    <style>
+        #games-hub-container {
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #0f111a !important;
+            color: #ffffff !important;
+            padding: 0 20px !important;
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            border-radius: 12px !important;
+        }
+
+        .hub-header {
+            text-align: center !important;
+            margin: 0 !important;
+            top: 65px !important;
+            position: sticky !important;
+            z-index: 50 !important;
+        }
+
+        .hub-header h1 {
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            color: #00ffcc !important;
+            margin:0 auto 10px !important;
+        }
+
+        .hub-header p {
+            color: #a0aec0 !important;
+            font-size: 1.1rem !important;
+            margin: 5px auto !important;
+            text-transform: 50% !important;
+        }
+
+        .filter-wrapper {
+            /* background-color: black !important; */
+            display: flex !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            flex-wrap: wrap !important;
+            padding: 10px !important;
+            top: 110px !important;
+            position: sticky !important;
+            z-index: 50 !important;
+        }
+
+        .filter-btn {
+            background-color: #1a202c !important;
+            color: #ffffff !important;
+            border: 2px solid #2d3748 !important;
+            /* margin-bottom: 0.7rem !important; */
+            padding: 10px 20px !important;
+            font-weight: 600 !important;
+            border-radius: 30px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #00ffcc !important;
+            color: #0f111a !important;
+            border-color: #00ffcc !important;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4) !important;
+        }
+
+        .games-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+            gap: 30px !important;
+        }
+
+        .game-card {
+            background-color: #1a1c23 !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            border: 1px solid #2d313f !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+            display: flex;
+            flex-direction: column !important;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5) !important;
+            border-color: #00ffcc !important;
+        }
+
+        .card-img-wrapper {
+            position: relative !important;
+            width: 100% !important;
+            height: 200px !important;
+            overflow: hidden !important;
+        }
+
+        .card-img-wrapper img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
+        .card-content {
+            padding: 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+        }
+
+        .card-tag {
+            background-color: rgba(0, 255, 204, 0.1) !important;
+            color: #00ffcc !important;
+            font-size: 0.8rem !important;
+            font-weight: 600 !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            align-self: flex-start !important;
+            margin-bottom: 12px !important;
+            text-transform: uppercase !important;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem !important;
+            margin-bottom: 10px !important;
+            font-weight: 600 !important;
+        }
+
+        .card-content p {
+            color: #a0aec0 !important;
+            font-size: 0.95rem !important;
+            line-height: 1.5 !important;
+            margin-bottom: 20px !important;
+            flex-grow: 1 !important;
+        }
+
+        .card-btn {
+            display: block !important;
+            text-align: center !important;
+            background-color: #2d313f !important;
+            color: #ffffff !important;
+            padding: 12px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            transition: background-color 0.2s ease !important;
+        }
+
+        .game-card:hover .card-btn {
+            background-color: #00ffcc !important;
+            color: #0f111a !important;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 480px) {
+            .hub-header h1 {
+                font-size: 2rem !important;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style> 
 </head>
 
 <body>
@@ -49,7 +214,7 @@
 
         <!-- Desktop Navigation Buttons -->
         <div class="hidden md:flex space-x-2 items-center">
-            <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
+            <a href="../index.html" class="nav-btn">Home</a>
             <a href="./about.html" class=" nav-btn">About Us</a>
             <a href="./games.html" class="nav-btn">Games</a>
             <a href="./contact us.html" class="nav-btn">Contacts</a>
@@ -58,29 +223,15 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
-                <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
+                <a href="../index.html" class="mobile-btn">Home</a>
                 <a href="./about.html" class=" nav-btn">About Us</a>
                 <a href="./games.html" class="nav-btn">Games</a>
                 <a href="./contact us.html" class="nav-btn">Contacts</a>
             </nav>
         </div>
     </nav>
-    <!-- <div class="filter-wrapper">
-        <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
-        <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
-        <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
-        <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
-        <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
-    </div> -->
 
     <div id="games-hub-container">
-        <!-- <div class="filter-wrapper">
-            <button class="filter-btn active" onclick="filterGames('all', event)">All Games</button>
-            <button class="filter-btn" onclick="filterGames('puzzle', event)">Puzzle</button>
-            <button class="filter-btn" onclick="filterGames('strategy', event)">Strategy</button>
-            <button class="filter-btn" onclick="filterGames('word', event)">Word</button>
-            <button class="filter-btn" onclick="filterGames('trivia', event)">Trivia</button>
-        </div> -->
 
         <div class="games-grid">
 
@@ -215,7 +366,30 @@
             </div>
         </div>
     </footer>
-    <script src="./games.js"></script>
+    <script>
+        function filterGames(category, event) {
+            // Select all cards and buttons
+            const cards = document.querySelectorAll('.game-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Remove 'active' class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Add 'active' class to the clicked button
+            if (event) {
+                event.target.classList.add('active');
+            }
+
+            // Loop through cards and filter based on category
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -1,91 +1,117 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+<!-- !IMP TODOs -->
+<!-- The website favicon -->
+<!-- cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation  -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bekeirat Software - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link href="../css/google-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/all.min.css" />  
-    <link href="../css/google-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/index.css" />
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
     </script>
     <style>
+        .hub-header {
+            text-align: center !important;
+            margin: 0 !important;
+            top: 65px !important;
+            position: sticky !important;
+            z-index: 50 !important;
+        }
+
+        .hub-header h1 {
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            color: #00ffcc !important; 
+            margin: 0 !important;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 480px) {
+            .hub-header h1 {
+                font-size: 2rem !important;
+            }
+        }
+
         body {
-        font-family: Arial, sans-serif !important;
-        line-height: 1.6 !important;
-        margin: 0 !important;
-        padding: 2rem !important;
-        background-color: #f9f9f9 !important;
-        color: #333 !important;
-    }
+            font-family: Arial, sans-serif !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            padding: 2rem !important;
+            background-color: #f9f9f9 !important;
+            color: #333 !important;
+        }
 
-    .post-title h2 {
-        text-align: left !important;
-    }
+        .post-title h2 {
+            text-align: left !important;
+        }
 
-    .container {
-        direction: ltr !important;
-        max-width: 800px !important;
-        margin: auto !important;
-        background: #fff !important;
-        padding: 2rem !important;
-        border-radius: 10px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
-    }
+        .container {
+            direction: ltr !important;
+            max-width: 800px !important;
+            margin: auto !important;
+            background: #fff !important;
+            padding: 2rem !important;
+            border-radius: 10px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        }
 
-    h1 {
-        font-size: 2rem !important;
-        margin-bottom: 1rem !important;
-        color: #222 !important;
-    }
+        h1 {
+            font-size: 2rem !important;
+            margin-bottom: 1rem !important;
+            color: #222 !important;
+        }
 
-    p {
-        font-size: 1.5rem !important;
-        margin-bottom: 1.25rem !important;
-    }
+        p {
+            font-size: 1.3rem !important;
+            margin-bottom: 1.25rem !important;
+        }
 
-    strong {
-        color: #000 !important;
-    }
+        strong {
+            color: #000 !important;
+        }
 
-    .flex-container {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 10px;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        direction: ltr;
-    }
-
-    .flex-container img {
-        width: 100px;
-        height: auto;
-        display: block;
-    }
-
-    .flex-container .title {
-        font-size: 1.5rem;
-        margin-left: 10px;
-        white-space: nowrap;
-    }
-
-    @media (max-width: 480px) {
         .flex-container {
-            flex-direction: column;
-            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .flex-container img {
+            width: 100px;
+            height: auto;
+            display: block;
         }
 
         .flex-container .title {
-            margin: 10px 0 0 0;
+            font-size: 1.5rem;
+            margin-left: 10px;
+            white-space: nowrap;
         }
-    } 
+
+        @media (max-width: 480px) {
+            .flex-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .flex-container .title {
+                margin: 10px 0 0 0;
+            }
+        }
     </style>
 </head>
 
@@ -101,6 +127,9 @@
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
+        <header class="hub-header">
+            <h1>About Us</h1>
+        </header>
 
         <!-- Hamburger Icon for Mobile -->
         <button id="hamburger-btn"
@@ -113,7 +142,7 @@
 
         <!-- Desktop Navigation Buttons -->
         <div class="hidden md:flex space-x-2 items-center">
-            <a href="https://desertengineer.github.io/" class="nav-btn">Home</a>
+            <a href="../index.html" class="nav-btn">Home</a>
             <a href="./about.html" class=" nav-btn">About Us</a>
             <a href="./games.html" class="nav-btn">Games</a>
             <a href="./contact us.html" class="nav-btn">Contacts</a>
@@ -122,10 +151,10 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
-                <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
-            <a href="./about.html" class=" nav-btn">About Us</a>
-            <a href="./games.html" class="nav-btn">Games</a>
-            <a href="./contact us.html" class="nav-btn">Contacts</a>
+                <a href="../index.html" class="mobile-btn">Home</a>
+                <a href="./about.html" class=" nav-btn">About Us</a>
+                <a href="./games.html" class="nav-btn">Games</a>
+                <a href="./contact us.html" class="nav-btn">Contacts</a>
             </nav>
         </div>
     </nav>
@@ -135,7 +164,7 @@
         <section class="max-w-6xl mx-auto py-16 px-4 md:px-8">
             <div class="flex flex-col md:flex-row items-center gap-12">
 
-                <div class="container"> 
+                <div class="container">
                     <p>
                         At <strong>Bekeirat Software</strong> , we develop a wide range of educational and entertainment
                         applications
@@ -167,7 +196,7 @@
 
             </div>
         </section>
-    </main>
+    </main> 
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
@@ -225,7 +254,7 @@
             </div>
         </div>
     </footer>
-    <script src="../js/index.js"> </script> 
+    <script src="../js/index.js"> </script>
 
 </body>
 

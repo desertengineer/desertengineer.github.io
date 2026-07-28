@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+<!-- !IMP TODOs -->
+<!-- The website favicon -->
+<!-- cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation  -->
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +11,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/all.min.css" /> 
+    <link rel="stylesheet" href="../css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
     <link href="../css/google-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/index.css" />
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
@@ -27,6 +31,14 @@
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
+        }
+
+        main {
+            background-color: #f8fafc !important;
+        }
+
+        main h1 {
+            color: rgba(57, 5, 190, 0.892) !important;
         }
 
         .bek-gradient-text {
@@ -120,7 +132,7 @@
 
 <body>
 
-    <!-- Top Navigation Bar --> 
+    <!-- Top Navigation Bar -->
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
         <!-- Linked Logo -->
         <a href="../index.html"
@@ -152,9 +164,9 @@
         <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner">
             <nav class="flex flex-col">
                 <a href="https://desertengineer.github.io/" class="mobile-btn">Home</a>
-            <a href="./about.html" class=" nav-btn">About Us</a>
-            <a href="./games.html" class="nav-btn">Games</a>
-            <a href="./contact us.html" class="nav-btn">Contacts</a>
+                <a href="./about.html" class=" nav-btn">About Us</a>
+                <a href="./games.html" class="nav-btn">Games</a>
+                <a href="./contact us.html" class="nav-btn">Contacts</a>
             </nav>
         </div>
     </nav>
