@@ -80,29 +80,21 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
 
-      - name: Build Release APK
+      # 🚀 FIX: Reverted to your working setup using direct Gradle injection instead of apksigner CLI commands
+      - name: Build and Sign Release APK via Native Gradle
+        env:
+          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/EnTiles2048/android/app/release.keystore
+          ORG_GRADLE_PROJECT_androidInjectedSigningStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
           ./gradlew assembleRelease
 
-      - name: Align APK File
+      - name: Locate and Rename Output Binary
         run: |
-          APK_RAW=$(find android/app/build/outputs/apk/release/ -name "*-release-unsigned.apk" -o -name "*-release.apk" | head -n 1)
-          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 "$APK_RAW" android/app/build/outputs/apk/release/EnTiles2048-aligned.apk
-
-      - name: Cryptographically Sign APK
-        env:
-          KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: |
-          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
-            --ks android/app/release.keystore \
-            --ks-pass pass:"$KEYSTORE_PASS" \
-            --ks-key-alias "$KEY_ALIAS" \
-            --key-pass pass:"$KEY_PASS" \
-            --out android/app/build/outputs/apk/release/EnTiles2048-Final.apk \
-            android/app/build/outputs/apk/release/EnTiles2048-aligned.apk
+          RAW_APK=$(find android/app/build/outputs/apk/release/ -name "*.apk" ! -name "*unsigned*" | head -n 1)
+          cp "$RAW_APK" android/app/build/outputs/apk/release/EnTiles2048-Final.apk
 
       - name: Upload Verified APK
         uses: actions/upload-artifact@v4.6.1
@@ -173,7 +165,10 @@ jobs:
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
+          
+          # Fix missing space formatting flag
+          security list-keychains -d user -s $KEYCHAIN_PATH
+          
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
           
@@ -237,5 +232,4 @@ jobs:
           IPA_PATH=$(find ios/App/output -name "*.ipa" | head -n 1)
           
           echo "Uploading package asset directly to App Store Connect TestFlight..."
-          xcrun xcdevice upload "${{ env.APPLE_TEAM_ID }}" "$IPA_PATH" --api-key "$KEY_ID" --api-issuer "$ISSUER_ID" || \
           xcrun altool --upload-app -f "$IPA_PATH" -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
