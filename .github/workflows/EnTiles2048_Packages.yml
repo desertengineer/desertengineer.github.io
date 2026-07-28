@@ -2,10 +2,10 @@ name: Build EnTiles 2048
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'Apps/EnTiles2048/**'
-      - '.github/workflows/build-mobile.yml'
+      - "Apps/EnTiles2048/**"
+      - ".github/workflows/build-mobile.yml"
 
 jobs:
   # --- SIGNED ANDROID BUILD ---
@@ -40,8 +40,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4.4.0
         with:
-          distribution: 'zulu'
-          java-version: '21'
+          distribution: "zulu"
+          java-version: "21"
 
       - name: Resolve Android Kotlin Duplicate Classes
         run: |
@@ -53,27 +53,44 @@ jobs:
               }
           }
           EOF
-
+                # 1. Decodes and saves your keystore securely
       - name: Decode Android Keystore
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
 
-      - name: Build and Sign Release APK
-        env:
-          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/EnTiles2048/android/app/release.keystore
-          ORG_GRADLE_PROJECT_androidInjectedSigningStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ORG_GRADLE_PROJECT_androidInjectedSigningKeyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      # 2. Compiles a fresh production release package
+      - name: Build Release APK
         run: |
           cd android
           ./gradlew assembleRelease
 
-      - name: Upload Signed APK
+      # 3. Optimizes and aligns the package alignment (Crucial for Android 11+)
+      - name: Align APK File
+        run: |
+          APK_RAW=$(find android/app/build/outputs/apk/release/ -name "*-release-unsigned.apk" -o -name "*-release.apk" | head -n 1)
+          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 "$APK_RAW" android/app/build/outputs/apk/release/EnTiles2048-aligned.apk
+
+      # 4. Signs the APK with V2 cryptographic signatures so physical hardware accepts it
+      - name: Cryptographically Sign APK
+        env:
+          KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+            --ks android/app/release.keystore \
+            --ks-pass pass:"$KEYSTORE_PASS" \
+            --ks-key-alias "$KEY_ALIAS" \
+            --key-pass pass:"$KEY_PASS" \
+            --out android/app/build/outputs/apk/release/EnTiles2048-Final.apk \
+            android/app/build/outputs/apk/release/EnTiles2048-aligned.apk
+
+      # 5. Saves the installation-ready APK directly to your GitHub Action Run
+      - name: Upload Verified APK
         uses: actions/upload-artifact@v4.6.1
         with:
           name: EnTiles2048-Android-Release
-          path: Apps/EnTiles2048/android/app/build/outputs/apk/release/*.apk
-
+          path: Apps/EnTiles2048/android/app/build/outputs/apk/release/EnTiles2048-Final.apk
 
   # --- SIGNED iOS BUILD & TESTFLIGHT DELIVERY ---
   build-ios:
@@ -123,7 +140,7 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
-          
+
           security cms -D -i "$PP_PATH" > $RUNNER_TEMP/profile.plist
           TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" $RUNNER_TEMP/profile.plist)
           echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
@@ -180,9 +197,9 @@ jobs:
           API_KEYS_DIR=~/private_keys
           mkdir -p "$API_KEYS_DIR"
           echo "$KEY_CONTENT" > "$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
-          
+
           IPA_PATH=$(find ios/App/output -name "*.ipa" | head -n 1)
-          
+
           echo "Validating IPA with App Store Connect..."
           xcrun altool --validate-app \
             -f "$IPA_PATH" \
