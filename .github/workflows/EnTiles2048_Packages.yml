@@ -7,7 +7,7 @@ on:
     paths:
       - 'Apps/EnTiles2048/**'
       - '.github/workflows/build-mobile.yml'
-  workflow_dispatch: # 🚀 Creates a manual "Run workflow" button in your GitHub dashboard
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,13 +34,30 @@ jobs:
           cp www/index.html www/index.js www/index.css www/manifest.json www/service-worker.js dist/ || true
           cp -r www/assets dist/ || true
 
-      - name: Install & Run Capacitor
+      - name: Install Dependencies
         run: |
           npm init -y
           npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
-          npx cap init "EnTiles 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
-          npx cap add android
-          npx cap sync android
+
+      - name: Inject Capacitor Configuration Blueprint
+        run: |
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.desertengineer.tilemaster2048",
+            "appName": "EnTiles 2048",
+            "webDir": "dist"
+          }
+          EOF
+
+      - name: Initialize or Sync Android Platform
+        run: |
+          if [ ! -d "android" ]; then
+            echo "Building Android core framework structures..."
+            npx cap add android
+          else
+            echo "Syncing updated production asset structures..."
+            npx cap sync android
+          fi
 
       - name: Setup Java
         uses: actions/setup-java@v4.4.0
@@ -115,13 +132,30 @@ jobs:
           cp www/index.html www/index.js www/index.css www/manifest.json www/service-worker.js dist/ || true
           cp -r www/assets dist/ || true
 
-      - name: Install & Run Capacitor
+      - name: Install Dependencies
         run: |
           npm init -y
           npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/ios@6
-          npx cap init "EnTiles 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
-          npx cap add ios
-          npx cap sync ios
+
+      - name: Inject Capacitor Configuration Blueprint
+        run: |
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.desertengineer.tilemaster2048",
+            "appName": "EnTiles 2048",
+            "webDir": "dist"
+          }
+          EOF
+
+      - name: Initialize or Sync iOS Platform
+        run: |
+          if [ ! -d "ios" ]; then
+            echo "Building iOS core wrapper assets..."
+            npx cap add ios
+          else
+            echo "Synchronizing current web directory variables..."
+            npx cap sync ios
+          fi
 
       - name: Install Apple Certificate and Provisioning Profile
         env:
@@ -190,7 +224,7 @@ jobs:
           name: EnTiles2048-iOS-Release
           path: Apps/EnTiles2048/ios/App/output/*.ipa
 
-      - name: Authenticate and Upload to TestFlight
+      - name: Transmit Deployment to Apple TestFlight
         env:
           KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
@@ -202,16 +236,6 @@ jobs:
           
           IPA_PATH=$(find ios/App/output -name "*.ipa" | head -n 1)
           
-          echo "Validating IPA with App Store Connect..."
-          xcrun altool --validate-app \
-            -f "$IPA_PATH" \
-            -t ios \
-            --apiKey "$KEY_ID" \
-            --apiIssuer "$ISSUER_ID"
-            
-          echo "Uploading IPA to TestFlight..."
-          xcrun altool --upload-app \
-            -f "$IPA_PATH" \
-            -t ios \
-            --apiKey "$KEY_ID" \
-            --apiIssuer "$ISSUER_ID"
+          echo "Uploading package asset directly to App Store Connect TestFlight..."
+          xcrun xcdevice upload "${{ env.APPLE_TEAM_ID }}" "$IPA_PATH" --api-key "$KEY_ID" --api-issuer "$ISSUER_ID" || \
+          xcrun altool --upload-app -f "$IPA_PATH" -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER_ID"
