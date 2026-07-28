@@ -192,10 +192,9 @@ jobs:
             -archivePath $RUNNER_TEMP/App.xcarchive \
             -derivedDataPath $RUNNER_TEMP/DerivedData \
             CODE_SIGNING_IDENTITY="Apple Distribution" \
-            CODE_SIGN_STYLE="Manual" \
+            CODE_SIGN_STYLE="Automatic" \
             DEVELOPMENT_TEAM="${{ env.APPLE_TEAM_ID }}" \
-            -allowProvisioningUpdates \
-            PROVISIONING_PROFILE_SPECIFIER="iOS Distribution"
+            -allowProvisioningUpdates
 
       - name: Export IPA Package
         run: |
@@ -210,14 +209,9 @@ jobs:
             <key>teamID</key>
             <string>${{ env.APPLE_TEAM_ID }}</string>
             <key>signingStyle</key>
-            <string>manual</string>
+            <string>automatic</string>
             <key>compileBitcode</key>
             <false/>
-            <key>provisioningProfiles</key>
-            <dict>
-              <key>com.desertengineer.tilemaster2048</key>
-              <string>iOS Distribution</string>
-            </dict>
           </dict>
           </plist>
           EOF
