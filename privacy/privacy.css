@@ -49,12 +49,12 @@
     }
 
     #page-title {
-      font-family: 'Playfair Display', serif !important;
       font-size: 2.5rem !important;
       font-weight: 700 !important;
-      color: white !important;
+      color: #00ffcc !important;
+      margin: 0 !important;
+      font-family: 'Playfair Display', serif !important;
       text-align: center !important;
-      margin-bottom: .25rem !important;
     }
 
     header .last-updated {
@@ -96,11 +96,11 @@
       border-left: 4px solid navy !important;
     }
 
-    article p { 
+    article p {
       text-align: justify !important;
     }
-    
-    article p b::before{ 
+
+    article p b::before {
       content: " " !important;
     }
 
@@ -186,12 +186,6 @@
     .privacy-container footer li {
       display: inline-block !important;
       margin: 0 1rem !important;
-    }
-
-    #back-top{
-      padding: 1rem !important;
-      font-size: 1.7rem !important;
-      margin-left: 9rem !important;
     }
 
     /* Responsive design */

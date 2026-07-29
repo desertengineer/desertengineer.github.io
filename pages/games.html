@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- !IMP TODOs -->
-<!-- The website favicon -->
-<!-- cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation  -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,173 +9,15 @@
     <link href="../css/google-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/all.min.css" />
+    <link rel="stylesheet" href="../about.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
     <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="./games.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
     </script>
-    <style>
-        #games-hub-container {
-            font-family: 'Poppins', sans-serif !important;
-            background-color: #0f111a !important;
-            color: #ffffff !important;
-            padding: 0 20px !important;
-            max-width: 1200px !important;
-            margin: 0 auto !important;
-            border-radius: 12px !important;
-        }
-
-        .hub-header {
-            text-align: center !important;
-            margin: 0 !important;
-            top: 65px !important;
-            position: sticky !important;
-            z-index: 50 !important;
-        }
-
-        .hub-header h1 {
-            font-size: 2.5rem !important;
-            font-weight: 800 !important;
-            color: #00ffcc !important;
-            margin:0 auto 10px !important;
-        }
-
-        .hub-header p {
-            color: #a0aec0 !important;
-            font-size: 1.1rem !important;
-            margin: 5px auto !important;
-            text-transform: 50% !important;
-        }
-
-        .filter-wrapper {
-            /* background-color: black !important; */
-            display: flex !important;
-            justify-content: center !important;
-            gap: 10px !important;
-            flex-wrap: wrap !important;
-            padding: 10px !important;
-            top: 110px !important;
-            position: sticky !important;
-            z-index: 50 !important;
-        }
-
-        .filter-btn {
-            background-color: #1a202c !important;
-            color: #ffffff !important;
-            border: 2px solid #2d3748 !important;
-            /* margin-bottom: 0.7rem !important; */
-            padding: 10px 20px !important;
-            font-weight: 600 !important;
-            border-radius: 30px !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background-color: #00ffcc !important;
-            color: #0f111a !important;
-            border-color: #00ffcc !important;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4) !important;
-        }
-
-        .games-grid {
-            display: grid !important;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
-            gap: 30px !important;
-        }
-
-        .game-card {
-            background-color: #1a1c23 !important;
-            border-radius: 12px !important;
-            overflow: hidden !important;
-            border: 1px solid #2d313f !important;
-            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-            display: flex;
-            flex-direction: column !important;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px) !important;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5) !important;
-            border-color: #00ffcc !important;
-        }
-
-        .card-img-wrapper {
-            position: relative !important;
-            width: 100% !important;
-            height: 200px !important;
-            overflow: hidden !important;
-        }
-
-        .card-img-wrapper img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-        }
-
-        .card-content {
-            padding: 20px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            flex-grow: 1 !important;
-        }
-
-        .card-tag {
-            background-color: rgba(0, 255, 204, 0.1) !important;
-            color: #00ffcc !important;
-            font-size: 0.8rem !important;
-            font-weight: 600 !important;
-            padding: 4px 10px !important;
-            border-radius: 4px !important;
-            align-self: flex-start !important;
-            margin-bottom: 12px !important;
-            text-transform: uppercase !important;
-        }
-
-        .card-content h3 {
-            font-size: 1.4rem !important;
-            margin-bottom: 10px !important;
-            font-weight: 600 !important;
-        }
-
-        .card-content p {
-            color: #a0aec0 !important;
-            font-size: 0.95rem !important;
-            line-height: 1.5 !important;
-            margin-bottom: 20px !important;
-            flex-grow: 1 !important;
-        }
-
-        .card-btn {
-            display: block !important;
-            text-align: center !important;
-            background-color: #2d313f !important;
-            color: #ffffff !important;
-            padding: 12px !important;
-            border-radius: 6px !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            transition: background-color 0.2s ease !important;
-        }
-
-        .game-card:hover .card-btn {
-            background-color: #00ffcc !important;
-            color: #0f111a !important;
-        }
-
-        /* Mobile Responsive Adjustments */
-        @media (max-width: 480px) {
-            .hub-header h1 {
-                font-size: 2rem !important;
-            }
-
-            .games-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style> 
 </head>
 
 <body>
@@ -230,15 +70,15 @@
             </nav>
         </div>
     </nav>
-
+    <p id="main-content"></p>
     <div id="games-hub-container">
 
         <div class="games-grid">
 
             <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
-                    <a href="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png" target="_blank">
-                        <img src="../Apps/EnBlocks2026/assets/screenshot-3-1366x768.png?auto=format&fit=crop&w=600&q=80"
+                    <a href="../Apps/EnBlocks2026/www/assets/screenshot-3-1366x768.png" target="_blank">
+                        <img src="../Apps/EnBlocks2026/www/assets/screenshot-3-1366x768.png?auto=format&fit=crop&w=600&q=80"
                             alt="Magic Block Blitz 2026" title="Magic Block Blitz 2026" />
                     </a>
                 </div>
@@ -253,8 +93,8 @@
 
             <div class="game-card puzzle strategy">
                 <div class="card-img-wrapper">
-                    <a href="../Apps/EnTiles2048/assets/Screenshot-2.png" target="_blank">
-                        <img src="../Apps/EnTiles2048/assets/Screenshot-2.png?auto=format&fit=crop&w=378&q=80"
+                    <a href="../Apps/EnTiles2048/www/assets/Screenshot-2.png" target="_blank">
+                        <img src="../Apps/EnTiles2048/www/assets/Screenshot-2.png?auto=format&fit=crop&w=378&q=80"
                             alt="Grid Logic Cover" />
                     </a>
                 </div>
@@ -313,45 +153,35 @@
             <!-- Centered Social Media Links Bar -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
                 <!-- Twitter / X -->
-                <a href="#" class="social-icon" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter"> 
+                    <svg xmlns="http://w3.org" width="20" height="20" viewBox="0 0 512 512" fill="currentColor"
+                        style="display: block;">
                         <path
-                            d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
                 <!-- Facebook -->
-                <a href="#" class="social-icon" aria-label="Facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                    </svg>
+                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook"
+                    aria-label="Facebook" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
                 </a>
                 <!-- YouTube -->
-                <a href="#" class="social-icon" aria-label="YouTube">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />
-                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-                    </svg>
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtybe"
+                    aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
                 </a>
                 <!-- Instagram -->
-                <a href="#" class="social-icon" aria-label="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
+                <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram"
+                    aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
                 </a>
                 <!-- TikTok (Custom outline representation) -->
-                <a href="#" class="social-icon" aria-label="TikTok">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5v3a3 3 0 0 1-3-3v11a7 7 0 1 1-7-7v3a4 4 0 0 0 2 3.65z" />
-                    </svg>
+                <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <!-- Blogger -->
+                <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger" aria-label="Blogger">
+                    <i class="fa-brands fa-blogger"></i>
                 </a>
             </div>
 
@@ -366,6 +196,8 @@
             </div>
         </div>
     </footer>
+    <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
+
     <script>
         function filterGames(category, event) {
             // Select all cards and buttons
@@ -389,6 +221,11 @@
                 }
             });
         }
+    </script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: 'u7ubdfazfu',
+        });
     </script>
 </body>
 

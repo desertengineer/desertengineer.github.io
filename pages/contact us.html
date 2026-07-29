@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- !IMP TODOs -->
-<!-- The website favicon -->
-<!-- cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation  -->
 
 <head>
     <meta charset="UTF-8">
@@ -12,9 +9,11 @@
     <script src="../js/tailwindcss.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/all.min.css" />
+    <link rel="stylesheet" href="../about.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
     <link href="../css/google-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/index.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
     </script>
@@ -44,9 +43,10 @@
             background-color: #dfe4e8 !important;
         }
 
-        main div span:first-child {
+        #main-content>div.text-center.max-w-3xl.mx-auto.mb-16>span {
             background-color: black !important;
             color: yellow !important;
+            padding: .5rem !important;
         }
 
         main h1 {
@@ -159,7 +159,7 @@
             Bekeirat Software
         </a>
         <header class="hub-header">
-            <h1>About Us</h1>
+            <h1> Contact Us</h1>
         </header>
 
         <!-- Hamburger Icon for Mobile -->
@@ -190,7 +190,7 @@
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full">
+    <main id="main-content" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full">
         <!-- Page Title -->
         <div class="text-center max-w-3xl mx-auto mb-16">
             <span
@@ -380,6 +380,7 @@
             </div>
         </div>
     </footer>
+    <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
     <script>
         const hamburgerBtn = document.getElementById('hamburger-btn');

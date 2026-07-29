@@ -66,6 +66,28 @@ footer {
   text-transform: uppercase !important;
 }
 
+/* add flex items-center justify-center gap-2 */
+#live-play-btn {
+  display: flex !important;
+  background-color: #05ae19 !important;
+  height: 3rem !important;
+  font-size: 1.2rem !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+  border-radius: 24px !important;
+}
+
+#live-play-btn img {
+  height: 2.7rem !important;
+  width: auto !important;
+  color: #0088cc;
+  display: inline-block !important;
+}
+
+#live-play-btn:hover{
+background-color: rgb(205, 55, 55) !important;
+}
+
 #play-area {
   display: none;
   position: fixed !important;
@@ -226,6 +248,13 @@ footer {
 /***
  * End of keyframes for the animations.
  */
+.fa-brands.fa-microsoft {
+  margin-right: .5rem !important;
+}
+
+.fa-brands:hover {
+  font-size: 1.5rem !important;
+}
 
 .store-box p {
   color: #a0aec0 !important;
@@ -243,11 +272,19 @@ footer {
   display: block !important;
   text-align: center !important;
   padding: 12px !important;
-  border-radius: 6px !important;
+  border-radius: 24px !important;
   text-decoration: none !important;
   font-weight: 600 !important;
   color: #ffffff !important;
   transition: opacity 0.2s ease !important;
+}
+
+.store-link:hover {
+  transform: scale(1.1) !important;
+}
+
+.social-icon.facebook>i:hover {
+  background-color: #1877F2 !important;
 }
 
 .store-link:hover {
@@ -264,8 +301,8 @@ footer {
   border: 1px solid #ffffff !important;
 }
 
-.steam-btn {
-  background-color: #171a21 !important;
+.microsoft-btn {
+  background-color: #0a3eb7 !important;
 }
 
 .itch-btn {
@@ -421,13 +458,13 @@ footer {
   background: #1a1c23 !important;
   border-radius: 12px !important;
   border: 1px solid #2d313f !important;
-  text-align: center !important; 
+  text-align: center !important;
   /* Making the social buttons arranged in a grid of three columns and 2 rows */
 
 }
 
 .share-buttons {
-  display: grid !important;  
+  display: grid !important;
   justify-content: center !important;
   gap: 10px !important;
   margin-top: 15px !important;
@@ -446,6 +483,11 @@ footer {
   text-decoration: none !important;
   transition: transform 0.2s, background 0.2s !important;
   font-size: 1.1rem !important;
+}
+
+.grid {
+  display: grid !important;
+  place-items: center !important;
 }
 
 .share-btn:hover {

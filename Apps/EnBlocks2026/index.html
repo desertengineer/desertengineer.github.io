@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magic Block Blitz 2026</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../../js/tailwindcss.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="../../css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/index.css" />
-  <link rel="stylesheet" href="../game.css" />
   <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
     wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
   </script>
@@ -781,6 +781,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../game.css" />
 </head>
 
 <body><!-- STREAMING_CHUNK: Injecting background container -->
@@ -827,7 +828,7 @@
 
   <div id="game-detail-container">
 
-    <div class="game-hero">
+    <div id="main-content" class="game-hero">
       <img src="./www/assets/screenshot-1-1366x768.png" alt="Game Banner" class="hero-bg" />
       <div class="hero-overlay">
         <div class="hero-text-content">
@@ -873,13 +874,14 @@
 
           <div class="links-stack">
             <button id="live-play-btn"
-              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg">🎮
-              Play
-              Online</button>
+              class="store-link">
+              <img class="h-5 w-auto" src="../../assets/play.svg"/> 
+              Play Online</button>
             <!-- <a href="YOUR_GOOGLE_PLAY_LINK" class="store-link android-btn" target="_blank">Get it on Google Play</a> -->
-            <a href="YOUR_APP_STORE_LINK" class="store-link apple-btn" target="_blank">Download on App Store</a>
-            <a href="YOUR_MICROSOFT_LINK" class="store-link steam-btn" target="_blank">Download on Microsoft Store</a>
-            <a href="https://mawlay.itch.io/en-blocks-2026" class="store-link itch-btn" target="_blank">Buy on
+            <!-- <a href="YOUR_APP_STORE_LINK" class="store-link apple-btn" target="_blank">Download on App Store</a> -->
+            <a href="https://apps.microsoft.com/detail/9ngnkgg8dfqz" class="store-link microsoft-btn" target="_blank"><i
+                class="fa-brands fa-microsoft"></i>Download on Microsoft Store</a>
+            <a href="https://mawlay.itch.io/en-blocks-2026" class="store-link itch-btn" target="_blank">Play or Buy on
               Itch.io</a>
           </div>
           <!-- STREAMING_CHUNK: Updated Social Sharing Buttons -->
@@ -1027,6 +1029,7 @@
       </div>
     </div>
   </footer>
+  <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
   <!-- STREAMING_CHUNK: Lightbox Modal Structure -->
   <div id="lightbox-modal" class="lightbox-modal">
     <span id="lightbox-close" class="lightbox-close">&times;</span>
