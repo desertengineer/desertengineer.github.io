@@ -36,8 +36,30 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm init -y
-          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
+          # Use npm ci for deterministic installs in CI; fallback to npm install if it fails
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline --no-audit --progress=false
+          else
+            npm install --no-audit --no-fund --no-progress
+          fi
+
+      - name: Debug node / npx / cap
+        run: |
+          echo "=== node/npm ==="
+          node -v || true
+          npm -v || true
+          echo "=== list project files (short) ==="
+          ls -la || true
+          echo "=== node_modules (.bin) permissions ==="
+          ls -la node_modules 2>/dev/null || true
+          ls -la node_modules/.bin 2>/dev/null || true
+          echo "=== inspect cap shim if present ==="
+          if [ -f node_modules/.bin/cap ]; then
+            echo "---- node_modules/.bin/cap (first 120 lines) ----"
+            sed -n '1,120p' node_modules/.bin/cap || true
+          fi
+          echo "=== npx --package check (this will run capacitors cli via npx package runner) ==="
+          npx --package @capacitor/cli@6 cap --version || true
 
       - name: Inject Capacitor Configuration Blueprint
         run: |
@@ -49,14 +71,15 @@ jobs:
           }
           EOF
 
-      - name: Initialize or Sync Android Platform
+      - name: Initialize or Sync Android Platform (safer)
         run: |
+          # Use npx --package to avoid reliance on local .bin shim execute bits
           if [ ! -d "android" ]; then
             echo "Building Android core framework structures..."
-            npx cap add android
+            npx --yes --package @capacitor/cli@6 cap add android
           else
             echo "Syncing updated production asset structures..."
-            npx cap sync android
+            npx --yes --package @capacitor/cli@6 cap sync android
           fi
 
       - name: Setup Java
@@ -69,7 +92,7 @@ jobs:
         run: |
           cat << 'EOF' >> android/build.gradle
           allprojects {
-              configurations.configureEach { configuration ->
+              configurations.configureEach { configuration -> 
                   configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
                   configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
               }
@@ -79,6 +102,7 @@ jobs:
       - name: Decode Android Keystore
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+          ls -lah android/app || true
 
       - name: Build and Sign Release APK via Native Gradle
         env:
@@ -88,19 +112,27 @@ jobs:
           ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --no-daemon --console=plain
 
-      # 🚀 FIX: Improved search to dynamically catch any output APK in the build tree safely
       - name: Locate and Rename Output Binary
         run: |
           mkdir -p final_output
-          find android/app/build/outputs/ -name "*.apk" -exec cp {} final_output/MagicBlockBlitz2026-Final.apk \;
+          APK_PATH=$(find android/app/build/outputs -type f -name "*.apk" | head -n 1 || true)
+          echo "Found APK: $APK_PATH"
+          if [ -n "$APK_PATH" ]; then
+            cp "$APK_PATH" final_output/MagicBlockBlitz2026-Final.apk
+            ls -lah final_output
+          else
+            echo "❌ ERROR: No APK found in android/app/build/outputs"
+            find android/app/build/outputs -type f -print || true
+            exit 1
+          fi
 
       - name: Upload Verified APK
         uses: actions/upload-artifact@v4.6.1
         with:
           name: MagicBlockBlitz2026-Android-Release
-          path: Apps/EnBlocks2026/final_output/MagicBlockBlitz2026-Final.apk
+          path: final_output/MagicBlockBlitz2026-Final.apk
 
 
   # --- SIGNED iOS BUILD & TESTFLIGHT DELIVERY ---
@@ -126,8 +158,22 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm init -y
-          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/ios@6
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline --no-audit --progress=false
+          else
+            npm install --no-audit --no-fund --no-progress
+          fi
+
+      - name: Debug node / npx / cap (iOS)
+        run: |
+          node -v || true
+          npm -v || true
+          ls -la node_modules 2>/dev/null || true
+          ls -la node_modules/.bin 2>/dev/null || true
+          if [ -f node_modules/.bin/cap ]; then
+            sed -n '1,120p' node_modules/.bin/cap || true
+          fi
+          npx --package @capacitor/cli@6 cap --version || true
 
       - name: Inject Capacitor Configuration Blueprint
         run: |
@@ -139,14 +185,14 @@ jobs:
           }
           EOF
 
-      - name: Initialize or Sync iOS Platform
+      - name: Initialize or Sync iOS Platform (safer)
         run: |
           if [ ! -d "ios" ]; then
             echo "Building iOS core wrapper assets..."
-            npx cap add ios
+            npx --yes --package @capacitor/cli@6 cap add ios
           else
             echo "Synchronizing current web directory variables..."
-            npx cap sync ios
+            npx --yes --package @capacitor/cli@6 cap sync ios
           fi
 
       - name: Setup Xcode Command Line Tools
@@ -291,7 +337,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.1
         with:
           name: MagicBlockBlitz2026-iOS-Release
-          path: Apps/EnBlocks2026/ios/App/output/*.ipa
+          path: ios/App/output/*.ipa
 
       - name: Upload to TestFlight via App Store Connect API
         if: success()
