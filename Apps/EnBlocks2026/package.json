@@ -1,0 +1,17 @@
+{
+  "name": "magicblockblitz2026",
+  "version": "1.0.0",
+  "description": "Magic Block Blitz 2026 - Block Puzzle Game", 
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["game", "puzzle", "strategy", "block", "blitz", "2026"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/ios": "^6.0.0"
+  }
+}

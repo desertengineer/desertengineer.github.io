@@ -1,0 +1,11 @@
+{
+  "appId": "com.bekeirataapps.magicblitzblitz2026",
+  "appName": "Magic Block Blitz 2026",
+  "webDir": "www",
+  "ios": {
+    "scheme": "App"
+  },
+  "android": {
+    "appName": "Magic Block Blitz 2026"
+  }
+}
