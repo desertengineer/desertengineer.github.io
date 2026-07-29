@@ -36,7 +36,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          # Use npm ci for deterministic installs in CI; fallback to npm install if it fails
+          # Use npm ci for deterministic installs in CI; fallback to npm install if no lockfile
           if [ -f package-lock.json ]; then
             npm ci --prefer-offline --no-audit --progress=false
           else
@@ -48,17 +48,16 @@ jobs:
           echo "=== node/npm ==="
           node -v || true
           npm -v || true
-          echo "=== list project files (short) ==="
+          echo "=== repo listing ==="
           ls -la || true
           echo "=== node_modules (.bin) permissions ==="
           ls -la node_modules 2>/dev/null || true
           ls -la node_modules/.bin 2>/dev/null || true
-          echo "=== inspect cap shim if present ==="
           if [ -f node_modules/.bin/cap ]; then
             echo "---- node_modules/.bin/cap (first 120 lines) ----"
             sed -n '1,120p' node_modules/.bin/cap || true
           fi
-          echo "=== npx --package check (this will run capacitors cli via npx package runner) ==="
+          echo "=== npx --package check ==="
           npx --package @capacitor/cli@6 cap --version || true
 
       - name: Inject Capacitor Configuration Blueprint
@@ -82,15 +81,29 @@ jobs:
             npx --yes --package @capacitor/cli@6 cap sync android
           fi
 
-      - name: Setup Java
+      - name: Setup Java (use Java 17 for Gradle/Android compatibility)
         uses: actions/setup-java@v4.4.0
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '17'
+
+      - name: Ensure Gradle wrapper is executable
+        run: |
+          echo "Listing android dir:"
+          ls -la android || true
+          # Make gradlew executable if present
+          if [ -f android/gradlew ]; then
+            chmod +x android/gradlew || true
+            echo "gradlew permissions after chmod:"
+            ls -la android/gradlew || true
+          fi
 
       - name: Resolve Android Kotlin Duplicate Classes
         run: |
-          cat << 'EOF' >> android/build.gradle
+          # Append exclusion only if file exists (safe append)
+          mkdir -p android
+          if [ -f android/build.gradle ]; then
+            cat << 'EOF' >> android/build.gradle
           allprojects {
               configurations.configureEach { configuration -> 
                   configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
@@ -98,6 +111,9 @@ jobs:
               }
           }
           EOF
+          else
+            echo "android/build.gradle not found — skipping append (it may be in a different module file)."
+          fi
 
       - name: Decode Android Keystore
         run: |
@@ -112,7 +128,17 @@ jobs:
           ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease --no-daemon --console=plain
+          echo "Current dir: $(pwd)"
+          echo "gradlew exists? $( [ -f ./gradlew ] && echo yes || echo no )"
+          # Prefer the Gradle wrapper (gradlew). If not present, fail early and show contents.
+          if [ -f ./gradlew ]; then
+            chmod +x ./gradlew || true
+            ./gradlew assembleRelease --no-daemon --console=plain
+          else
+            echo "❌ gradlew wrapper not found in android/ — listing files:"
+            ls -la || true
+            exit 1
+          fi
 
       - name: Locate and Rename Output Binary
         run: |
