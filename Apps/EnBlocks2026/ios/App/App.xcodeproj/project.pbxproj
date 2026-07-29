@@ -358,7 +358,7 @@ DEVELOPMENT_TEAM = XHNXQ72KYZ;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bekeirataapps.magicblitzblitz2026;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bekeiratapps.magicblitzblitz2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 PROVISIONING_PROFILE_SPECIFIER = MagicBlockBlitz_AppStore;
 
@@ -381,7 +381,7 @@ PROVISIONING_PROFILE_SPECIFIER = MagicBlockBlitz_AppStore;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bekeirataapps.magicblitzblitz2026;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bekeiratapps.magicblitzblitz2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 PROVISIONING_PROFILE_SPECIFIER = MagicBlockBlitz_AppStore;
 
