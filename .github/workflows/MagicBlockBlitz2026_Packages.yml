@@ -220,17 +220,16 @@ jobs:
           cd ios/App
           echo "Team: $APPLE_TEAM_ID  Profile UUID: $PROFILE_UUID  Bundle: $BUNDLE_ID"
           # Pass PRODUCT_BUNDLE_IDENTIFIER to override project settings for archive
-          xcodebuild archive \
-            -workspace App.xcworkspace \
-            -scheme App \
-            -configuration Release \
-            -archivePath $RUNNER_TEMP/App.xcarchive \
-            -derivedDataPath $RUNNER_TEMP/DerivedData \
-            CODE_SIGN_STYLE="Manual" \
-            DEVELOPMENT_TEAM="${APPLE_TEAM_ID}" \
-            PROVISIONING_PROFILE_SPECIFIER="${PROFILE_UUID}" \
-            PRODUCT_BUNDLE_IDENTIFIER="${BUNDLE_ID}" \
-            -quiet
+           xcodebuild archive \
+              -workspace App.xcworkspace \
+              -scheme App \
+              -configuration Release \
+              -archivePath $RUNNER_TEMP/App.xcarchive \
+              -derivedDataPath $RUNNER_TEMP/DerivedData \
+              CODE_SIGN_STYLE="Manual" \
+              DEVELOPMENT_TEAM="${APPLE_TEAM_ID}" \
+              PROVISIONING_PROFILE_SPECIFIER="${PROFILE_UUID}" \
+              -quiet
 
       - name: Export IPA Package with dynamic bundle id mapping
         run: |
