@@ -45,7 +45,7 @@ jobs:
         run: |
           cat << 'EOF' > capacitor.config.json
           {
-            "appId": "com.bekeiratapps.magicblitzblitz2026",
+            "appId": "com.bekeiratapps.magicblockblitz2026",
             "appName": "Magic Block Blitz 2026",
             "webDir": "dist"
           }
@@ -146,7 +146,7 @@ jobs:
         run: |
           cat << 'EOF' > capacitor.config.json
           {
-            "appId": "com.bekeiratapps.magicblitzblitz2026",
+            "appId": "com.bekeiratapps.magicblockblitz2026",
             "appName": "Magic Block Blitz 2026",
             "webDir": "dist"
           }
@@ -189,8 +189,8 @@ jobs:
           TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" $PLIST_PATH)
           echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
           APP_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" $PLIST_PATH)
-          echo "PROFILE_NAME=$APP_NAME" >> $GITHUB_ENV
-          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" $PLIST_PATH | sed 's/.*\.//')
+          echo "PROFILE_NAME=$APP_NAME" >> $GITHUB_ENV 
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" $PLIST_PATH | sed 's/^[^.]*\\.//')
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/$PROFILE_UUID.mobileprovision
