@@ -339,11 +339,38 @@ jobs:
         run: |
           API_KEYS_DIR=~/.appstoreconnect/private_keys
           mkdir -p "$API_KEYS_DIR"
-          echo "$KEY_CONTENT" > "$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
-          chmod 600 "$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
+          KEY_FILE="$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
           
+          if [ -z "$KEY_CONTENT" ]; then
+            echo "❌ Error: APP_STORE_CONNECT_KEY_CONTENT secret is missing or empty."
+            exit 1
+          fi
+
+          # Smart decode: Handles raw PEM text, Base64 strings, or multi-line GitHub secrets
+          CLEAN_KEY=$(echo "$KEY_CONTENT" | tr -d '\r')
+          if echo "$CLEAN_KEY" | grep -q "BEGIN PRIVATE KEY"; then
+            echo "$CLEAN_KEY" > "$KEY_FILE"
+          else
+            echo "$CLEAN_KEY" | base64 --decode > "$KEY_FILE" 2>/dev/null || echo "$CLEAN_KEY" > "$KEY_FILE"
+          fi
+
+          # Ensure strict Unix line endings (\n) and permissions required by Apple altool
+          sed -i '' 's/\r$//' "$KEY_FILE" 2>/dev/null || sed -i 's/\r$//' "$KEY_FILE" 2>/dev/null || true
+          chmod 600 "$KEY_FILE"
+
+          # Verify header structure
+          if ! grep -q "BEGIN PRIVATE KEY" "$KEY_FILE"; then
+            echo "❌ Error: Key file does not contain a valid '-----BEGIN PRIVATE KEY-----' header."
+            echo "Please check GitHub Secret 'APP_STORE_CONNECT_KEY_CONTENT'."
+            exit 1
+          fi
+
           IPA_PATH=$(find ios/App/output -name "*.ipa" | head -n 1)
-          
+          if [ -z "$IPA_PATH" ]; then
+            echo "❌ Error: No IPA package found to upload."
+            exit 1
+          fi
+
           echo "Uploading $IPA_PATH to App Store Connect..."
           echo "Build notes: $BUILD_NOTES"
           xcrun altool --upload-app \
