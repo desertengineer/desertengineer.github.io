@@ -111,17 +111,20 @@
             </div>
 
             <div class="game-card word">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80"
-                        alt="Shadow Chronicles Cover" />
-                </div>
-                <div class="card-content">
-                    <span class="card-tag">Word</span>
-                    <h3>Shadow Chronicles</h3>
-                    <p>An open-world pixel art RPG featuring deep tactical combat, rich lore, and meaningful choices.
-                    </p>
-                    <a href="YOUR_GAME_PAGE_URL_3" class="card-btn">View Game</a>
-                </div>
+                <div id="gamemonetize-video"></div>
+                <script type="text/javascript">
+                    window.VIDEO_OPTIONS = {
+                        gameid: "4kci7og3klgj0ivy2wz3gdvd9dth5e7n",
+                        width: "100%",
+                        height: "480px",
+                        color: "#3f007e",
+                        getAds: "false"
+                    };
+                    (function (a, b, c) {
+                        var d = a.getElementsByTagName(b)[0];
+                        a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
+                    })(document, "script", "gamemonetize-video-api"); 
+                </script>
             </div>
 
             <div class="game-card trivia">
@@ -153,7 +156,7 @@
             <!-- Centered Social Media Links Bar -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
                 <!-- Twitter / X -->
-                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter"> 
+                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
                     <svg xmlns="http://w3.org" width="20" height="20" viewBox="0 0 512 512" fill="currentColor"
                         style="display: block;">
                         <path
