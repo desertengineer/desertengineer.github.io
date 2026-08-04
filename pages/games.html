@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="clckd" content="82949d03b9ca856ead92f28efc35f6d6" />
-    <!-- Supply-Chain Referrer Transmission for Ad Network Attribution -->
+    
+    <!-- Programmatic Ad Network Referrer Integrity -->
     <meta name="referrer" content="origin-when-cross-origin" />
-    <title>Bekeirat Software - Games Collection</title>
+    
+    <title>Bekeirat Software - Arcade & Games Portal</title>
 
-    <!-- Google & Custom Fonts -->
+    <!-- Typography & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
     <link href="../css/google-fonts.css" rel="stylesheet" />
-    
-    <!-- Vector Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/all.min.css" />
 
-    <!-- Google Tag Manager (gtag.js) -->
+    <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -26,16 +26,14 @@
         gtag('config', 'G-XCGXELT421');
     </script>
 
-    <!-- Tailwind CSS Engine -->
+    <!-- UI Engine Stylesheets -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
-
-    <!-- Site Master Stylesheets -->
     <link rel="stylesheet" href="../css/index.css" />
     <link rel="stylesheet" href="./games.css" />
     <link rel="icon" type="image/png" href="../assets/favicon.png">
 
-    <!-- Wortise Ad SDK -->
+    <!-- Wortise Web Monetization SDK -->
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
     </script>
@@ -45,24 +43,22 @@
 
     <!-- Top Navigation Bar -->
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
-        <!-- Linked Logo -->
-        <a href="../index.html"
-            class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+        <!-- Brand Logo -->
+        <a href="../index.html" class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
             <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
 
-        <!-- Hamburger Icon for Mobile -->
-        <button id="hamburger-btn"
-            class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2">
+        <!-- Mobile Navigation Toggle -->
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2" aria-label="Toggle Menu">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
 
-        <!-- Desktop Navigation Links -->
+        <!-- Navigation Links -->
         <div class="hidden md:flex space-x-2 items-center">
             <a href="../index.html" class="nav-btn">Home</a>
             <a href="./about.html" class="nav-btn">About Us</a>
@@ -70,7 +66,7 @@
             <a href="./contact us.html" class="nav-btn">Contacts</a>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu-container hidden md:hidden w-full mt-4 pb-2 shadow-inner">
             <nav class="flex flex-col space-y-1">
                 <a href="../index.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Home</a>
@@ -81,51 +77,27 @@
         </div>
     </nav>
 
-    <!-- Main Portal Layout Hook -->
+    <!-- Main Layout Container -->
     <div class="flex flex-col lg:flex-row gap-6 max-w-[1600px] w-full mx-auto px-4 py-6 flex-1">
 
         <!-- Sidebar Category Selector -->
         <aside class="w-full lg:w-64 shrink-0 space-y-2 bg-[#12141f] p-4 rounded-xl border border-gray-800 self-start">
             <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 px-2">Categories</h2>
             <nav id="category-menu" class="space-y-1">
-                <button onclick="switchCategory('all', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brandNeon bg-brandNeon/10 border border-brandNeon/30 transition-all">
-                    All Games
-                </button>
-                <button onclick="switchCategory('puzzle', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Puzzle
-                </button>
-                <button onclick="switchCategory('action', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Action
-                </button>
-                <button onclick="switchCategory('arcade', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Arcade
-                </button>
-                <button onclick="switchCategory('racing', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Racing
-                </button>
-                <button onclick="switchCategory('shooting', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Shooting
-                </button>
-                <button onclick="switchCategory('words', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Words
-                </button>
-                <button onclick="switchCategory('trivia', this)"
-                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                    Trivia
-                </button>
+                <button onclick="switchCategory('all', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 transition-all">All Games</button>
+                <button onclick="switchCategory('puzzle', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Puzzle</button>
+                <button onclick="switchCategory('action', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Action</button>
+                <button onclick="switchCategory('arcade', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Arcade</button>
+                <button onclick="switchCategory('racing', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Racing</button>
+                <button onclick="switchCategory('shooting', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Shooting</button>
+                <button onclick="switchCategory('words', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Words</button>
+                <button onclick="switchCategory('trivia', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Trivia</button>
             </nav>
         </aside>
 
-        <!-- Main Content Area -->
+        <!-- Catalog Area -->
         <main class="flex-1 min-w-0">
-            <!-- Search & Metric Control Header -->
+            <!-- Search Bar & Metrics -->
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-xl border border-gray-800">
                 <div class="relative w-full sm:w-80">
                     <input type="text" id="game-search-input" oninput="handleSearch(this.value)"
@@ -136,105 +108,76 @@
                     </svg>
                 </div>
 
-                <!-- Total Catalog Metric Badge -->
                 <div id="catalog-status" class="text-xs text-gray-400 font-mono">
-                    Showing <span id="page-start-idx" class="text-blue-400 font-bold">0</span> - <span
-                        id="page-end-idx" class="text-blue-400 font-bold">0</span> of <span id="total-games-count"
-                        class="text-white font-bold">0</span> Games
+                    Showing <span id="page-start-idx" class="text-blue-400 font-bold">0</span> - <span id="page-end-idx" class="text-blue-400 font-bold">0</span> of <span id="total-games-count" class="text-white font-bold">0</span> Games
                 </div>
             </div>
 
-            <!-- Dynamic Subcategory Tags Bar -->
-            <div id="tags-filter-bar" class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-thin">
-                <!-- Dynamically populated tags based on current dataset -->
-            </div>
+            <!-- Dynamic Sub-Tags Bar -->
+            <div id="tags-filter-bar" class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-thin"></div>
 
             <!-- Main Games Grid -->
-            <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-                <!-- Cards rendered dynamically -->
-            </div>
+            <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
 
-            <!-- Dynamic Pagination Controls -->
-            <div id="pagination-controls" class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800">
-                <!-- Numerical pagination links rendered dynamically -->
-            </div>
+            <!-- Pagination Bar -->
+            <div id="pagination-controls" class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800"></div>
         </main>
     </div>
 
-    <!-- Master Site Footer -->
+    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800 mt-auto">
         <div class="max-w-4xl mx-auto flex flex-col items-center">
-
-            <!-- Privacy Policy -->
             <div class="mb-8">
                 <a href="../privacy/" class="hover:text-white transition-colors underline text-sm">Privacy Policy</a>
             </div>
 
-            <!-- Centered Social Media Links Bar -->
+            <!-- Social Media Bar -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
-                <!-- Twitter / X -->
                 <a href="https://x.com/MAWLAY20" class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor" style="display: block;">
                         <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <!-- Facebook -->
                 <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook text-gray-400 hover:text-blue-500 transition-colors" aria-label="Facebook" target="_blank">
                     <i class="fa-brands fa-facebook text-xl"></i>
                 </a>
-                <!-- YouTube -->
                 <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube text-gray-400 hover:text-red-500 transition-colors" aria-label="YouTube">
                     <i class="fa-brands fa-youtube text-xl"></i>
                 </a>
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram text-gray-400 hover:text-pink-500 transition-colors" aria-label="Instagram">
                     <i class="fa-brands fa-instagram text-xl"></i>
                 </a>
-                <!-- TikTok -->
                 <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok text-gray-400 hover:text-white transition-colors" aria-label="TikTok">
                     <i class="fa-brands fa-tiktok text-xl"></i>
                 </a>
-                <!-- Blogger -->
                 <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger text-gray-400 hover:text-orange-500 transition-colors" aria-label="Blogger">
                     <i class="fa-brands fa-blogger text-xl"></i>
                 </a>
             </div>
 
-            <!-- Copyright Accreditations -->
             <div>
-                <p class="text-sm">
-                    &copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.
-                </p>
-                <p class="text-xs mt-2 text-gray-500">
-                    Designed and built for cross-platform games excellence.
-                </p>
+                <p class="text-sm">&copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.</p>
+                <p class="text-xs mt-2 text-gray-500">Cross-Platform Games & Apps Architecture.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back To Top Button -->
-    <a id="back-top" href="#" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-full shadow-lg transition-all text-xs flex items-center justify-center font-bold z-30">
-        ⬆️ Top
-    </a>
-
-    <!-- Engine Script -->
+    <!-- Execution Engine Script -->
     <script>
         const CONFIG = {
-            // Sequential fallback resolution paths to prevent 404 errors across subdirectories
-            dataDirs: ['../data/', '/data/', './data/'], 
+            // Evaluates path relative to /pages/ location first
+            dataPaths: ['../data/', './data/', '/data/'],
             itemsPerPage: 60,
             defaultCategory: 'all'
         };
 
-        /* State Management */
-        let dataCache = {};          
-        let currentDataset = [];     
+        let dataCache = {};
+        let currentDataset = [];
         let activeCategory = 'all';
         let activeSubCategory = 'all';
         let searchQuery = '';
         let currentPage = 1;
 
-        // Dynamic Year Initialization & Mobile Nav Binding
         document.addEventListener('DOMContentLoaded', () => {
             const yearSpan = document.getElementById('current-year');
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
@@ -250,15 +193,11 @@
             switchCategory(CONFIG.defaultCategory);
         });
 
-        /**
-         * Robust Multi-Path Ingestion Engine
-         */
         async function switchCategory(category, element = null) {
             activeCategory = category.toLowerCase().trim();
             activeSubCategory = 'all';
             currentPage = 1;
 
-            // Update active sidebar tab states
             if (element) {
                 document.querySelectorAll('.cat-btn').forEach(btn => {
                     btn.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all';
@@ -266,7 +205,6 @@
                 element.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 transition-all';
             }
 
-            // Return cached dataset if already fetched
             if (dataCache[activeCategory]) {
                 currentDataset = dataCache[activeCategory];
                 buildSubCategoryTags();
@@ -277,32 +215,30 @@
             showLoadingState();
 
             let rawData = null;
-            let successPath = '';
+            let loadedPath = '';
 
-            // Probe all path variations sequentially to resolve subdirectory routing
-            for (const basePath of CONFIG.dataDirs) {
+            for (const basePath of CONFIG.dataPaths) {
                 const targetFile = `${basePath}${activeCategory}.json`;
                 try {
                     const response = await fetch(targetFile);
                     if (response.ok) {
                         rawData = await response.json();
-                        successPath = targetFile;
-                        break; // Successfully found asset path
+                        loadedPath = targetFile;
+                        break;
                     }
                 } catch (e) {
-                    // Continue probing remaining paths
+                    // Try next path candidate
                 }
             }
 
             if (rawData && Array.isArray(rawData)) {
-                // Normalize feed fields across GameMonetize, GameDistribution & custom feeds
                 dataCache[activeCategory] = rawData.map((item, idx) => ({
                     id: item.id || `game-${idx}`,
                     title: item.title ? item.title.trim() : "Untitled Game",
                     url: item.url || item.gameUrl || '#',
                     category: item.category || activeCategory,
-                    tags: Array.isArray(item.tags) 
-                        ? item.tags.map(t => t.toLowerCase().trim()) 
+                    tags: Array.isArray(item.tags)
+                        ? item.tags.map(t => t.toLowerCase().trim())
                         : (item.tags ? item.tags.split(',').map(t => t.trim().toLowerCase()) : []),
                     thumb: item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/60a5fa?text=Bekeirat+Game',
                     provider: item.provider || 'GameMonetize',
@@ -314,14 +250,11 @@
                 buildSubCategoryTags();
                 renderGrid();
             } else {
-                console.warn(`[!] Data Pipeline Error: Could not load JSON for category "${activeCategory}" across probed paths.`);
-                renderEmptyState(`Unable to load game catalog for "${activeCategory}". Verify that <code>/data/${activeCategory}.json</code> exists on your server.`);
+                console.error(`[!] Data Pipeline Failure: Unable to fetch /data/${activeCategory}.json.`);
+                renderEmptyState(`Unable to load game catalog for "${activeCategory}". Verify that <code>/data/${activeCategory}.json</code> exists on your server and that you are serving via HTTP (Live Server).`);
             }
         }
 
-        /**
-         * Dynamic Subcategory Tags Generator
-         */
         function buildSubCategoryTags() {
             const tagsContainer = document.getElementById('tags-filter-bar');
             tagsContainer.innerHTML = '';
@@ -338,12 +271,10 @@
             const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 15);
             if (sortedTags.length === 0) return;
 
-            // Master "All Sub-types" Pill
             const allBtn = document.createElement('button');
-            allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${activeSubCategory === 'all'
-                ? 'bg-blue-500 text-white font-bold'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`;
+            allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                activeSubCategory === 'all' ? 'bg-blue-500 text-white font-bold' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+            }`;
             allBtn.textContent = 'All Sub-types';
             allBtn.onclick = () => filterSubCategory('all', allBtn);
             tagsContainer.appendChild(allBtn);
@@ -378,16 +309,13 @@
         function getFilteredData() {
             return currentDataset.filter(game => {
                 const matchesSubCat = (activeSubCategory === 'all' || (Array.isArray(game.tags) && game.tags.includes(activeSubCategory)));
-                const matchesSearch = searchQuery === '' || 
-                                      game.title.toLowerCase().includes(searchQuery) ||
-                                      (Array.isArray(game.tags) && game.tags.some(t => t.includes(searchQuery)));
+                const matchesSearch = searchQuery === '' ||
+                    game.title.toLowerCase().includes(searchQuery) ||
+                    (Array.isArray(game.tags) && game.tags.some(t => t.includes(searchQuery)));
                 return matchesSubCat && matchesSearch;
             });
         }
 
-        /**
-         * Dynamic Grid Rendering Engine
-         */
         function renderGrid() {
             const gridContainer = document.getElementById('main-games-grid');
             const filtered = getFilteredData();
@@ -400,7 +328,6 @@
             const endIndex = Math.min(startIndex + CONFIG.itemsPerPage, totalItems);
             const pageItems = filtered.slice(startIndex, endIndex);
 
-            // Update Metric Display Counters
             document.getElementById('total-games-count').textContent = totalItems.toLocaleString();
             document.getElementById('page-start-idx').textContent = totalItems > 0 ? (startIndex + 1).toLocaleString() : 0;
             document.getElementById('page-end-idx').textContent = endIndex.toLocaleString();
@@ -408,7 +335,7 @@
             gridContainer.innerHTML = '';
 
             if (pageItems.length === 0) {
-                renderEmptyState('No games found matching your search or tag criteria.');
+                renderEmptyState('No games found matching your current filter criteria.');
                 renderPagination(1);
                 return;
             }
@@ -417,8 +344,7 @@
             pageItems.forEach(game => {
                 const card = document.createElement('div');
                 card.className = 'game-card group cursor-pointer bg-[#12141f] rounded-xl overflow-hidden border border-gray-800/90 hover:border-blue-500 transition-all duration-300 flex flex-col shadow-md hover:shadow-blue-500/10';
-                
-                // DOM Datasets prevent double-quote JS syntax errors
+
                 card.dataset.url = game.url;
                 card.dataset.title = game.title;
                 card.dataset.width = game.width;
@@ -451,9 +377,6 @@
             renderPagination(totalPages);
         }
 
-        /**
-         * Dynamic Pagination Controller
-         */
         function renderPagination(totalPages) {
             const container = document.getElementById('pagination-controls');
             container.innerHTML = '';
@@ -546,20 +469,17 @@
             `;
         }
 
-        /**
-         * Hardened Monetization & Memory-Safe Game Modal Wrapper
-         */
+        /* Memory-Safe Game Launch Modal */
         window.closeGameModal = function () {
             const modal = document.getElementById('game-monetization-modal');
             if (modal) {
                 const iframe = modal.querySelector('iframe');
                 if (iframe) {
-                    // Instantly drop connection and kill WebGL audio/canvas memory
                     iframe.src = 'about:blank';
                     iframe.remove();
                 }
                 modal.remove();
-                document.body.style.overflow = 'auto'; 
+                document.body.style.overflow = 'auto';
             }
         };
 
