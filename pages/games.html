@@ -519,28 +519,54 @@
         }
 
         // Optimized for GameMonetize Platform Tracking
-        function openGameModal(gameUrl, title, width, height) {
-            // The gameUrl must be pulled directly from the GameMonetize JSON feed
-            // e.g., https://html5.gamemonetize.co/xxxxxxxxx/
+        /**
+ * Hardened Game Execution & Monetization Wrapper
+ * Enforces global scope and strict memory purging for Unity/WebGL assets.
+ */
+
+        // 1. Global binding ensures execution across Blogger and App Web-Views
+        window.closeGameModal = function () {
+            const modal = document.getElementById('game-monetization-modal');
+            if (modal) {
+                // Critical: Purge the iframe source before removal to kill background audio processes
+                const iframe = modal.querySelector('iframe');
+                if (iframe) {
+                    iframe.src = 'about:blank';
+                    iframe.remove();
+                }
+
+                modal.remove();
+                document.body.style.overflow = 'auto'; // Restore background scrolling
+            }
+        };
+
+        window.openGameModal = function (gameUrl, title, width, height) {
+            // Prevent duplicate modal stacking
+            if (document.getElementById('game-monetization-modal')) return;
 
             const modal = document.createElement('div');
             modal.id = 'game-monetization-modal';
-            modal.className = 'fixed inset-0 z-50 bg-black/95 flex items-center justify-center';
+            // Enforce maximum z-index to overwrite any aggressive AppCreator24/Blogger overlays
+            modal.className = 'fixed inset-0 z-[99999] bg-black/95 flex items-center justify-center';
 
-            // Dynamically inject the iframe. GameMonetize will verify the HTTP Referrer
-            // against your dashboard configuration and serve the pre-roll ad.
             modal.innerHTML = `
-        <div class="relative w-full h-full max-w-6xl max-h-[90vh] mx-auto flex flex-col">
-            <div class="flex justify-between items-center p-3 bg-[#12141f] border-b border-gray-800">
-                <h2 class="text-white font-bold text-lg">${title}</h2>
-                <button onclick="closeGameModal()" class="text-gray-400 hover:text-brandNeon font-bold text-xl px-4 py-1 border border-gray-700 rounded">&times; Close</button>
+        <div class="relative w-full h-full max-w-6xl max-h-[90vh] mx-auto flex flex-col shadow-2xl">
+            <!-- Header: Forced pointer-events to prevent the Unity canvas from stealing the click -->
+            <div class="flex justify-between items-center p-3 bg-[#12141f] border-b border-gray-800 relative z-10 pointer-events-auto">
+                <h2 class="text-white font-bold text-lg truncate pr-4">${title}</h2>
+                
+                <!-- Removed inline onclick string. Replaced with an ID for direct binding. -->
+                <button id="monetization-close-btn" class="text-gray-400 hover:text-red-500 hover:border-red-500 transition-colors font-bold text-xl px-4 py-1 border border-gray-700 rounded cursor-pointer flex-shrink-0">
+                    &times; Close
+                </button>
             </div>
-            <div class="flex-1 w-full h-full relative">
-                <!-- Ensure allow="autoplay" is present so GameMonetize video ads can run -->
+            
+            <div class="flex-1 w-full h-full relative bg-[#0a0b10]">
+                <!-- Extended sandbox permissions for standard syndication networks -->
                 <iframe src="${gameUrl}" 
                         class="w-full h-full border-none" 
-                        allow="autoplay; fullscreen; encrypted-media" 
-                        sandbox="allow-scripts allow-same-origin allow-popups">
+                        allow="autoplay; fullscreen; encrypted-media; focus-without-user-activation" 
+                        sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
                 </iframe>
             </div>
         </div>
@@ -548,7 +574,14 @@
 
             document.body.appendChild(modal);
             document.body.style.overflow = 'hidden';
-        }
+
+            // 2. Direct Event Listener Binding
+            // This bypasses the HTML string compilation and guarantees the click is routed to the function
+            const closeBtn = document.getElementById('monetization-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', window.closeGameModal);
+            }
+        };
     </script>
 </body>
 
