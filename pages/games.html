@@ -318,8 +318,8 @@
             // Add 'All Subcategories' pill
             const allBtn = document.createElement('button');
             allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${activeSubCategory === 'all'
-                    ? 'bg-brandNeon text-darkBg font-bold'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                ? 'bg-brandNeon text-darkBg font-bold'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                 }`;
             allBtn.textContent = 'All Sub-types';
             allBtn.onclick = () => filterSubCategory('all', allBtn);
@@ -518,10 +518,36 @@
     `;
         }
 
+        // Optimized for GameMonetize Platform Tracking
         function openGameModal(gameUrl, title, width, height) {
-            // Traffic Hand-off & Revenue Sharing Execution
-            // Pass iframe URL with allow="autoplay" for GameMonetize Video pre-rolls
-            window.open(gameUrl, '_blank');
+            // The gameUrl must be pulled directly from the GameMonetize JSON feed
+            // e.g., https://html5.gamemonetize.co/xxxxxxxxx/
+
+            const modal = document.createElement('div');
+            modal.id = 'game-monetization-modal';
+            modal.className = 'fixed inset-0 z-50 bg-black/95 flex items-center justify-center';
+
+            // Dynamically inject the iframe. GameMonetize will verify the HTTP Referrer
+            // against your dashboard configuration and serve the pre-roll ad.
+            modal.innerHTML = `
+        <div class="relative w-full h-full max-w-6xl max-h-[90vh] mx-auto flex flex-col">
+            <div class="flex justify-between items-center p-3 bg-[#12141f] border-b border-gray-800">
+                <h2 class="text-white font-bold text-lg">${title}</h2>
+                <button onclick="closeGameModal()" class="text-gray-400 hover:text-brandNeon font-bold text-xl px-4 py-1 border border-gray-700 rounded">&times; Close</button>
+            </div>
+            <div class="flex-1 w-full h-full relative">
+                <!-- Ensure allow="autoplay" is present so GameMonetize video ads can run -->
+                <iframe src="${gameUrl}" 
+                        class="w-full h-full border-none" 
+                        allow="autoplay; fullscreen; encrypted-media" 
+                        sandbox="allow-scripts allow-same-origin allow-popups">
+                </iframe>
+            </div>
+        </div>
+    `;
+
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
         }
     </script>
 </body>
