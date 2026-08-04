@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
     <link href="../css/google-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/all.min.css" /> 
+    <link rel="stylesheet" href="../css/all.min.css" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
     <script>
@@ -79,68 +79,81 @@
             </nav>
         </div>
     </nav>
-<!-- Main Portal Layout Hook -->
-<div class="flex flex-col lg:flex-row gap-6 max-w-[1600px] mx-auto px-4 py-6">
+    <!-- Main Portal Layout Hook -->
+    <div class="flex flex-col lg:flex-row gap-6 max-w-[1600px] mx-auto px-4 py-6">
 
-    <!-- Sidebar Category Selector -->
-    <aside class="w-full lg:w-64 shrink-0 space-y-2 bg-[#12141f] p-4 rounded-xl border border-gray-800">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 px-2">Categories</h2>
-        <nav id="category-menu" class="space-y-1">
-            <button onclick="switchCategory('all', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brandNeon bg-brandNeon/10 border border-brandNeon/30 transition-all">
-                All Games
-            </button>
-            <button onclick="switchCategory('puzzle', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                Puzzle
-            </button>
-            <button onclick="switchCategory('action', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                Action
-            </button>
-            <button onclick="switchCategory('arcade', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                Arcade
-            </button>
-            <button onclick="switchCategory('adventure', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                Adventure
-            </button>
-            <button onclick="switchCategory('trivia', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
-                Trivia
-            </button>
-        </nav>
-    </aside>
+        <!-- Sidebar Category Selector -->
+        <aside class="w-full lg:w-64 shrink-0 space-y-2 bg-[#12141f] p-4 rounded-xl border border-gray-800">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 px-2">Categories</h2>
+            <nav id="category-menu" class="space-y-1">
+                <button onclick="switchCategory('all', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brandNeon bg-brandNeon/10 border border-brandNeon/30 transition-all">
+                    All Games
+                </button>
+                <button onclick="switchCategory('puzzle', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
+                    Puzzle
+                </button>
+                <button onclick="switchCategory('action', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
+                    Action
+                </button>
+                <button onclick="switchCategory('arcade', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
+                    Arcade
+                </button>
+                <button onclick="switchCategory('adventure', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
+                    Adventure
+                </button>
+                <button onclick="switchCategory('trivia', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">
+                    Trivia
+                </button>
+            </nav>
+        </aside>
 
-    <!-- Main Content Grid Area -->
-    <main class="flex-1 min-w-0">
-        <!-- Search & Control Header -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-xl border border-gray-800">
-            <div class="relative w-full sm:w-80">
-                <input type="text" id="game-search-input" oninput="handleSearch(this.value)" placeholder="Search catalog..." 
-                       class="w-full bg-[#0a0b10] border border-gray-700 text-gray-200 text-sm rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:border-brandNeon">
-                <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
+        <!-- Main Content Grid Area -->
+        <main class="flex-1 min-w-0">
+            <!-- Search & Control Header -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-xl border border-gray-800">
+                <div class="relative w-full sm:w-80">
+                    <input type="text" id="game-search-input" oninput="handleSearch(this.value)"
+                        placeholder="Search catalog..."
+                        class="w-full bg-[#0a0b10] border border-gray-700 text-gray-200 text-sm rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:border-brandNeon">
+                    <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+
+                <!-- Total Catalog Badge -->
+                <div id="catalog-status" class="text-xs text-gray-400 font-mono">
+                    Showing <span id="page-start-idx" class="text-brandNeon font-bold">0</span> - <span
+                        id="page-end-idx" class="text-brandNeon font-bold">0</span> of <span id="total-games-count"
+                        class="text-white font-bold">0</span> Games
+                </div>
             </div>
 
-            <!-- Total Catalog Badge -->
-            <div id="catalog-status" class="text-xs text-gray-400 font-mono">
-                Showing <span id="page-start-idx" class="text-brandNeon font-bold">0</span> - <span id="page-end-idx" class="text-brandNeon font-bold">0</span> of <span id="total-games-count" class="text-white font-bold">0</span> Games
+            <!-- Dynamic Subcategory Tags Bar -->
+            <div id="tags-filter-bar" class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-thin">
+                <!-- Dynamically populated tags based on current dataset -->
             </div>
-        </div>
 
-        <!-- Dynamic Subcategory Tags Bar -->
-        <div id="tags-filter-bar" class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-thin">
-            <!-- Dynamically populated tags based on current dataset -->
-        </div>
+            <!-- Games Grid (5 Columns Desktop) -->
+            <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- Cards rendered dynamically -->
+            </div>
 
-        <!-- Games Grid (5 Columns Desktop) -->
-        <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-            <!-- Cards rendered dynamically -->
-        </div>
-
-        <!-- Pagination Bar -->
-        <div id="pagination-controls" class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800">
-            <!-- Numerical pagination links rendered dynamically -->
-        </div>
-    </main>
-</div>
+            <!-- Pagination Bar -->
+            <div id="pagination-controls"
+                class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800">
+                <!-- Numerical pagination links rendered dynamically -->
+            </div>
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
@@ -200,189 +213,189 @@
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
 
-<script>
-/**
- * Bekeirat Software - Scalable Game Engine Integrator
- */
-const CONFIG = {
-    dataDir: './data/',
-    itemsPerPage: 100, // Standard 20 rows x 5 columns
-    defaultCategory: 'all'
-};
+    <script>
+        /**
+         * Bekeirat Software - Scalable Game Engine Integrator
+         */
+        const CONFIG = {
+            // Change from './data/' to absolute root '/data/'
+            dataDir: '/data/',
+            itemsPerPage: 100,
+            defaultCategory: 'all'
+        };
 
-/* State Management */
-let dataCache = {};          // Stores parsed JSON per category
-let currentDataset = [];     // Active category raw dataset
-let activeCategory = 'all';
-let activeSubCategory = 'all';
-let searchQuery = '';
-let currentPage = 1;
+        /* State Management */
+        let dataCache = {};          // Stores parsed JSON per category
+        let currentDataset = [];     // Active category raw dataset
+        let activeCategory = 'all';
+        let activeSubCategory = 'all';
+        let searchQuery = '';
+        let currentPage = 1;
 
-document.addEventListener('DOMContentLoaded', () => {
-    switchCategory(CONFIG.defaultCategory);
-});
-
-/**
- * Async Ingestion of Local JSON Files
- */
-async function switchCategory(category, element = null) {
-    activeCategory = category.toLowerCase();
-    activeSubCategory = 'all';
-    currentPage = 1;
-
-    // Update active UI tab states
-    if (element) {
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-            btn.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all';
+        document.addEventListener('DOMContentLoaded', () => {
+            switchCategory(CONFIG.defaultCategory);
         });
-        element.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brandNeon bg-brandNeon/10 border border-brandNeon/30 transition-all';
-    }
 
-    // Check memory cache first
-    if (dataCache[activeCategory]) {
-        currentDataset = dataCache[activeCategory];
-        buildSubCategoryTags();
-        renderGrid();
-        return;
-    }
+        /**
+         * Async Ingestion of Local JSON Files
+         */
+        async function switchCategory(category, element = null) {
+            activeCategory = category.toLowerCase();
+            activeSubCategory = 'all';
+            currentPage = 1;
 
-    // Fetch local JSON payload from /data/{category}.json
-    const filePath = `${CONFIG.dataDir}${activeCategory}.json`;
-    showLoadingState();
+            // Update active UI tab states
+            if (element) {
+                document.querySelectorAll('.cat-btn').forEach(btn => {
+                    btn.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all';
+                });
+                element.className = 'cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brandNeon bg-brandNeon/10 border border-brandNeon/30 transition-all';
+            }
 
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) throw new Error(`HTTP Error ${response.status} - File not found: ${filePath}`);
-        
-        const rawData = await response.json();
-        
-        // Normalize GameMonetize data payload structure
-        dataCache[activeCategory] = rawData.map(item => ({
-            id: item.id,
-            title: item.title ? item.title.trim() : "Untitled Game",
-            url: item.url,
-            category: item.category || "General",
-            tags: item.tags ? item.tags.split(',').map(t => t.trim().toLowerCase()) : [],
-            thumb: item.thumb || 'https://placehold.co/512x384/151824/00ffcc?text=No+Image',
-            width: item.width || "1280",
-            height: item.height || "720"
-        }));
+            // Check memory cache first
+            if (dataCache[activeCategory]) {
+                currentDataset = dataCache[activeCategory];
+                buildSubCategoryTags();
+                renderGrid();
+                return;
+            }
 
-        currentDataset = dataCache[activeCategory];
-        buildSubCategoryTags();
-        renderGrid();
+            // Fetch local JSON payload from /data/{category}.json
+            const filePath = `${CONFIG.dataDir}${activeCategory}.json`;
+            showLoadingState();
 
-    } catch (error) {
-        console.error("Data Pipeline Error:", error);
-        renderEmptyState(`Unable to load feed data for category "${activeCategory}". Ensure <code>${filePath}</code> exists.`);
-    }
-}
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) throw new Error(`HTTP Error ${response.status} - File not found: ${filePath}`);
 
-/**
- * Dynamic Tag Extractor for Sub-Filtering Bar
- */
-function buildSubCategoryTags() {
-    const tagsContainer = document.getElementById('tags-filter-bar');
-    tagsContainer.innerHTML = '';
+                const rawData = await response.json();
 
-    const tagCounts = {};
-    currentDataset.forEach(game => {
-        game.tags.forEach(tag => {
-            if (tag) tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-        });
-    });
+                // Normalize GameMonetize data payload structure
+                dataCache[activeCategory] = rawData.map(item => ({
+                    id: item.id,
+                    title: item.title ? item.title.trim() : "Untitled Game",
+                    url: item.url,
+                    category: item.category || "General",
+                    tags: item.tags ? item.tags.split(',').map(t => t.trim().toLowerCase()) : [],
+                    thumb: item.thumb || 'https://placehold.co/512x384/151824/00ffcc?text=No+Image',
+                    width: item.width || "1280",
+                    height: item.height || "720"
+                }));
 
-    // Extract top 15 tags by frequency
-    const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 15);
+                currentDataset = dataCache[activeCategory];
+                buildSubCategoryTags();
+                renderGrid();
 
-    if (sortedTags.length === 0) return;
+            } catch (error) {
+                console.error("Data Pipeline Error:", error);
+                renderEmptyState(`Unable to load feed data for category "${activeCategory}". Ensure <code>${filePath}</code> exists.`);
+            }
+        }
 
-    // Add 'All Subcategories' pill
-    const allBtn = document.createElement('button');
-    allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
-        activeSubCategory === 'all' 
-            ? 'bg-brandNeon text-darkBg font-bold' 
-            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-    }`;
-    allBtn.textContent = 'All Sub-types';
-    allBtn.onclick = () => filterSubCategory('all', allBtn);
-    tagsContainer.appendChild(allBtn);
+        /**
+         * Dynamic Tag Extractor for Sub-Filtering Bar
+         */
+        function buildSubCategoryTags() {
+            const tagsContainer = document.getElementById('tags-filter-bar');
+            tagsContainer.innerHTML = '';
 
-    sortedTags.forEach(tag => {
-        const btn = document.createElement('button');
-        btn.className = 'px-3 py-1 rounded-full text-xs font-medium bg-gray-800/80 text-gray-300 hover:bg-gray-700 whitespace-nowrap transition-all capitalize';
-        btn.textContent = `${tag} (${tagCounts[tag]})`;
-        btn.onclick = () => filterSubCategory(tag, btn);
-        tagsContainer.appendChild(btn);
-    });
-}
+            const tagCounts = {};
+            currentDataset.forEach(game => {
+                game.tags.forEach(tag => {
+                    if (tag) tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                });
+            });
 
-function filterSubCategory(tag, element) {
-    activeSubCategory = tag;
-    currentPage = 1;
-    
-    // Toggle active classes on pill elements
-    Array.from(element.parentElement.children).forEach(child => {
-        child.className = 'px-3 py-1 rounded-full text-xs font-medium bg-gray-800/80 text-gray-300 hover:bg-gray-700 whitespace-nowrap transition-all capitalize';
-    });
-    element.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brandNeon text-darkBg whitespace-nowrap transition-all capitalize';
+            // Extract top 15 tags by frequency
+            const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 15);
 
-    renderGrid();
-}
+            if (sortedTags.length === 0) return;
 
-function handleSearch(query) {
-    searchQuery = query.toLowerCase().trim();
-    currentPage = 1;
-    renderGrid();
-}
+            // Add 'All Subcategories' pill
+            const allBtn = document.createElement('button');
+            allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${activeSubCategory === 'all'
+                    ? 'bg-brandNeon text-darkBg font-bold'
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                }`;
+            allBtn.textContent = 'All Sub-types';
+            allBtn.onclick = () => filterSubCategory('all', allBtn);
+            tagsContainer.appendChild(allBtn);
 
-/**
- * Filter Evaluation Pipeline
- */
-function getFilteredData() {
-    return currentDataset.filter(game => {
-        const matchesSubCat = (activeSubCategory === 'all' || game.tags.includes(activeSubCategory));
-        const matchesSearch = searchQuery === '' || game.title.toLowerCase().includes(searchQuery);
-        return matchesSubCat && matchesSearch;
-    });
-}
+            sortedTags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'px-3 py-1 rounded-full text-xs font-medium bg-gray-800/80 text-gray-300 hover:bg-gray-700 whitespace-nowrap transition-all capitalize';
+                btn.textContent = `${tag} (${tagCounts[tag]})`;
+                btn.onclick = () => filterSubCategory(tag, btn);
+                tagsContainer.appendChild(btn);
+            });
+        }
 
-/**
- * High-Density Grid Rendering Engine
- */
-function renderGrid() {
-    const gridContainer = document.getElementById('main-games-grid');
-    const filtered = getFilteredData();
-    const totalItems = filtered.length;
-    const totalPages = Math.ceil(totalItems / CONFIG.itemsPerPage) || 1;
+        function filterSubCategory(tag, element) {
+            activeSubCategory = tag;
+            currentPage = 1;
 
-    if (currentPage > totalPages) currentPage = totalPages;
+            // Toggle active classes on pill elements
+            Array.from(element.parentElement.children).forEach(child => {
+                child.className = 'px-3 py-1 rounded-full text-xs font-medium bg-gray-800/80 text-gray-300 hover:bg-gray-700 whitespace-nowrap transition-all capitalize';
+            });
+            element.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brandNeon text-darkBg whitespace-nowrap transition-all capitalize';
 
-    const startIndex = (currentPage - 1) * CONFIG.itemsPerPage;
-    const endIndex = Math.min(startIndex + CONFIG.itemsPerPage, totalItems);
-    const pageItems = filtered.slice(startIndex, endIndex);
+            renderGrid();
+        }
 
-    // Update Status Metrics
-    document.getElementById('total-games-count').textContent = totalItems.toLocaleString();
-    document.getElementById('page-start-idx').textContent = totalItems > 0 ? (startIndex + 1).toLocaleString() : 0;
-    document.getElementById('page-end-idx').textContent = endIndex.toLocaleString();
+        function handleSearch(query) {
+            searchQuery = query.toLowerCase().trim();
+            currentPage = 1;
+            renderGrid();
+        }
 
-    gridContainer.innerHTML = '';
+        /**
+         * Filter Evaluation Pipeline
+         */
+        function getFilteredData() {
+            return currentDataset.filter(game => {
+                const matchesSubCat = (activeSubCategory === 'all' || game.tags.includes(activeSubCategory));
+                const matchesSearch = searchQuery === '' || game.title.toLowerCase().includes(searchQuery);
+                return matchesSubCat && matchesSearch;
+            });
+        }
 
-    if (pageItems.length === 0) {
-        renderEmptyState('No games found matching your current filter criteria.');
-        renderPagination(1);
-        return;
-    }
+        /**
+         * High-Density Grid Rendering Engine
+         */
+        function renderGrid() {
+            const gridContainer = document.getElementById('main-games-grid');
+            const filtered = getFilteredData();
+            const totalItems = filtered.length;
+            const totalPages = Math.ceil(totalItems / CONFIG.itemsPerPage) || 1;
 
-    // Render Cards
-    const fragment = document.createDocumentFragment();
-    pageItems.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'game-card group cursor-pointer bg-[#151824] rounded-xl overflow-hidden border border-gray-800/90 hover:border-brandNeon transition-all duration-300 neon-glow flex flex-col';
-        card.onclick = () => openGameModal(game.url, game.title, game.width, game.height);
+            if (currentPage > totalPages) currentPage = totalPages;
 
-        card.innerHTML = `
+            const startIndex = (currentPage - 1) * CONFIG.itemsPerPage;
+            const endIndex = Math.min(startIndex + CONFIG.itemsPerPage, totalItems);
+            const pageItems = filtered.slice(startIndex, endIndex);
+
+            // Update Status Metrics
+            document.getElementById('total-games-count').textContent = totalItems.toLocaleString();
+            document.getElementById('page-start-idx').textContent = totalItems > 0 ? (startIndex + 1).toLocaleString() : 0;
+            document.getElementById('page-end-idx').textContent = endIndex.toLocaleString();
+
+            gridContainer.innerHTML = '';
+
+            if (pageItems.length === 0) {
+                renderEmptyState('No games found matching your current filter criteria.');
+                renderPagination(1);
+                return;
+            }
+
+            // Render Cards
+            const fragment = document.createDocumentFragment();
+            pageItems.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card group cursor-pointer bg-[#151824] rounded-xl overflow-hidden border border-gray-800/90 hover:border-brandNeon transition-all duration-300 neon-glow flex flex-col';
+                card.onclick = () => openGameModal(game.url, game.title, game.width, game.height);
+
+                card.innerHTML = `
             <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0f111a]">
                 <img src="${game.thumb}" 
                      alt="${game.title}" 
@@ -396,102 +409,102 @@ function renderGrid() {
                 </h3>
             </div>
         `;
-        fragment.appendChild(card);
-    });
+                fragment.appendChild(card);
+            });
 
-    gridContainer.appendChild(fragment);
-    renderPagination(totalPages);
-}
-
-/**
- * Scalable Pagination System for Large Catalogs
- */
-function renderPagination(totalPages) {
-    const container = document.getElementById('pagination-controls');
-    container.innerHTML = '';
-
-    if (totalPages <= 1) return;
-
-    const createBtn = (label, page, isActive = false, isDisabled = false) => {
-        const btn = document.createElement('button');
-        btn.innerHTML = label;
-        btn.disabled = isDisabled;
-        
-        let baseClass = "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ";
-        if (isDisabled) {
-            baseClass += "bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800";
-        } else if (isActive) {
-            baseClass += "bg-brandNeon text-darkBg font-bold shadow-md shadow-brandNeon/20";
-        } else {
-            baseClass += "bg-[#151824] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800";
+            gridContainer.appendChild(fragment);
+            renderPagination(totalPages);
         }
-        
-        btn.className = baseClass;
-        btn.onclick = () => {
-            if (!isDisabled && page !== currentPage) {
-                currentPage = page;
-                renderGrid();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        /**
+         * Scalable Pagination System for Large Catalogs
+         */
+        function renderPagination(totalPages) {
+            const container = document.getElementById('pagination-controls');
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            const createBtn = (label, page, isActive = false, isDisabled = false) => {
+                const btn = document.createElement('button');
+                btn.innerHTML = label;
+                btn.disabled = isDisabled;
+
+                let baseClass = "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ";
+                if (isDisabled) {
+                    baseClass += "bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800";
+                } else if (isActive) {
+                    baseClass += "bg-brandNeon text-darkBg font-bold shadow-md shadow-brandNeon/20";
+                } else {
+                    baseClass += "bg-[#151824] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800";
+                }
+
+                btn.className = baseClass;
+                btn.onclick = () => {
+                    if (!isDisabled && page !== currentPage) {
+                        currentPage = page;
+                        renderGrid();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                };
+                return btn;
+            };
+
+            // First & Previous Buttons
+            container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
+            container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
+
+            // Dynamic Sliding Page Window Algorithm
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
             }
-        };
-        return btn;
-    };
 
-    // First & Previous Buttons
-    container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
-    container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
+            if (startPage > 1) {
+                container.appendChild(createBtn('1', 1));
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = "px-2 py-1 text-xs text-gray-500 font-mono";
+                    ellipsis.textContent = '...';
+                    container.appendChild(ellipsis);
+                }
+            }
 
-    // Dynamic Sliding Page Window Algorithm
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            for (let p = startPage; p <= endPage; p++) {
+                container.appendChild(createBtn(p.toString(), p, p === currentPage));
+            }
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = "px-2 py-1 text-xs text-gray-500 font-mono";
+                    ellipsis.textContent = '...';
+                    container.appendChild(ellipsis);
+                }
+                container.appendChild(createBtn(totalPages.toString(), totalPages));
+            }
 
-    if (startPage > 1) {
-        container.appendChild(createBtn('1', 1));
-        if (startPage > 2) {
-            const ellipsis = document.createElement('span');
-            ellipsis.className = "px-2 py-1 text-xs text-gray-500 font-mono";
-            ellipsis.textContent = '...';
-            container.appendChild(ellipsis);
+            // Next & Last Buttons
+            container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
+            container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
         }
-    }
 
-    for (let p = startPage; p <= endPage; p++) {
-        container.appendChild(createBtn(p.toString(), p, p === currentPage));
-    }
-
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            const ellipsis = document.createElement('span');
-            ellipsis.className = "px-2 py-1 text-xs text-gray-500 font-mono";
-            ellipsis.textContent = '...';
-            container.appendChild(ellipsis);
-        }
-        container.appendChild(createBtn(totalPages.toString(), totalPages));
-    }
-
-    // Next & Last Buttons
-    container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
-    container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
-}
-
-function showLoadingState() {
-    const grid = document.getElementById('main-games-grid');
-    grid.innerHTML = `
+        function showLoadingState() {
+            const grid = document.getElementById('main-games-grid');
+            grid.innerHTML = `
         <div class="col-span-full py-16 text-center text-gray-400">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brandNeon mb-3"></div>
             <p class="text-sm font-semibold">Loading Catalog Data...</p>
         </div>
     `;
-}
+        }
 
-function renderEmptyState(message) {
-    const grid = document.getElementById('main-games-grid');
-    grid.innerHTML = `
+        function renderEmptyState(message) {
+            const grid = document.getElementById('main-games-grid');
+            grid.innerHTML = `
         <div class="col-span-full py-12 text-center text-gray-400 bg-[#12141f] rounded-xl border border-gray-800/80">
             <svg class="w-12 h-12 mx-auto text-gray-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -499,14 +512,14 @@ function renderEmptyState(message) {
             <p class="text-sm font-medium text-gray-300">${message}</p>
         </div>
     `;
-}
+        }
 
-function openGameModal(gameUrl, title, width, height) {
-    // Traffic Hand-off & Revenue Sharing Execution
-    // Pass iframe URL with allow="autoplay" for GameMonetize Video pre-rolls
-    window.open(gameUrl, '_blank');
-}
-</script>
+        function openGameModal(gameUrl, title, width, height) {
+            // Traffic Hand-off & Revenue Sharing Execution
+            // Pass iframe URL with allow="autoplay" for GameMonetize Video pre-rolls
+            window.open(gameUrl, '_blank');
+        }
+    </script>
 </body>
 
 </html>
