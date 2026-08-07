@@ -33,8 +33,13 @@
     <link rel="icon" type="image/png" href="../assets/favicon.png">
 
     <!-- Wortise Web Monetization SDK -->
-    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
-        wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof wortise !== 'undefined') {
+                wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
+            }
+        });
     </script>
 </head>
 

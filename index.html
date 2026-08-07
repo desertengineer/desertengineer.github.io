@@ -20,9 +20,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./css/all.min.css">
     <link rel="stylesheet" href="./css/index.css" />
-    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
-        wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b')
-    </script>   
+    <!-- Wortise Web Monetization SDK -->
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof wortise !== 'undefined') {
+                wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -108,7 +114,7 @@
                 </div>
             </div>
         </section>
-        <div id='wortise:BANNER_ID' style='min-width: WIDTHpx; min-height: HEIGHTpx;'></div>
+        <div id="wortise:BANNER_ID" style="min-width: 728px; min-height: 90px;" class="mx-auto my-4 flex justify-center"></div> 
     </main>
 
     <!-- Footer -->
@@ -137,7 +143,7 @@
                     <i class="fa-brands fa-facebook"></i>
                 </a>
                 <!-- YouTube -->
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtybe"
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube"
                     aria-label="YouTube">
                     <i class="fa-brands fa-youtube"></i>
                 </a>
@@ -170,8 +176,8 @@
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
     <script src="./js/index.js"> </script>
-    <script type="text/javascript"> 
-    </script>  
+    <script type="text/javascript">
+    </script>
 </body>
 
 </html>
