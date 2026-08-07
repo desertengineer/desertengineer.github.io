@@ -528,7 +528,7 @@
             }
         };
         /* MEMORY-SAFE & MONETIZATION-ENABLED GAME MODAL */
-        window.openGameModal = function (gameUrl, title, width, height, provider = 'GameMonetize') {
+        window.openGameModal = function (gameUrl, title, width, height, provider = '') {
             if (document.getElementById('game-monetization-modal')) return;
 
             const modal = document.createElement('div');
