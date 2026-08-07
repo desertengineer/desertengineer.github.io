@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="clckd" content="82949d03b9ca856ead92f28efc35f6d6" />
-    
+
     <!-- Programmatic Ad Network Referrer Integrity -->
-    <meta name="referrer" content="origin-when-cross-origin" />
-    
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
     <title>Bekeirat Software - Arcade & Games Portal</title>
 
     <!-- Typography & Icons -->
@@ -42,9 +41,11 @@
 <body class="bg-[#0a0b10] text-gray-100 min-h-screen flex flex-col font-sans antialiased">
 
     <!-- Top Navigation Bar -->
-    <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
+    <nav
+        class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
         <!-- Brand Logo -->
-        <a href="../index.html" class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+        <a href="../index.html"
+            class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
             <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
@@ -52,8 +53,11 @@
         </a>
 
         <!-- Mobile Navigation Toggle -->
-        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2" aria-label="Toggle Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button id="hamburger-btn"
+            class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2"
+            aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
@@ -71,8 +75,10 @@
             <nav class="flex flex-col space-y-1">
                 <a href="../index.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Home</a>
                 <a href="./about.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">About Us</a>
-                <a href="./games.html" class="mobile-btn px-4 py-2 text-blue-400 font-bold bg-gray-800/50 rounded">Games</a>
-                <a href="./contact us.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Contacts</a>
+                <a href="./games.html"
+                    class="mobile-btn px-4 py-2 text-blue-400 font-bold bg-gray-800/50 rounded">Games</a>
+                <a href="./contact us.html"
+                    class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Contacts</a>
             </nav>
         </div>
     </nav>
@@ -84,37 +90,57 @@
         <aside class="w-full lg:w-64 shrink-0 space-y-2 bg-[#12141f] p-4 rounded-xl border border-gray-800 self-start">
             <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 px-2">Categories</h2>
             <nav id="category-menu" class="space-y-1">
-                <button onclick="switchCategory('all', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 transition-all">All Games</button>
-                <button onclick="switchCategory('puzzle', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Puzzle</button>
-                <button onclick="switchCategory('action', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Action</button>
-                <button onclick="switchCategory('bejeweled', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Bejeweled</button>
-                <button onclick="switchCategory('arcade', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Arcade</button>
-                <button onclick="switchCategory('racing', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Racing</button>
-                <button onclick="switchCategory('shooting', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Shooting</button>
-                <button onclick="switchCategory('word', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Word</button>
-                <button onclick="switchCategory('trivia', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Trivia</button>
-                <button onclick="switchCategory('army', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Army</button>
-                <button onclick="switchCategory('fighting', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Fighting</button>
-                <button onclick="switchCategory('girls', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Girls</button>
-                <button onclick="switchCategory('hidden-object', this)" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Hidden Object</button>
+                <button onclick="switchCategory('all', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 transition-all">All
+                    Games</button>
+                <button onclick="switchCategory('puzzle', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Puzzle</button>
+                <button onclick="switchCategory('action', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Action</button>
+                <button onclick="switchCategory('bejeweled', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Bejeweled</button>
+                <button onclick="switchCategory('arcade', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Arcade</button>
+                <button onclick="switchCategory('racing', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Racing</button>
+                <button onclick="switchCategory('shooting', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Shooting</button>
+                <button onclick="switchCategory('word', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Word</button>
+                <button onclick="switchCategory('trivia', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Trivia</button>
+                <button onclick="switchCategory('army', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Army</button>
+                <button onclick="switchCategory('fighting', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Fighting</button>
+                <button onclick="switchCategory('girls', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Girls</button>
+                <button onclick="switchCategory('hidden-object', this)"
+                    class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800/60 hover:text-white transition-all">Hidden
+                    Object</button>
             </nav>
         </aside>
 
         <!-- Catalog Area -->
         <main class="flex-1 min-w-0">
             <!-- Search Bar & Metrics -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-xl border border-gray-800">
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-xl border border-gray-800">
                 <div class="relative w-full sm:w-80">
                     <input type="text" id="game-search-input" oninput="handleSearch(this.value)"
                         placeholder="Search catalog by title or tag..."
                         class="w-full bg-[#0a0b10] border border-gray-700 text-gray-200 text-sm rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:border-blue-400">
-                    <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </div>
 
                 <div id="catalog-status" class="text-xs text-gray-400 font-mono">
-                    Showing <span id="page-start-idx" class="text-blue-400 font-bold">0</span> - <span id="page-end-idx" class="text-blue-400 font-bold">0</span> of <span id="total-games-count" class="text-white font-bold">0</span> Games
+                    Showing <span id="page-start-idx" class="text-blue-400 font-bold">0</span> - <span id="page-end-idx"
+                        class="text-blue-400 font-bold">0</span> of <span id="total-games-count"
+                        class="text-white font-bold">0</span> Games
                 </div>
             </div>
 
@@ -125,7 +151,8 @@
             <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
 
             <!-- Pagination Bar -->
-            <div id="pagination-controls" class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800"></div>
+            <div id="pagination-controls"
+                class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800"></div>
         </main>
     </div>
 
@@ -138,24 +165,35 @@
 
             <!-- Social Media Bar -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
-                <a href="https://x.com/MAWLAY20" class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor" style="display: block;">
-                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                <a href="https://x.com/MAWLAY20"
+                    class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"
+                        fill="currentColor" style="display: block;">
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook text-gray-400 hover:text-blue-500 transition-colors" aria-label="Facebook" target="_blank">
+                <a href="https://www.facebook.com/profile.php?id=61550888326363"
+                    class="social-icon facebook text-gray-400 hover:text-blue-500 transition-colors"
+                    aria-label="Facebook" target="_blank">
                     <i class="fa-brands fa-facebook text-xl"></i>
                 </a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube text-gray-400 hover:text-red-500 transition-colors" aria-label="YouTube">
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
+                    class="social-icon youtube text-gray-400 hover:text-red-500 transition-colors" aria-label="YouTube">
                     <i class="fa-brands fa-youtube text-xl"></i>
                 </a>
-                <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram text-gray-400 hover:text-pink-500 transition-colors" aria-label="Instagram">
+                <a href="https://www.instagram.com/bekerat.mawlay/"
+                    class="social-icon instagram text-gray-400 hover:text-pink-500 transition-colors"
+                    aria-label="Instagram">
                     <i class="fa-brands fa-instagram text-xl"></i>
                 </a>
-                <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok text-gray-400 hover:text-white transition-colors" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@bekeiratsoftware"
+                    class="social-icon tiktok text-gray-400 hover:text-white transition-colors" aria-label="TikTok">
                     <i class="fa-brands fa-tiktok text-xl"></i>
                 </a>
-                <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger text-gray-400 hover:text-orange-500 transition-colors" aria-label="Blogger">
+                <a href="https://bekeratsoftware.blogspot.com/"
+                    class="social-icon blogger text-gray-400 hover:text-orange-500 transition-colors"
+                    aria-label="Blogger">
                     <i class="fa-brands fa-blogger text-xl"></i>
                 </a>
             </div>
@@ -277,9 +315,8 @@
             if (sortedTags.length === 0) return;
 
             const allBtn = document.createElement('button');
-            allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
-                activeSubCategory === 'all' ? 'bg-blue-500 text-white font-bold' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-            }`;
+            allBtn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all ${activeSubCategory === 'all' ? 'bg-blue-500 text-white font-bold' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                }`;
             allBtn.textContent = 'All Sub-types';
             allBtn.onclick = () => filterSubCategory('all', allBtn);
             tagsContainer.appendChild(allBtn);
@@ -487,7 +524,7 @@
                 document.body.style.overflow = 'auto';
             }
         };
-
+        /* MEMORY-SAFE & MONETIZATION-ENABLED GAME MODAL */
         window.openGameModal = function (gameUrl, title, width, height, provider = 'GameMonetize') {
             if (document.getElementById('game-monetization-modal')) return;
 
@@ -496,26 +533,26 @@
             modal.className = 'fixed inset-0 z-[99999] bg-black/95 flex items-center justify-center p-2 sm:p-4';
 
             modal.innerHTML = `
-                <div class="relative w-full h-full max-w-6xl max-h-[92vh] mx-auto flex flex-col bg-[#0a0b10] border border-gray-800 rounded-lg overflow-hidden shadow-2xl">
-                    <div class="flex justify-between items-center px-4 py-2.5 bg-[#12141f] border-b border-gray-800 z-10 pointer-events-auto">
-                        <div class="flex items-center gap-2 overflow-hidden">
-                            <span class="text-[10px] bg-gray-800 text-blue-400 px-2 py-0.5 rounded font-mono font-bold uppercase">${provider}</span>
-                            <h2 class="text-white font-bold text-sm sm:text-base truncate">${title}</h2>
-                        </div>
-                        <button id="monetization-close-btn" class="text-gray-400 hover:text-red-500 hover:border-red-500 transition-colors font-bold text-sm px-3 py-1 border border-gray-700 rounded cursor-pointer flex-shrink-0">
-                            &times; Close
-                        </button>
-                    </div>
-                    
-                    <div class="flex-1 w-full h-full relative bg-black">
-                        <iframe src="${gameUrl}" 
-                                class="w-full h-full border-none" 
-                                allow="autoplay; fullscreen; encrypted-media; focus-without-user-activation; screen-wake-lock" 
-                                sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
-                        </iframe>
-                    </div>
+        <div class="relative w-full h-full max-w-6xl max-h-[92vh] mx-auto flex flex-col bg-[#0a0b10] border border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+            <div class="flex justify-between items-center px-4 py-2.5 bg-[#12141f] border-b border-gray-800 z-10 pointer-events-auto">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <span class="text-[10px] bg-gray-800 text-blue-400 px-2 py-0.5 rounded font-mono font-bold uppercase">${provider}</span>
+                    <h2 class="text-white font-bold text-sm sm:text-base truncate">${title}</h2>
                 </div>
-            `;
+                <button id="monetization-close-btn" class="text-gray-400 hover:text-red-500 hover:border-red-500 transition-colors font-bold text-sm px-3 py-1 border border-gray-700 rounded cursor-pointer flex-shrink-0">
+                    &times; Close
+                </button>
+            </div>
+            
+            <div class="flex-1 w-full h-full relative bg-black">
+                <iframe src="${gameUrl}" 
+        class="w-full h-full border-none" 
+        allow="autoplay; fullscreen; encrypted-media; focus-without-user-activation; screen-wake-lock; clipboard-read; clipboard-write" 
+        allowfullscreen>
+        </iframe>
+            </div>
+        </div>
+    `;
 
             document.body.appendChild(modal);
             document.body.style.overflow = 'hidden';
