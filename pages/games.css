@@ -1,3 +1,7 @@
+#game-monetization-modal > div > div.flex.justify-between.items-center.px-4.py-2\.5.bg-\[\#12141f\].border-b.border-gray-800.z-10.pointer-events-auto > div > span {
+    display:none !important;
+}
+
 #games-hub-container {
     font-family: 'Poppins', sans-serif !important;
     background-color: #0f111a !important;
