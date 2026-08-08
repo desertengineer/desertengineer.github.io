@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title><!-- Title will be set dynamically based on the game data -->
+    <title>Loading Game... - Bekeirat Software</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,225 +11,143 @@
     <!-- Main Stylesheet -->
     <style>
         body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background-color: #f8fafc !important;
-  color: #333 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  min-height: 100vh !important;
-}
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: #f8fafc !important;
+          color: #333 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          min-height: 100vh !important;
+        }
 
-/* Navigation Styles */
-.navbar {
-  background-color: #1e293b !important;
-  color: #ffffff !important;
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 50 !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-  padding-top: 0.25rem !important;
-  padding-bottom: 0.25rem !important;
-}
+        .navbar {
+          background-color: #1e293b !important;
+          color: #ffffff !important;
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 50 !important;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+          padding-top: 0.25rem !important;
+          padding-bottom: 0.25rem !important;
+        }
 
-.nav-btn {
-  padding: 0.5rem 1rem !important;
-  border-radius: 0.375rem !important;
-  font-weight: 500 !important;
-  transition: background-color 0.2s, color 0.2s !important;
-}
+        .nav-btn {
+          padding: 0.5rem 1rem !important;
+          border-radius: 0.375rem !important;
+          font-weight: 500 !important;
+          transition: background-color 0.2s, color 0.2s !important;
+        }
 
-.nav-btn:hover {
-  background-color: #3b82f6 !important;
-  color: white !important;
-}
+        .nav-btn:hover {
+          background-color: #3b82f6 !important;
+          color: white !important;
+        }
 
-/* Mobile Menu Styles */
-.mobile-menu-container {
-  display: none !important;
-  width: 100% !important;
-  background-color: #0f172a !important;
-  border-top: 1px solid #1e293b !important;
-}
+        .mobile-menu-container {
+          display: none !important;
+          width: 100% !important;
+          background-color: #0f172a !important;
+          border-top: 1px solid #1e293b !important;
+        }
 
-.mobile-menu-container.active {
-  display: block !important;
-}
+        .mobile-menu-container.active {
+          display: block !important;
+        }
 
-.mobile-btn {
-  display: block !important;
-  padding: 1rem !important;
-  border-bottom: 1px solid #1e293b !important;
-  transition: background-color 0.2s !important;
-}
+        .mobile-btn {
+          display: block !important;
+          padding: 1rem !important;
+          border-bottom: 1px solid #1e293b !important;
+          transition: background-color 0.2s !important;
+        }
 
-.mobile-btn:hover {
-  background-color: #1e293b !important;
-  color: #60a5fa !important;
-}
+        .mobile-btn:hover {
+          background-color: #1e293b !important;
+          color: #60a5fa !important;
+        }
 
-/* Banner Styles */
-.hero-banner {
-  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') !important;
-  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('../assets/hero_emblem-1920x715.png') !important;
-  background-size: cover !important;
-  background-position: center !important;
-  /* height: 60vh !important; */
-  min-height: 360px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  color: white !important;
-}
+        main {
+          flex: 1 !important;
+          background-color: rgb(243, 236, 170) !important;
+        }
 
-main {
-  flex: 1 !important;
-  background-color: rgb(243, 236, 170) !important;
-}
+        .social-icon {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          width: 44px !important;
+          height: 44px !important;
+          font-size: 30px !important;
+          border-radius: 50% !important;
+          background-color: #000000 !important;
+          color: white !important;
+          transition: background-color 0.3s, transform 0.2s !important;
+        }
 
-/* Footer Styles */
-.flex.flex-wrap.justify-center.gap-4.md\:gap-6.mb-8 {
-  background-color: #b6baaa !important;
-  /* color: #ffffff !important; */
-  padding: 1rem !important;
-  text-align: center !important;
-}
+        .social-icon>i {
+          color: white !important;
+          border-radius: 50% !important;
+          width: 100% !important;
+          height: 100% !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
 
-section p {
-  color: #38404b !important;
-}
+        .social-icon:hover {
+          transform: scale(1.1) !important;
+        }
 
-#back-top {
-  color: white !important;
-  padding-bottom: 1rem !important;
-  font-size: 1.5rem !important;
-  margin-left: 9rem !important;
-}
+        #app-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: #f8fafc;
+        }
 
-#back-top:hover {
-  color: #E4405F !important;
-  font-size: 1.7rem !important; 
-}
+        #game-container:-webkit-full-screen {
+            padding-top: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
 
-.social-icon {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 44px !important;
-  height: 44px !important;
-  font-size: 30px !important;
-  border-radius: 50% !important;
-  background-color: #000000 !important;
-  color: white !important;
-  transition: background-color 0.3s, transform 0.2s !important;
-}
+        #game-container:-moz-full-screen {
+            padding-top: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
 
-.social-icon>i {
-  color: white !important;
-  border-radius: 50% !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
+        #game-container:fullscreen {
+            padding-top: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
 
-.social-icon.twitter>svg>path {
-  color: white !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
+        #error-message {
+            text-align: center;
+            padding: 3rem;
+            color: #ef4444;
+        }
 
-.social-icon:hover {
-  /* background-color: #3b82f6 !important; */
-  transform: scale(1.1) !important;
-}
+        #error-message h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
 
-.social-icon.facebook>i:hover {
-  background-color: #1877F2 !important;
-}
-
-.social-icon.twitter:hover {
-  background-color: #000000 !important;
-}
-
-.social-icon.youtybe>i:hover {
-  background-color: #FF0000 !important;
-}
-
-.social-icon.instagram>i:hover {
-  background-color: #E4405F !important;
-}
-
-.social-icon.tiktok>i:hover {
-  background-color: #000000 !important;
-}
-
-.social-icon.blogger>i:hover {
-  background-color: #F57C00 !important;
-}
-
-#app-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: #f8fafc;
-}
-
-/* Fullscreen handling for the game iframe container */
-#game-container:-webkit-full-screen {
-    padding-top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-#game-container:-moz-full-screen {
-    padding-top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-#game-container:fullscreen {
-    padding-top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-#error-message {
-    text-align: center;
-    padding: 3rem;
-    color: #ef4444;
-}
-
-#error-message h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-#loading-message {
-    text-align: center;
-    padding: 3rem;
-    font-size: 1.25rem;
-    color: #64748b;
-    font-weight: 500;
-}
+        #loading-message {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.25rem;
+            color: #64748b;
+            font-weight: 500;
+        }
     </style>
-    <!-- Game Specific Stylesheet -->
-<style>
-
-</style>
-
 </head>
 <body>
     <!-- Top Navigation Bar -->
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
-        <!-- Brand Logo -->
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
             <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
@@ -238,17 +156,15 @@ section p {
             Bekeirat Software
         </a>
 
-        <!-- Mobile Navigation Toggle -->
         <button id="hamburger-btn"
             class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2"
-            aria-label="Toggle Menu">
+            aria-label="Toggle Menu" onclick="toggleMobileMenu()">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
 
-        <!-- Navigation Links -->
         <div class="hidden md:flex space-x-2 items-center">
             <a href="../index.html" class="nav-btn">Home</a>
             <a href="./about.html" class="nav-btn">About Us</a>
@@ -256,7 +172,6 @@ section p {
             <a href="./contact us.html" class="nav-btn">Contacts</a>
         </div>
 
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu-container hidden md:hidden w-full mt-4 pb-2 shadow-inner">
             <nav class="flex flex-col space-y-1">
                 <a href="../index.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Home</a>
@@ -268,9 +183,9 @@ section p {
     </nav>
 
     <div class="page-container" id="app-container">
-        <!-- Content will be injected here via JavaScript -->
-        <div id="loading-message">Fetching Game Data...</div>
+        <div id="loading-message">Fetching Game Data from data/all.json...</div>
     </div>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800 mt-auto">
         <div class="max-w-4xl mx-auto flex flex-col items-center">
@@ -278,128 +193,113 @@ section p {
                 <a href="../privacy/" class="hover:text-white transition-colors underline text-sm">Privacy Policy</a>
             </div>
 
-            <!-- Social Media Bar -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-[#b6baaa] p-4 rounded-lg">
-                <a href="https://x.com/MAWLAY20"
-                    class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"
-                        fill="currentColor" style="display: block;">
-                        <path
-                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
+                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363"
-                    class="social-icon facebook text-gray-400 hover:text-blue-500 transition-colors"
-                    aria-label="Facebook" target="_blank">
+                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook" aria-label="Facebook" target="_blank">
                     <i class="fa-brands fa-facebook text-xl"></i>
                 </a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
-                    class="social-icon youtube text-gray-400 hover:text-red-500 transition-colors" aria-label="YouTube">
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube" aria-label="YouTube">
                     <i class="fa-brands fa-youtube text-xl"></i>
-                </a>
-                <a href="https://www.instagram.com/bekerat.mawlay/"
-                    class="social-icon instagram text-gray-400 hover:text-pink-500 transition-colors"
-                    aria-label="Instagram">
-                    <i class="fa-brands fa-instagram text-xl"></i>
-                </a>
-                <a href="https://www.tiktok.com/@bekeiratsoftware"
-                    class="social-icon tiktok text-gray-400 hover:text-white transition-colors" aria-label="TikTok">
-                    <i class="fa-brands fa-tiktok text-xl"></i>
-                </a>
-                <a href="https://bekeratsoftware.blogspot.com/"
-                    class="social-icon blogger text-gray-400 hover:text-orange-500 transition-colors"
-                    aria-label="Blogger">
-                    <i class="fa-brands fa-blogger text-xl"></i>
                 </a>
             </div>
 
             <div>
-                <p class="text-sm">&copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.</p>
-                <p class="text-xs mt-2 text-gray-500">Cross-Platform Games & Apps Architecture.</p>
+                <p class="text-sm">&copy; <span id="current-year">2026</span> Bekeirat Software. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        /**
-         * 1. Get the Game ID from the URL (e.g., game.html?id=82166)
-         */
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
 
-        // The path to your JSON file based on your directory structure
-        const FEED_URL = 'data/all.json';
+        // Target the correct JSON path directly as verified
+        const JSON_FEED_PATH = 'data/all.json';
 
-        /**
-         * 2. Function to fetch and parse the JSON feed
-         */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('active');
+        }
+
         async function loadGameData() {
             if (!gameId) {
-                showError("No Game ID specified in the URL.");
+                showError("No Game ID specified in the URL. Please return to the games list and select a game.");
                 return;
             }
             
             try {
-                const response = await fetch(FEED_URL);
+                const response = await fetch(JSON_FEED_PATH);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
-                // Parse the JSON array
+
                 const games = await response.json();
                 
-                // Find the specific game by matching the ID string
-                const gameData = games.find(g => g.id === gameId);
+                let gameData = null;
+                if (Array.isArray(games)) {
+                    // Match against string or number ID types securely
+                    gameData = games.find(g => String(g.id) === String(gameId) || String(g.gameId) === String(gameId));
+                } else if (games && typeof games === 'object') {
+                    // In case the JSON root is an object containing a list under a property
+                    const list = games.games || games.items || Object.values(games);
+                    if (Array.isArray(list)) {
+                        gameData = list.find(g => g && (String(g.id) === String(gameId) || String(g.gameId) === String(gameId)));
+                    }
+                }
                 
                 if (gameData) {
                     renderGamePage(gameData);
                 } else {
-                    showError("Game not found in our database.");
+                    showError(`Game ID "${gameId}" was not found inside "${JSON_FEED_PATH}". Please verify the game exists in your JSON list.`);
                 }
-            } catch (error) {
-                console.error("Could not fetch game data:", error);
-                // Helpful error message for local testing (CORS issues)
-                showError("Failed to load game data. (Ensure you are running this over a local server to avoid CORS issues).");
-            } 
+            } catch (err) {
+                showError(`Failed to load or parse "${JSON_FEED_PATH}". Error: ${err.message}`);
+            }
         }
 
-        /**
-         * 3. Inject the parsed data into the HTML layout
-         */
         function renderGamePage(game) {
+            const title = game.title || game.name || "Untitled Game";
+            const description = game.description || game.desc || "No description provided.";
+            const instructions = game.instructions || game.howto || "Use your mouse or keyboard controls to play.";
+            const category = game.category || game.genre || "Arcade";
+            const tags = game.tags || game.keywords || "";
+            const thumb = game.thumb || game.thumbnail || game.image || "https://placehold.co/512x384/1e293b/60a5fa?text=Game";
+            const url = game.url || game.gameUrl || game.link || "";
+            const id = game.id || game.gameId || gameId;
+
+            let formattedDesc = String(description).replace(/&ndash;/g, '-').replace(/&amp;/g, '&').replace(/\*\*/g, '');
             
-            // Format Description: Clean up basic HTML entities or markdown-like characters
-            let formattedDesc = game.description.replace(/&ndash;/g, '-').replace(/&amp;/g, '&').replace(/\*\*/g, '');
-            
-            // Format Tags: Convert comma separated tags to HTML badges
-            const tagsArray = game.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+            const tagsArray = String(tags).split(',').map(tag => tag.trim()).filter(tag => tag !== '');
             let tagsHtml = '';
-            tagsArray.forEach(tag => {
-                tagsHtml += `<span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">${tag}</span>`;
-            });
+            if (tagsArray.length > 0) {
+                tagsArray.forEach(tag => {
+                    tagsHtml += `<span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">${tag}</span>`;
+                });
+            } else {
+                tagsHtml = `<span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-md">HTML5</span>`;
+            }
 
             const htmlContent = `
                 <div class="max-w-7xl mx-auto px-4 py-8 w-full">
                     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
-                        
-                        <!-- Left Main Column (Game Player & Info) -->
                         <div class="lg:w-3/4 flex flex-col gap-6">
-                            
-                            <!-- Header Bar -->
                             <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex flex-wrap items-center justify-between gap-4">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 m-0">${game.title}</h1>
+                                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 m-0">${title}</h1>
                                 <button onclick="toggleFullScreen()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2 shadow-sm text-sm whitespace-nowrap">
                                     <i class="fa-solid fa-expand"></i>
                                     Play Fullscreen
                                 </button>
                             </div>
 
-                            <!-- Responsive Game Container (16:9 Aspect Ratio by default) -->
                             <div class="relative w-full bg-black rounded-xl overflow-hidden shadow-lg border-4 border-gray-800/50" style="padding-top: 56.25%;" id="game-container">
-                                <iframe id="game-iframe" src="${game.url}" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen="true" scrolling="no"></iframe>
+                                <iframe id="game-iframe" src="${url}" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen="true" scrolling="no"></iframe>
                             </div>
 
-                            <!-- Game Details Card -->
                             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                                 <h2 class="text-xl font-bold mb-3 text-gray-800 flex items-center gap-2 border-b border-gray-100 pb-3">
                                     <i class="fa-solid fa-align-left text-indigo-500"></i> Description
@@ -410,15 +310,12 @@ section p {
                                     <i class="fa-solid fa-gamepad text-indigo-500"></i> Instructions
                                 </h2>
                                 <div class="bg-indigo-50 text-indigo-900 p-4 rounded-lg border border-indigo-100 text-[15px]">
-                                    ${game.instructions}
+                                    ${instructions}
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Right Sidebar Column (Metadata & Ads) -->
                         <div class="lg:w-1/4 flex flex-col gap-6">
-                            
-                            <!-- Game Trailer Widget (Aside Top) -->
                             <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                                 <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <i class="fa-solid fa-film text-indigo-500"></i> Game Trailer
@@ -426,13 +323,12 @@ section p {
                                 <div id="gamemonetize-video"></div>
                             </div>
 
-                            <!-- Thumbnail & Meta Card -->
                             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                                <img src="${game.thumb}" alt="${game.title}" class="w-full h-auto rounded-lg mb-5 shadow-sm border border-gray-100 object-cover aspect-[4/3]">
+                                <img src="${thumb}" alt="${title}" class="w-full h-auto rounded-lg mb-5 shadow-sm border border-gray-100 object-cover aspect-[4/3]" onerror="this.src='https://placehold.co/512x384/1e293b/60a5fa?text=Preview'">
                                 
                                 <div class="mb-5">
                                     <h3 class="font-bold text-gray-500 text-sm uppercase tracking-wider mb-2">Category</h3>
-                                    <span class="inline-block bg-rose-100 text-rose-700 font-bold px-3 py-1.5 rounded-md text-sm shadow-sm">${game.category}</span>
+                                    <span class="inline-block bg-rose-100 text-rose-700 font-bold px-3 py-1.5 rounded-md text-sm shadow-sm">${category}</span>
                                 </div>
                                 
                                 <div>
@@ -442,29 +338,20 @@ section p {
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Ad Placement Area -->
-                            <div class="bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center min-h-[300px] text-gray-400 p-4 text-center">
-                                <i class="fa-solid fa-ad text-3xl mb-2 opacity-50"></i>
-                                <span class="font-medium text-sm">Advertisement Space</span>
-                                <span class="text-xs mt-1 opacity-75">300x250 or 300x600</span>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
             `;
 
             document.getElementById('app-container').innerHTML = htmlContent;
-            document.title = game.title + " - Desert Engineer";
+            document.title = title + " - Bekeirat Software";
 
-            // Inject the GameMonetize Video Trailer script dynamically with the correct game ID
             window.VIDEO_OPTIONS = {
-                gameid : game.id,
-                width  : "100%",
-                height : "280px",
-                color  : "#3f007e",
-                getAds : "false"
+                gameid: id,
+                width: "100%",
+                height: "280px",
+                color: "#3f007e",
+                getAds: "false"
             };
             
             const scriptId = "gamemonetize-video-api";
@@ -474,53 +361,35 @@ section p {
                 script.type = "text/javascript";
                 script.src = "https://api.gamemonetize.com/video.js";
                 document.body.appendChild(script);
-            } else {
-                // If the script is already loaded, re-initialize if the API supports it
-                if (typeof loadVideoAds === 'function') {
-                    loadVideoAds();
-                }
             }
         }
 
-        /**
-         * Helper function to show errors
-         */
         function showError(message) {
             document.getElementById('app-container').innerHTML = `
                 <div id="error-message">
                     <i class="fa-solid fa-triangle-exclamation text-5xl mb-4 text-red-500"></i>
-                    <h2>Oops!</h2>
-                    <p>${message}</p>
+                    <h2>Oops! Feed or Game Not Found</h2>
+                    <p class="mb-4 text-gray-600 max-w-lg mx-auto">${message}</p>
                     <a href="../index.html" class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Return to Home</a>
                 </div>
             `;
         }
 
-        /**
-         * Toggle Fullscreen for the game iframe natively
-         */
         function toggleFullScreen() {
             const gameContainer = document.getElementById('game-container');
             if (!document.fullscreenElement) {
                 if (gameContainer.requestFullscreen) {
                     gameContainer.requestFullscreen();
-                } else if (gameContainer.webkitRequestFullscreen) { /* Safari */
+                } else if (gameContainer.webkitRequestFullscreen) {
                     gameContainer.webkitRequestFullscreen();
-                } else if (gameContainer.msRequestFullscreen) { /* IE11 */
-                    gameContainer.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { /* Safari */
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { /* IE11 */
-                    document.msExitFullscreen();
                 }
             }
         }
 
-        // Initialize the script when the window loads
         window.onload = loadGameData;
     </script>
 </body>
