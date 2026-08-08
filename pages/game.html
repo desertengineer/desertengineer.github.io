@@ -7,6 +7,10 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to external CSS files using correct relative paths based on folder structure -->
+    <link rel="stylesheet" href="../css/all.min.css" />
+    <link href="../css/google-fonts.css" rel="stylesheet" />
 
     <!-- Main Stylesheet -->
     <style>
@@ -94,16 +98,32 @@
           align-items: center !important;
           justify-content: center !important;
         }
+        
+        .social-icon.twitter>svg>path {
+            color: white !important;
+            width: 100% !important;
+            height: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
 
         .social-icon:hover {
           transform: scale(1.1) !important;
         }
+        
+        .social-icon.facebook>i:hover { background-color: #1877F2 !important; }
+        .social-icon.twitter:hover { background-color: #000000 !important; }
+        .social-icon.youtube>i:hover { background-color: #FF0000 !important; }
+        .social-icon.instagram>i:hover { background-color: #E4405F !important; }
+        .social-icon.tiktok>i:hover { background-color: #000000 !important; }
+        .social-icon.blogger>i:hover { background-color: #F57C00 !important; }
 
         #app-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background-color: #f8fafc;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            background-color: #f8fafc !important;
         }
 
         #game-container:-webkit-full-screen {
@@ -125,23 +145,23 @@
         }
 
         #error-message {
-            text-align: center;
-            padding: 3rem;
-            color: #ef4444;
+            text-align: center !important;
+            padding: 3rem !important;
+            color: #ef4444 !important;
         }
 
         #error-message h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+            font-size: 2rem !important;
+            font-weight: bold !important;
+            margin-bottom: 1rem !important;
         }
 
         #loading-message {
-            text-align: center;
-            padding: 3rem;
-            font-size: 1.25rem;
-            color: #64748b;
-            font-weight: 500;
+            text-align: center !important;
+            padding: 3rem !important;
+            font-size: 1.25rem !important;
+            color: #64748b !important;
+            font-weight: 500 !important;
         }
     </style>
 </head>
@@ -183,7 +203,7 @@
     </nav>
 
     <div class="page-container" id="app-container">
-        <div id="loading-message">Fetching Game Data from data/all.json...</div>
+        <div id="loading-message">Fetching Game Data from ../data/all.json...</div>
     </div>
 
     <!-- Footer -->
@@ -194,16 +214,36 @@
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-[#b6baaa] p-4 rounded-lg">
-                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                <a href="https://x.com/MAWLAY20"
+                    class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"
+                        fill="currentColor" style="display: block;">
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook" aria-label="Facebook" target="_blank">
+                <a href="https://www.facebook.com/profile.php?id=61550888326363"
+                    class="social-icon facebook text-gray-400 hover:text-blue-500 transition-colors"
+                    aria-label="Facebook" target="_blank">
                     <i class="fa-brands fa-facebook text-xl"></i>
                 </a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube" aria-label="YouTube">
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
+                    class="social-icon youtube text-gray-400 hover:text-red-500 transition-colors" aria-label="YouTube">
                     <i class="fa-brands fa-youtube text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/bekerat.mawlay/"
+                    class="social-icon instagram text-gray-400 hover:text-pink-500 transition-colors"
+                    aria-label="Instagram">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://www.tiktok.com/@bekeiratsoftware"
+                    class="social-icon tiktok text-gray-400 hover:text-white transition-colors" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok text-xl"></i>
+                </a>
+                <a href="https://bekeratsoftware.blogspot.com/"
+                    class="social-icon blogger text-gray-400 hover:text-orange-500 transition-colors"
+                    aria-label="Blogger">
+                    <i class="fa-brands fa-blogger text-xl"></i>
                 </a>
             </div>
 
@@ -217,8 +257,10 @@
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
 
-        // Target the correct JSON path directly as verified
-        const JSON_FEED_PATH = 'data/all.json';
+        // FIX: The HTML file is in the /pages/ directory.
+        // Therefore, to access the data directory at the root, we need to go up one level.
+        // Changed from 'data/all.json' to '../data/all.json'
+        const JSON_FEED_PATH = '../data/all.json';
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
@@ -259,6 +301,7 @@
                 }
             } catch (err) {
                 showError(`Failed to load or parse "${JSON_FEED_PATH}". Error: ${err.message}`);
+                console.error("Fetch error details:", err);
             }
         }
 
@@ -368,8 +411,9 @@
             document.getElementById('app-container').innerHTML = `
                 <div id="error-message">
                     <i class="fa-solid fa-triangle-exclamation text-5xl mb-4 text-red-500"></i>
-                    <h2>Oops! Feed or Game Not Found</h2>
+                    <h2>Oops!</h2>
                     <p class="mb-4 text-gray-600 max-w-lg mx-auto">${message}</p>
+                    <p class="mb-4 text-sm text-gray-500 max-w-lg mx-auto">Check if the URL ${window.location.origin}/${JSON_FEED_PATH.replace('../','')} exists and is accessible.</p>
                     <a href="../index.html" class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Return to Home</a>
                 </div>
             `;
@@ -390,6 +434,7 @@
             }
         }
 
+        // Initialize on load
         window.onload = loadGameData;
     </script>
 </body>
