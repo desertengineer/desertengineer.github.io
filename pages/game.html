@@ -572,51 +572,31 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
+            // Initialize GameMonetize Trailer properly
             const trailerContainer = document.getElementById('gamemonetize-video');
             if (trailerContainer) {
-                const iframe = document.createElement('iframe');
-                iframe.style.width = '100%';
-                iframe.style.height = '480px';
-                iframe.style.minHeight = '480px';
-                iframe.style.border = 'none';
-                iframe.scrolling = 'no';
-                iframe.allow = 'autoplay; fullscreen';
-                
-                const trailerHtml = `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <style>
-                            body { margin: 0; padding: 0; background-color: transparent; }
-                            #gamemonetize-video { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-                        </style>
-                    </head>
-                    <body>
-                        <div id="gamemonetize-video"></div>
-                        <script type="text/javascript">
-                           window.VIDEO_OPTIONS = {
-                               gameid : "${id}",
-                               width  : "100%",
-                               height : "480px",
-                               color  : "#3f007e",
-                               getAds : "false"
-                           };
-                           (function (a, b, c) {
-                              var d = a.getElementsByTagName(b)[0];
-                              a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
-                           })(document, "script", "gamemonetize-video-api"); 
-                        <` + `/script>
-                    </body>
-                    </html>
-                `;
-                
                 trailerContainer.innerHTML = '';
-                trailerContainer.appendChild(iframe);
                 
-                const iframeDoc = iframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(trailerHtml);
-                iframeDoc.close();
+                // Create the options script
+                const optionsScript = document.createElement('script');
+                optionsScript.type = 'text/javascript';
+                optionsScript.text = `
+                   window.VIDEO_OPTIONS = {
+                       gameid : "${id}",
+                       width  : "100%",
+                       height : "480px",
+                       color  : "#3f007e",
+                       getAds : "false"
+                   };
+                `;
+                trailerContainer.appendChild(optionsScript);
+
+                // Create the loader script
+                const loaderScript = document.createElement('script');
+                loaderScript.type = 'text/javascript';
+                loaderScript.src = 'https://api.gamemonetize.com/video.js';
+                loaderScript.id = 'gamemonetize-video-api';
+                trailerContainer.appendChild(loaderScript);
             }
             
             initCarousel();
