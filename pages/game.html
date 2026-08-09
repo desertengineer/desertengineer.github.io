@@ -546,7 +546,7 @@
                             <!-- Game Trailer Section -->
                             <div class="section-panel !p-4">
                                 <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-2 pb-0">Game Trailer</h2>
-                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700"></div>
+                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700 min-h-[250px] bg-slate-800"></div>
                             </div>
 
                             <!-- Thumbnail Section (visible on mobile if header thumb is hidden) -->
@@ -572,13 +572,21 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
+            // Initialize GameMonetize Video after the container is in the DOM
             window.VIDEO_OPTIONS = {
                 gameid : id,
                 width  : "100%",
-                height : "480px",
+                height : "250px", // Adjusted height for sidebar
                 color  : "#3f007e",
                 getAds : "false"
             };
+            
+            // Remove existing script if it's there to force re-evaluation if navigating via JS later
+            const existingScript = document.getElementById("gamemonetize-video-api");
+            if (existingScript) {
+                existingScript.remove();
+            }
+
             (function (a, b, c) {
                var d = a.getElementsByTagName(b)[0];
                a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
