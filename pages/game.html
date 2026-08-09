@@ -180,12 +180,48 @@
         }
 
         .section-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #f1f5f9;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 0.5rem;
+            font-size: 1.25rem !important;
+            font-weight: 700 !important;
+            color: #f1f5f9 !important;
+            margin-bottom: 1rem !important;
+            border-bottom: 1px solid #334155 !important;
+            padding-bottom: 0.5rem !important;
+        }
+
+        a.category-badge, a.tag-badge {
+            text-decoration: none !important;
+            transition: opacity 0.2s ease-in-out !important;
+            cursor: pointer !important;
+            display: inline-block !important;
+        }
+        
+        a.category-badge:hover, a.tag-badge:hover {
+            opacity: 0.75 !important;
+        }
+
+        .small-carousel-panel {
+            padding: 0.75rem 1rem !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        .small-carousel-panel .section-title {
+            font-size: 1rem !important;
+            margin-bottom: 0.75rem !important;
+            border-bottom: none !important;
+        }
+
+        .small-carousel-panel .carousel-item {
+            min-width: calc(50% - 0.5rem) !important; 
+        }
+        
+        @media (max-width: 640px) {
+            .small-carousel-panel .carousel-item {
+                min-width: 100% !important;
+            }
+        }
+
+        .small-carousel-panel .carousel-item img {
+            aspect-ratio: 16/9 !important;
         }
 
         /* Carousel Styles */
@@ -419,22 +455,20 @@
 
             let formattedDesc = String(description).replace(/&ndash;/g, '-').replace(/&amp;/g, '&').replace(/\*\*/g, '');
             
-            // Generate Category Badges (split by comma if multiple)
             const categoriesArray = String(category).split(',').map(c => c.trim()).filter(c => c !== '');
             let categoriesHtml = '';
             categoriesArray.forEach(cat => {
-                categoriesHtml += `<span class="category-badge">${cat}</span>`;
+                categoriesHtml += `<a href="./games.html?category=${encodeURIComponent(cat)}" class="category-badge">${cat}</a>`;
             });
 
-            // Generate Tag Badges
             const tagsArray = String(tags).split(',').map(tag => tag.trim()).filter(tag => tag !== '');
             let tagsHtml = '';
             if (tagsArray.length > 0) {
                 tagsArray.forEach(tag => {
-                    tagsHtml += `<span class="tag-badge">${tag}</span>`;
+                    tagsHtml += `<a href="./games.html?tag=${encodeURIComponent(tag)}" class="tag-badge">${tag}</a>`;
                 });
             } else {
-                tagsHtml = `<span class="tag-badge">HTML5</span>`;
+                tagsHtml = `<a href="./games.html?tag=HTML5" class="tag-badge">HTML5</a>`;
             }
 
             // Get related games for carousel (same category or random)
@@ -490,13 +524,6 @@
                             <div class="relative w-full rounded-xl overflow-hidden shadow-2xl" style="padding-top: 56.25%;" id="game-container">
                                 <iframe id="game-iframe" src="${url}" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen="true" scrolling="no"></iframe>
                             </div>
-                            
-                            <!-- Fullscreen Button -->
-                            <div class="flex justify-end">
-                                <button onclick="toggleFullScreen()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg font-bold transition-colors flex items-center gap-2 shadow-lg shadow-blue-900/50">
-                                    <i class="fa-solid fa-expand"></i> Play Fullscreen
-                                </button>
-                            </div>
 
                             <!-- Description Section -->
                             <div class="section-panel">
@@ -528,7 +555,7 @@
                             </div>
 
                             <!-- Carousel Section -->
-                            <div class="section-panel">
+                            <div class="section-panel small-carousel-panel">
                                 <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-4 pb-0">You may also like</h2>
                                 <div class="carousel-container" id="related-carousel">
                                     <div class="carousel-track" id="carousel-track">
@@ -545,23 +572,17 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
-            // Initialize GameMonetize Video API
             window.VIDEO_OPTIONS = {
-                gameid: id,
-                width: "100%",
-                height: "250px", // Adjusted height for sidebar
-                color: "#1e293b",
-                getAds: "false"
+                gameid : id,
+                width  : "100%",
+                height : "480px",
+                color  : "#3f007e",
+                getAds : "false"
             };
-            
-            const scriptId = "gamemonetize-video-api";
-            if (!document.getElementById(scriptId)) {
-                const script = document.createElement("script");
-                script.id = scriptId;
-                script.type = "text/javascript";
-                script.src = "https://api.gamemonetize.com/video.js";
-                document.body.appendChild(script);
-            }
+            (function (a, b, c) {
+               var d = a.getElementsByTagName(b)[0];
+               a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
+            })(document, "script", "gamemonetize-video-api");
             
             initCarousel();
         }
@@ -620,22 +641,6 @@
             `;
         }
 
-        function toggleFullScreen() {
-            const gameContainer = document.getElementById('game-container');
-            if (!document.fullscreenElement) {
-                if (gameContainer.requestFullscreen) {
-                    gameContainer.requestFullscreen();
-                } else if (gameContainer.webkitRequestFullscreen) {
-                    gameContainer.webkitRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-
-        // Initialize on load
         window.onload = loadGameData;
     </script>
 </body>
