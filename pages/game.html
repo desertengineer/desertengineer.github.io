@@ -137,6 +137,7 @@
             background-color: #000;
         }
 
+        /* Enhanced Category Badge */
         .category-badge {
             position: relative;
             display: inline-flex;
@@ -182,6 +183,7 @@
             opacity: 1;
         }
 
+        /* Enhanced Tag Badge */
         .tag-badge {
             display: inline-flex;
             align-items: center;
@@ -226,6 +228,7 @@
             transform: rotate(45deg) translate(50%, 50%);
         }
 
+        /* Enhanced Section Panels with Slide-up Animation */
         .section-panel {
             background-color: #1e293b;
             border-radius: 1rem;
@@ -234,22 +237,28 @@
             border: 1px solid #334155;
             margin-bottom: 1.5rem;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            opacity: 0; /* Changed for step-by-step animation */
-        }
-
-        .animate-slide-up {
+            
+            /* Animation properties */
+            opacity: 0;
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .section-panel:hover {
             border-color: #475569;
             box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
         }
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Staggered animation delays for panels */
+        .section-panel:nth-child(1) { animation-delay: 0.1s; }
+        .section-panel:nth-child(2) { animation-delay: 0.2s; }
+        .section-panel:nth-child(3) { animation-delay: 0.3s; }
+        .section-panel:nth-child(4) { animation-delay: 0.4s; }
 
         .section-title {
             font-size: 1.25rem !important;
@@ -667,15 +676,9 @@
                         <div class="lg:w-1/3 flex flex-col gap-6">
                             
                             <!-- Game Trailer Section -->
-                            <div class="section-panel !p-1 animate-slide-up overflow-hidden" style="animation-delay: 0.2s;">
-                                <div class="p-3 bg-slate-800 rounded-t-lg border-b border-slate-700 flex justify-between items-center">
-                                    <h2 class="text-sm uppercase tracking-widest font-bold text-slate-300 mb-0"><i class="fa-solid fa-video mr-2 text-red-500"></i>Game Walkthrough</h2>
-                                    <span class="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full animate-pulse">Live</span>
-                                </div>
-                                <div class="bg-slate-900 rounded-b-lg">
-                                    <!-- ID exactly matches Gamemonetize requirement -->
-                                    <div id="gamemonetize-video"></div>
-                                </div>
+                            <div class="section-panel !p-4">
+                                <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-3 pb-0"><i class="fa-solid fa-video mr-2 text-red-500"></i>Game Walkthrough</h2>
+                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700 min-h-[250px] bg-slate-800 shadow-inner"></div>
                             </div>
 
                             <!-- Thumbnail Section (visible on mobile if header thumb is hidden) -->
@@ -701,43 +704,35 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
-            initGamemonetizeTrailer(id);
-            
-            initCarousel();
-        }
+            // Initialize GameMonetize Trailer properly
+            // 1. Initialize configuration options
+            window.VIDEO_OPTIONS = {
+                gameid : String(id), // Passed directly from database
+                width  : "100%",
+                height : "480px",
+                color  : "#3f007e",
+                getAds : "false"
+            };
 
-        function initGamemonetizeTrailer(gameId) {
-            // Check if container exists
-            const container = document.getElementById('gamemonetize-video');
-            if (!container) {
-                console.warn('Gamemonetize container not found');
-                return;
+            // 2. Assure the container is completely empty before executing
+            const trailerContainer = document.getElementById('gamemonetize-video');
+            if (trailerContainer) {
+                trailerContainer.innerHTML = '';
             }
 
-            // 1. Set global options exactly as instructed by Gamemonetize
-            window.VIDEO_OPTIONS = {
-               gameid : gameId,
-               width  : "100%",
-               height : "480px",
-               color  : "#3f007e",
-               getAds : "false" // Keep as string "false" as per their example
-            };
-            
-            // 2. Remove any previously injected script to prevent duplicate execution
-            const existingScript = document.getElementById('gamemonetize-video-api');
-            if (existingScript) existingScript.remove();
+            // 3. Remove old API tracking script instances 
+            const oldApiScript = document.getElementById('gamemonetize-video-api');
+            if(oldApiScript) {
+                oldApiScript.remove();
+            }
 
-            // 3. Inject the IIFE loader script provided by the network directly into the body
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.text = `
-               (function (a, b, c) {
-                  var d = a.getElementsByTagName(b)[0];
-                  a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
-               })(document, "script", "gamemonetize-video-api"); 
-            `;
+            // 4. Safely evaluate partner's inline IIFE precisely as requested
+            (function (a, b, c) {
+               var d = a.getElementsByTagName(b)[0];
+               a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
+            })(document, "script", "gamemonetize-video-api");
             
-            document.body.appendChild(script);
+            initCarousel();
         }
 
         function initCarousel() {
