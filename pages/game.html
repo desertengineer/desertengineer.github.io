@@ -133,14 +133,8 @@
         
         #game-container {
             border: none;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
             background-color: #000;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        #game-container:hover {
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.4);
-            transform: translateY(-2px);
         }
 
         .category-badge {
@@ -155,7 +149,7 @@
             letter-spacing: 0.05em;
             background: linear-gradient(135deg, #1e3a8a, #3b0764);
             color: #bfdbfe;
-            border: 1px solid rgba(96, 165, 250, 0.3);
+            border: 1px solid rgba(96, 165, 250, 0.4);
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -186,10 +180,6 @@
 
         .category-badge:hover::before {
             opacity: 1;
-        }
-        
-        .category-badge:active {
-            transform: translateY(-1px) scale(1.02);
         }
 
         .tag-badge {
@@ -244,10 +234,9 @@
             border: 1px solid #334155;
             margin-bottom: 1.5rem;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            opacity: 0; /* For animation */
+            opacity: 0; /* Changed for step-by-step animation */
         }
-        
-        /* Animation classes applied via JS */
+
         .animate-slide-up {
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -259,11 +248,6 @@
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -611,7 +595,7 @@
                 tagsHtml = `<a href="./games.html?tag=HTML5" class="tag-badge"><i class="fa-brands fa-html5 mr-1 text-orange-500"></i>HTML5</a>`;
             }
 
-            // Get related games for carousel
+            // Get related games for carousel (same category or random)
             let relatedGames = allGamesData.filter(g => 
                 (String(g.id) !== String(id) && String(g.gameId) !== String(id)) && 
                 (String(g.category).includes(categoriesArray[0]) || String(g.genre).includes(categoriesArray[0]))
@@ -640,15 +624,14 @@
                 `;
             });
 
-            // Ensure Gamemonetize container ID is exactly what the script looks for
             const htmlContent = `
                 <div class="max-w-7xl mx-auto px-4 py-8 w-full text-slate-200">
                     
-                    <!-- Header Section -->
-                    <div class="game-header">
-                        <img src="${thumb}" alt="${title}" class="w-24 h-24 md:w-32 md:h-32 rounded-2xl shadow-xl border-2 border-slate-600 object-cover hidden sm:block transition-transform duration-500 hover:scale-110 hover:rotate-2">
+                    <!-- Header Section with Smooth Fade In -->
+                    <div class="game-header animate-[fadeIn_0.5s_ease-out]">
+                        <img src="${thumb}" alt="${title}" class="w-24 h-24 md:w-32 md:h-32 rounded-2xl shadow-xl border-2 border-slate-700 object-cover hidden sm:block transition-transform duration-500 hover:scale-110 hover:rotate-2">
                         <div class="game-title-area">
-                            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">${title}</h1>
+                            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-md bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">${title}</h1>
                             <div class="mb-4 flex flex-wrap gap-2">
                                 ${categoriesHtml}
                             </div>
@@ -661,18 +644,18 @@
                         <div class="lg:w-2/3 flex flex-col gap-6">
                             
                             <!-- Game Iframe Container -->
-                            <div class="relative w-full rounded-2xl overflow-hidden border border-slate-600/80 bg-black animate-slide-up" style="padding-top: 56.25%; animation-delay: 0.1s;" id="game-container">
+                            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 transition-all duration-300 hover:shadow-blue-500/10 animate-slide-up" style="padding-top: 56.25%; animation-delay: 0.1s;" id="game-container">
                                 <iframe id="game-iframe" src="${url}" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen="true" scrolling="no"></iframe>
                             </div>
 
                             <!-- Description Section -->
-                            <div class="section-panel animate-slide-up" style="animation-delay: 0.3s;">
+                            <div class="section-panel animate-slide-up" style="animation-delay: 0.2s;">
                                 <h2 class="section-title"><i class="fa-solid fa-align-left mr-2 text-blue-400"></i>Description</h2>
-                                <p class="text-slate-300 leading-relaxed text-base font-medium">${formattedDesc}</p>
+                                <p class="text-slate-300 leading-relaxed text-[16px] font-medium">${formattedDesc}</p>
                             </div>
                             
                             <!-- Tags Section -->
-                            <div class="section-panel animate-slide-up" style="animation-delay: 0.4s;">
+                            <div class="section-panel animate-slide-up" style="animation-delay: 0.3s;">
                                 <h2 class="section-title"><i class="fa-solid fa-tags mr-2 text-purple-400"></i>Tags</h2>
                                 <div class="flex flex-wrap gap-2 pt-2">
                                     ${tagsHtml}
@@ -683,25 +666,25 @@
                         <!-- Right Sidebar -->
                         <div class="lg:w-1/3 flex flex-col gap-6">
                             
-                            <!-- Game Trailer Section (Gamemonetize) -->
+                            <!-- Game Trailer Section -->
                             <div class="section-panel !p-1 animate-slide-up overflow-hidden" style="animation-delay: 0.2s;">
                                 <div class="p-3 bg-slate-800 rounded-t-lg border-b border-slate-700 flex justify-between items-center">
                                     <h2 class="text-sm uppercase tracking-widest font-bold text-slate-300 mb-0"><i class="fa-solid fa-video mr-2 text-red-500"></i>Game Walkthrough</h2>
                                     <span class="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full animate-pulse">Live</span>
                                 </div>
-                                <!-- This div structure and ID matches the exact requirement from the provider -->
                                 <div class="bg-slate-900 rounded-b-lg">
+                                    <!-- ID exactly matches Gamemonetize requirement -->
                                     <div id="gamemonetize-video"></div>
                                 </div>
                             </div>
 
                             <!-- Thumbnail Section (visible on mobile if header thumb is hidden) -->
                             <div class="section-panel sm:hidden animate-slide-up" style="animation-delay: 0.3s;">
-                                 <img src="${thumb}" alt="${title}" class="w-full h-auto rounded-xl shadow-md border border-slate-600 object-cover aspect-[4/3]">
+                                 <img src="${thumb}" alt="${title}" class="w-full h-auto rounded-xl shadow-md border border-slate-700 object-cover aspect-[4/3]">
                             </div>
 
                             <!-- Carousel Section -->
-                            <div class="section-panel small-carousel-panel animate-slide-up" style="animation-delay: 0.5s;">
+                            <div class="section-panel small-carousel-panel animate-slide-up" style="animation-delay: 0.4s;">
                                 <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-4 pb-0"><i class="fa-solid fa-fire mr-2 text-orange-500"></i>You may also like</h2>
                                 <div class="carousel-container" id="related-carousel">
                                     <div class="carousel-track" id="carousel-track">
@@ -718,7 +701,6 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
-            // We append it to the document body or directly after the div to ensure it runs correctly
             initGamemonetizeTrailer(id);
             
             initCarousel();
@@ -732,21 +714,22 @@
                 return;
             }
 
-            // Using the EXACT script format provided by the instructions
-            
-            // 1. Set global options
+            // 1. Set global options exactly as instructed by Gamemonetize
             window.VIDEO_OPTIONS = {
                gameid : gameId,
                width  : "100%",
                height : "480px",
                color  : "#3f007e",
-               getAds : "false" // Keep as string "false" as per instructions
+               getAds : "false" // Keep as string "false" as per their example
             };
             
-            // 2. Inject the IIFE loader script
+            // 2. Remove any previously injected script to prevent duplicate execution
+            const existingScript = document.getElementById('gamemonetize-video-api');
+            if (existingScript) existingScript.remove();
+
+            // 3. Inject the IIFE loader script provided by the network directly into the body
             const script = document.createElement('script');
             script.type = 'text/javascript';
-            // We use inline code to mimic the exact IIFE structure requested
             script.text = `
                (function (a, b, c) {
                   var d = a.getElementsByTagName(b)[0];
@@ -754,7 +737,6 @@
                })(document, "script", "gamemonetize-video-api"); 
             `;
             
-            // Append to body to ensure execution
             document.body.appendChild(script);
         }
 
