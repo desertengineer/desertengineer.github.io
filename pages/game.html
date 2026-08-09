@@ -546,7 +546,7 @@
                             <!-- Game Trailer Section -->
                             <div class="section-panel !p-4">
                                 <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-2 pb-0">Game Trailer</h2>
-                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700 min-h-[250px] bg-slate-800"></div>
+                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700 min-h-[480px] bg-slate-800"></div>
                             </div>
 
                             <!-- Thumbnail Section (visible on mobile if header thumb is hidden) -->
@@ -572,14 +572,12 @@
             document.getElementById('app-container').innerHTML = htmlContent;
             document.title = title + " - Bekeirat Software";
 
-            // Initialize GameMonetize Video using an isolated iframe 
-            // to ensure the third-party script executes reliably after dynamic loading
             const trailerContainer = document.getElementById('gamemonetize-video');
             if (trailerContainer) {
                 const iframe = document.createElement('iframe');
                 iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.minHeight = '250px';
+                iframe.style.height = '480px';
+                iframe.style.minHeight = '480px';
                 iframe.style.border = 'none';
                 iframe.scrolling = 'no';
                 iframe.allow = 'autoplay; fullscreen';
@@ -599,7 +597,7 @@
                            window.VIDEO_OPTIONS = {
                                gameid : "${id}",
                                width  : "100%",
-                               height : "250px",
+                               height : "480px",
                                color  : "#3f007e",
                                getAds : "false"
                            };
@@ -615,7 +613,6 @@
                 trailerContainer.innerHTML = '';
                 trailerContainer.appendChild(iframe);
                 
-                // Write the GameMonetize snippet securely inside the new iframe document
                 const iframeDoc = iframe.contentWindow.document;
                 iframeDoc.open();
                 iframeDoc.write(trailerHtml);
