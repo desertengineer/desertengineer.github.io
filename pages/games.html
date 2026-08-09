@@ -29,6 +29,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/tailwindcss.js"></script>
     <link rel="icon" type="image/png" href="../assets/favicon.png">
+    
+    <!-- Wortise Web Monetization SDK -->
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof wortise !== 'undefined') {
+                wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4'); 
+            }
+        });
+    </script>
 
     <!-- Inline Styles (Combined index.css & games.css) -->
     <style>
