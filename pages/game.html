@@ -12,13 +12,13 @@
     <!-- Link to external CSS files using correct relative paths based on folder structure -->
     <link rel="stylesheet" href="../css/all.min.css" />
     <link href="../css/google-fonts.css" rel="stylesheet" />
-    
+
     <!-- Wortise Web Monetization SDK -->
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof wortise !== 'undefined') {
-                wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4'); 
+                wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4');
             }
         });
     </script>
@@ -206,6 +206,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -350,6 +351,7 @@
                 opacity: 0;
                 transform: translateY(24px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -790,7 +792,13 @@
                             
                             <!-- Game Iframe Container -->
                             <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 transition-all duration-300 hover:shadow-blue-500/10 animate-slide-up" style="padding-top: 56.25%; animation-delay: 0.1s;" id="game-container">
-                                <iframe id="game-iframe" src="${url}" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen="true" scrolling="no"></iframe>
+                               <iframe id="game-iframe" 
+                                    src="${url}" 
+                                    class="absolute top-0 left-0 w-full h-full border-0" 
+                                    allow="autoplay; fullscreen; encrypted-media; accelerometer; gyroscope" 
+                                    allowfullscreen="true" 
+                                    scrolling="no">
+                                </iframe>
                             </div>
 
                             <!-- Description Section -->
@@ -847,7 +855,7 @@
                 width: "100%",
                 height: "480px",
                 color: "#3f007e",
-                getAds: "false"
+                getAds: "true"
             };
 
             // 2. Assure the container is completely empty before executing
