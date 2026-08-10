@@ -77,8 +77,8 @@ google.com, pub-3850123049106208, RESELLER, f08c47fec0942fa0
 appnexus.com, 11488, RESELLER, f5ab79cb980f11d1
 
 # --- Playgama Lines ---
-playgama.com, publisher-id-here, DIRECT
+playgama.com, p_8249edec-80aa-43a7-859b-a20442eb3ac9, DIRECT
 
 # --- Wortise Integration Lines ---
-wortise.com, account-id-here, DIRECT
+wortise.com, 9e41f1c5-2c86-4e03-a850-1a946e84fea4, DIRECT
 google.com, pub-1912561085588771, RESELLER, f08c47fec0942fa0
