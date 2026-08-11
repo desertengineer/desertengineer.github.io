@@ -587,17 +587,25 @@
 
             if (rawData && Array.isArray(rawData)) {
                 dataCache[activeCategory] = rawData.map((item, idx) => ({
-                    id: item.id || `game-${idx}`,
-                    title: item.title ? item.title.trim() : "Untitled Game",
-                    url: item.url || item.gameUrl || '#',
-                    category: item.category || activeCategory,
-                    tags: Array.isArray(item.tags)
-                        ? item.tags.map(t => t.toLowerCase().trim())
-                        : (item.tags ? item.tags.split(',').map(t => t.trim().toLowerCase()) : []),
-                    thumb: item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/60a5fa?text=Bekeirat+Game',
-                    provider: item.provider || 'GameMonetize',
-                    width: item.width || "1280",
-                    height: item.height || "720"
+                    id: item.id || item.Id || `game-${idx}`,
+                    title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
+                    description: item.Description || item.description || "",
+                    instructions: item.Instructions || item.instructions || "",
+                    play: item.Play || item.play || "",
+                    url: item.Url || item.url || item.gameUrl || '#',
+                    category: item.Category || item.category || activeCategory,
+                    tags: Array.isArray(item.Tags)
+                        ? item.Tags.map(t => t.toLowerCase().trim())
+                        : (item.Tags ? item.Tags.split(',').map(t => t.trim().toLowerCase()) : 
+                          (Array.isArray(item.tags) ? item.tags.map(t => t.toLowerCase().trim()) : 
+                          (item.tags ? item.tags.split(',').map(t => t.trim().toLowerCase()) : []))),
+                    thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/60a5fa?text=Bekeirat+Game',
+                    width: item.Width || item.width || "1280",
+                    height: item.Height || item.height || "720",
+                    video: item.Video || item.video || "",
+                    gender: item.Gender || item.gender || "",
+                    languages: item.Languages || item.languages || "",
+                    embed: item.Embed || item.embed || ""
                 }));
 
                 currentDataset = dataCache[activeCategory];
@@ -695,12 +703,16 @@
 
             const fragment = document.createDocumentFragment();
             
-            // MODIFIED: Wrapping individual cards in an anchor <a> tag directly
             pageItems.forEach(game => {
                 const card = document.createElement('a');
                 
                 // Set the navigation destination with the game ID
                 card.href = `game.html?id=${encodeURIComponent(game.id)}`;
+                
+                // Store the game object in sessionStorage so the viewer can directly inject the raw Embed HTML
+                card.addEventListener('click', () => {
+                    sessionStorage.setItem('current_game_data', JSON.stringify(game));
+                });
                 
                 card.className = 'game-card group cursor-pointer bg-[#12141f] rounded-xl overflow-hidden border border-gray-800/90 hover:border-blue-500 transition-all duration-300 flex flex-col shadow-md hover:shadow-blue-500/10 block';
 
