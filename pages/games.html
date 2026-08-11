@@ -1387,8 +1387,8 @@
             if (sortedTags.length === 0) return;
 
             const allBtn = document.createElement('button');
-            allBtn.className = `px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${activeSubCategory === 'all'
-                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-sm'
+            allBtn.className = `tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border capitalize ${activeSubCategory === 'all'
+                ? 'active bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-sm'
                 : 'bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border-gray-700/60'
                 }`;
             allBtn.textContent = 'All Sub-types';
@@ -1397,7 +1397,7 @@
 
             sortedTags.forEach(tag => {
                 const btn = document.createElement('button');
-                btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
+                btn.className = 'tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
                 btn.textContent = `${tag} (${tagCounts[tag]})`;
                 btn.onclick = () => filterSubCategory(tag, btn);
                 tagsContainer.appendChild(btn);
@@ -1409,9 +1409,9 @@
             currentPage = 1;
 
             Array.from(element.parentElement.children).forEach(child => {
-                child.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
+                child.className = 'tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
             });
-            element.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition-all capitalize';
+            element.className = 'tag-pill active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition-all capitalize';
 
             renderGrid();
         }
