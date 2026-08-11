@@ -480,16 +480,30 @@
 
         /* Tag Pill Animations */
         .tag-pill {
+            background: linear-gradient(135deg, rgba(26, 32, 44, 0.95), rgba(45, 55, 72, 0.95)) !important;
+            color: #e2e8f0 !important;
+            border: 1px solid rgba(148, 163, 184, 0.25) !important;
+            border-radius: 999px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.02em !important;
+            box-shadow: 0 4px 12px rgba(15, 17, 26, 0.25) !important;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
         .tag-pill:hover {
             transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(0, 255, 204, 0.15) !important;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.18), rgba(59, 130, 246, 0.2)) !important;
+            color: #ffffff !important;
+            border-color: rgba(0, 255, 204, 0.45) !important;
+            box-shadow: 0 6px 18px rgba(0, 255, 204, 0.2) !important;
         }
 
         .tag-pill.active {
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3) !important;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.28), rgba(59, 130, 246, 0.25)) !important;
+            color: #f8fafc !important;
+            border-color: rgba(0, 255, 204, 0.55) !important;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.32) !important;
+            transform: translateY(-1px) !important;
         }
 
         /* Pagination Styling */
