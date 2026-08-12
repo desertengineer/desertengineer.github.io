@@ -820,6 +820,17 @@
 
             // Load default category with automatic initial shuffle on every page load
             switchCategory(CONFIG.defaultCategory);
+            
+            function updateSidebarTopOffset() {
+                const nav = document.querySelector('nav.navbar');
+                const topOffset = nav ? (nav.getBoundingClientRect().height + 12) : 16;
+                document.documentElement.style.setProperty('--sidebar-top', `${topOffset}px`);
+            }
+
+            // call on load and on resize/orientation change
+            updateSidebarTopOffset();
+            window.addEventListener('resize', updateSidebarTopOffset);
+            window.addEventListener('orientationchange', updateSidebarTopOffset);
         });
 
         async function switchCategory(category, element = null) {
