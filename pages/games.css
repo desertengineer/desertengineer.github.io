@@ -434,3 +434,126 @@
         .page-btn:not(:disabled):active {
             transform: translateY(0) scale(0.96) !important;
         }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: var(--sidebar-top, 1rem);
+            /* fallback to 1rem if JS doesn't run */
+            align-self: start;
+            /* ensure the aside aligns at the top of the main column */
+            z-index: 40;
+            /* sit above page content but below modals/overlays */
+            /* keep the sidebar usable on tall pages */
+            max-height: calc(100vh - var(--sidebar-top, 1rem) - 1.5rem);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 0.5rem;
+            /* give a bit of breathing room for scrollbar */
+        }
+
+        /* Hide sticky behavior on small screens (mobile) to avoid UX issues */
+        @media (max-width: 1024px) {
+            .sticky-sidebar {
+                position: static;
+                max-height: none;
+                overflow: visible;
+                top: auto;
+            }
+        }
+
+        /* Tags / Filter Bar Styling */
+        #tags-filter-bar {
+            font-family: "Poppins", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.9rem;
+            gap: 0.6rem;
+            padding: 0.5rem 0.25rem;
+            background: linear-gradient(180deg, rgba(17, 18, 23, 0.35), rgba(17, 18, 23, 0.2));
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 255, 204, 0.25) transparent;
+        }
+
+        /* Desktop scrollbar visual */
+        #tags-filter-bar::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        #tags-filter-bar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #tags-filter-bar::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.20), rgba(59, 130, 246, 0.18));
+            border-radius: 12px;
+            border: 2px solid transparent;
+        }
+
+        /* Tag pill base (improved typography & colors) */
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #cbd5e1;
+            /* softer light text */
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+        }
+
+        /* Hover / focus */
+        .tag-pill:hover,
+        .tag-pill:focus {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.06), rgba(59, 130, 246, 0.04));
+            color: #e6fff9;
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.06);
+            outline: none;
+        }
+
+        /* Active / selected */
+        .tag-pill.active {
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.12), rgba(59, 130, 246, 0.08));
+            color: #0f111a;
+            border-color: rgba(0, 255, 204, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* small screens: tighten spacing a bit */
+        @media (max-width: 640px) {
+            .tag-pill {
+                padding: 0.35rem 0.7rem;
+                font-size: 0.78rem;
+            }
+        }
+
+        /* ensure the tag buttons are keyboard friendly */
+        .tag-pill:focus {
+            box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.08);
+        }
+
+        /* Ensure tag text truncation doesn't break layout if long */
+        .tag-pill span {
+            max-width: 11rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Small accessibility tweak for keyboard users */
+        .tag-pill[aria-pressed="true"] {
+            outline: 2px solid rgba(0, 255, 204, 0.15);
+        }
