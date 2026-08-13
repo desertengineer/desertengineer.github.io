@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadHomepageData() {
-    const dataPaths = ['./data/all.json', '../data/all.json', '/data/all.json'];
+    const dataPaths = ['./data/all.json'];
     let fetchedData = null;
 
     for (const path of dataPaths) {
@@ -128,6 +128,7 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
                         <img src="${game.thumb}" 
                              alt="${game.title}"
                              loading="lazy"
+                             decoding="async"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                              onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
