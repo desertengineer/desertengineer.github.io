@@ -71,10 +71,14 @@ google.com, pub-9378724246417115, DIRECT, f08c47fec0942fa0
 google.com, pub-7002491002409919, RESELLER, f08c47fec0942fa0
 adingo.jp, 26007, RESELLER
 
-# --- GameDistribution (Azerion) Lines ---
-gamedistribution.com, 81404172, DIRECT, 03138b725b84d4b1
-google.com, pub-3850123049106208, RESELLER, f08c47fec0942fa0
-appnexus.com, 11488, RESELLER, f5ab79cb980f11d1
+# --- GameFlare Distribution Lines ---
+google.com, pub-6997479010326903, RESELLER, f08c47fec0942fa0
+google.com, pub-2264390143245556, RESELLER, f08c47fec0942fa0
+google.com, pub-4529402052683454, RESELLER, f08c47fec0942fa0
+cpmstar.com, 23984, RESELLER
+google.com, pub-7020262665364086, RESELLER, f08c47fec0942fa0
+spotxchange.com, 238406, RESELLER, 7842df1d2fe2db34
+spotx.tv, 238406, RESELLER, 7842df1d2fe2db34
 
 # --- Playgama Lines ---
 playgama.com, p_8249edec-80aa-43a7-859b-a20442eb3ac9, DIRECT
