@@ -54,11 +54,11 @@
         rel="stylesheet">
 
     <!-- Consolidated Iconography & Local Styles -->
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/tailwindcss.css">
     <link rel="stylesheet" href="./css/all.min.css" />
     <link rel="stylesheet" href="./css/google-fonts.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> \
 
     <!-- Google AdSense Verification & Auto-Ads -->
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
@@ -90,7 +90,8 @@
       },
       "description": "Provider of innovative HTML5 web games, progressive web apps, and desktop titles."
     }
-    </script> 
+    </script>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body class="bg-[#0b0f19] text-gray-100 flex flex-col min-h-screen font-sans antialiased">
@@ -550,7 +551,8 @@
                     category: item.Category || item.category || 'arcade',
                     tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? item.Tags.split(',').map(t => t.trim()) : []),
                     thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-                    url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${item.id || idx}`
+                    url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${item.id || idx}`,
+                    class: item.Class || item.class
                 }));
             } else {
                 // Fallback Mock Data if server is running offline
@@ -584,47 +586,6 @@
             renderCarousel('toprated-carousel', topRated, '🏆 TOP', true);
             setupCarouselAutoScroll('toprated-carousel', 4000);
         }
-
-        function startAutoScroll(carouselId, intervalMs = 3500) {
-            stopAutoScroll(carouselId);
-
-            const container = document.getElementById(carouselId);
-            if (!container) return;
-
-            autoScrollTimers[carouselId] = setInterval(() => {
-                if (!container) return;
-                const scrollStep = 220; // Width of card + gap
-                const maxScroll = container.scrollWidth - container.clientWidth;
-
-                if (container.scrollLeft >= maxScroll - 15) {
-                    container.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    container.scrollBy({ left: scrollStep, behavior: 'smooth' });
-                }
-            }, intervalMs);
-        }
-
-        function stopAutoScroll(carouselId) {
-            if (autoScrollTimers[carouselId]) {
-                clearInterval(autoScrollTimers[carouselId]);
-                delete autoScrollTimers[carouselId];
-            }
-        }
-
-        function setupCarouselAutoScroll(carouselId, intervalMs = 3500) {
-            const container = document.getElementById(carouselId);
-            if (!container) return;
-
-            // Start initial timer
-            startAutoScroll(carouselId, intervalMs);
-
-            // Pause auto-scrolling on hover or touch
-            container.addEventListener('mouseenter', () => stopAutoScroll(carouselId));
-            container.addEventListener('mouseleave', () => startAutoScroll(carouselId, intervalMs));
-            container.addEventListener('touchstart', () => stopAutoScroll(carouselId), { passive: true });
-            container.addEventListener('touchend', () => startAutoScroll(carouselId, intervalMs), { passive: true });
-        }
-
 
         function renderCarousel(containerId, games, badgeText, showRank = false) {
             const container = document.getElementById(containerId);
@@ -698,6 +659,46 @@
             if (container) {
                 container.scrollBy({ left: offset, behavior: 'smooth' });
             }
+        }
+
+        function startAutoScroll(carouselId, intervalMs = 3500) {
+            stopAutoScroll(carouselId);
+
+            const container = document.getElementById(carouselId);
+            if (!container) return;
+
+            autoScrollTimers[carouselId] = setInterval(() => {
+                if (!container) return;
+                const scrollStep = 220; // Width of card + gap
+                const maxScroll = container.scrollWidth - container.clientWidth;
+
+                if (container.scrollLeft >= maxScroll - 15) {
+                    container.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    container.scrollBy({ left: scrollStep, behavior: 'smooth' });
+                }
+            }, intervalMs);
+        }
+
+        function stopAutoScroll(carouselId) {
+            if (autoScrollTimers[carouselId]) {
+                clearInterval(autoScrollTimers[carouselId]);
+                delete autoScrollTimers[carouselId];
+            }
+        }
+
+        function setupCarouselAutoScroll(carouselId, intervalMs = 3500) {
+            const container = document.getElementById(carouselId);
+            if (!container) return;
+
+            // Start initial timer
+            startAutoScroll(carouselId, intervalMs);
+
+            // Pause auto-scrolling on hover or touch
+            container.addEventListener('mouseenter', () => stopAutoScroll(carouselId));
+            container.addEventListener('mouseleave', () => startAutoScroll(carouselId, intervalMs));
+            container.addEventListener('touchstart', () => stopAutoScroll(carouselId), { passive: true });
+            container.addEventListener('touchend', () => startAutoScroll(carouselId, intervalMs), { passive: true });
         }
 
         function generateMockGames() {
