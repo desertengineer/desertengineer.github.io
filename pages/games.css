@@ -720,15 +720,82 @@
             transition: transform 0.18s ease, background 0.18s ease !important;
         }
 
-        /* Slight visual feedback when hovering the category button */
+        /* Category button hover state affects icon */
         .cat-btn:hover .icon-box {
             transform: translateY(-2px) !important;
             background: rgba(12, 18, 28, 0.5) !important;
         }
 
-        /* Ensure the emoji doesn't repeat or get duplicated by other code */
+        /* Ensure svg/img inside icon-box do not conflict with emoji text */
         .cat-btn .icon-box img,
         .cat-btn .icon-box svg {
             display: none !important;
-            /* only use text emoji for now */
+        }
+
+        /* Tag pill — darker gradient-friendly base (single, consolidated rule) */
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            white-space: nowrap;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            border-radius: 999px;
+            color: #e6fff9 !important;
+            /* text color for gradient backgrounds */
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+            background: rgba(12, 14, 18, 0.36) !important;
+            /* darker base */
+            cursor: pointer !important;
+            padding-right: 1rem !important;
+            padding-left: 1rem !important;
+            box-shadow: 0 2px 8px rgba(2, 6, 23, 0.45) inset;
+            min-height: 36px;
+        }
+
+        /* Hover / focus for tag-pill (subtle lift, preserves darker tint) */
+        .tag-pill:hover,
+        .tag-pill:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(6, 182, 212, 0.05), 0 2px 6px rgba(2, 6, 23, 0.5) inset;
+            outline: none;
+            color: #ffffff !important;
+        }
+
+        /* Active / selected — CSS-level visible state */
+        .tag-pill.active {
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.12), rgba(59, 130, 246, 0.08)) !important;
+            color: #0f111a !important;
+            border-color: rgba(0, 255, 204, 0.28) !important;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.10) !important;
+        }
+
+        /* Ensure inline gradients display with rounded corners */
+        .tag-pill[style] {
+            background-clip: padding-box;
+            -webkit-background-clip: padding-box;
+        }
+
+        /* Tags container visuals */
+        #tags-filter-bar {
+            padding-left: 12px;
+            padding-right: 12px;
+            background: linear-gradient(180deg, rgba(17, 18, 23, 0.35), rgba(17, 18, 23, 0.2));
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        /* small screens */
+        @media (max-width: 640px) {
+            .tag-pill {
+                padding: 0.35rem 0.7rem !important;
+                font-size: 0.78rem !important;
+            }
         }
