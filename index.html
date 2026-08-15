@@ -6,14 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
 
-    <!-- AdCash Auto-Tagging Script -->
-    <!-- <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: 'yrq0xfozsn',
-        });
-    </script> -->
-
     <!-- Primary Meta Tags -->
     <title>Bekeirat Software - Free Online HTML5 Games & Innovative Mobile Apps Hub</title>
     <meta name="title" content="Bekeirat Software - Free Online HTML5 Games & Mobile Apps Hub">
@@ -62,12 +54,11 @@
         rel="stylesheet">
 
     <!-- Consolidated Iconography & Local Styles -->
+    <link rel="stylesheet" href="./css/tailwindcss.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/all.min.css">
-    <link href="./css/google-fonts.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="./css/google-fonts.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/index.css">
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> \
 
     <!-- Google AdSense Verification & Auto-Ads -->
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
@@ -100,6 +91,7 @@
       "description": "Provider of innovative HTML5 web games, progressive web apps, and desktop titles."
     }
     </script>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body class="bg-[#0b0f19] text-gray-100 flex flex-col min-h-screen font-sans antialiased">
@@ -227,30 +219,20 @@
 
         <!-- SECTION 2: Hot & Trending Games 🔥 -->
         <section class="space-y-4">
-            <div
-                class="bg-slate-900/80 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-slate-800/80 shadow-lg flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3.5">
-                    <div
-                        class="p-3 rounded-xl bg-gradient-to-br from-orange-500/25 to-amber-500/10 text-orange-400 border border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)] shrink-0">
-                        <i class="fa-solid fa-fire text-xl"></i>
-                    </div>
-                    <div>
-                        <h2
-                            class="text-xl md:text-2xl font-black tracking-wide bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">
-                            Hot & Trending Games</h2>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">Most played games across the platform this
-                            week</p>
-                    </div>
-                </div>
+            <div class="flex items-center justify-between gap-4">
+                <h2
+                    class="text-2xl md:text-3xl font-extrabold text-white bg-blue-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-blue-400/30 flex items-center gap-3">
+                    <span>🔥</span> Hot & Trending Games
+                </h2>
 
                 <!-- Carousel Controls -->
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="scrollCarousel('trending-carousel', -300)" aria-label="Scroll left"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-orange-500/20 hover:text-orange-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-orange-500/50 hover:shadow-[0_0_12px_rgba(249,115,22,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <button onclick="scrollCarousel('trending-carousel', 300)" aria-label="Scroll right"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-orange-500/20 hover:text-orange-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-orange-500/50 hover:shadow-[0_0_12px_rgba(249,115,22,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -258,44 +240,25 @@
 
             <!-- Scrollable Horizontal Carousel -->
             <div id="trending-carousel" class="carousel-container flex gap-4 overflow-x-auto pb-4 pt-1">
-                <!-- Dynamically populated by JS script -->
                 <div class="text-sm text-gray-500 py-8 text-center w-full">Loading Trending Games...</div>
             </div>
         </section>
 
-        <!-- Resolved Ad Banner Placement Container (Wortise Web Monetization & AdSense) -->
-        <!-- <div
-            class="my-8 p-3 bg-slate-900/60 rounded-2xl border border-slate-800 flex flex-col items-center justify-center min-h-[90px] overflow-hidden relative">
-            <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">Advertisement</span>
-            <div id="wortise:BANNER_ID" style="min-width: 300px; min-height: 90px;" class="mx-auto flex justify-center">
-            </div>
-        </div> -->
-
         <!-- SECTION 3: Weekly Editor's Picks 🌟 -->
         <section class="space-y-4">
-            <div
-                class="bg-slate-900/80 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-slate-800/80 shadow-lg flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3.5">
-                    <div
-                        class="p-3 rounded-xl bg-gradient-to-br from-amber-500/25 to-yellow-500/10 text-amber-400 border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)] shrink-0">
-                        <i class="fa-solid fa-award text-xl"></i>
-                    </div>
-                    <div>
-                        <h2
-                            class="text-xl md:text-2xl font-black tracking-wide bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-100 bg-clip-text text-transparent">
-                            Weekly Editor's Picks</h2>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">Hand-curated standout titles selected for
-                            exceptional gameplay</p>
-                    </div>
-                </div>
+            <div class="flex items-center justify-between gap-4">
+                <h2
+                    class="text-2xl md:text-3xl font-extrabold text-white bg-indigo-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-indigo-400/30 flex items-center gap-3">
+                    <span>🌟</span> Weekly Editor's Picks
+                </h2>
 
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="scrollCarousel('editors-carousel', -300)" aria-label="Scroll left"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-amber-500/50 hover:shadow-[0_0_12px_rgba(245,158,11,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <button onclick="scrollCarousel('editors-carousel', 300)" aria-label="Scroll right"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-amber-500/50 hover:shadow-[0_0_12px_rgba(245,158,11,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -310,19 +273,10 @@
         <section
             class="space-y-6 bg-slate-900/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-center gap-3.5">
-                    <div
-                        class="p-3 rounded-xl bg-gradient-to-br from-cyan-500/25 to-blue-500/10 text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)] shrink-0">
-                        <i class="fa-solid fa-gamepad text-xl"></i>
-                    </div>
-                    <div>
-                        <h2
-                            class="text-xl md:text-2xl font-black tracking-wide bg-gradient-to-r from-cyan-300 via-blue-200 to-indigo-200 bg-clip-text text-transparent">
-                            Explore by Genre</h2>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">Filter instantly across our cross-platform
-                            library</p>
-                    </div>
-                </div>
+                <h2
+                    class="text-2xl md:text-3xl font-extrabold text-white bg-slate-800 px-5 py-2.5 rounded-2xl shadow-lg border border-slate-700 flex items-center gap-3">
+                    <span>🎮</span> Explore by Genre
+                </h2>
 
                 <!-- Category Tabs -->
                 <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
@@ -358,29 +312,19 @@
 
         <!-- SECTION 5: Fresh Releases & New Drops 🚀 -->
         <section class="space-y-4">
-            <div
-                class="bg-slate-900/80 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-slate-800/80 shadow-lg flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3.5">
-                    <div
-                        class="p-3 rounded-xl bg-gradient-to-br from-emerald-500/25 to-teal-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] shrink-0">
-                        <i class="fa-solid fa-rocket text-xl"></i>
-                    </div>
-                    <div>
-                        <h2
-                            class="text-xl md:text-2xl font-black tracking-wide bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-200 bg-clip-text text-transparent">
-                            Fresh Releases</h2>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">Newly integrated additions to the Bekeirat
-                            gaming catalog</p>
-                    </div>
-                </div>
+            <div class="flex items-center justify-between gap-4">
+                <h2
+                    class="text-2xl md:text-3xl font-extrabold text-white bg-emerald-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-emerald-400/30 flex items-center gap-3">
+                    <span>🚀</span> Fresh Releases
+                </h2>
 
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="scrollCarousel('fresh-carousel', -300)" aria-label="Scroll left"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-emerald-500/20 hover:text-emerald-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-emerald-500/50 hover:shadow-[0_0_12px_rgba(16,185,129,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <button onclick="scrollCarousel('fresh-carousel', 300)" aria-label="Scroll right"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-emerald-500/20 hover:text-emerald-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-emerald-500/50 hover:shadow-[0_0_12px_rgba(16,185,129,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -393,29 +337,19 @@
 
         <!-- SECTION 6: Community Favorites & Top Rated 🏆 -->
         <section class="space-y-4">
-            <div
-                class="bg-slate-900/80 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-slate-800/80 shadow-lg flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3.5">
-                    <div
-                        class="p-3 rounded-xl bg-gradient-to-br from-purple-500/25 to-indigo-500/10 text-purple-400 border border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.2)] shrink-0">
-                        <i class="fa-solid fa-trophy text-xl"></i>
-                    </div>
-                    <div>
-                        <h2
-                            class="text-xl md:text-2xl font-black tracking-wide bg-gradient-to-r from-purple-300 via-pink-200 to-indigo-200 bg-clip-text text-transparent">
-                            Top Rated & Played</h2>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">Highest player satisfaction rankings across
-                            the platform</p>
-                    </div>
-                </div>
+            <div class="flex items-center justify-between gap-4">
+                <h2
+                    class="text-2xl md:text-3xl font-extrabold text-white bg-purple-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-purple-400/30 flex items-center gap-3">
+                    <span>🏆</span> Top Rated & Played
+                </h2>
 
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="scrollCarousel('toprated-carousel', -300)" aria-label="Scroll left"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-purple-500/20 hover:text-purple-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-purple-500/50 hover:shadow-[0_0_12px_rgba(168,85,247,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <button onclick="scrollCarousel('toprated-carousel', 300)" aria-label="Scroll right"
-                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-purple-500/20 hover:text-purple-400 text-slate-300 flex items-center justify-center border border-slate-700/80 hover:border-purple-500/50 hover:shadow-[0_0_12px_rgba(168,85,247,0.25)] transition-all">
+                        class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -443,7 +377,7 @@
                 </p>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+            <div class="flex flex-col sm:flex-row items:center gap-4 w-full md:w-auto">
                 <a href="./pages/games.html"
                     class="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-lg">
                     Launch Web Portal
@@ -513,9 +447,8 @@
         </div>
     </footer>
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
- 
-    <!-- Execution Engine Script for Dynamic Carousels & Data Fetching -->
-    <script type="text/javascript" src="./js/index.js"></script>
+
+    <script src="./js/index.js"></script>
     <script type="text/javascript" src="https://s.skimresources.com/js/307541X1795827.skimlinks.js"></script>
 </body>
 

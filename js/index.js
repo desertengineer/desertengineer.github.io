@@ -1,6 +1,26 @@
-
 let globalCatalog = [];
 const autoScrollTimers = {};
+
+/* Helper: Normalize class strings into tokens.
+   Separator support: comma, pipe, slash, semicolon (DO NOT split on whitespace so multi-word classes like
+   "Editorial Picks" are preserved). Matching is case-insensitive.
+*/
+function normalizeClasses(raw) {
+    if (!raw && raw !== 0) return [];
+    if (Array.isArray(raw)) {
+        return raw.map(String).map(s => s.trim().toLowerCase()).filter(Boolean);
+    }
+    // split only on explicit separators so "Editorial Picks" remains one token
+    const parts = String(raw).split(/[,\|\/;]+/).map(s => s.trim()).filter(Boolean);
+    return parts.map(s => s.toLowerCase());
+}
+
+function hasClass(game, className) {
+    if (!className) return false;
+    const want = String(className).trim().toLowerCase();
+    if (!game || !Array.isArray(game.classificationTokens)) return false;
+    return game.classificationTokens.some(t => t === want);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Set current year
@@ -21,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadHomepageData() {
-    const dataPaths = ['./data/all.json'];
+    const dataPaths = ['./data/all.json', './data/SAMPLE.json', './data/allgames.json'];
     let fetchedData = null;
 
     for (const path of dataPaths) {
@@ -31,18 +51,24 @@ async function loadHomepageData() {
                 fetchedData = await res.json();
                 break;
             }
-        } catch (e) { }
+        } catch (e) { /* ignore and try next */ }
     }
 
     if (fetchedData && Array.isArray(fetchedData)) {
-        globalCatalog = fetchedData.map((item, idx) => ({
-            id: item.id || item.Id || `game-${idx}`,
-            title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
-            category: item.Category || item.category || 'arcade',
-            tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? item.Tags.split(',').map(t => t.trim()) : []),
-            thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-            url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${item.id || idx}`
-        }));
+        globalCatalog = fetchedData.map((item, idx) => {
+            const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
+            const tokens = normalizeClasses(rawClass);
+            return {
+                id: item.id || item.Id || `game-${idx}`,
+                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
+                category: item.Category || item.category || 'arcade',
+                classificationRaw: rawClass,
+                classificationTokens: tokens,
+                tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()) : []),
+                thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
+                url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${encodeURIComponent(item.id || idx)}`
+            };
+        });
     } else {
         // Fallback Mock Data if server is running offline
         globalCatalog = generateMockGames();
@@ -52,28 +78,29 @@ async function loadHomepageData() {
 }
 
 function renderHomepageSections() {
-    // Section 2: Hot & Trending
-    const trending = globalCatalog.slice(0, 10);
+    // Use robust class matching (case-insensitive, supports multi-word classes)
+    // Section 2: Hot & Trending (Filtered by "Hot")
+    const trending = globalCatalog.filter(g => hasClass(g, 'Hot'));
     renderCarousel('trending-carousel', trending, '🔥 HOT');
-    setupCarouselAutoScroll('trending-carousel', 3200);
+    if (trending.length > 0) setupCarouselAutoScroll('trending-carousel', 3200);
 
-    // Section 3: Editor's Picks
-    const editors = globalCatalog.slice(10, 20);
+    // Section 3: Editor's Picks & Exclusives (Filtered by "Editorial Picks" OR "Exclusive")
+    const editors = globalCatalog.filter(g => hasClass(g, 'Editorial Picks') || hasClass(g, 'Exclusive'));
     renderCarousel('editors-carousel', editors, '🌟 PICK');
-    setupCarouselAutoScroll('editors-carousel', 3800);
+    if (editors.length > 0) setupCarouselAutoScroll('editors-carousel', 3800);
 
     // Section 4: Genre Hub Default
     filterHomepageCategory('all');
 
-    // Section 5: Fresh Releases
-    const fresh = globalCatalog.slice().reverse().slice(0, 10);
+    // Section 5: Fresh Releases (Filtered by "Newest")
+    const fresh = globalCatalog.filter(g => hasClass(g, 'Newest'));
     renderCarousel('fresh-carousel', fresh, '🚀 NEW');
-    setupCarouselAutoScroll('fresh-carousel', 3500);
+    if (fresh.length > 0) setupCarouselAutoScroll('fresh-carousel', 3500);
 
-    // Section 6: Top Rated
-    const topRated = globalCatalog.slice(5, 15);
+    // Section 6: Top Rated (Filtered by "Top" or "Most Popular")
+    const topRated = globalCatalog.filter(g => hasClass(g, 'Top') || hasClass(g, 'Most Popular'));
     renderCarousel('toprated-carousel', topRated, '🏆 TOP', true);
-    setupCarouselAutoScroll('toprated-carousel', 4000);
+    if (topRated.length > 0) setupCarouselAutoScroll('toprated-carousel', 4000);
 }
 
 function startAutoScroll(carouselId, intervalMs = 3500) {
@@ -121,8 +148,13 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    if (games.length === 0) {
+        container.innerHTML = `<div class="text-sm text-gray-500 py-8 text-center w-full">No games assigned to this category yet.</div>`;
+        return;
+    }
+
     container.innerHTML = games.map((game, idx) => `
-                <a href="./pages/game.html?id=${encodeURIComponent(game.id)}" 
+                <a href="${game.url}" 
                    class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg">
                     <div class="relative aspect-square overflow-hidden bg-slate-950">
                         <img src="${game.thumb}" 
@@ -163,7 +195,7 @@ function filterHomepageCategory(category, element = null) {
 
     const filtered = category === 'all'
         ? globalCatalog.slice(0, 12)
-        : globalCatalog.filter(g => g.category.toLowerCase() === category.toLowerCase()).slice(0, 12);
+        : globalCatalog.filter(g => String(g.category || '').toLowerCase() === category.toLowerCase()).slice(0, 12);
 
     if (filtered.length === 0) {
         hubGrid.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-gray-400">No titles found in this genre right now.</div>`;
@@ -171,7 +203,7 @@ function filterHomepageCategory(category, element = null) {
     }
 
     hubGrid.innerHTML = filtered.map(game => `
-                <a href="./pages/game.html?id=${encodeURIComponent(game.id)}" 
+                <a href="${game.url}" 
                    class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 flex flex-col shadow-md">
                     <div class="aspect-square relative overflow-hidden bg-slate-950">
                         <img src="${game.thumb}" alt="${game.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -194,15 +226,21 @@ function scrollCarousel(carouselId, offset) {
 function generateMockGames() {
     const list = [];
     const cats = ['puzzle', 'action', 'arcade', 'racing', 'girls'];
-    for (let i = 1; i <= 24; i++) {
+    const classes = ['Hot', 'Editorial Picks', 'Newest', 'Top', 'Most Popular', 'Exclusive', ''];
+
+    for (let i = 1; i <= 28; i++) {
         const cat = cats[i % cats.length];
+        const cls = classes[i % classes.length];
+        const tokens = normalizeClasses(cls);
         list.push({
             id: `mock-game-${i}`,
             title: `${cat.toUpperCase()} Challenge ${i}`,
             category: cat,
+            classificationRaw: cls,
+            classificationTokens: tokens,
             thumb: `https://picsum.photos/seed/bekeirat-${i}/400/400`,
             url: './pages/games.html'
         });
     }
     return list;
-} 
+}  
