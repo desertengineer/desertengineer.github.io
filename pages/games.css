@@ -409,16 +409,70 @@
 
         /* Tag Pill Animations */
         .tag-pill {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            white-space: nowrap;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            border-radius: 999px;
+            color: #e6fff9 !important;
+            /* text color for gradient backgrounds */
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+            background: rgba(12, 14, 18, 0.36) !important;
+            /* darker base */
+            cursor: pointer !important;
+            padding-right: 1rem !important;
+            padding-left: 1rem !important;
+            box-shadow: 0 2px 8px rgba(2, 6, 23, 0.45) inset;
+            min-height: 36px;
         }
 
-        .tag-pill:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(0, 255, 204, 0.15) !important;
+        /* Hover / focus - subtle lift; darker tint retained */
+        .tag-pill:hover,
+        .tag-pill:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(6, 182, 212, 0.05), 0 2px 6px rgba(2, 6, 23, 0.5) inset;
+            outline: none;
+            color: #ffffff !important;
         }
 
+        /* Active / selected - explicit styling remains bright so selection stands out */
         .tag-pill.active {
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3) !important;
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.12), rgba(59, 130, 246, 0.08)) !important;
+            color: #0f111a !important;
+            border-color: rgba(0, 255, 204, 0.28) !important;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.10) !important;
+        }
+
+        /* small screens: tighten spacing a bit */
+        @media (max-width: 640px) {
+            .tag-pill {
+                padding: 0.35rem 0.7rem !important;
+                font-size: 0.78rem !important;
+            }
+        }
+
+        /* tags container */
+        #tags-filter-bar {
+            padding-left: 12px;
+            padding-right: 12px;
+            background: linear-gradient(180deg, rgba(17, 18, 23, 0.35), rgba(17, 18, 23, 0.2));
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        /* Ensure inline gradient applied by JS is shown with rounded corners */
+        .tag-pill[style] {
+            background-clip: padding-box;
+            -webkit-background-clip: padding-box;
         }
 
         /* Pagination Styling */
@@ -557,105 +611,110 @@
         .tag-pill[aria-pressed="true"] {
             outline: 2px solid rgba(0, 255, 204, 0.15);
         }
+
         .tag-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    white-space: nowrap;
-    padding: 0.45rem 0.9rem;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    border-radius: 999px;
-    color: #e6fff9 !important; /* default text color for dynamic gradients */
-    border: 1px solid rgba(255,255,255,0.04) !important;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
-    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
-    cursor: pointer !important;
-    padding-right: 1rem !important;
-    padding-left: 1rem !important;
-    box-shadow: 0 2px 8px rgba(2,6,23,0.35) inset;
-}
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            white-space: nowrap;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            border-radius: 999px;
+            color: #e6fff9 !important;
+            /* default text color for dynamic gradients */
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)) !important;
+            cursor: pointer !important;
+            padding-right: 1rem !important;
+            padding-left: 1rem !important;
+            box-shadow: 0 2px 8px rgba(2, 6, 23, 0.35) inset;
+        }
 
-/* Hover / focus - subtle lift while preserving gradient */
-.tag-pill:hover,
-.tag-pill:focus {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(6, 182, 212, 0.06), 0 2px 6px rgba(2,6,23,0.45) inset;
-    outline: none;
-    color: #ffffff !important;
-}
+        /* Hover / focus - subtle lift while preserving gradient */
+        .tag-pill:hover,
+        .tag-pill:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(6, 182, 212, 0.06), 0 2px 6px rgba(2, 6, 23, 0.45) inset;
+            outline: none;
+            color: #ffffff !important;
+        }
 
-/* Active / selected - explicit styling to stand out (CSS-level takes precedence when active) */
-.tag-pill.active {
-    background: linear-gradient(90deg, rgba(0, 255, 204, 0.12), rgba(59, 130, 246, 0.08)) !important;
-    color: #0f111a !important;
-    border-color: rgba(0, 255, 204, 0.28) !important;
-    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.10) !important;
-}
+        /* Active / selected - explicit styling to stand out (CSS-level takes precedence when active) */
+        .tag-pill.active {
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.12), rgba(59, 130, 246, 0.08)) !important;
+            color: #0f111a !important;
+            border-color: rgba(0, 255, 204, 0.28) !important;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.10) !important;
+        }
 
-/* Tighter spacing for small screens */
-@media (max-width: 640px) {
-    .tag-pill {
-        padding: 0.35rem 0.7rem !important;
-        font-size: 0.78rem !important;
-    }
-}
+        /* Tighter spacing for small screens */
+        @media (max-width: 640px) {
+            .tag-pill {
+                padding: 0.35rem 0.7rem !important;
+                font-size: 0.78rem !important;
+            }
+        }
 
-/* ensure the tag text truncation doesn't break layout if long */
-.tag-pill span {
-    max-width: 11rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-    vertical-align: middle;
-}
+        /* ensure the tag text truncation doesn't break layout if long */
+        .tag-pill span {
+            max-width: 11rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-/* scrollbar visuals for the tags bar */
-#tags-filter-bar {
-    font-family: "Poppins", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 0.9rem;
-    gap: 0.6rem;
-    padding: 0.5rem 0.25rem;
-    background: linear-gradient(180deg, rgba(17, 18, 23, 0.35), rgba(17, 18, 23, 0.2));
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 255, 204, 0.25) transparent;
-    padding-left: 12px;
-    padding-right: 12px;
-}
+        /* scrollbar visuals for the tags bar */
+        #tags-filter-bar {
+            font-family: "Poppins", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.9rem;
+            gap: 0.6rem;
+            padding: 0.5rem 0.25rem;
+            background: linear-gradient(180deg, rgba(17, 18, 23, 0.35), rgba(17, 18, 23, 0.2));
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 255, 204, 0.25) transparent;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
 
-/* Desktop scrollbar visual */
-#tags-filter-bar::-webkit-scrollbar {
-    height: 8px;
-}
-#tags-filter-bar::-webkit-scrollbar-track {
-    background: transparent;
-}
-#tags-filter-bar::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, rgba(0, 255, 204, 0.20), rgba(59, 130, 246, 0.18));
-    border-radius: 12px;
-    border: 2px solid transparent;
-}
+        /* Desktop scrollbar visual */
+        #tags-filter-bar::-webkit-scrollbar {
+            height: 8px;
+        }
 
-/* Ensure tag buttons remain keyboard friendly */
-.tag-pill:focus {
-    box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.08) !important;
-}
-.icon-box {
-  width: 38px !important;
-  height: 38px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 18px !important;
-  border-radius: 8px !important;
-  background: rgba(17, 24, 39, 0.35) !important;
-  flex: 0 0 auto !important;
-}
+        #tags-filter-bar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #tags-filter-bar::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, rgba(0, 255, 204, 0.20), rgba(59, 130, 246, 0.18));
+            border-radius: 12px;
+            border: 2px solid transparent;
+        }
+
+        /* Ensure tag buttons remain keyboard friendly */
+        .tag-pill:focus {
+            box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.08) !important;
+        }
+
+        .icon-box {
+            width: 38px !important;
+            height: 38px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 18px !important;
+            border-radius: 8px !important;
+            background: rgba(17, 24, 39, 0.35) !important;
+            flex: 0 0 auto !important;
+        }
