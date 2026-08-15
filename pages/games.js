@@ -114,16 +114,15 @@ function getCategoryEmoji(categoryKeyOrLabel) {
 // We'll hash the tag into a hue and create a gentle two-color gradient.
 function tagGradient(tag) {
     const s = String(tag || '');
-    // simple hash
     let h = 0;
     for (let i = 0; i < s.length; i++) {
         h = (h << 5) - h + s.charCodeAt(i);
-        h = h & h; // convert to 32bit int
+        h = h & h;
     }
     const hue = Math.abs(h) % 360;
-    const hue2 = (hue + 45) % 360;
-    // return CSS linear-gradient string
-    return `linear-gradient(90deg, hsl(${hue} 72% 48%), hsl(${hue2} 70% 50%))`;
+    const hue2 = (hue + 36) % 360;
+    // darker saturation and lightness than before
+    return `linear-gradient(90deg, hsl(${hue} 62% 36%), hsl(${hue2} 58% 40%))`;
 }
 
 /* -----------------------
@@ -164,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    Master data loader
    ----------------------- */
 async function loadMasterData() {
-    // Try multiple candidate URLs concurrently, use the first that returns JSON.
+
     const fetchPromises = CONFIG.dataPaths.map(path =>
         fetch(path).then(res => {
             if (!res.ok) throw new Error(`Failed to load ${path}`);
@@ -174,7 +173,6 @@ async function loadMasterData() {
 
     let rawData = null;
     try {
-        // Promise.any will reject only if all promises reject
         rawData = await Promise.any(fetchPromises);
     } catch (e) {
         rawData = null;
@@ -189,7 +187,7 @@ async function loadMasterData() {
                 : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
             return {
                 id: item.id || item.Id || `game-${idx}`,
-                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : `Untitled Game ${idx+1}`),
+                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : `Untitled Game ${idx + 1}`),
                 description: item.Description || item.description || "",
                 instructions: item.Instructions || item.instructions || "",
                 play: item.Play || item.play || "",
@@ -207,11 +205,9 @@ async function loadMasterData() {
             };
         });
     } else {
-        // fallback to mock dataset if none loaded
         globalCatalog = generateMockGames();
     }
 
-    // Clear any per-category cache (we'll build caches on demand)
     dataCache = {};
 }
 
@@ -360,7 +356,6 @@ function buildSubCategoryTags() {
 
     const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 15);
     if (sortedTags.length === 0) {
-        // small fallback: show 'All Sub-types' only
         const allBtn = document.createElement('button');
         allBtn.className = `tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border capitalize active bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-sm`;
         allBtn.textContent = 'All Sub-types';
@@ -380,10 +375,13 @@ function buildSubCategoryTags() {
         btn.className = 'tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
         btn.textContent = `${tag} (${tagCounts[tag]})`;
 
-        // compute gradient and store it on dataset for re-application
+        // create darker gradient and add a dark overlay at top for richer/darker look
         const grad = tagGradient(tag);
-        btn.dataset.grad = grad;
-        btn.style.backgroundImage = grad;
+        const darkOverlay = 'linear-gradient(rgba(0,0,0,0.26), rgba(0,0,0,0.26))';
+        const composed = `${darkOverlay}, ${grad}`;
+
+        btn.dataset.grad = composed;
+        btn.style.backgroundImage = composed;
         btn.style.color = '#e6fff9';
         btn.style.border = '1px solid rgba(255,255,255,0.04)';
 
@@ -398,7 +396,6 @@ function filterSubCategory(tag, element) {
 
     if (!element || !element.parentElement) return;
 
-    // Reset all tag-pill children: restore their dataset gradient as background
     Array.from(element.parentElement.children).forEach(child => {
         // base class
         child.className = 'tag-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gray-800/80 text-gray-400 hover:bg-gray-700/80 border border-gray-700/60 whitespace-nowrap transition-all capitalize';
@@ -412,7 +409,7 @@ function filterSubCategory(tag, element) {
         }
     });
 
-    // Make clicked element active: clear inline background so CSS active rule shows
+    // Active: use CSS .tag-pill.active look (clear inline gradient)
     element.className = 'tag-pill active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition-all capitalize';
     element.style.backgroundImage = '';
     element.style.color = '';
