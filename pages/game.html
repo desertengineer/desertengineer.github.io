@@ -1,586 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+
+    <!-- Primary Meta Tags -->
+    <title>HTML5 Arcade & Web Games Catalog | Bekeirat Software</title>
+    <meta name="title" content="Bekeirat Software - HTML5 Arcade & Web Games Catalog">
     <meta name="description"
-        content="Play cross-platform HTML5 and desktop games from Bekeirat Software — trending, top-rated and fresh releases. Play now on mobile or desktop.">
+        content="Browse and play hundreds of free online HTML5 games across puzzle, action, arcade, racing, and strategy genres at Bekeirat Software. No downloads needed.">
+    <meta name="keywords"
+        content="free online games, HTML5 games catalog, browser arcade, puzzle games, Bekeirat games">
     <link rel="canonical" href="https://bekeiratsoftwares.com/pages/games.html">
-    <title>Loading Game... - Bekeirat Software</title>
 
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Free Online Games Catalog | Bekeirat Software">
+    <meta property="og:description"
+        content="Browse hundreds of free HTML5 browser games on Bekeirat Software. Play instantly on desktop or mobile.">
+    <meta property="og:url" content="https://bekeiratsoftwares.com/pages/games.html">
+    <meta property="og:image" content="https://bekeiratsoftwares.com/assets/Bekeirat-Software-120x120.png">
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bekeiratsoftwares.com/">
+    <meta property="twitter:title" content="Bekeirat Software - Free Online HTML5 Games & Apps Hub">
+    <meta property="twitter:description"
+        content="Discover top-rated HTML5 games, progressive web apps, and exclusive desktop titles at Bekeirat Software. Instant play across all devices.">
+    <meta property="twitter:image" content="https://bekeiratsoftwares.com/assets/Bekeirat-Software-120x120.png">
+
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XCGXELT421');
+    </script>
+
+    <!-- Typography & Icons Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Consolidated Iconography & Local Styles -->
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/google-fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./games.css">
 
-    <!-- Link to external CSS files using correct relative paths based on folder structure -->
-    <link rel="stylesheet" href="../css/all.min.css" />
-    <link href="../css/google-fonts.css" rel="stylesheet" />
+    <!-- Google AdSense Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-2658659289706339">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
+        crossorigin="anonymous"></script>
 
     <!-- Wortise Web Monetization SDK -->
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof wortise !== 'undefined') {
-                wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4');
+                wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
             }
         });
     </script>
 
-    <!-- Main Stylesheet -->
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background-color: #0f172a !important;
-            /* Dark theme */
-            color: #e2e8f0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            min-height: 100vh !important;
-        }
-
-        .navbar {
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 50 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            background: rgba(15, 23, 42, 0.92) !important;
-            color: #ffffff !important;
-            backdrop-filter: blur(16px) !important;
-            -webkit-backdrop-filter: blur(16px) !important;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.16) !important;
-            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25) !important;
-            padding: 0.85rem 1rem !important;
-            transition: background 0.3s ease, transform 0.3s ease !important;
-        }
-
-        .nav-btn {
-            padding: 0.65rem 1.1rem !important;
-            border-radius: 9999px !important;
-            font-weight: 600 !important;
-            color: #e2e8f0 !important;
-            background: rgba(255, 255, 255, 0.04) !important;
-            border: 1px solid rgba(148, 163, 184, 0.14) !important;
-            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease !important;
-            backdrop-filter: blur(8px) !important;
-        }
-
-        .nav-btn:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(99, 102, 241, 0.95)) !important;
-            color: #ffffff !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.18) !important;
-        }
-
-        .mobile-menu-container {
-            display: none !important;
-            width: 100% !important;
-            background-color: rgba(15, 23, 42, 0.98) !important;
-            border-top: 1px solid rgba(148, 163, 184, 0.12) !important;
-            transition: max-height 0.4s ease, opacity 0.4s ease !important;
-            overflow: hidden !important;
-            max-height: 0 !important;
-            opacity: 0 !important;
-        }
-
-        .mobile-menu-container.active {
-            display: block !important;
-            max-height: 480px !important;
-            opacity: 1 !important;
-        }
-
-        .mobile-btn {
-            display: block !important;
-            padding: 1rem !important;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.10) !important;
-            transition: background-color 0.2s, transform 0.2s !important;
-        }
-
-        .mobile-btn:hover {
-            background-color: rgba(59, 130, 246, 0.12) !important;
-            color: #ffffff !important;
-            transform: translateX(2px) !important;
-        }
-
-        .mobile-btn:hover {
-            background-color: #1e293b !important;
-            color: #60a5fa !important;
-        }
-
-        main {
-            flex: 1 !important;
-            background-color: transparent !important;
-        }
-
-        .social-icon {
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 48px !important;
-            height: 48px !important;
-            font-size: 28px !important;
-            border-radius: 50% !important;
-            background: rgba(15, 23, 42, 0.94) !important;
-            color: #dbeafe !important;
-            border: 1px solid rgba(148, 163, 184, 0.2) !important;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22) !important;
-            transition: background-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease !important;
-        }
-
-        .social-icon>i {
-            color: white !important;
-            width: 100% !important;
-            height: 100% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        .social-icon.twitter>svg>path {
-            color: white !important;
-            width: 100% !important;
-            height: 100% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1) !important;
-        }
-
-        .social-icon.facebook>i:hover {
-            background-color: #1877F2 !important;
-        }
-
-        .social-icon.twitter:hover {
-            background-color: #000000 !important;
-        }
-
-        .social-icon.youtube>i:hover {
-            background-color: #FF0000 !important;
-        }
-
-        .social-icon.instagram>i:hover {
-            background-color: #E4405F !important;
-        }
-
-        .social-icon.tiktok>i:hover {
-            background-color: #000000 !important;
-        }
-
-        .social-icon.blogger>i:hover {
-            background-color: #F57C00 !important;
-        }
-
-        .game-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            opacity: 1;
-            animation: slideDown 0.65s ease-out forwards;
-        }
-
-        .game-title-area {
-            flex: 1;
-        }
-
-        #game-container {
-            border: none;
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
-            background-color: #060b16;
-            border-radius: 1.75rem;
-            overflow: hidden;
-            transform: translateY(8px);
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
-        }
-
-        #game-container:hover {
-            transform: translateY(0);
-            box-shadow: 0 24px 60px rgba(59, 130, 246, 0.3);
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Enhanced Category Badge */
-        .category-badge {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.45rem 1.4rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 45%, #ec4899 100%);
-            color: #eff6ff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-            overflow: hidden;
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, color 0.35s ease;
-            z-index: 1;
-            text-shadow: 0 1px 2px rgba(15, 23, 42, 0.35);
-        }
-
-        .category-badge::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 35%);
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .category-badge::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 0.8rem;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
-            transform: translateY(-50%);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
-            opacity: 0.7;
-            z-index: 0;
-        }
-
-        .category-badge:hover {
-            color: #ffffff;
-            transform: translateY(-3px) scale(1.04);
-            border-color: rgba(255, 255, 255, 0.35);
-            box-shadow: 0 18px 45px rgba(59, 130, 246, 0.28);
-        }
-
-        .category-badge:hover::before {
-            opacity: 0.55;
-        }
-
-        /* Enhanced Tag Badge */
-        .tag-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.42rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(51, 65, 85, 0.95));
-            color: #cbd5e1;
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tag-badge::after {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
-            background: rgba(255, 255, 255, 0.08);
-            transform: rotate(45deg);
-            transition: transform 0.45s ease, opacity 0.45s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .tag-badge:hover {
-            background: linear-gradient(135deg, rgba(51, 65, 85, 0.98), rgba(59, 130, 246, 0.16));
-            color: #f8fafc;
-            border-color: rgba(59, 130, 246, 0.45);
-            transform: translateY(-2px);
-            box-shadow: 0 14px 30px rgba(59, 130, 246, 0.18);
-        }
-
-        .tag-badge:hover::after {
-            opacity: 1;
-            transform: rotate(45deg) translate(25%, 25%);
-        }
-
-        /* Enhanced Section Panels with Slide-up Animation */
-        #app-container>div>div.flex.flex-col.lg\:flex-row.gap-6.lg\:gap-8>div.lg\:w-1\/3.flex.flex-col.gap-6>div.section-panel.\!p-4 {
-            display: none !important;
-            /* Hide the trailer panel temporarily */
-        }
-
-        .section-panel {
-            background-color: #1e293b;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            border: 1px solid #334155;
-            margin-bottom: 1.5rem;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-
-            /* Animation properties */
-            opacity: 0;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .section-panel:hover {
-            border-color: #7c3aed;
-            box-shadow: 0 18px 45px -8px rgba(59, 130, 246, 0.25), 0 0 24px rgba(124, 58, 237, 0.12);
-            transform: translateY(-4px);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Staggered animation delays for panels */
-        .section-panel:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .section-panel:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .section-panel:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .section-panel:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .section-title {
-            font-size: 1.25rem !important;
-            font-weight: 700 !important;
-            color: #f1f5f9 !important;
-            margin-bottom: 1.25rem !important;
-            border-bottom: 1px solid #334155 !important;
-            padding-bottom: 0.75rem !important;
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -1px;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-        }
-
-        a.category-badge,
-        a.tag-badge {
-            text-decoration: none !important;
-            cursor: pointer !important;
-        }
-
-        .small-carousel-panel {
-            padding: 1rem !important;
-            margin-bottom: 1rem !important;
-            background: linear-gradient(to bottom, #1e293b, #0f172a);
-        }
-
-        .small-carousel-panel .section-title {
-            font-size: 1rem !important;
-            margin-bottom: 1rem !important;
-            border-bottom: none !important;
-        }
-
-        .small-carousel-panel .section-title::after {
-            display: none;
-        }
-
-        .small-carousel-panel .carousel-item {
-            min-width: calc(50% - 0.5rem) !important;
-        }
-
-        @media (max-width: 640px) {
-            .small-carousel-panel .carousel-item {
-                min-width: 100% !important;
-            }
-        }
-
-        .small-carousel-panel .carousel-item img {
-            aspect-ratio: 16/9 !important;
-        }
-
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            border-radius: 0.5rem;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            gap: 1rem;
-        }
-
-        .carousel-item {
-            min-width: calc(33.333% - 0.67rem);
-            /* 3 items per view */
-            flex-shrink: 0;
-            position: relative;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        @media (max-width: 1024px) {
-            .carousel-item {
-                min-width: calc(50% - 0.5rem);
-                /* 2 items per view on tablets */
-            }
-        }
-
-        @media (max-width: 640px) {
-            .carousel-item {
-                min-width: 100%;
-                /* 1 item per view on mobile */
-            }
-        }
-
-        .carousel-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            z-index: 10;
-            border-color: #c084fc;
-            box-shadow: 0 22px 45px rgba(59, 130, 246, 0.25);
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            border-radius: 0.75rem;
-            transition: transform 0.7s ease, filter 0.45s ease;
-            filter: saturate(0.95) contrast(1.02);
-        }
-
-        .carousel-item:hover img {
-            transform: scale(1.12) rotate(2deg);
-            filter: saturate(1.1) contrast(1.08);
-        }
-
-        .carousel-item:hover img {
-            transform: scale(1.15) rotate(2deg);
-        }
-
-        .carousel-item-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7), transparent);
-            color: white;
-            padding: 1rem 0.5rem 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 700;
-            text-align: center;
-            transition: background 0.3s ease, padding-bottom 0.3s ease;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        .carousel-item:hover .carousel-item-title {
-            background: linear-gradient(to top, rgba(30, 58, 138, 0.95), rgba(15, 23, 42, 0.8), transparent);
-            padding-bottom: 0.75rem;
-        }
-
-        #app-container {
-            width: 100% !important;
-            display: flex !important;
-            justify-content: center !important;
-            background-color: #0f172a !important;
-        }
-
-        .footer-social-container {
-            background-color: rgba(30, 41, 59, 0.8);
-            display: inline-flex;
-            padding: 0.75rem 1.5rem;
-            border-radius: 1rem;
-            gap: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #334155;
-        }
-
-        #error-message,
-        #loading-message {
-            color: #cbd5e1 !important;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        /* Video Container pulse animation while loading */
-        .video-loading {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .5;
-            }
-        }
-        
-        /* Force injected iframe to fit the responsive container */
-        #game-container iframe {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-        }
-    </style>
+    <!-- Structured Data / JSON-LD for Search Engine Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Bekeirat Software",
+      "operatingSystem": "Web, Android, Windows",
+      "applicationCategory": "GameApplication",
+      "url": "https://bekeiratsoftwares.com/",
+      "author": {
+        "@type": "Organization",
+        "name": "Bekeirat Software"
+      },
+      "description": "Provider of innovative HTML5 web games, progressive web apps, and desktop titles."
+    }
+    </script>
 </head>
 
-<body>
+<body class="bg-[#0a0b10] text-gray-100 min-h-screen flex flex-col font-sans antialiased">
+
     <!-- Top Navigation Bar -->
     <nav
         class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
+        <!-- Brand Logo -->
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
             <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
@@ -589,15 +107,17 @@
             Bekeirat Software
         </a>
 
+        <!-- Mobile Navigation Toggle -->
         <button id="hamburger-btn"
             class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2"
-            aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+            aria-label="Toggle Menu">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
 
+        <!-- Navigation Links -->
         <div class="hidden md:flex space-x-2 items-center">
             <a href="../index.html" class="nav-btn">Home</a>
             <a href="./about.html" class="nav-btn">About Us</a>
@@ -605,6 +125,7 @@
             <a href="./contact us.html" class="nav-btn">Contacts</a>
         </div>
 
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu-container hidden md:hidden w-full mt-4 pb-2 shadow-inner">
             <nav class="flex flex-col space-y-1">
                 <a href="../index.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Home</a>
@@ -617,22 +138,93 @@
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main class="page-container" id="app-container">
-        <div id="loading-message" class="flex flex-col items-center justify-center py-20">
-            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-500 mb-4"></i>
-            <span class="text-xl font-semibold">Fetching Game Data...</span>
-        </div>
-    </main>
+    <!-- Main Content Container -->
+    <div class="flex flex-col lg:flex-row gap-8 max-w-[1600px] w-full mx-auto px-4 md:px-6 py-8 flex-1">
+
+        <!-- Sticky Sidebar Category Navigation -->
+        <aside
+            class="sticky-sidebar w-full lg:w-72 shrink-0 bg-[#12141f] p-5 rounded-2xl border border-gray-800/90 shadow-2xl self-start">
+            <nav id="category-menu" class="space-y-2" aria-label="Game categories">
+                <!-- categories will be injected here by games.js -->
+                <div class="text-sm text-gray-400">Loading categories...</div>
+            </nav>
+        </aside>
+
+        <!-- Main Catalog Container -->
+        <main class="flex-1 min-w-0">
+
+            <!-- Header Bar: Search & Live Metrics -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-2xl border border-gray-800/90 shadow-xl">
+                <!-- Search Box -->
+                <div class="relative w-full sm:w-80">
+                    <input type="text" id="game-search-input" oninput="handleSearch(this.value)"
+                        placeholder="Search catalog by title or tag..."
+                        class="w-full bg-[#0a0b10] border border-gray-700/80 text-gray-200 text-sm rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                    <svg class="w-4 h-4 absolute left-3.5 top-3.5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+
+                <!-- Controls & Catalog Counter -->
+
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                    <!-- Manual Shuffle Action Button -->
+                    <button onclick="reshuffleGrid()" title="Reshuffle Game Grid"
+                        class="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800/80 hover:bg-cyan-500/20 text-xs font-semibold text-cyan-400 border border-gray-700 hover:border-cyan-500/40 transition-all active:scale-95">
+                        <svg class="w-3.5 h-3.5 animate-spin-slow" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                            </path>
+                        </svg>
+                        <span>Reshuffle</span>
+                    </button>
+
+                    <!-- Catalog Metric Display -->
+                    <div id="catalog-status"
+                        class="text-xs text-gray-400 font-mono bg-[#0a0b10] px-3 py-2 rounded-xl border border-gray-800">
+                        Showing <span id="page-start-idx" class="text-cyan-400 font-bold">0</span> - <span
+                            id="page-end-idx" class="text-cyan-400 font-bold">0</span> of <span id="total-games-count"
+                            class="text-white font-bold">0</span> Games
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-Category Filter Tags -->
+            <div id="tags-filter-bar"
+                class="flex items-center gap-2.5 overflow-x-auto pb-3 mb-6 scrollbar-thin px-1 py-1"></div>
+
+            <!-- Responsive Header Banner Ad Slot (Google AdSense / GameMonetize) -->
+            <!-- <div
+                class="w-full my-4 p-3 bg-gray-900/40 rounded-2xl border border-gray-800/80 flex flex-col items-center justify-center min-h-[90px] overflow-hidden relative">
+                <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; width:100%; text-align:center;"
+                    data-ad-client="ca-pub-2658659289706339" data-ad-slot="auto" data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div> -->
+
+            <!-- Games Grid Display -->
+            <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+
+            <!-- Pagination Controls -->
+            <div id="pagination-controls"
+                class="flex flex-wrap items-center justify-center gap-2 mt-8 py-4 border-t border-gray-800/80"></div>
+        </main>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-[#0f172a] text-gray-400 py-12 px-4 text-center border-t border-gray-800 mt-auto">
+    <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800 mt-auto">
         <div class="max-w-4xl mx-auto flex flex-col items-center">
             <div class="mb-8">
                 <a href="../privacy/" class="hover:text-white transition-colors underline text-sm">Privacy Policy</a>
             </div>
 
-            <div class="footer-social-container mb-8">
+            <!-- Social Media Bar -->
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-[#b6baaa] p-4 rounded-lg">
                 <a href="https://x.com/MAWLAY20"
                     class="social-icon twitter text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"
@@ -667,282 +259,14 @@
             </div>
 
             <div>
-                <p class="text-sm text-gray-400 mb-1">&copy; <span id="current-year">2026</span> Bekeirat Software. All
-                    rights reserved.</p>
-                <p class="text-xs text-gray-500">Designed and built for apps and games excellence.</p>
+                <p class="text-sm">&copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.</p>
+                <p class="text-xs mt-2 text-gray-500">Cross-Platform Games & Apps Architecture.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Main Logic Script -->
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const gameId = urlParams.get('id');
-        const JSON_FEED_PATH = '../data/all.json';
-
-        let allGamesData = []; // Store all games for the carousel
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('active');
-        }
-
-        async function loadGameData() {
-            if (!gameId) {
-                showError("No Game ID specified in the URL. Please return to the games list and select a game.");
-                return;
-            }
-
-            try {
-                // Simulate network delay for loading effect
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const response = await fetch(JSON_FEED_PATH);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const games = await response.json();
-
-                let gameData = null;
-                if (Array.isArray(games)) {
-                    allGamesData = games;
-                    gameData = games.find(g => String(g.id) === String(gameId) || String(g.gameId) === String(gameId));
-                } else if (games && typeof games === 'object') {
-                    const list = games.games || games.items || Object.values(games);
-                    if (Array.isArray(list)) {
-                        allGamesData = list;
-                        gameData = list.find(g => g && (String(g.id) === String(gameId) || String(g.gameId) === String(gameId)));
-                    }
-                }
-
-                if (gameData) {
-                    renderGamePage(gameData);
-                } else {
-                    showError(`Game ID "${gameId}" was not found inside "${JSON_FEED_PATH}". Please verify the game exists in your JSON list.`);
-                }
-            } catch (err) {
-                showError(`Failed to load or parse "${JSON_FEED_PATH}". Error: ${err.message}`);
-                console.error("Fetch error details:", err);
-            }
-        }
-
-        function renderGamePage(game) {
-            const title = game.Title || game.title || game.name || "Untitled Game";
-            const description = game.Description || game.description || game.desc || "No description provided.";
-            const category = game.Category || game.category || game.genre || "Arcade";
-            const tags = game.Tags || game.tags || game.keywords || "";
-            const thumb = game.Image || game.thumb || game.thumbnail || game.image || "https://placehold.co/512x384/1e293b/60a5fa?text=Game";
-            const id = game.id || game.gameId || gameId;
-
-            // Use the Embed HTML if provided, otherwise fallback to Url
-            let embedCode = game.Embed;
-            if (!embedCode) {
-                const url = game.Url || game.Play || game.url || game.gameUrl || game.link || "";
-                embedCode = `<iframe id="game-iframe" src="${url}" class="absolute top-0 left-0 w-full h-full border-0" allow="autoplay; fullscreen; encrypted-media; accelerometer; gyroscope" allowfullscreen="true" scrolling="no"></iframe>`;
-            }
-
-            let formattedDesc = String(description).replace(/&ndash;/g, '-').replace(/&amp;/g, '&').replace(/\*\*/g, '');
-
-            const categoriesArray = String(category).split(',').map(c => c.trim()).filter(c => c !== '');
-            let categoriesHtml = '';
-            categoriesArray.forEach(cat => {
-                categoriesHtml += `<a href="./games.html?category=${encodeURIComponent(cat)}" class="category-badge"><i class="fa-solid fa-gamepad mr-2 opacity-70"></i>${cat}</a>`;
-            });
-
-            const tagsArray = String(tags).split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-            let tagsHtml = '';
-            if (tagsArray.length > 0) {
-                tagsArray.forEach(tag => {
-                    tagsHtml += `<a href="./games.html?tag=${encodeURIComponent(tag)}" class="tag-badge"><i class="fa-solid fa-hashtag mr-1 text-blue-400"></i>${tag}</a>`;
-                });
-            } else {
-                tagsHtml = `<a href="./games.html?tag=HTML5" class="tag-badge"><i class="fa-brands fa-html5 mr-1 text-orange-500"></i>HTML5</a>`;
-            }
-
-            // Get related games for carousel (same category or random)
-            let relatedGames = allGamesData.filter(g =>
-                (String(g.id) !== String(id) && String(g.gameId) !== String(id)) &&
-                (String(g.Category || g.category || g.genre).includes(categoriesArray[0]))
-            );
-
-            if (relatedGames.length < 6) {
-                const otherGames = allGamesData.filter(g => String(g.id) !== String(id) && String(g.gameId) !== String(id));
-                const needed = 6 - relatedGames.length;
-                for (let i = 0; i < needed && i < otherGames.length; i++) {
-                    if (!relatedGames.includes(otherGames[i])) {
-                        relatedGames.push(otherGames[i]);
-                    }
-                }
-            }
-
-            let carouselItemsHtml = '';
-            relatedGames.slice(0, 10).forEach(rg => {
-                const rgThumb = rg.Image || rg.thumb || rg.thumbnail || rg.image || "https://placehold.co/512x384/1e293b/60a5fa?text=Game";
-                const rgTitle = rg.Title || rg.title || rg.name || "Game";
-                const rgId = rg.id || rg.gameId;
-                carouselItemsHtml += `
-                    <div class="carousel-item" onclick="window.location.href='?id=${rgId}'">
-                        <img src="${rgThumb}" alt="${rgTitle}" loading="lazy">
-                        <div class="carousel-item-title">${rgTitle}</div>
-                    </div>
-                `;
-            });
-
-            const htmlContent = `
-                <div class="max-w-7xl mx-auto px-4 py-8 w-full text-slate-200">
-                    
-                    <!-- Header Section with Smooth Fade In -->
-                    <div class="game-header animate-[fadeIn_0.5s_ease-out]">
-                        <img src="${thumb}" alt="${title}" class="w-24 h-24 md:w-32 md:h-32 rounded-2xl shadow-xl border-2 border-slate-700 object-cover hidden sm:block transition-transform duration-500 hover:scale-110 hover:rotate-2">
-                        <div class="game-title-area">
-                            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-md bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">${title}</h1>
-                            <div class="mb-4 flex flex-wrap gap-2">
-                                ${categoriesHtml}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
-                        
-                        <!-- Main Left Column -->
-                        <div class="lg:w-2/3 flex flex-col gap-6">
-                            
-                            <!-- Game Iframe Container -->
-                            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 transition-all duration-300 hover:shadow-blue-500/10 animate-slide-up" style="padding-top: 56.25%; animation-delay: 0.1s;" id="game-container">
-                               ${embedCode}
-                            </div>
-
-                            <!-- Description Section -->
-                            <div class="section-panel animate-slide-up" style="animation-delay: 0.2s;">
-                                <h2 class="section-title"><i class="fa-solid fa-align-left mr-2 text-blue-400"></i>Description</h2>
-                                <p class="text-slate-300 leading-relaxed text-[16px] font-medium">${formattedDesc}</p>
-                            </div>
-                            
-                            <!-- Tags Section -->
-                            <div class="section-panel animate-slide-up" style="animation-delay: 0.3s;">
-                                <h2 class="section-title"><i class="fa-solid fa-tags mr-2 text-purple-400"></i>Tags</h2>
-                                <div class="flex flex-wrap gap-2 pt-2">
-                                    ${tagsHtml}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right Sidebar -->
-                        <div class="lg:w-1/3 flex flex-col gap-6">
-                            
-                            <!-- Game Trailer Section -->
-                            <div class="section-panel !p-4">
-                                <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-3 pb-0"><i class="fa-solid fa-video mr-2 text-red-500"></i>Game Walkthrough</h2>
-                                <div id="gamemonetize-video" class="rounded-lg overflow-hidden border border-slate-700 min-h-[250px] bg-slate-800 shadow-inner"></div>
-                            </div>
-
-                            <!-- Thumbnail Section (visible on mobile if header thumb is hidden) -->
-                            <div class="section-panel sm:hidden animate-slide-up" style="animation-delay: 0.3s;">
-                                 <img src="${thumb}" alt="${title}" class="w-full h-auto rounded-xl shadow-md border border-slate-700 object-cover aspect-[4/3]">
-                            </div>
-
-                            <!-- Carousel Section -->
-                            <div class="section-panel small-carousel-panel animate-slide-up" style="animation-delay: 0.4s;">
-                                <h2 class="section-title text-sm uppercase tracking-widest text-slate-400 border-none mb-4 pb-0"><i class="fa-solid fa-fire mr-2 text-orange-500"></i>You may also like</h2>
-                                <div class="carousel-container" id="related-carousel">
-                                    <div class="carousel-track" id="carousel-track">
-                                        ${carouselItemsHtml}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('app-container').innerHTML = htmlContent;
-            document.title = title + " - Bekeirat Software";
-
-            // Initialize GameMonetize Trailer properly
-            // 1. Initialize configuration options
-            window.VIDEO_OPTIONS = {
-                gameid: String(id), // Passed directly from database
-                width: "100%",
-                height: "480px",
-                color: "#3f007e",
-                getAds: "true"
-            };
-
-            // 2. Assure the container is completely empty before executing
-            const trailerContainer = document.getElementById('gamemonetize-video');
-            if (trailerContainer) {
-                trailerContainer.innerHTML = '';
-            }
-
-            // 3. Remove old API tracking script instances 
-            const oldApiScript = document.getElementById('gamemonetize-video-api');
-            if (oldApiScript) {
-                oldApiScript.remove();
-            }
-
-            // 4. Safely evaluate partner's inline IIFE precisely as requested
-            (function (a, b, c) {
-                var d = a.getElementsByTagName(b)[0];
-                a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/video.js", d.parentNode.insertBefore(a, d))
-            })(document, "script", "gamemonetize-video-api");
-
-            initCarousel();
-        }
-
-        function initCarousel() {
-            const track = document.getElementById('carousel-track');
-            if (!track) return;
-
-            let currentIndex = 0;
-            const items = track.children;
-            if (items.length === 0) return;
-
-            const totalItems = items.length;
-
-            let itemsPerView = 3;
-            if (window.innerWidth <= 640) itemsPerView = 1;
-            else if (window.innerWidth <= 1024) itemsPerView = 2;
-
-            setInterval(() => {
-                if (totalItems <= itemsPerView) return;
-
-                currentIndex++;
-                if (currentIndex > totalItems - itemsPerView) {
-                    currentIndex = 0;
-                }
-
-                const itemWidth = items[0].getBoundingClientRect().width;
-                const gap = parseFloat(window.getComputedStyle(track).gap) || 16;
-
-                const slideAmount = currentIndex * (itemWidth + gap);
-                track.style.transform = `translateX(-${slideAmount}px)`;
-            }, 3500); // Slightly longer interval
-
-            window.addEventListener('resize', () => {
-                currentIndex = 0;
-                track.style.transform = `translateX(0px)`;
-                if (window.innerWidth <= 640) itemsPerView = 1;
-                else if (window.innerWidth <= 1024) itemsPerView = 2;
-                else itemsPerView = 3;
-            });
-        }
-
-        function showError(message) {
-            document.getElementById('app-container').innerHTML = `
-                <div id="error-message" class="py-20 animate-slide-up">
-                    <i class="fa-solid fa-triangle-exclamation text-6xl mb-6 text-red-500 drop-shadow-lg"></i>
-                    <h2 class="text-3xl font-bold text-white mb-4">Oops!</h2>
-                    <p class="mb-4 text-slate-300 max-w-lg mx-auto text-lg">${message}</p>
-                    <a href="../index.html" class="inline-block mt-8 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:from-blue-500 hover:to-indigo-500 transform hover:-translate-y-1 transition-all duration-300">Return to Home</a>
-                </div>
-            `;
-        }
-
-        window.onload = loadGameData;
-    </script>
+    <!-- Execution Engine Script -->
+    <script src="./games.js"></script>
 </body>
 
 </html>
