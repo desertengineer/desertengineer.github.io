@@ -41,36 +41,99 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadHomepageData() {
-    const dataPaths = ['./data/all.json', './data/SAMPLE.json', './data/allgames.json'];
+    // Get current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // Returns 0-6
+
+    // Map day to file number (1-7)
+    // Sunday (0) -> all_7.json, Monday (1) -> all_1.json, ..., Saturday (6) -> all_6.json
+    // OR: Sunday (0) -> all_1.json, Monday (1) -> all_2.json, ..., Saturday (6) -> all_7.json
+    // Choose your mapping:
+
+    // OPTION 1: Sunday = File 7, Monday = File 1, ..., Saturday = File 6
+    const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
+
+    // OPTION 2: Sunday = File 1, Monday = File 2, ..., Saturday = File 7
+    // const fileNumber = dayOfWeek + 1;
+
+    const dataPath = `./data/all_${fileNumber}.json`;
+
+    console.log(`Loading data for day ${dayOfWeek} (${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek]}) from ${dataPath}`);
+
     let fetchedData = null;
 
-    for (const path of dataPaths) {
-        try {
-            const res = await fetch(path);
-            if (res.ok) {
-                fetchedData = await res.json();
-                break;
-            }
-        } catch (e) { /* ignore and try next */ }
+    try {
+        const res = await fetch(dataPath);
+        if (res.ok) {
+            fetchedData = await res.json();
+        } else {
+            console.warn(`Failed to load ${dataPath}, status: ${res.status}`);
+        }
+    } catch (e) {
+        console.warn(`Error loading ${dataPath}:`, e);
     }
 
+    // Fallback: Try other files if the day-specific one fails
+    if (!fetchedData || !Array.isArray(fetchedData)) {
+        console.log('Trying fallback files...');
+        const fallbackPaths = [
+            './data/all_1.json',
+            './data/all_2.json',
+            './data/all_3.json',
+            './data/all_4.json',
+            './data/all_5.json',
+            './data/all_6.json',
+            './data/all_7.json',
+            './data/all.json',  // Original file as last resort
+            './all.json'       // Root level
+        ];
+
+        for (const fallbackPath of fallbackPaths) {
+            if (fallbackPath === dataPath) continue;
+
+            try {
+                const res = await fetch(fallbackPath);
+                if (res.ok) {
+                    fetchedData = await res.json();
+                    console.log(`Loaded fallback from ${fallbackPath}`);
+                    break;
+                }
+            } catch (e) {
+                // Continue to next fallback
+            }
+        }
+    }
+
+    // Process data
     if (fetchedData && Array.isArray(fetchedData)) {
-        globalCatalog = fetchedData.map((item, idx) => {
-            const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
-            const tokens = normalizeClasses(rawClass);
-            return {
-                id: item.id || item.Id || `game-${idx}`,
-                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
-                category: item.Category || item.category || 'arcade',
-                classificationRaw: rawClass,
-                classificationTokens: tokens,
-                tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()) : []),
-                thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-                url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${encodeURIComponent(item.id || idx)}`
-            };
-        });
+        // Process in chunks to avoid blocking UI
+        const chunkSize = 20;
+        globalCatalog = [];
+
+        for (let i = 0; i < fetchedData.length; i += chunkSize) {
+            const chunk = fetchedData.slice(i, i + chunkSize);
+            const processed = chunk.map((item, idx) => {
+                const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
+                const tokens = normalizeClasses(rawClass);
+                return {
+                    id: item.id || item.Id || `game-${i}-${idx}`,
+                    title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
+                    category: item.Category || item.category || 'arcade',
+                    classificationRaw: rawClass,
+                    classificationTokens: tokens,
+                    tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()) : []),
+                    thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
+                    url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`)}`
+                };
+            });
+            globalCatalog.push(...processed);
+
+            // Yield to UI
+            await new Promise(resolve => setTimeout(resolve, 0));
+        }
     } else {
-        // Fallback Mock Data if server is running offline
+        // Fallback to mock data
+        console.warn('No valid data found, using mock data');
         globalCatalog = generateMockGames();
     }
 

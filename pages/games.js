@@ -1,11 +1,12 @@
-// games.js — Final consolidated file
-// - Loads master data (attempts multiple paths)
-// - Builds dynamic category sidebar with single emoji per category (in .icon-box)
-// - Builds dark, gradient tag pills with active state
+// games.js — Modified with Day-Based Data Loading
+// - Loads data from day-specific files (all_1.json through all_7.json)
+// - Falls back to other files if the day-specific one fails
+// - Builds dynamic category sidebar with single emoji per category
 // - Client-side filtering, search, pagination, and responsive behavior
 
 const CONFIG = {
-    dataPaths: ['../data/all.json', '../data/SAMPLE.json'],
+    // Updated data paths - will be overridden by day-based logic
+    dataPaths: [],
     itemsPerPage: 60,
     defaultCategory: 'all'
 };
@@ -73,7 +74,6 @@ function tagGradient(tag) {
     }
     const hue = Math.abs(h) % 360;
     const hue2 = (hue + 36) % 360;
-    // darker and richer gradient
     return `linear-gradient(90deg, hsl(${hue} 60% 34%), hsl(${hue2} 56% 38%))`;
 }
 
@@ -99,59 +99,136 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', updateSidebarTopOffset);
     window.addEventListener('orientationchange', updateSidebarTopOffset);
 
+    // Initialize CONFIG with day-based data path
+    initializeDayBasedDataPath();
+    
     await loadMasterData();
     populateCategoryMenu();
     switchCategory(CONFIG.defaultCategory);
 });
 
 /* -----------------------
-   Data loading
+   NEW: Day-Based Data Path Initialization
+   ----------------------- */
+function initializeDayBasedDataPath() {
+    // Get current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    
+    // OPTION 1: Sunday = File 7, Monday = File 1, ..., Saturday = File 6
+    // const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
+    
+    // OPTION 2: Sunday = File 1, Monday = File 2, ..., Saturday = File 7 (RECOMMENDED)
+    const fileNumber = dayOfWeek + 1;
+    
+    // Set the primary data path for today
+    CONFIG.dataPaths = [`../data/all_${fileNumber}.json`];
+    
+    // Log for debugging
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    console.log(`[Games Page] Loading data for ${dayNames[dayOfWeek]} (Day ${dayOfWeek}) from all_${fileNumber}.json`);
+}
+
+/* -----------------------
+   Data loading - UPDATED with Day-Based Logic
    ----------------------- */
 async function loadMasterData() {
-    const fetchPromises = CONFIG.dataPaths.map(path =>
-        fetch(path).then(res => {
-            if (!res.ok) throw new Error(`Failed to load ${path}`);
-            return res.json();
-        })
-    );
-
+    // Get the day-specific file path
+    const dayFilePath = CONFIG.dataPaths[0];
+    
+    // Fallback paths to try if day-specific file fails
+    const fallbackPaths = [
+        '../data/all_1.json',
+        '../data/all_2.json',
+        '../data/all_3.json',
+        '../data/all_4.json',
+        '../data/all_5.json',
+        '../data/all_6.json',
+        '../data/all_7.json',
+        '../data/all.json',      // Original combined file
+        '../all.json'            // Root level
+    ].filter(path => path !== dayFilePath); // Remove the day file from fallbacks
+    
+    // Try to load the day-specific file first
     let rawData = null;
+    
     try {
-        rawData = await Promise.any(fetchPromises);
+        console.log(`[Games Page] Attempting to load: ${dayFilePath}`);
+        const res = await fetch(dayFilePath);
+        if (res.ok) {
+            rawData = await res.json();
+            console.log(`[Games Page] Successfully loaded ${dayFilePath}`);
+        } else {
+            console.warn(`[Games Page] Failed to load ${dayFilePath}, status: ${res.status}`);
+        }
     } catch (e) {
-        rawData = null;
+        console.warn(`[Games Page] Error loading ${dayFilePath}:`, e);
     }
-
+    
+    // If day-specific file failed, try fallbacks
+    if (!rawData || !Array.isArray(rawData)) {
+        console.log('[Games Page] Trying fallback files...');
+        
+        for (const fallbackPath of fallbackPaths) {
+            try {
+                console.log(`[Games Page] Trying fallback: ${fallbackPath}`);
+                const res = await fetch(fallbackPath);
+                if (res.ok) {
+                    rawData = await res.json();
+                    console.log(`[Games Page] Successfully loaded fallback: ${fallbackPath}`);
+                    break;
+                }
+            } catch (e) {
+                // Continue to next fallback
+            }
+        }
+    }
+    
+    // Process the loaded data
     if (rawData && Array.isArray(rawData)) {
-        globalCatalog = rawData.map((item, idx) => {
-            const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
-            const category = String(categoryRaw).trim() || 'uncategorized';
-            const tagsArray = Array.isArray(item.Tags)
-                ? item.Tags.map(t => String(t).trim()).filter(Boolean)
-                : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
-            return {
-                id: item.id || item.Id || `game-${idx}`,
-                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : `Untitled Game ${idx + 1}`),
-                description: item.Description || item.description || "",
-                instructions: item.Instructions || item.instructions || "",
-                play: item.Play || item.play || "",
-                url: item.Url || item.url || item.gameUrl || `./game.html?id=${encodeURIComponent(item.id || idx)}`,
-                category: category,
-                categoryKey: normalizeKey(category),
-                tags: tagsArray.map(t => String(t).toLowerCase()),
-                thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/00ffcc?text=Bekeirat+Game',
-                width: item.Width || item.width || "1280",
-                height: item.Height || item.height || "720",
-                video: item.Video || item.video || "",
-                gender: item.Gender || item.gender || "",
-                languages: item.Languages || item.languages || "",
-                embed: item.Embed || item.embed || ""
-            };
-        });
+        // Process in chunks to avoid blocking UI
+        const chunkSize = 30;
+        globalCatalog = [];
+        
+        for (let i = 0; i < rawData.length; i += chunkSize) {
+            const chunk = rawData.slice(i, i + chunkSize);
+            const processed = chunk.map((item, idx) => {
+                const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
+                const category = String(categoryRaw).trim() || 'uncategorized';
+                const tagsArray = Array.isArray(item.Tags)
+                    ? item.Tags.map(t => String(t).trim()).filter(Boolean)
+                    : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
+                return {
+                    id: item.id || item.Id || `game-${i}-${idx}`,
+                    title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : `Untitled Game ${i + idx + 1}`),
+                    description: item.Description || item.description || "",
+                    instructions: item.Instructions || item.instructions || "",
+                    play: item.Play || item.play || "",
+                    url: item.Url || item.url || item.gameUrl || `./game.html?id=${encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`)}`,
+                    category: category,
+                    categoryKey: normalizeKey(category),
+                    tags: tagsArray.map(t => String(t).toLowerCase()),
+                    thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/00ffcc?text=Bekeirat+Game',
+                    width: item.Width || item.width || "1280",
+                    height: item.Height || item.height || "720",
+                    video: item.Video || item.video || "",
+                    gender: item.Gender || item.gender || "",
+                    languages: item.Languages || item.languages || "",
+                    embed: item.Embed || item.embed || ""
+                };
+            });
+            globalCatalog.push(...processed);
+            
+            // Yield to UI to prevent freezing
+            await new Promise(resolve => setTimeout(resolve, 0));
+        }
+        
+        console.log(`[Games Page] Loaded ${globalCatalog.length} games`);
     } else {
+        console.warn('[Games Page] No valid data found, using mock data');
         globalCatalog = generateMockGames();
     }
-
+    
     dataCache = {};
 }
 
