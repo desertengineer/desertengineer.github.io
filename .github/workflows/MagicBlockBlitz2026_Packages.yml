@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       build_notes:
-        description: 'Build notes / TestFlight release description (Optional)'
+        description: "Build notes / TestFlight release description (Optional)"
         required: false
-        default: 'Manual trigger following commit completion'
+        default: "Manual trigger following commit completion"
         type: string
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
         run: |
           RAW_DIR="${{ vars.MONOREPO_DIRECTORY }}"
           RAW_DIR="${RAW_DIR%/}"
-          
+
           if [ -n "$RAW_DIR" ] && [ -d "$RAW_DIR" ]; then
             TARGET_DIR="$RAW_DIR"
           elif [ -d "Apps/EnBlocks2026" ]; then
@@ -34,7 +34,7 @@ jobs:
           else
             TARGET_DIR="."
           fi
-          
+
           echo "Target Working Directory resolved to: $TARGET_DIR"
           echo "TARGET_DIR=$TARGET_DIR" >> $GITHUB_ENV
 
@@ -82,8 +82,8 @@ jobs:
       - name: Setup Java (Zulu OpenJDK 17)
         uses: actions/setup-java@v4.4.0
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - name: Ensure Gradle Wrapper Executable
         working-directory: ${{ env.TARGET_DIR }}
@@ -144,7 +144,7 @@ jobs:
         run: |
           RAW_DIR="${{ vars.MONOREPO_DIRECTORY }}"
           RAW_DIR="${RAW_DIR%/}"
-          
+
           if [ -n "$RAW_DIR" ] && [ -d "$RAW_DIR" ]; then
             TARGET_DIR="$RAW_DIR"
           elif [ -d "Apps/EnBlocks2026" ]; then
@@ -154,7 +154,7 @@ jobs:
           else
             TARGET_DIR="."
           fi
-          
+
           echo "Target Working Directory resolved to: $TARGET_DIR"
           echo "TARGET_DIR=$TARGET_DIR" >> $GITHUB_ENV
 
@@ -224,7 +224,7 @@ jobs:
           PLIST_PATH=$RUNNER_TEMP/profile.plist
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
           security cms -D -i "$PP_PATH" > $PLIST_PATH
-          
+
           PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" $PLIST_PATH)
           TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" $PLIST_PATH || echo "$FALLBACK_TEAM_ID")
           PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" $PLIST_PATH)
@@ -233,12 +233,12 @@ jobs:
           if [ -z "$BUNDLE_ID" ] || [ "$BUNDLE_ID" = "*" ]; then
             BUNDLE_ID="$FALLBACK_BUNDLE_ID"
           fi
-          
+
           echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
           echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
           echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
-          
+
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/$PROFILE_UUID.mobileprovision
           echo "Provisioning Profile Installed: $PROFILE_NAME ($PROFILE_UUID) for Bundle: $BUNDLE_ID (Team: $TEAM_ID)"
@@ -340,7 +340,7 @@ jobs:
           API_KEYS_DIR=~/.appstoreconnect/private_keys
           mkdir -p "$API_KEYS_DIR"
           KEY_FILE="$API_KEYS_DIR/AuthKey_$KEY_ID.p8"
-          
+
           if [ -z "$KEY_CONTENT" ]; then
             echo "❌ Error: APP_STORE_CONNECT_KEY_CONTENT secret is missing or empty."
             exit 1
