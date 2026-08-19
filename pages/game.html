@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,10 @@
     <!-- Primary Meta Tags -->
     <title>HTML5 Arcade & Web Games Catalog | Bekeirat Software</title>
     <meta name="title" content="Bekeirat Software - HTML5 Arcade & Web Games Catalog">
-    <meta name="description" content="Browse and play hundreds of free online HTML5 games across puzzle, action, arcade, racing, and strategy genres at Bekeirat Software. No downloads needed.">
-    <meta name="keywords" content="Bekeirat Software, HTML5 games, online browser games, free mobile apps, progressive web apps, puzzle games, arcade games, instant play games">
+    <meta name="description"
+        content="Browse and play hundreds of free online HTML5 games across puzzle, action, arcade, racing, and strategy genres at Bekeirat Software. No downloads needed.">
+    <meta name="keywords"
+        content="Bekeirat Software, HTML5 games, online browser games, free mobile apps, progressive web apps, puzzle games, arcade games, instant play games">
     <meta name="author" content="Bekeirat Software">
 
     <!-- Canonical URL -->
@@ -19,14 +22,15 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bekeiratsoftwares.com/">
     <meta property="og:title" content="Bekeirat Software - Free Online HTML5 Games & Apps Hub">
-    <meta property="og:description" content="Play top HTML5 games instantly across all devices. No installation needed. Discover mobile & desktop web apps at Bekeirat Software.">
+    <meta property="og:description"
+        content="Play top HTML5 games instantly across all devices. No installation needed. Discover mobile & desktop web apps at Bekeirat Software.">
     <meta property="og:image" content="https://bekeiratsoftwares.com/assets/og-banner-1200x630.png">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@MAWLAY20">
     <meta name="twitter:creator" content="@MAWLAY20">
-    
+
     <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
     <script>
@@ -39,15 +43,19 @@
     <!-- Typography & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Monetization -->
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
@@ -63,10 +71,14 @@
             font-family: 'Inter', sans-serif;
             background-color: #0f111a;
         }
-        h1, h2, h3, .font-poppins {
+
+        h1,
+        h2,
+        h3,
+        .font-poppins {
             font-family: 'Poppins', sans-serif;
         }
-        
+
         /* Category and Tag Badges */
         .category-badge {
             display: inline-flex;
@@ -81,13 +93,14 @@
             transition: all 0.2s ease-in-out;
             text-decoration: none;
         }
+
         .category-badge:hover {
             background-color: #2563eb;
             color: #ffffff;
             border-color: #3b82f6;
             transform: translateY(-1px);
         }
-        
+
         .tag-badge {
             display: inline-flex;
             align-items: center;
@@ -101,6 +114,7 @@
             transition: all 0.2s ease-in-out;
             text-decoration: none;
         }
+
         .tag-badge:hover {
             background-color: rgba(147, 51, 234, 0.5);
             color: #ffffff;
@@ -109,18 +123,32 @@
 
         /* Animations */
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-slide-up {
             animation: slideUp 0.5s ease-out forwards;
             opacity: 0;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .animate-fade-in {
             animation: fadeIn 0.5s ease-out forwards;
         }
@@ -139,14 +167,21 @@
 
 <body class="text-gray-100 min-h-screen flex flex-col antialiased">
     <!-- Top Navigation Bar -->
-    <nav class="px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f] sticky top-0 z-50 shadow-md">
-        <a href="../index.html" class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors font-poppins">
-            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo" class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10" onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
+    <nav
+        class="px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f] sticky top-0 z-50 shadow-md">
+        <a href="../index.html"
+            class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors font-poppins">
+            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+                class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10"
+                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
 
-        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2" aria-label="Toggle Menu" onclick="toggleMobileMenu()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button id="hamburger-btn"
+            class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors p-2"
+            aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
@@ -172,7 +207,8 @@
     <main class="flex-grow w-full" id="app-container">
         <div id="loading-message" class="flex flex-col items-center justify-center py-32">
             <i class="fa-solid fa-circle-notch fa-spin text-5xl text-blue-500 mb-6 drop-shadow-lg"></i>
-            <span class="text-2xl font-semibold font-poppins text-gray-300 tracking-wide">Loading Game Environment...</span>
+            <span class="text-2xl font-semibold font-poppins text-gray-300 tracking-wide">Loading Game
+                Environment...</span>
         </div>
     </main>
 
@@ -184,21 +220,37 @@
             </div>
 
             <!-- Social Media Bar -->
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
-                <a href="https://x.com/MAWLAY20" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+            <div
+                class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
+                <a href="https://x.com/MAWLAY20"
+                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter"
+                    target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"
+                        fill="currentColor">
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube"><i class="fa-brands fa-youtube text-2xl"></i></a>
-                <a href="https://www.instagram.com/bekerat.mawlay/" class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110" aria-label="Instagram"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="https://www.tiktok.com/@bekeiratsoftware" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok"><i class="fa-brands fa-tiktok text-2xl"></i></a>
-                <a href="https://bekeratsoftware.blogspot.com/" class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110" aria-label="Blogger"><i class="fa-brands fa-blogger text-2xl"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61550888326363"
+                    class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook"
+                    target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
+                    class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube"
+                    target="_blank"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="https://www.instagram.com/bekerat.mawlay/"
+                    class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110"
+                    aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="https://www.tiktok.com/@bekeiratsoftware"
+                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok"
+                    target="_blank"><i class="fa-brands fa-tiktok text-2xl"></i></a>
+                <a href="https://bekeiratsoftware.blogspot.com"
+                    class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110"
+                    aria-label="Blogger" target="_blank"><i class="fa-brands fa-blogger text-2xl"></i></a>
             </div>
 
             <div>
-                <p class="text-sm">&copy; <span id="current-year">2026</span> Bekeirat Software. All rights reserved.</p>
+                <p class="text-sm">&copy; <span id="current-year">2026</span> Bekeirat Software. All rights reserved.
+                </p>
                 <p class="text-xs mt-2 text-gray-600">Cross-Platform Games & Apps Architecture.</p>
             </div>
         </div>
@@ -209,7 +261,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
         const JSON_FEED_PATH = '../data/all.json';
-        
+
         let allGamesData = [];
 
         function toggleMobileMenu() {
@@ -317,7 +369,7 @@
                 const rgThumb = rg.Image || rg.thumb || rg.thumbnail || rg.image || "https://placehold.co/512x384/1e293b/60a5fa?text=Game";
                 const rgTitle = rg.Title || rg.title || rg.name || "Game";
                 const rgId = rg.id || rg.gameId;
-                
+
                 gridItemsHtml += `
                     <a href="?id=${rgId}" class="group relative block rounded-xl overflow-hidden shadow-md border border-slate-700 hover:border-blue-500 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300">
                         <img src="${rgThumb}" alt="${rgTitle}" loading="lazy" class="w-full h-24 object-cover transition-transform duration-500 group-hover:scale-110">
@@ -422,4 +474,5 @@
         window.onload = loadGameData;
     </script>
 </body>
+
 </html>
