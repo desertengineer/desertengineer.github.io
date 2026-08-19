@@ -9,7 +9,7 @@
 .hub-header h1 {
     font-size: 2.5rem !important;
     font-weight: 800 !important;
-    color: #00ffcc !important;
+    color: goldenrod !important;
     margin: 0 !important;
 }
 
@@ -25,7 +25,7 @@ body {
     line-height: 1.6 !important;
     margin: 0 !important;
     padding: 2rem !important;
-    background-color: #f9f9f9 !important;
+    background-color: #e9fcc6 !important;
     color: #333 !important;
 }
 
@@ -53,6 +53,12 @@ p {
     font-size: 1.3rem !important;
     margin-bottom: 1.25rem !important;
     text-align: justify !important;
+    color: #213e66 !important;
+}
+
+p,
+section p {
+    color: #213e66 !important;
 }
 
 section p::before {

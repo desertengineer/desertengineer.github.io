@@ -1,0 +1,77 @@
+{
+  "total_games": 2564,
+  "categories": [
+    {
+      "name": "Action",
+      "slug": "action",
+      "count": 500,
+      "file": "data/action.json"
+    },
+    {
+      "name": "Arcade",
+      "slug": "arcade",
+      "count": 500,
+      "file": "data/arcade.json"
+    },
+    {
+      "name": "Army",
+      "slug": "army",
+      "count": 27,
+      "file": "data/army.json"
+    },
+    {
+      "name": "Bejeweled",
+      "slug": "bejeweled",
+      "count": 340,
+      "file": "data/bejeweled.json"
+    },
+    {
+      "name": "Fighting",
+      "slug": "fighting",
+      "count": 25,
+      "file": "data/fighting.json"
+    },
+    {
+      "name": "Girls",
+      "slug": "girls",
+      "count": 79,
+      "file": "data/girls.json"
+    },
+    {
+      "name": "Hidden-object",
+      "slug": "hidden-object",
+      "count": 41,
+      "file": "data/hidden-object.json"
+    },
+    {
+      "name": "Puzzle",
+      "slug": "puzzle",
+      "count": 500,
+      "file": "data/puzzle.json"
+    },
+    {
+      "name": "Racing",
+      "slug": "racing",
+      "count": 500,
+      "file": "data/racing.json"
+    },
+    {
+      "name": "Shooting",
+      "slug": "shooting",
+      "count": 500,
+      "file": "data/shooting.json"
+    },
+    {
+      "name": "Trivia",
+      "slug": "trivia",
+      "count": 15,
+      "file": "data/trivia.json"
+    },
+    {
+      "name": "Word",
+      "slug": "word",
+      "count": 28,
+      "file": "data/word.json"
+    }
+  ]
+}

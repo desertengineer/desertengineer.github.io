@@ -1,0 +1,485 @@
+[
+  {
+    "id": "7e3d83ec0fd8",
+    "title": "Age of Heroes",
+    "url": "https://playgama.com/export/game/age-of-heroes?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/age-of-heroes/preview/1d9390c84c3c4fabb17ec9244032af60?width=448",
+    "category": "strategy",
+    "tags": [
+      "1-player-games",
+      "defense-games",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "c8004bfc44df",
+    "title": "Special Ops: GO",
+    "url": "https://playgama.com/export/game/special-ops?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-119111/preview/96b9d4da3725785fe65aa63618ae23dcbe5b5419044b7184cb6d0ad044eae59f?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "2d-action",
+      "action-adventure",
+      "arcade-shooter",
+      "collecting-games",
+      "competitive-games",
+      "desktop-games",
+      "military-shooter",
+      "shoot-em-up-games",
+      "survival-horror"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "7f82060376be",
+    "title": "Build Your Zombie Horde",
+    "url": "https://playgama.com/export/game/build-your-zombie-horde?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-112559/preview/e53e76a6e7d3af3c453d1458a3a995c117a50d3fb6453df76439a80f4227eacd?width=448",
+    "category": "action",
+    "tags": [
+      "addictive-games",
+      "collecting-games",
+      "resource-management-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "6deff806e8c4",
+    "title": "Far Island: Tactical Warfare",
+    "url": "https://playgama.com/export/game/far-island-tactical-warfare?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-117765/preview/4f02aed78c60600d82834bdf844495b2e327d295000292838fdda8682a2a6d78?width=448",
+    "category": "action",
+    "tags": [
+      "combat-games",
+      "defense-games",
+      "gam-supported-games",
+      "military-games",
+      "military-shooter",
+      "mission-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "fd29820094ae",
+    "title": "Grow Empire",
+    "url": "https://playgama.com/export/game/grow-empire?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-114501/preview/f820cf57c35124e9d3923b4644af5aba2f0b6cd3bbe7e60392c7fe8fe0bec159?width=448",
+    "category": "action",
+    "tags": [
+      "combat-games",
+      "defense-games",
+      "destroy-games",
+      "destruction-games",
+      "gam-supported-games",
+      "heroes-games",
+      "medieval-games",
+      "military-games",
+      "mission-games",
+      "resource-management-games",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "5bc8cbd271fc",
+    "title": "Sniper Attack2",
+    "url": "https://playgama.com/export/game/sniper-attack2?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-116923/preview/f27684aedca9abd880dbb71d4af1b73d4ca0a97cd3579e16606e6b55ad925796?width=448",
+    "category": "action",
+    "tags": [
+      "arcade-shooter",
+      "military-games",
+      "military-shooter",
+      "mission-games",
+      "sniper-shooter",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "1d5de29391a6",
+    "title": "My Army Base",
+    "url": "https://playgama.com/export/game/my-army-base?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/my-army-base/preview/7f8e0ce01a324ad3a24cc5c32ed441ee?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "action-adventure",
+      "building-games",
+      "combat-games",
+      "defense-games",
+      "military-games",
+      "resource-management-games",
+      "soldier-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "cf21d8508eea",
+    "title": "Epic Battle Simulator 2",
+    "url": "https://playgama.com/export/game/epic-battle-simulator-2?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-99597/preview/c1fbd54188cdfdc6ac0270d775d7a891c336b5b967e40133b2737a1df3d63ac0?width=448",
+    "category": "strategy",
+    "tags": [
+      "military-games",
+      "rts-games",
+      "tactical-games",
+      "unity-games-online"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "d0fb62291575",
+    "title": "War Groups",
+    "url": "https://playgama.com/export/game/war-groups?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-115755/preview/ca42fb5582a3bd4c9f6a046041f0034e936afe8da2c2c2976bb72b43a7c141cb?width=448",
+    "category": "adventure",
+    "tags": [
+      "apocalypse-games",
+      "military-games",
+      "resource-management-games",
+      "rts-games",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "0d654e6db1a7",
+    "title": "Tank 1944",
+    "url": "https://playgama.com/export/game/tank-1944?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-117224/preview/cb5fdbf65e7fd70782439f4a96b101253a7b6d153a513cbf3154eb92f2e89390?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "gam-supported-games",
+      "military-games",
+      "reaction-games",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "e93d2e4680ff",
+    "title": "Musketeers Gunpowder vs Steel",
+    "url": "https://playgama.com/export/game/musketeers-gunpowder-vs-steel?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-86376/preview/45559a371d0a78ae89c95c86adc044d5f7162e348db32f3e8c17c1289cff046f?width=448",
+    "category": "strategy",
+    "tags": [
+      "1-player-games",
+      "borwser-games",
+      "desktop-games",
+      "historical-games",
+      "indie-games",
+      "tactical-games",
+      "unity-games-online"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "e48dcb3c4283",
+    "title": "BorderClash",
+    "url": "https://playgama.com/export/game/borderclash?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/borderclash/preview/19145b60ff5e4bb8967a5c554dc9a3c6?width=448",
+    "category": "strategy",
+    "tags": [
+      "action-adventure",
+      "defense-games",
+      "military-games",
+      "mission-games",
+      "rts-games",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "792bba963c9f",
+    "title": "MFPS:Military Combat",
+    "url": "https://playgama.com/export/game/mfps-military-combat?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-113635/preview/f40f9fbd7181013bc6468c0cc104f058cc2cd0dc601853ab9c1d4f399058bd25?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "fast-paced-action",
+      "military-games",
+      "military-shooter",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "1b0cee9bfb6a",
+    "title": "World War Camp Company",
+    "url": "https://playgama.com/export/game/world-war-camp-company?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-121805/preview/d16e51c711b1a3e40ccaca37d9886dcf2a5cd2b5b2ad7648cdc8f4966ea14b6f?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "addictive-games",
+      "combat-games",
+      "fast-paced-action",
+      "military-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "1dbeb2f4d977",
+    "title": "Epic Battle Simulator",
+    "url": "https://playgama.com/export/game/epic-battle-simulator?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-99580/preview/d33a14f1cc19a3a0186807e4689e837e4b1abc2701f9395d46b273efd103ca85?width=448",
+    "category": "action",
+    "tags": [
+      "defense-games",
+      "rts-games",
+      "tactical-games",
+      "unity-games-online"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "b53eed9bc749",
+    "title": "King Simulator",
+    "url": "https://playgama.com/export/game/king-simulator?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-113713/preview/3df7e356cbf7d0fed8fb185cae8249899bbf4812517a1e29b07b51da6dc6cd58?width=448",
+    "category": "adventure",
+    "tags": [
+      "castle-games",
+      "defense-games",
+      "desktop-games",
+      "king-games",
+      "medieval-games",
+      "resource-management-games",
+      "touchscreen-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "4ce941badc1a",
+    "title": "Roots and Wheels",
+    "url": "https://playgama.com/export/game/roots-and-wheels?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-99674/preview/1500d787a0469ee9b9e113fa1cfa8b4cc1f3b1e34597471c5f111204874f37a7?width=448",
+    "category": "action",
+    "tags": [
+      "delivery-games",
+      "gam-supported-games",
+      "military-games",
+      "offroad-games",
+      "unity-games-online",
+      "vehicles-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "56c0c0355d03",
+    "title": "Pirates Merge: War Path",
+    "url": "https://playgama.com/export/game/pirates-merge-war-path?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-114456/preview/26d73f2f13d15f3e43548326ac624638271a211eb5f743dbb59c2c8b76c3c46b?width=448",
+    "category": "strategy",
+    "tags": [
+      "1-player-games",
+      "amazing-games",
+      "android-games",
+      "borwser-games",
+      "brain-training-games",
+      "games-for-pc",
+      "grow-games",
+      "mind-games",
+      "simple-games",
+      "tactical-games",
+      "target-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "7064675f1158",
+    "title": "Animals Battle",
+    "url": "https://playgama.com/export/game/animals-battle?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-119577/preview/48a786ae292b5071d7fe1c98ec17c6b57fe897b142a1aea39cd2d7e8d10f9045?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "cute-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "ca894872d2d1",
+    "title": "Strike Force: Action Platformer",
+    "url": "https://playgama.com/export/game/strike-force-action-platformer?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-99582/preview/eb5dff25fb4923ab2409caa3e4060f192b84d9dffbb4ea1f904d139c91c88c3c?width=448",
+    "category": "action",
+    "tags": [
+      "addictive-games",
+      "bullet-games",
+      "collecting-games",
+      "combat-games",
+      "exciting-games",
+      "fast-paced-games",
+      "side-scrolling-games",
+      "unity-games-online"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "1b3505cef8bb",
+    "title": "Battle of Banners",
+    "url": "https://playgama.com/export/game/battle-of-banners?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-117688/preview/8ae1cad82391a0db78cbcbb9088cb8fc3a6fd5a95063e5f68a1f53807f380f3a?width=448",
+    "category": "strategy",
+    "tags": [
+      "medieval-games",
+      "turnbased-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "587ef5fc5da8",
+    "title": "Swat Force VS Terrorists",
+    "url": "https://playgama.com/export/game/swat-force-vs-terrorists?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-120331/preview/66b1093809b4fc6eb3db13c02048ab2c5340a040389b52834ac0513b4a72acb9?width=448",
+    "category": "shooting",
+    "tags": [
+      "1-player-games",
+      "defense-games",
+      "fast-paced-action",
+      "military-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "66118e322329",
+    "title": "Clash of Tanks",
+    "url": "https://playgama.com/export/game/clash-of-tanks?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-122801/preview/79b12f3ea2d0c1f5cc3408f491d051e91dd5ed1f8be8c8fce79838b9df52b477?width=448",
+    "category": "strategy",
+    "tags": [
+      "action-adventure",
+      "combat-games",
+      "defense-games",
+      "military-games",
+      "tank-io"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "cc61e12669ba",
+    "title": "Onigiri - Demons Wrath",
+    "url": "https://playgama.com/export/game/onigiri--demons-wrath?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/onigiri--demons-wrath/preview/833106454c6a45b3bc964992201f6970?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "combat-games",
+      "defense-games",
+      "samurai",
+      "tactical-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "2c98b7d14f75",
+    "title": "TANK ARENA MULTIPLAYER",
+    "url": "https://playgama.com/export/game/tank-arena-multiplayer?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-116924/preview/8914539dfc82ffc59db5cb5bf501bddd4c706122e9462a5a25249d5cd22c3cec?width=448",
+    "category": "action",
+    "tags": [
+      "arena-games",
+      "combat-games",
+      "fast-paced-action",
+      "military-games",
+      "tank-io"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "75e9fc9727f2",
+    "title": "Strategy of war: Tanks and helicopters",
+    "url": "https://playgama.com/export/game/strategy-of-war-tanks-and-helicopters?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-86374/preview/b0ded0b12763c0dafd17b8b3aac57dea8753f52bac2e70b30dbab861b7a70730?width=448",
+    "category": "strategy",
+    "tags": [
+      "2d-games",
+      "borwser-games",
+      "defense-games",
+      "desktop-games",
+      "helicopter-games",
+      "military-games",
+      "rts-games",
+      "unity-games-online"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  },
+  {
+    "id": "46d7f5799ad9",
+    "title": "One Man Army: Battle Game",
+    "url": "https://playgama.com/export/game/one-man-army-battle-game?clid=p_8249edec-80aa-43a7-859b-a20442eb3ac9",
+    "thumb": "https://static.playgama.com/p-img/pg/backfill/game-99616/preview/d3bddc0d816db0f6976244328c61756b2dcb0380261c668ce6a17d80c2723438?width=448",
+    "category": "action",
+    "tags": [
+      "1-player-games",
+      "combat-games",
+      "defense-games",
+      "exciting-games",
+      "military-games",
+      "mission-games",
+      "reaction-games",
+      "soldier-games"
+    ],
+    "provider": "Playgama",
+    "width": "1280",
+    "height": "720"
+  }
+]

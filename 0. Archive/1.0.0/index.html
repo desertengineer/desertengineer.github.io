@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bekeirat Software</title>
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XCGXELT421');
+    </script>
+    <!-- Linking relevant Style sheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./js/tailwindcss.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <!-- Corrected Wortise Web Monetization SDK Architecture -->
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof wortise !== 'undefined') {
+                wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
+        <!-- Linked Logo -->
+        <a href="./index.html"
+            class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+            <img src="./assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+                class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
+            Bekeirat Software
+        </a>
+
+        <!-- Hamburger Icon for Mobile -->
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors"
+            aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+
+        <!-- Desktop Navigation Buttons -->
+        <div class="hidden md:flex space-x-2 items-center">
+            <a href="./index.html" class="nav-btn">Home</a>
+            <a href="./pages/about.html" class="nav-btn">About Us</a>
+            <a href="./pages/games.html" class="nav-btn">Games</a>
+            <a href="./pages/contact us.html" class="nav-btn">Contacts</a>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner hidden">
+            <nav class="flex flex-col">
+                <a href="./index.html" class="mobile-btn">Home</a>
+                <a href="./pages/about.html" class="mobile-btn">About Us</a>
+                <a href="./pages/games.html" class="mobile-btn">Games</a>
+                <a href="./pages/contact us.html" class="mobile-btn border-none">Contacts</a>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Header / Banner -->
+    <header class="hero-banner">
+        <div class="px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to Bekeirat Software</h1>
+            <p class="text-xl md:text-2xl mb-8 drop-shadow-md">Innovative Apps & Immersive Games for Everyone</p>
+            <a href="./pages/games.html"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-colors inline-block shadow-lg">Explore
+                Our Games</a>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- What's New Section -->
+        <section class="max-w-6xl mx-auto py-16 px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-4 border-blue-500 inline-block pb-2">
+                        What's New</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg mb-6">
+                        We are thrilled to announce our latest project currently in the Microsoft Store! <b>Magic Block
+                            Blitz 2026: Block Puzzle</b>.
+                        <br><br>
+                        Stay tuned for our upcoming beta release where you can be among the first to experience the next
+                        generation of Bekeirat Software entertainment.
+                    </p>
+                    <a href="./Apps/EnBlocks2026/"
+                        class="text-blue-600 font-semibold hover:underline flex items-center gap-2">
+                        Read More
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="md:w-1/2 w-full">
+                    <img src="./Apps/EnBlocks2026/assets/screenshot-1-1366x768.png" alt="New Game Preview"
+                        class="rounded-xl shadow-2xl w-full object-cover h-64 md:h-96 transition-transform hover:scale-105 duration-300">
+                </div>
+            </div>
+        </section>
+
+        <!-- Resolved Ad Banner Placement Container -->
+        <div id="wortise:BANNER_ID" style="min-width: 728px; min-height: 90px;"
+            class="mx-auto my-4 flex justify-center"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+
+            <!-- Privacy Policy -->
+            <div class="mb-8">
+                <a href="./privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
+            </div>
+
+            <!-- Social Media Links Bar -->
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
+                <!-- Twitter / X -->
+                <a href="https://x.com/MAWLAY20" class="social-icon twitter" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"
+                        fill="currentColor" style="display: block;">
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                    </svg>
+                </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="social-icon facebook"
+                    aria-label="Facebook" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <!-- YouTube (Fixed class typo) -->
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="social-icon youtube"
+                    aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/bekerat.mawlay/" class="social-icon instagram"
+                    aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@bekeiratsoftware" class="social-icon tiktok" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <!-- Blogger -->
+                <a href="https://bekeratsoftware.blogspot.com/" class="social-icon blogger" aria-label="Blogger">
+                    <i class="fa-brands fa-blogger"></i>
+                </a>
+            </div>
+
+            <!-- Copyright Accreditations -->
+            <div>
+                <p class="text-sm">
+                    &copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.
+                </p>
+                <p class="text-xs mt-2 text-gray-500">
+                    Designed and built for apps and games excellence.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

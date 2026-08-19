@@ -1,17 +1,25 @@
 let globalCatalog = [];
 const autoScrollTimers = {};
 
-/* Helper: Normalize class strings into tokens.
-   Separator support: comma, pipe, slash, semicolon (DO NOT split on whitespace so multi-word classes like
-   "Editorial Picks" are preserved). Matching is case-insensitive.
-*/
+// Primary Ads Publisher Settings
+const AD_CONFIG = {
+    googlePublisherId: 'ca-pub-2658659289706339',
+    gameMonetizeId: '5519830896693885',
+    enableAdSense: false, // Disabled until ad placements are approved
+    enableGameMonetize: false // Disabled until ad placements are approved
+};
+
+/**
+ * Helper: Normalize class strings into tokens.
+ * Separator support: comma, pipe, slash, semicolon (DO NOT split on whitespace so multi-word classes like
+ * "Editorial Picks" are preserved). Matching is case-insensitive.
+ */
 function normalizeClasses(raw) {
     if (!raw && raw !== 0) return [];
     if (Array.isArray(raw)) {
         return raw.map(String).map(s => s.trim().toLowerCase()).filter(Boolean);
     }
-    // split only on explicit separators so "Editorial Picks" remains one token
-    const parts = String(raw).split(/[,\|\/;]+/).map(s => s.trim()).filter(Boolean);
+    const parts = String(raw).split(/[,|/;]+/).map(s => s.trim()).filter(Boolean);
     return parts.map(s => s.toLowerCase());
 }
 
@@ -22,12 +30,94 @@ function hasClass(game, className) {
     return game.classificationTokens.some(t => t === want);
 }
 
+/**
+ * Generates an inline ad placement card for carousels or game grids.
+ * Calibrated with full-height layout matching regular game card dimensions.
+ */
+function createAdCardHTML(type = 'carousel') {
+    if (type === 'grid') {
+        return `
+        <div class="bg-slate-900/90 rounded-xl overflow-hidden border border-amber-500/30 flex flex-col justify-between items-center p-2.5 text-center shadow-md relative group h-full">
+            <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 tracking-wider shrink-0">
+                ADVERTISEMENT
+            </span>
+            <div class="w-full flex-1 flex items-center justify-center overflow-hidden my-auto py-2 min-h-[120px]">
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; height:100%; min-width:100px; min-height:100px;"
+                     data-ad-client="${AD_CONFIG.googlePublisherId}"
+                     data-ad-slot="auto"
+                     data-ad-format="rectangle"
+                     data-full-width-responsive="true"></ins>
+            </div>
+            <div class="p-1 text-[10px] text-amber-400/80 font-bold uppercase tracking-wider shrink-0">
+                Sponsored Ad
+            </div>
+        </div>`;
+    }
+
+    // Default carousel card layout matching game card height
+    return `
+    <div class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-amber-500/30 p-2.5 flex flex-col justify-between items-center text-center shadow-lg relative h-full">
+        <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 tracking-wider shrink-0">
+            SPONSORED
+        </span>
+        <div class="w-full flex-1 flex items-center justify-center overflow-hidden my-auto py-2 min-h-[140px]">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%; min-height:140px;"
+                 data-ad-client="${AD_CONFIG.googlePublisherId}"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+        <div class="p-1 text-[10px] text-amber-400/80 font-bold uppercase tracking-wider shrink-0">
+            Sponsored Ad
+        </div>
+    </div>`;
+}
+
+/**
+ * Triggers Google AdSense array push for dynamically injected ad units safely
+ */
+function triggerAdSensePush() {
+    try {
+        if (typeof window !== 'undefined' && AD_CONFIG.enableAdSense) {
+            const adElements = document.querySelectorAll('.adsbygoogle:not([data-adsbygoogle-status])');
+            adElements.forEach((el) => {
+                if (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0) {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            });
+        }
+    } catch (e) {
+        console.warn('AdSense push suppressed or blocked by client:', e);
+    }
+}
+
+/**
+ * Initializes secondary SDK networks if required
+ */
+function initAdSDKs() {
+    if (AD_CONFIG.enableGameMonetize && !window.sdk) {
+        window.SDK_OPTIONS = {
+            gameId: "bekeirat_hub",
+            onEvent: function (event) {
+                switch (event.name) {
+                    case "SDK_GAME_START":
+                        console.log("GameMonetize: Resume game audio/logic");
+                        break;
+                    case "SDK_GAME_PAUSE":
+                        console.log("GameMonetize: Pause game audio/logic");
+                        break;
+                }
+            }
+        };
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Set current year
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    // Mobile menu toggle
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (hamburgerBtn && mobileMenu) {
@@ -36,29 +126,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Fetch central catalog and build dynamic sections
+    initAdSDKs();
     loadHomepageData();
 });
 
 async function loadHomepageData() {
-    // Get current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const today = new Date();
-    const dayOfWeek = today.getDay(); // Returns 0-6
+    const dayOfWeek = today.getDay();
 
-    // Map day to file number (1-7)
-    // Sunday (0) -> all_7.json, Monday (1) -> all_1.json, ..., Saturday (6) -> all_6.json
-    // OR: Sunday (0) -> all_1.json, Monday (1) -> all_2.json, ..., Saturday (6) -> all_7.json
-    // Choose your mapping:
-
-    // OPTION 1: Sunday = File 7, Monday = File 1, ..., Saturday = File 6
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-
-    // OPTION 2: Sunday = File 1, Monday = File 2, ..., Saturday = File 7
-    // const fileNumber = dayOfWeek + 1;
-
     const dataPath = `./data/all_${fileNumber}.json`;
 
-    console.log(`Loading data for day ${dayOfWeek} (${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek]}) from ${dataPath}`);
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    console.log(`Loading catalog for ${dayNames[dayOfWeek]} (Day ${dayOfWeek}) from ${dataPath}`);
 
     let fetchedData = null;
 
@@ -73,9 +153,8 @@ async function loadHomepageData() {
         console.warn(`Error loading ${dataPath}:`, e);
     }
 
-    // Fallback: Try other files if the day-specific one fails
     if (!fetchedData || !Array.isArray(fetchedData)) {
-        console.log('Trying fallback files...');
+        console.log('Trying fallback catalog files...');
         const fallbackPaths = [
             './data/all_1.json',
             './data/all_2.json',
@@ -84,8 +163,8 @@ async function loadHomepageData() {
             './data/all_5.json',
             './data/all_6.json',
             './data/all_7.json',
-            './data/all.json',  // Original file as last resort
-            './all.json'       // Root level
+            './data/all.json',
+            './all.json'
         ];
 
         for (const fallbackPath of fallbackPaths) {
@@ -104,9 +183,7 @@ async function loadHomepageData() {
         }
     }
 
-    // Process data
     if (fetchedData && Array.isArray(fetchedData)) {
-        // Process in chunks to avoid blocking UI
         const chunkSize = 20;
         globalCatalog = [];
 
@@ -115,25 +192,25 @@ async function loadHomepageData() {
             const processed = chunk.map((item, idx) => {
                 const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
                 const tokens = normalizeClasses(rawClass);
+                const idVal = item.id || item.Id || `game-${i}-${idx}`;
                 return {
-                    id: item.id || item.Id || `game-${i}-${idx}`,
+                    id: idVal,
                     title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
                     category: item.Category || item.category || 'arcade',
+                    description: item.Description || item.description || '',
                     classificationRaw: rawClass,
                     classificationTokens: tokens,
                     tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()) : []),
                     thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-                    url: item.Url || item.url || item.Play || item.play || `./pages/game.html?id=${encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`)}`
+                    url: `./pages/game.html?id=${encodeURIComponent(idVal)}`
                 };
             });
             globalCatalog.push(...processed);
 
-            // Yield to UI
             await new Promise(resolve => setTimeout(resolve, 0));
         }
     } else {
-        // Fallback to mock data
-        console.warn('No valid data found, using mock data');
+        console.warn('No valid catalog data found, generating fallback catalog');
         globalCatalog = generateMockGames();
     }
 
@@ -141,13 +218,14 @@ async function loadHomepageData() {
 }
 
 function renderHomepageSections() {
-    // Use robust class matching (case-insensitive, supports multi-word classes)
-    // Section 2: Hot & Trending (Filtered by "Hot")
+    renderHeroSection();
+
+    // Section 2: Hot & Trending
     const trending = globalCatalog.filter(g => hasClass(g, 'Hot'));
     renderCarousel('trending-carousel', trending, '🔥 HOT');
     if (trending.length > 0) setupCarouselAutoScroll('trending-carousel', 3200);
 
-    // Section 3: Editor's Picks & Exclusives (Filtered by "Editorial Picks" OR "Exclusive")
+    // Section 3: Editor's Picks
     const editors = globalCatalog.filter(g => hasClass(g, 'Editorial Picks') || hasClass(g, 'Exclusive'));
     renderCarousel('editors-carousel', editors, '🌟 PICK');
     if (editors.length > 0) setupCarouselAutoScroll('editors-carousel', 3800);
@@ -155,15 +233,80 @@ function renderHomepageSections() {
     // Section 4: Genre Hub Default
     filterHomepageCategory('all');
 
-    // Section 5: Fresh Releases (Filtered by "Newest")
+    // Section 5: Fresh Releases
     const fresh = globalCatalog.filter(g => hasClass(g, 'Newest'));
     renderCarousel('fresh-carousel', fresh, '🚀 NEW');
     if (fresh.length > 0) setupCarouselAutoScroll('fresh-carousel', 3500);
 
-    // Section 6: Top Rated (Filtered by "Top" or "Most Popular")
+    // Section 6: Top Rated
     const topRated = globalCatalog.filter(g => hasClass(g, 'Top') || hasClass(g, 'Most Popular'));
     renderCarousel('toprated-carousel', topRated, '🏆 TOP', true);
     if (topRated.length > 0) setupCarouselAutoScroll('toprated-carousel', 4000);
+
+    triggerAdSensePush();
+}
+
+function renderHeroSection() {
+    if (!globalCatalog || globalCatalog.length === 0) return;
+
+    const hotOrTopGames = globalCatalog.filter(g => hasClass(g, 'Hot') || hasClass(g, 'Top'));
+    const candidates = hotOrTopGames.length > 0 ? hotOrTopGames : globalCatalog;
+    const featured = candidates[Math.floor(Math.random() * candidates.length)];
+
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDayName = dayNames[new Date().getDay()];
+
+    const heroTitle = document.getElementById('hero-title');
+    const heroDescription = document.getElementById('hero-description');
+    const heroImage = document.getElementById('hero-image');
+    const heroPlayBtn = document.getElementById('hero-play-btn');
+    const heroCategoryBadge = document.getElementById('hero-category-badge');
+    const heroTagsBadge = document.getElementById('hero-tags-badge');
+    const heroBadge = document.getElementById('hero-badge');
+
+    if (heroTitle) {
+        heroTitle.textContent = featured.title;
+        heroTitle.classList.remove('animate-pulse');
+    }
+
+    if (heroDescription) {
+        heroDescription.textContent = featured.description
+            ? featured.description
+            : `Experience ${featured.title} today! Play this top-rated ${featured.category || 'arcade'} game directly in your browser with instant load times across all desktop and mobile devices.`;
+    }
+
+    if (heroImage) {
+        heroImage.src = featured.thumb;
+        heroImage.alt = featured.title;
+        heroImage.onerror = function () {
+            this.src = 'image_496448.jpg';
+        };
+    }
+
+    if (heroPlayBtn) {
+        heroPlayBtn.href = featured.url;
+    }
+
+    if (heroCategoryBadge) {
+        heroCategoryBadge.textContent = featured.category ? `${featured.category.toUpperCase()} GAME` : 'HTML5 GAME';
+        if (heroCategoryBadge.tagName && heroCategoryBadge.tagName.toLowerCase() === 'a') {
+            heroCategoryBadge.href = `./pages/games.html?category=${encodeURIComponent(featured.category || 'all')}`;
+        }
+    }
+
+    if (heroTagsBadge) {
+        const tags = featured.tags && featured.tags.length > 0
+            ? featured.tags.slice(0, 2)
+            : [featured.category || 'Featured', 'BrowserGame'];
+
+        heroTagsBadge.innerHTML = tags.map(t =>
+            `<a href="./pages/games.html" class="hover:text-blue-400 transition-colors z-30 cursor-pointer relative">#${t.replace(/\s+/g, '')}</a>`
+        ).join(' ');
+    }
+
+    if (heroBadge) {
+        heroBadge.innerHTML = `<i class="fa-solid fa-fire text-amber-400"></i> ${currentDayName}'s Featured Pick`;
+    }
 }
 
 function startAutoScroll(carouselId, intervalMs = 3500) {
@@ -174,7 +317,7 @@ function startAutoScroll(carouselId, intervalMs = 3500) {
 
     autoScrollTimers[carouselId] = setInterval(() => {
         if (!container) return;
-        const scrollStep = 220; // Width of card + gap
+        const scrollStep = 220;
         const maxScroll = container.scrollWidth - container.clientWidth;
 
         if (container.scrollLeft >= maxScroll - 15) {
@@ -196,18 +339,15 @@ function setupCarouselAutoScroll(carouselId, intervalMs = 3500) {
     const container = document.getElementById(carouselId);
     if (!container) return;
 
-    // Start initial timer
     startAutoScroll(carouselId, intervalMs);
 
-    // Pause auto-scrolling on hover or touch
     container.addEventListener('mouseenter', () => stopAutoScroll(carouselId));
     container.addEventListener('mouseleave', () => startAutoScroll(carouselId, intervalMs));
     container.addEventListener('touchstart', () => stopAutoScroll(carouselId), { passive: true });
     container.addEventListener('touchend', () => startAutoScroll(carouselId, intervalMs), { passive: true });
 }
 
-
-function renderCarousel(containerId, games, badgeText, showRank = false) {
+function  renderCarousel(containerId, games, badgeText, showRank = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -216,31 +356,40 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
         return;
     }
 
-    container.innerHTML = games.map((game, idx) => `
-                <a href="${game.url}" 
-                   class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg">
-                    <div class="relative aspect-square overflow-hidden bg-slate-950">
-                        <img src="${game.thumb}" 
-                             alt="${game.title}"
-                             loading="lazy"
-                             decoding="async"
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                             onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                        <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-500/30 uppercase">
-                            ${showRank ? `#${idx + 1}` : badgeText}
-                        </span>
+    const cardsHtml = [];
+
+    games.forEach((game, idx) => {
+        // I have removed the "if (idx > 0 && idx % 6 === 0) { cardsHtml.push(createAdCardHTML('carousel')); }" block so ads no longer inject.
+
+        cardsHtml.push(`
+            <a href="${game.url}" 
+               class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg flex flex-col h-full">
+                <div class="relative aspect-square overflow-hidden bg-slate-950 shrink-0">
+                    <img src="${game.thumb}" 
+                         alt="${game.title}"
+                         loading="lazy"
+                         decoding="async"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                    <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-500/30 uppercase">
+                        ${showRank ? `#${idx + 1}` : badgeText}
+                    </span>
+                </div>
+                <div class="p-3 bg-slate-900 flex items-center justify-between gap-2 flex-1">
+                    <h3 class="text-xs font-bold text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${game.title}">
+                        ${game.title}
+                    </h3>
+                    <div class="p-1.5 rounded-lg bg-slate-800 text-gray-400 group-hover:bg-cyan-500/20 group-hover:text-cyan-400 transition-all shrink-0">
+                        <i class="fa-solid fa-play text-[10px]"></i>
                     </div>
-                    <div class="p-3 bg-slate-900 flex items-center justify-between gap-2">
-                        <h3 class="text-xs font-bold text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${game.title}">
-                            ${game.title}
-                        </h3>
-                        <div class="p-1.5 rounded-lg bg-slate-800 text-gray-400 group-hover:bg-cyan-500/20 group-hover:text-cyan-400 transition-all shrink-0">
-                            <i class="fa-solid fa-play text-[10px]"></i>
-                        </div>
-                    </div>
-                </a>
-            `).join('');
+                </div>
+            </a>
+        `);
+    });
+
+    container.innerHTML = cardsHtml.join('');
+    triggerAdSensePush();
 }
 
 function filterHomepageCategory(category, element = null) {
@@ -265,18 +414,26 @@ function filterHomepageCategory(category, element = null) {
         return;
     }
 
-    hubGrid.innerHTML = filtered.map(game => `
-                <a href="${game.url}" 
-                   class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 flex flex-col shadow-md">
-                    <div class="aspect-square relative overflow-hidden bg-slate-950">
-                        <img src="${game.thumb}" alt="${game.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                             onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
-                    </div>
-                    <div class="p-2.5 bg-slate-900 flex-1 flex items-center justify-between">
-                        <h4 class="text-xs font-bold text-gray-300 group-hover:text-cyan-400 truncate">${game.title}</h4>
-                    </div>
-                </a>
-            `).join('');
+    const gridHtml = [];
+    filtered.forEach((game, idx) => {
+        // I have removed the "if (idx === 4) { gridHtml.push(createAdCardHTML('grid')); }" block here as well.
+
+        gridHtml.push(`
+            <a href="${game.url}" 
+               class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 flex flex-col h-full shadow-md">
+                <div class="aspect-square relative overflow-hidden bg-slate-950 shrink-0">
+                    <img src="${game.thumb}" alt="${game.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
+                </div>
+                <div class="p-2.5 bg-slate-900 flex-1 flex items-center justify-between">
+                    <h4 class="text-xs font-bold text-gray-300 group-hover:text-cyan-400 truncate">${game.title}</h4>
+                </div>
+            </a>
+        `);
+    });
+
+    hubGrid.innerHTML = gridHtml.join('');
+    triggerAdSensePush();
 }
 
 function scrollCarousel(carouselId, offset) {
@@ -295,15 +452,17 @@ function generateMockGames() {
         const cat = cats[i % cats.length];
         const cls = classes[i % classes.length];
         const tokens = normalizeClasses(cls);
+        const gameId = `mock-game-${i}`;
         list.push({
-            id: `mock-game-${i}`,
+            id: gameId,
             title: `${cat.toUpperCase()} Challenge ${i}`,
             category: cat,
+            description: `Test your skills in this thrilling mock challenge game designed for instant browser play.`,
             classificationRaw: cls,
             classificationTokens: tokens,
             thumb: `https://picsum.photos/seed/bekeirat-${i}/400/400`,
-            url: './pages/games.html'
+            url: `./pages/game.html?id=${encodeURIComponent(gameId)}`
         });
     }
     return list;
-}  
+}

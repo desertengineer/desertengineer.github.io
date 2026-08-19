@@ -1,0 +1,176 @@
+name: Build Tile Master 2048
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Apps/**'
+      - '.github/workflows/build-mobile.yml'
+      - 'index.html'
+      - 'index.js'
+      - 'index.css'
+
+jobs:
+  # --- SIGNED ANDROID BUILD ---
+  build-android:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Apps
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare Web Directory
+        run: |
+          mkdir -p dist
+          cp $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/index.js $GITHUB_WORKSPACE/index.css $GITHUB_WORKSPACE/manifest.json $GITHUB_WORKSPACE/service-worker.js dist/ || true
+          cp -r $GITHUB_WORKSPACE/assets $GITHUB_WORKSPACE/privacy dist/ || true
+
+      - name: Install & Run Capacitor
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
+          npx cap add android
+          npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+
+      - name: Resolve Android Kotlin Duplicate Classes
+        run: |
+          cat << 'EOF' >> android/build.gradle
+          allprojects {
+              configurations.configureEach { configuration ->
+                  configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+                  configuration.exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+              }
+          }
+          EOF
+
+      - name: Decode Android Keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+
+      - name: Build and Sign Release APK
+        env:
+          ORG_GRADLE_PROJECT_androidInjectedSigningStoreFile: ${{ github.workspace }}/Apps/android/app/release.keystore
+          ORG_GRADLE_PROJECT_androidInjectedSigningStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ORG_GRADLE_PROJECT_androidInjectedSigningKeyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          cd android
+          ./gradlew assembleRelease
+
+      - name: Upload Signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TileMaster2048-Android-Release
+          path: Apps/android/app/build/outputs/apk/release/*.apk
+
+
+  # --- SIGNED iOS BUILD ---
+  build-ios:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: Apps
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare Web Directory
+        run: |
+          mkdir -p dist
+          cp $GITHUB_WORKSPACE/index.html $GITHUB_WORKSPACE/index.js $GITHUB_WORKSPACE/index.css $GITHUB_WORKSPACE/manifest.json $GITHUB_WORKSPACE/service-worker.js dist/ || true
+          cp -r $GITHUB_WORKSPACE/assets $GITHUB_WORKSPACE/privacy dist/ || true
+
+      - name: Install & Run Capacitor
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
+          npx cap init "Tile Master 2048" "com.desertengineer.tilemaster2048" --web-dir=dist
+          npx cap add ios
+          npx cap sync ios
+
+      - name: Install Apple Certificate and Provisioning Profile
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          P12_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASS }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.APPLE_PROVISION_PROFILE }}
+          KEYCHAIN_PASSWORD: "temporary_keychain_password"
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          # 🚀 ROBUST PLIST FIX: Uses PlistBuddy to safely extract Team ID out of the decoded profile array blocks
+          security cms -D -i "$PP_PATH" > $RUNNER_TEMP/profile.plist
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" $RUNNER_TEMP/profile.plist)
+          echo "APPLE_TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
+
+      - name: Setup Xcode Command Line Tools
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build and Archive iOS App
+        run: |
+          cd ios/App
+          xcodebuild archive \
+            -project App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Export IPA Package
+        run: |
+          cat <<EOF > exportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://apple.com">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>teamID</key>
+            <string>${{ env.APPLE_TEAM_ID }}</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>signingStyle</key>
+            <string>manual</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath ios/App/output
+
+      - name: Upload Signed IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: TileMaster2048-iOS-Release
+          path: Apps/ios/App/output/*.ipa
