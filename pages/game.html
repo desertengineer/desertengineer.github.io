@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+ 
 
 <head>
     <meta charset="UTF-8">
@@ -12,11 +13,14 @@
     <meta name="description"
         content="Browse and play hundreds of free online HTML5 games across puzzle, action, arcade, racing, and strategy genres at Bekeirat Software. No downloads needed.">
     <meta name="keywords"
-        content="Bekeirat Software, HTML5 games, online browser games, free mobile apps, progressive web apps, puzzle games, arcade games, instant play games">
+        content="Bekeirat Software, HTML5 games, online browser games, free mobile apps, progressive web apps, puzzle games, arcade games, instant play games, Magic Block Blitz 2026, web gaming hub">
     <meta name="author" content="Bekeirat Software">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bekeiratsoftwares.com/">
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -30,125 +34,57 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@MAWLAY20">
     <meta name="twitter:creator" content="@MAWLAY20">
-
-    <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-XCGXELT421');
-    </script>
-
-    <!-- Typography & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Monetization -->
+    <meta name="twitter:url" content="https://bekeiratsoftwares.com/">
+    <meta name="twitter:title" content="Bekeirat Software - Free Online HTML5 Games & Apps Hub">
+    <meta name="twitter:description"
+        content="Play top HTML5 games instantly across all devices. No installation needed. Discover mobile & desktop web apps at Bekeirat Software.">
+    <meta name="twitter:image" content="https://bekeiratsoftwares.com/assets/og-banner-1200x630.png">
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
+ 
+    <!-- Preload critical fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap">
+    </noscript>
+
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
+
+    <!-- Defer Tailwind and custom CSS -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="../css/index.css" media="print" onload="this.media='all'"> 
+    <link rel="stylesheet" href="./game.css" media="print" onload="this.media='all'"> 
+
+    <!-- Defer all analytics/monetization -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421" defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
-    <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof wortise !== 'undefined') {
-                wortise.init('47a5fb06-3b5e-4303-be27-14edbd4a6a0b');
-            }
-        });
+        crossorigin="anonymous" defer></script>
+    <script async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js" defer></script> 
+
+    <!-- Structured Data / JSON-LD for Search Engine Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Bekeirat Software",
+      "operatingSystem": "Web, Android, Windows",
+      "applicationCategory": "GameApplication",
+      "url": "https://bekeiratsoftwares.com/",
+      "author": {
+        "@type": "Organization",
+        "name": "Bekeirat Software"
+      },
+      "description": "Provider of innovative HTML5 web games, progressive web apps, and desktop titles."
+    }
     </script>
-
-    <style>
-        /* Custom UI Components and Overrides aligned with the new Index */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0f19; /* Updated to match index */
-        }
-
-        h1, h2, h3, .font-poppins {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Category and Tag Badges */
-        .category-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            background-color: rgba(30, 41, 59, 0.8);
-            color: #e2e8f0;
-            border: 1px solid rgba(51, 65, 85, 0.5);
-            transition: all 0.2s ease-in-out;
-            text-decoration: none;
-        }
-
-        .category-badge:hover {
-            background-color: #2563eb;
-            color: #ffffff;
-            border-color: #3b82f6;
-            transform: translateY(-1px);
-        }
-
-        .tag-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background-color: rgba(15, 23, 42, 0.6);
-            color: #94a3b8;
-            border: 1px solid rgba(30, 41, 59, 0.8);
-            transition: all 0.2s ease-in-out;
-            text-decoration: none;
-        }
-
-        .tag-badge:hover {
-            background-color: rgba(147, 51, 234, 0.5);
-            color: #ffffff;
-            border-color: #a855f7;
-        }
-
-        /* Animations */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-slide-up {
-            animation: slideUp 0.5s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        /* Iframe constraints - Updated to handle dynamic embeds smoothly */
-        .game-frame-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: inherit;
-        }
-    </style>
 </head>
 
 <body class="text-gray-100 min-h-screen flex flex-col antialiased">
