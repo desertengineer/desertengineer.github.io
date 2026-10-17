@@ -1,11 +1,10 @@
-// Optimized index.js - Bekeirat Software (Lighthouse-Optimized)
+// Optimized index.js - Bekeirat Software
 // Performance improvements:
 // 1. Reduced fallback paths from 9 to 2
 // 2. Added client-side caching with localStorage
 // 3. Optimized data processing
 // 4. Reduced DOM queries
 // 5. Added proper error handling
-// 6. LIGHTHOUSE FIXES: CLS prevention, LCP optimization, TBT reduction
 
 let globalCatalog = [];
 const autoScrollTimers = {};
@@ -45,18 +44,6 @@ function hasClass(game, className) {
 }
 
 /**
- * Escape HTML to prevent XSS
- */
-function escapeHtml(s) {
-    return String(s || '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-}
-
-/**
  * Cache helper functions
  */
 async function getCachedData() {
@@ -91,12 +78,11 @@ async function setCachedData(data) {
 
 /**
  * Generates an inline ad placement card for carousels or game grids.
- * LIGHTHOUSE FIX: Uses explicit dimensions to prevent CLS
  */
 function createAdCardHTML(type = 'carousel') {
     if (type === 'grid') {
         return `
-        <div class="bg-slate-900/90 rounded-xl overflow-hidden border border-amber-500/30 flex flex-col justify-between items-center p-2.5 text-center shadow-md relative group h-full min-h-[200px]">
+        <div class="bg-slate-900/90 rounded-xl overflow-hidden border border-amber-500/30 flex flex-col justify-between items-center p-2.5 text-center shadow-md relative group h-full">
             <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 tracking-wider shrink-0">
                 ADVERTISEMENT
             </span>
@@ -115,7 +101,7 @@ function createAdCardHTML(type = 'carousel') {
     }
 
     return `
-    <div class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-amber-500/30 p-2.5 flex flex-col justify-between items-center text-center shadow-lg relative h-full min-h-[200px]">
+    <div class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-amber-500/30 p-2.5 flex flex-col justify-between items-center text-center shadow-lg relative h-full">
         <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 tracking-wider shrink-0">
             SPONSORED
         </span>
@@ -135,21 +121,8 @@ function createAdCardHTML(type = 'carousel') {
 
 /**
  * Triggers Google AdSense array push for dynamically injected ad units safely
- * LIGHTHOUSE FIX: Uses requestIdleCallback to reduce TBT
  */
 function triggerAdSensePush() {
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            doTriggerAdSensePush();
-        }, { timeout: 2000 });
-    } else {
-        setTimeout(() => {
-            doTriggerAdSensePush();
-        }, 2000);
-    }
-}
-
-function doTriggerAdSensePush() {
     try {
         if (typeof window !== 'undefined' && AD_CONFIG.enableAdSense) {
             const adElements = document.querySelectorAll('.adsbygoogle:not([data-adsbygoogle-status])');
@@ -166,36 +139,26 @@ function doTriggerAdSensePush() {
 
 /**
  * Initializes secondary SDK networks if required
- * LIGHTHOUSE FIX: Load SDKs asynchronously
  */
 function initAdSDKs() {
     if (AD_CONFIG.enableGameMonetize && !window.sdk) {
-        // Load SDK asynchronously to reduce TBT
-        const script = document.createElement('script');
-        script.src = 'https://cdn.gamemonetize.com/sdk.js';
-        script.async = true;
-        script.defer = true;
-        script.onload = function() {
-            window.SDK_OPTIONS = {
-                gameId: "bekeirat_hub",
-                onEvent: function (event) {
-                    switch (event.name) {
-                        case "SDK_GAME_START":
-                            console.log("GameMonetize: Resume game audio/logic");
-                            break;
-                        case "SDK_GAME_PAUSE":
-                            console.log("GameMonetize: Pause game audio/logic");
-                            break;
-                    }
+        window.SDK_OPTIONS = {
+            gameId: "bekeirat_hub",
+            onEvent: function (event) {
+                switch (event.name) {
+                    case "SDK_GAME_START":
+                        console.log("GameMonetize: Resume game audio/logic");
+                        break;
+                    case "SDK_GAME_PAUSE":
+                        console.log("GameMonetize: Pause game audio/logic");
+                        break;
                 }
-            };
+            }
         };
-        document.body.appendChild(script);
     }
 }
 
 // DOM ready handler
-// LIGHTHOUSE FIX: Use requestIdleCallback for non-critical initialization
 document.addEventListener('DOMContentLoaded', async () => {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
@@ -208,32 +171,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // LIGHTHOUSE FIX: Preload LCP image immediately
-    preloadLCPImage();
-
     initAdSDKs();
     await loadHomepageData();
 });
 
 /**
- * LIGHTHOUSE FIX: Preload LCP image with high priority
- */
-function preloadLCPImage() {
-    const heroImage = document.getElementById('hero-image');
-    if (heroImage && !heroImage.complete) {
-        const lcpSrc = heroImage.src || './assets/hero_emblem-1920x715.webp';
-        const preloadLink = document.createElement('link');
-        preloadLink.rel = 'preload';
-        preloadLink.href = lcpSrc;
-        preloadLink.as = 'image';
-        preloadLink.fetchpriority = 'high';
-        document.head.appendChild(preloadLink);
-    }
-}
-
-/**
  * Optimized data loading with caching and reduced fallbacks
- * LIGHTHOUSE FIX: Reduced to 2 fallbacks, uses cache-first strategy
  */
 async function loadHomepageData() {
     const today = new Date();
@@ -250,15 +193,7 @@ async function loadHomepageData() {
     if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
         globalCatalog = cachedData;
         console.log('[Homepage] Using cached data, skipping network request');
-        
-        // LIGHTHOUSE FIX: Use requestIdleCallback for rendering to reduce TBT
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                renderHomepageSections();
-            }, { timeout: 1000 });
-        } else {
-            renderHomepageSections();
-        }
+        renderHomepageSections();
         return;
     }
 
@@ -337,60 +272,36 @@ async function loadHomepageData() {
         globalCatalog = generateMockGames();
     }
 
-    // LIGHTHOUSE FIX: Use requestIdleCallback for rendering
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            renderHomepageSections();
-        }, { timeout: 1000 });
-    } else {
-        renderHomepageSections();
-    }
+    renderHomepageSections();
 }
 
 function renderHomepageSections() {
-    // LIGHTHOUSE FIX: Render hero section first (LCP element)
     renderHeroSection();
 
-    // Use requestIdleCallback for non-critical sections to reduce TBT
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            renderTrendingCarousel();
-            renderEditorsCarousel();
-            filterHomepageCategory('all');
-            renderFreshCarousel();
-            renderTopRatedCarousel();
-        }, { timeout: 2000 });
-    } else {
-        renderTrendingCarousel();
-        renderEditorsCarousel();
-        filterHomepageCategory('all');
-        renderFreshCarousel();
-        renderTopRatedCarousel();
-    }
-}
-
-function renderTrendingCarousel() {
+    // Section 2: Hot & Trending
     const trending = globalCatalog.filter(g => hasClass(g, 'Hot'));
     renderCarousel('trending-carousel', trending, '\ud83d\udd25 HOT');
     if (trending.length > 0) setupCarouselAutoScroll('trending-carousel', 3200);
-}
 
-function renderEditorsCarousel() {
+    // Section 3: Editor's Picks
     const editors = globalCatalog.filter(g => hasClass(g, 'Editorial Picks') || hasClass(g, 'Exclusive'));
     renderCarousel('editors-carousel', editors, '\ud83c\udf1f PICK');
     if (editors.length > 0) setupCarouselAutoScroll('editors-carousel', 3800);
-}
 
-function renderFreshCarousel() {
+    // Section 4: Genre Hub Default
+    filterHomepageCategory('all');
+
+    // Section 5: Fresh Releases
     const fresh = globalCatalog.filter(g => hasClass(g, 'Newest'));
     renderCarousel('fresh-carousel', fresh, '\ud83d\ude80 NEW');
     if (fresh.length > 0) setupCarouselAutoScroll('fresh-carousel', 3500);
-}
 
-function renderTopRatedCarousel() {
+    // Section 6: Top Rated
     const topRated = globalCatalog.filter(g => hasClass(g, 'Top') || hasClass(g, 'Most Popular'));
     renderCarousel('toprated-carousel', topRated, '\ud83c\udfc6 TOP', true);
     if (topRated.length > 0) setupCarouselAutoScroll('toprated-carousel', 4000);
+
+    triggerAdSensePush();
 }
 
 function renderHeroSection() {
@@ -423,18 +334,10 @@ function renderHeroSection() {
     }
 
     if (heroImage) {
-        // LIGHTHOUSE FIX: Use WebP format, explicit dimensions, fetchpriority=high, loading=eager
-        const webpThumb = featured.thumb.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-        heroImage.src = webpThumb;
-        heroImage.srcset = `${webpThumb} 1x, ${featured.thumb} 1x`;
+        heroImage.src = featured.thumb;
         heroImage.alt = featured.title;
-        heroImage.loading = 'eager';
-        heroImage.fetchpriority = 'high';
-        heroImage.width = 1920;
-        heroImage.height = 715;
         heroImage.onerror = function () {
             this.src = 'image_496448.jpg';
-            this.loading = 'lazy';
         };
     }
 
@@ -455,7 +358,7 @@ function renderHeroSection() {
             : [featured.category || 'Featured', 'BrowserGame'];
 
         heroTagsBadge.innerHTML = tags.map(t =>
-            `<a href="./pages/games.html" class="hover:text-blue-400 transition-colors z-30 cursor-pointer relative">#${escapeHtml(t.replace(/\s+/g, ''))}</a>`
+            `<a href="./pages/games.html" class="hover:text-blue-400 transition-colors z-30 cursor-pointer relative">#${t.replace(/\s+/g, '')}</a>`
         ).join(' ');
     }
 
@@ -515,49 +418,33 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
     const fragment = document.createDocumentFragment();
     const tempDiv = document.createElement('div');
 
-    // LIGHTHOUSE FIX: Use requestIdleCallback for batch DOM updates to reduce TBT
-    const processBatch = (startIdx, endIdx) => {
-        for (let idx = startIdx; idx < Math.min(endIdx, games.length); idx++) {
-            const game = games[idx];
-            // LIGHTHOUSE FIX: Use WebP format for thumbnails
-            const webpThumb = game.thumb.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-            
-            tempDiv.innerHTML += `
-                <a href="${escapeHtml(game.url)}" 
-                   class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg flex flex-col h-full">
-                    <div class="relative aspect-square overflow-hidden bg-slate-950 shrink-0">
-                        <img src="${escapeHtml(webpThumb)}" 
-                             srcset="${escapeHtml(webpThumb)} 1x, ${escapeHtml(game.thumb)} 1x"
-                             alt="${escapeHtml(game.title)}"
-                             loading="lazy"
-                             decoding="async"
-                             width="200"
-                             height="200"
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                             onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                        <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-500/30 uppercase">
-                            ${escapeHtml(showRank ? `#${idx + 1}` : badgeText)}
-                        </span>
+    games.forEach((game, idx) => {
+        tempDiv.innerHTML += `
+            <a href="${game.url}" 
+               class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg flex flex-col h-full">
+                <div class="relative aspect-square overflow-hidden bg-slate-950 shrink-0">
+                    <img src="${game.thumb}" 
+                         alt="${game.title}"
+                         loading="lazy"
+                         decoding="async"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                    <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-500/30 uppercase">
+                        ${showRank ? `#${idx + 1}` : badgeText}
+                    </span>
+                </div>
+                <div class="p-3 bg-slate-900 flex items-center justify-between gap-2 flex-1">
+                    <h3 class="text-xs font-bold text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${game.title}">
+                        ${game.title}
+                    </h3>
+                    <div class="p-1.5 rounded-lg bg-slate-800 text-gray-400 group-hover:bg-cyan-500/20 group-hover:text-cyan-400 transition-all shrink-0">
+                        <i class="fa-solid fa-play text-[10px]"></i>
                     </div>
-                    <div class="p-3 bg-slate-900 flex items-center justify-between gap-2 flex-1">
-                        <h3 class="text-xs font-bold text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${escapeHtml(game.title)}">
-                            ${escapeHtml(game.title)}
-                        </h3>
-                        <div class="p-1.5 rounded-lg bg-slate-800 text-gray-400 group-hover:bg-cyan-500/20 group-hover:text-cyan-400 transition-all shrink-0">
-                            <i class="fa-solid fa-play text-[10px]"></i>
-                        </div>
-                    </div>
-                </a>
-            `;
-        }
-    };
-
-    // Process in batches to avoid blocking the main thread
-    const batchSize = 5;
-    for (let i = 0; i < games.length; i += batchSize) {
-        processBatch(i, i + batchSize);
-    }
+                </div>
+            </a>
+        `;
+    });
 
     // Append all at once
     while (tempDiv.firstChild) {
@@ -566,7 +453,6 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
     container.innerHTML = '';
     container.appendChild(fragment);
 
-    // LIGHTHOUSE FIX: Use requestIdleCallback for AdSense
     triggerAdSensePush();
 }
 
@@ -597,25 +483,15 @@ function filterHomepageCategory(category, element = null) {
     const tempDiv = document.createElement('div');
 
     filtered.forEach((game) => {
-        // LIGHTHOUSE FIX: Use WebP format, explicit dimensions
-        const webpThumb = game.thumb.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-        
         tempDiv.innerHTML += `
-            <a href="${escapeHtml(game.url)}" 
+            <a href="${game.url}" 
                class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 flex flex-col h-full shadow-md">
                 <div class="aspect-square relative overflow-hidden bg-slate-950 shrink-0">
-                    <img src="${escapeHtml(webpThumb)}" 
-                         srcset="${escapeHtml(webpThumb)} 1x, ${escapeHtml(game.thumb)} 1x"
-                         alt="${escapeHtml(game.title)}" 
-                         loading="lazy" 
-                         decoding="async" 
-                         width="200" 
-                         height="200"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    <img src="${game.thumb}" alt="${game.title}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                          onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
                 </div>
                 <div class="p-2.5 bg-slate-900 flex-1 flex items-center justify-between">
-                    <h4 class="text-xs font-bold text-gray-300 group-hover:text-cyan-400 truncate">${escapeHtml(game.title)}</h4>
+                    <h4 class="text-xs font-bold text-gray-300 group-hover:text-cyan-400 truncate">${game.title}</h4>
                 </div>
             </a>
         `;

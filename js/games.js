@@ -1,11 +1,10 @@
-// Optimized games.js - Bekeirat Software (Lighthouse-Optimized)
+// Optimized games.js - Bekeirat Software
 // Performance improvements:
 // 1. Reduced fallback paths from 9 to 2
 // 2. Added client-side caching with localStorage
 // 3. Implemented virtual scrolling with IntersectionObserver
 // 4. Optimized data processing and DOM updates
 // 5. Reduced reflows and repaints
-// 6. LIGHTHOUSE FIXES: CLS prevention, LCP optimization, TBT reduction
 
 const CONFIG = {
     dataPaths: [],
@@ -45,18 +44,6 @@ function shuffleArray(array) {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
-}
-
-/* -----------------------
-   Escape HTML to prevent XSS
-   ----------------------- */
-function escapeHtml(s) {
-    return String(s || '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
 }
 
 /* -----------------------
@@ -163,14 +150,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateCategoryMenu();
     switchCategory(CONFIG.defaultCategory);
 
-    // LIGHTHOUSE FIX: Initialize IntersectionObserver for virtual scrolling with requestIdleCallback
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            initVirtualScrolling();
-        }, { timeout: 1000 });
-    } else {
-        initVirtualScrolling();
-    }
+    // Initialize IntersectionObserver for virtual scrolling
+    initVirtualScrolling();
 });
 
 /* -----------------------
@@ -187,7 +168,6 @@ function initializeDayBasedDataPath() {
 
 /* -----------------------
    Data loading - Optimized with caching and reduced fallbacks
-   LIGHTHOUSE FIX: Reduced to 2 fallbacks, uses cache-first strategy
    ----------------------- */
 async function loadMasterData() {
     const dayFilePath = CONFIG.dataPaths[0];
@@ -264,8 +244,7 @@ async function loadMasterData() {
                     category: category,
                     categoryKey: normalizeKey(category),
                     tags: tagsArray.map(t => String(t).toLowerCase()),
-                    // LIGHTHOUSE FIX: Use WebP format for thumbnails
-                    thumb: (item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/00ffcc?text=Bekeirat+Game').replace(/\.(png|jpg|jpeg)$/i, '.webp'),
+                    thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x300/12141f/00ffcc?text=Bekeirat+Game',
                     width: item.Width || item.width || "1280",
                     height: item.Height || item.height || "720",
                     video: item.Video || item.video || "",
@@ -294,7 +273,6 @@ async function loadMasterData() {
 
 /* -----------------------
    Virtual Scrolling with IntersectionObserver
-   LIGHTHOUSE FIX: Added CLS prevention by reserving space
    ----------------------- */
 function initVirtualScrolling() {
     if ('IntersectionObserver' in window) {
@@ -322,20 +300,12 @@ function renderGameCard(container, gameId) {
         return;
     }
 
-    // LIGHTHOUSE FIX: Use WebP format, explicit dimensions
     const thumb = game.thumb || 'https://placehold.co/400x400/12141f/00ffcc?text=Bekeirat+Game';
-    const webpThumb = thumb.replace(/\.(png|jpg|jpeg)$/i, '.webp');
     
     container.innerHTML = `
         <a href="game.html?id=${encodeURIComponent(game.id)}" class="game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col shadow-lg relative">
             <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0a0b10]">
-                <img src="${escapeHtml(webpThumb)}" 
-                     srcset="${escapeHtml(webpThumb)} 1x, ${escapeHtml(thumb)} 1x"
-                     alt="${escapeHtml(game.title)}" 
-                     loading="lazy" 
-                     decoding="async"
-                     width="400" 
-                     height="400"
+                <img src="${escapeHtml(thumb)}" alt="${escapeHtml(game.title)}" loading="lazy" decoding="async"
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                      onerror="this.src='https://placehold.co/400x400/12141f/00ffcc?text=${encodeURIComponent(game.title)}'">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#12141f] via-transparent to-transparent opacity-80"></div>
@@ -553,7 +523,6 @@ function getFilteredData() {
 
 /* -----------------------
    Render grid with virtual scrolling
-   LIGHTHOUSE FIX: Added CLS prevention with placeholder divs
    ----------------------- */
 function renderGrid() {
     const gridContainer = document.getElementById('main-games-grid');
@@ -582,69 +551,47 @@ function renderGrid() {
         return;
     }
 
-    // LIGHTHOUSE FIX: Use virtual scrolling for better performance and CLS prevention
+    // Use virtual scrolling for better performance
     if (observer && pageItems.length > CONFIG.virtualScrollThreshold) {
-        // Create placeholder divs for virtual scrolling with explicit dimensions
+        // Create placeholder divs for virtual scrolling
         pageItems.forEach(game => {
             const placeholder = document.createElement('div');
-            placeholder.className = 'game-card-placeholder bg-[#12141f] rounded-2xl border border-gray-800/90 aspect-[3/4] min-w-[200px]';
+            placeholder.className = 'game-card-placeholder bg-[#12141f] rounded-2xl border border-gray-800/90 aspect-[3/4]';
             placeholder.dataset.gameId = game.id;
             gridContainer.appendChild(placeholder);
             observer.observe(placeholder);
         });
     } else {
         // Traditional rendering for smaller datasets
-        // LIGHTHOUSE FIX: Process in batches to avoid blocking the main thread
         const fragment = document.createDocumentFragment();
-        
-        const processBatch = (startIdx, endIdx) => {
-            const batchEnd = Math.min(endIdx, pageItems.length);
-            for (let i = startIdx; i < batchEnd; i++) {
-                const game = pageItems[i];
-                const card = document.createElement('a');
-                card.href = `game.html?id=${encodeURIComponent(game.id)}`;
-                card.className = 'game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col shadow-lg relative';
-                card.addEventListener('click', () => { 
-                    try { 
-                        sessionStorage.setItem('current_game_data', JSON.stringify(game)); 
-                    } catch (e) {} 
-                });
+        pageItems.forEach(game => {
+            const card = document.createElement('a');
+            card.href = `game.html?id=${encodeURIComponent(game.id)}`;
+            card.className = 'game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col shadow-lg relative';
+            card.addEventListener('click', () => { 
+                try { 
+                    sessionStorage.setItem('current_game_data', JSON.stringify(game)); 
+                } catch (e) {} 
+            });
 
-                // LIGHTHOUSE FIX: Use WebP format, explicit dimensions
-                const thumb = game.thumb || 'https://placehold.co/400x400/12141f/00ffcc?text=Bekeirat+Game';
-                const webpThumb = thumb.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-                
-                card.innerHTML = `
-                    <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0a0b10]">
-                        <img src="${escapeHtml(webpThumb)}" 
-                             srcset="${escapeHtml(webpThumb)} 1x, ${escapeHtml(thumb)} 1x"
-                             alt="${escapeHtml(game.title)}" 
-                             loading="lazy" 
-                             decoding="async"
-                             width="400" 
-                             height="400"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                             onerror="this.src='https://placehold.co/400x400/12141f/00ffcc?text=${encodeURIComponent(game.title)}'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#12141f] via-transparent to-transparent opacity-80"></div>
-                        <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-cyan-400 border border-cyan-500/30 capitalize">${escapeHtml(game.category)}</span>
+            const thumb = game.thumb || 'https://placehold.co/400x400/12141f/00ffcc?text=Bekeirat+Game';
+            card.innerHTML = `
+                <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0a0b10]">
+                    <img src="${escapeHtml(thumb)}" alt="${escapeHtml(game.title)}" loading="lazy" decoding="async"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                         onerror="this.src='https://placehold.co/400x400/12141f/00ffcc?text=${encodeURIComponent(game.title)}'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#12141f] via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-cyan-400 border border-cyan-500/30 capitalize">${escapeHtml(game.category)}</span>
+                </div>
+                <div class="p-3.5 bg-[#12141f] flex items-center justify-between flex-1">
+                    <h3 class="font-bold text-xs sm:text-sm text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${escapeHtml(game.title)}">${escapeHtml(game.title)}</h3>
+                    <div class="p-1.5 rounded-lg bg-gray-800/80 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-400 transition-all">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
                     </div>
-                    <div class="p-3.5 bg-[#12141f] flex items-center justify-between flex-1">
-                        <h3 class="font-bold text-xs sm:text-sm text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${escapeHtml(game.title)}">${escapeHtml(game.title)}</h3>
-                        <div class="p-1.5 rounded-lg bg-gray-800/80 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-400 transition-all">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
-                        </div>
-                    </div>
-                `;
-                fragment.appendChild(card);
-            }
-        };
-
-        // Process in batches to avoid blocking the main thread
-        const batchSize = 10;
-        for (let i = 0; i < pageItems.length; i += batchSize) {
-            processBatch(i, i + batchSize);
-        }
-        
+                </div>
+            `;
+            fragment.appendChild(card);
+        });
         gridContainer.appendChild(fragment);
     }
 
@@ -713,6 +660,15 @@ function reshuffleGrid() {
 /* -----------------------
    Small helpers & fallback
    ----------------------- */
+function escapeHtml(s) {
+    return String(s || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
 function generateMockGames(category = 'all') {
     const cats = ['puzzle', 'arcade', 'action', 'racing', 'kids', 'multiplayer', 'adventure', 'strategy'];
     const games = [];
