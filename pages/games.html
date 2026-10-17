@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bekeiratsoftwares.com/">
 
-    <!-- Favicon -->
+    <!-- Favicon & Icons -->
     <link rel="icon" type="image/png" href="../assets/favicon.png">
 
     <!-- Open Graph / Facebook -->
@@ -39,29 +40,46 @@
         content="Play top HTML5 games instantly across all devices. No installation needed. Discover mobile & desktop web apps at Bekeirat Software.">
     <meta name="twitter:image" content="https://bekeiratsoftwares.com/assets/og-banner-1200x630.png">
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"></noscript>
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XCGXELT421');
+    </script>
 
-    <!-- Preload Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+    <!-- Typography & Icons Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
 
-    <!-- Preload critical images -->
-    <link rel="preload" href="../assets/Bekeirat-Software-120x120.png" as="image">
-    <link rel="preload" href="../assets/hero_emblem-1920x715.png" as="image">
+    <!-- Consolidated Iconography & Local Styles -->
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/google-fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./games.css">
 
-    <!-- Load Tailwind CSS deferred -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Google AdSense Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-2658659289706339">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
+        crossorigin="anonymous"></script>
 
-    <!-- Load custom CSS with media query -->
-    <link rel="stylesheet" href="../css/bundle.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="../css/bundle.min.css"></noscript>
+    <!-- Wortise Web Monetization SDK -->
+    <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', () => {
+            wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4');
 
-    <!-- Google Analytics (deferred) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421" defer></script>
+        });
+    </script>
 
-    <!-- Structured Data -->
+    <!-- Structured Data / JSON-LD for Search Engine Rich Snippets -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -77,29 +95,19 @@
       "description": "Provider of innovative HTML5 web games, progressive web apps, and desktop titles."
     }
     </script>
-    
-    <!-- Register Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => {
-                    console.log('Service Worker registration failed:', err);
-                });
-            });
-        }
-    </script>
 </head>
 
 <body class="bg-[#0a0b10] text-gray-100 min-h-screen flex flex-col font-sans antialiased">
 
     <!-- Top Navigation Bar -->
-    <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
+    <nav
+        class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f]">
         <!-- Brand Logo -->
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
             <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
-                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" loading="lazy" decoding="async">
+                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
 
@@ -126,8 +134,10 @@
             <nav class="flex flex-col space-y-1">
                 <a href="../index.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Home</a>
                 <a href="./about.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">About Us</a>
-                <a href="./games.html" class="mobile-btn px-4 py-2 text-blue-400 font-bold bg-gray-800/50 rounded">Games</a>
-                <a href="./contact us.html" class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Contacts</a>
+                <a href="./games.html"
+                    class="mobile-btn px-4 py-2 text-blue-400 font-bold bg-gray-800/50 rounded">Games</a>
+                <a href="./contact us.html"
+                    class="mobile-btn px-4 py-2 text-gray-300 hover:bg-gray-800 rounded">Contacts</a>
             </nav>
         </div>
     </nav>
@@ -136,7 +146,8 @@
     <div class="flex flex-col lg:flex-row gap-8 max-w-[1600px] w-full mx-auto px-4 md:px-6 py-8 flex-1">
 
         <!-- Sticky Sidebar Category Navigation -->
-        <aside class="sticky-sidebar w-full lg:w-72 shrink-0 bg-[#12141f] p-5 rounded-2xl border border-gray-800/90 shadow-2xl self-start">
+        <aside
+            class="sticky-sidebar w-full lg:w-72 shrink-0 bg-[#12141f] p-5 rounded-2xl border border-gray-800/90 shadow-2xl self-start">
             <nav id="category-menu" class="space-y-2" aria-label="Game categories">
                 <div class="text-sm text-gray-400">Loading categories...</div>
             </nav>
@@ -146,7 +157,8 @@
         <main class="flex-1 min-w-0">
 
             <!-- Header Bar: Search & Live Metrics -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-2xl border border-gray-800/90 shadow-xl">
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-[#12141f] p-4 rounded-2xl border border-gray-800/90 shadow-xl">
                 <!-- Search Box -->
                 <div class="relative w-full sm:w-80">
                     <input type="text" id="game-search-input" oninput="handleSearch(this.value)"
@@ -187,6 +199,16 @@
             <div id="tags-filter-bar"
                 class="flex items-center gap-2.5 overflow-x-auto pb-3 mb-6 scrollbar-thin px-1 py-1"></div>
 
+            <!-- Responsive Header Banner Ad Slot (Google AdSense / GameMonetize) -->
+            <!-- <div
+                class="w-full my-4 p-3 bg-gray-900/40 rounded-2xl border border-gray-800/80 flex flex-col items-center justify-center min-h-[90px] overflow-hidden relative">
+                <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; width:100%; text-align:center;"
+                    data-ad-client="ca-pub-2658659289706339" data-ad-slot="auto" data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div> -->
+
             <!-- Games Grid Display -->
             <div id="main-games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
 
@@ -204,7 +226,8 @@
             </div>
 
             <!-- Social Media Bar -->
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
+            <div
+                class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
                 <a href="https://x.com/MAWLAY20"
                     class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter"
                     target="_blank">
@@ -238,13 +261,8 @@
         </div>
     </footer>
 
-    <!-- Deferred Scripts -->
-    <script src="../js/games.min.js" defer></script>
-    
-    <!-- Load monetization scripts last with async -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
-    <script async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
-    <script async type="text/javascript" src="https://s.skimresources.com/js/307541X1795827.skimlinks.js"></script>
+    <!-- Execution Engine Script -->
+    <script src="./games.js"></script>
 </body>
 
 </html>
