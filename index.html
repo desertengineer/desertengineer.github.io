@@ -40,16 +40,25 @@
     <meta name="twitter:image" content="https://bekeiratsoftwares.com/assets/og-banner-1200x630.png">
 
     <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"></noscript>
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap">
+    </noscript>
 
     <!-- Preload Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
 
     <!-- Preload critical images -->
-    <link rel="preload" href="./assets/Bekeirat-Software-120x120.png" as="image" fetchpriority="high" loading="eager">
-    <link rel="preload" href="./assets/hero_emblem.webp" as="image">
+    <link rel="preload" href="./assets/Bekeirat-Software-120x120.png" as="image">
+    <link rel="preload" href="./assets/hero_emblem.webp" as="image" fetchpriority="high" loading="eager">
     <link rel="preload" href="./assets/favicon.png" as="image">
 
     <!-- Load Tailwind CSS deferred -->
@@ -57,7 +66,9 @@
 
     <!-- Load custom CSS with media query to reduce blocking -->
     <link rel="stylesheet" href="./css/bundle.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="./css/bundle.min.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="./css/bundle.min.css">
+    </noscript>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -118,8 +129,8 @@
         <!-- Linked Logo -->
         <a href="./index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-            <img src="./assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
-                class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+            <img src="./assets/Bekeirat-Software-120x120.png" alt="Logo" width="120" height="120"
+                class="w-[50px] h-[50px]" object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" loading="lazy" decoding="async">
             Bekeirat Software
         </a>
@@ -168,7 +179,8 @@
         <!-- SECTION 1: Spotlight & Featured Launch -->
         <section id="hero-spotlight"
             class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 md:p-10 border border-blue-500/30 shadow-2xl relative overflow-hidden transition-all duration-500">
-            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
 
             <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
                 <div class="lg:w-1/2 space-y-5">
@@ -212,7 +224,8 @@
                         <img id="hero-image" src="https://placehold.co/800x450/1e293b/60a5fa?text=Loading+Game..."
                             alt="Featured Game Preview"
                             class="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy" decoding="async" onerror="this.src='https://placehold.co/800x450/1e293b/60a5fa?text=Game'">
+                            loading="lazy" decoding="async"
+                            onerror="this.src='https://placehold.co/800x450/1e293b/60a5fa?text=Game'">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60">
                         </div>
@@ -409,17 +422,32 @@
                 <a href="./privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
-                <a href="https://x.com/MAWLAY20" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+            <div
+                class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
+                <a href="https://x.com/MAWLAY20"
+                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter"
+                    target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"
+                        fill="currentColor">
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube" target="_blank"><i class="fa-brands fa-youtube text-2xl"></i></a>
-                <a href="https://www.instagram.com/bekerat.mawlay/" class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="https://www.tiktok.com/@bekeiratsoftware" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok text-2xl"></i></a>
-                <a href="https://bekeiratsoftware.blogspot.com" class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110" aria-label="Blogger" target="_blank"><i class="fa-brands fa-blogger text-2xl"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61550888326363"
+                    class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook"
+                    target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
+                    class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube"
+                    target="_blank"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="https://www.instagram.com/bekerat.mawlay/"
+                    class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110"
+                    aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="https://www.tiktok.com/@bekeiratsoftware"
+                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok"
+                    target="_blank"><i class="fa-brands fa-tiktok text-2xl"></i></a>
+                <a href="https://bekeiratsoftware.blogspot.com"
+                    class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110"
+                    aria-label="Blogger" target="_blank"><i class="fa-brands fa-blogger text-2xl"></i></a>
             </div>
 
             <div>
@@ -432,10 +460,11 @@
 
     <!-- Deferred Scripts -->
     <script src="./js/index.min.js" defer></script>
-    
+
     <!-- Load monetization scripts last with async -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
+        crossorigin="anonymous"></script>
     <script async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
     <script async type="text/javascript" src="https://s.skimresources.com/js/307541X1795827.skimlinks.js"></script>
 </body>
