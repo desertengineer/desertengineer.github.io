@@ -31,13 +31,33 @@
     <meta name="twitter:site" content="@MAWLAY20">
     <meta name="twitter:creator" content="@MAWLAY20">
 
-    <!-- Preload critical fonts -->
+    <!-- ========================================
+         PERFORMANCE OPTIMIZATIONS - LIGHTHOUSE FIXES
+         ======================================== -->
+
+    <!-- 1. Font display fix -->
+    <style>
+        body { font-display: swap; }
+        
+        /* Reserve space for dynamic content */
+        #app-container { min-height: 400px; }
+        .game-frame-wrapper { aspect-ratio: 16/9; min-height: 400px; }
+        .game-thumb-container { aspect-ratio: 4/3; }
+    </style>
+
+    <!-- 2. Preload critical fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"></noscript>
 
-    <!-- Preload Font Awesome -->
+    <!-- 3. Preload Font Awesome -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+
+    <!-- 4. Preconnect to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
 
     <!-- Load Tailwind CSS deferred -->
     <script src="https://cdn.tailwindcss.com" defer></script>
@@ -49,7 +69,7 @@
     <!-- Google Analytics (deferred) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421" defer></script>
 
-    <!-- Monetization (loaded last) -->
+    <!-- Monetization -->
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
 
     <!-- Structured Data -->
@@ -149,6 +169,14 @@
             border: none;
             border-radius: inherit;
         }
+        
+        /* CLS Prevention: Reserve space for game cards */
+        .game-card-placeholder {
+            background-color: #12141f;
+            border: 1px solid rgba(30, 41, 59, 0.9);
+            border-radius: 1rem;
+            aspect-ratio: 3/4;
+        }
     </style>
 </head>
 
@@ -157,9 +185,14 @@
     <nav class="px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f] sticky top-0 z-50 shadow-md">
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors font-poppins">
-            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
-                class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10"
-                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" loading="lazy" decoding="async">
+            <!-- FIXED: Added explicit width/height -->
+            <img src="../assets/Bekeirat-Software-120x120.png" 
+                 alt="Bekeirat Software Logo"
+                 width="120" 
+                 height="120"
+                 class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10"
+                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" 
+                 loading="eager">
             Bekeirat Software
         </a>
 
@@ -288,21 +321,24 @@
                     }
                 }
 
-                // Simulate brief delay for loading effect
-                await new Promise(resolve => setTimeout(resolve, 300));
-
                 // Try primary data file
                 let response;
                 try {
-                    response = await fetch(JSON_FEED_PATH, { cache: 'force-cache' });
+                    response = await fetch(JSON_FEED_PATH, { 
+                        cache: 'force-cache',
+                        headers: { 'Accept': 'application/json' }
+                    });
                 } catch (e) {
-                    console.warn('Primary fetch failed, trying fallback:', e);
+                    console.warn('Primary fetch failed:', e);
                 }
 
                 if (!response || !response.ok) {
-                    // Single fallback instead of multiple
+                    // Single fallback
                     try {
-                        response = await fetch('./data/all.json', { cache: 'force-cache' });
+                        response = await fetch('./data/all.json', { 
+                            cache: 'force-cache',
+                            headers: { 'Accept': 'application/json' }
+                        });
                     } catch (e) {
                         console.warn('Fallback fetch also failed:', e);
                     }
@@ -324,7 +360,7 @@
                     }
                 }
 
-                showError(`Game ID "${gameId}" was not found inside the database. Please verify the game exists.`);
+                showError(`Game ID "${gameId}" was not found inside the database.`);
             } catch (err) {
                 showError(`Failed to load game database. Error: ${err.message}`);
                 console.error("Fetch error details:", err);
@@ -391,7 +427,14 @@
 
                 gridItemsHtml += `
                     <a href="?id=${encodeURIComponent(rgId)}" class="group relative block rounded-2xl overflow-hidden shadow-md border border-slate-700 hover:border-blue-500 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300">
-                        <img src="${escapeHtml(rgThumb)}" alt="${escapeHtml(rgTitle)}" loading="lazy" decoding="async" class="w-full h-24 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/512x384/1e293b/60a5fa?text=${encodeURIComponent(rgTitle)}'">
+                        <img src="${escapeHtml(rgThumb)}" 
+                             alt="${escapeHtml(rgTitle)}" 
+                             width="512" 
+                             height="384"
+                             loading="lazy" 
+                             decoding="async"
+                             class="w-full h-24 object-cover transition-transform duration-500 group-hover:scale-110" 
+                             onerror="this.src='https://placehold.co/512x384/1e293b/60a5fa?text=${encodeURIComponent(rgTitle)}'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 w-full p-2 text-center">
                             <h3 class="text-[11px] font-bold text-gray-100 truncate drop-shadow-md group-hover:text-blue-300 transition-colors">${escapeHtml(rgTitle)}</h3>
@@ -403,7 +446,13 @@
             const htmlContent = `
                 <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-10 w-full">
                     <div class="animate-fade-in flex items-center gap-6 mb-8">
-                        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(title)}" class="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-2xl border border-blue-500/30 object-cover hidden sm:block bg-slate-900" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(title)}'">
+                        <img src="${escapeHtml(thumb)}" 
+                             alt="${escapeHtml(title)}" 
+                             width="512" 
+                             height="384"
+                             class="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-2xl border border-blue-500/30 object-cover hidden sm:block bg-slate-900" 
+                             loading="eager" 
+                             onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(title)}'">
                         <div>
                             <h1 class="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight drop-shadow-lg font-poppins">${escapeHtml(title)}</h1>
                             <div class="flex flex-wrap gap-2">
@@ -447,7 +496,12 @@
 
                         <div class="lg:w-1/3 flex flex-col gap-8">
                             <div class="sm:hidden animate-slide-up" style="animation-delay: 0.1s;">
-                                 <img src="${escapeHtml(thumb)}" alt="${escapeHtml(title)}" class="w-full h-auto rounded-3xl shadow-lg border border-blue-500/30 object-cover aspect-video bg-slate-900" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(title)}'">
+                                 <img src="${escapeHtml(thumb)}" 
+                                      alt="${escapeHtml(title)}" 
+                                      width="512" 
+                                      height="384"
+                                      class="w-full h-auto rounded-3xl shadow-lg border border-blue-500/30 object-cover aspect-video bg-slate-900" 
+                                      loading="eager">
                             </div>
                             <div class="sticky top-24 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 animate-slide-up shadow-xl" style="animation-delay: 0.4s;">
                                 <h2 class="font-poppins text-lg font-bold text-orange-400 border-b border-slate-700/60 pb-3 mb-5 flex items-center">
