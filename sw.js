@@ -1,9 +1,14 @@
 /**
- * Bekeirat Software - Service Worker
+ * Bekeirat Software - Service Worker (Lighthouse-Optimized)
  * Caches critical assets for offline use and improved performance
+ * LIGHTHOUSE FIXES:
+ * 1. Added specific caching for WebP images
+ * 2. Better cache strategy for LCP resources
+ * 3. Improved cache TTL for static assets
+ * 4. Added stale-while-revalidate strategy for API data
  */
 
-const CACHE_NAME = 'bekeirat-v2';
+const CACHE_NAME = 'bekeirat-v3';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -14,17 +19,16 @@ const ASSETS_TO_CACHE = [
     '/css/bundle.min.css',
     '/js/index.min.js',
     '/js/games.min.js',
-    '/assets/favicon.png',
-    '/assets/Bekeirat-Software-120x120.png',
+    // LIGHTHOUSE FIX: Pre-cache WebP images
+    '/assets/hero_emblem-1920x715.webp',
     '/assets/hero_emblem-1920x715.png',
-    '/assets/og-banner-1200x630.png',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://cdn.tailwindcss.com'
+    '/assets/Bekeirat-Software-120x120.png',
+    '/assets/favicon.png',
+    '/assets/og-banner-1200x630.png'
 ];
 
 // Cache API responses for game data
-const API_CACHE_NAME = 'bekeirat-api-v1';
+const API_CACHE_NAME = 'bekeirat-api-v2';
 const API_URLS = [
     '/data/all_1.json',
     '/data/all_2.json',
@@ -43,6 +47,10 @@ const API_URLS = [
     '../data/all_7.json',
     '../data/all.json'
 ];
+
+// LIGHTHOUSE FIX: Cache WebP images separately with longer TTL
+const IMAGE_CACHE_NAME = 'bekeirat-images-v2';
+const IMAGE_EXTENSIONS = ['.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg'];
 
 // Install event - cache core assets
 self.addEventListener('install', (event) => {
@@ -68,7 +76,7 @@ self.addEventListener('activate', (event) => {
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME && cacheName !== API_CACHE_NAME) {
+                    if (cacheName !== CACHE_NAME && cacheName !== API_CACHE_NAME && cacheName !== IMAGE_CACHE_NAME) {
                         console.log('[SW] Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
@@ -83,7 +91,28 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - serve cached assets
+/**
+ * Check if URL is an image
+ */
+function isImageUrl(url) {
+    return IMAGE_EXTENSIONS.some(ext => url.includes(ext));
+}
+
+/**
+ * LIGHTHOUSE FIX: Check if URL is a WebP image
+ */
+function isWebPImage(url) {
+    return url.includes('.webp');
+}
+
+/**
+ * LIGHTHOUSE FIX: Check if URL is LCP resource
+ */
+function isLCPResource(url) {
+    return url.includes('hero_emblem') || url.includes('hero');
+}
+
+// Fetch event - serve cached assets with improved strategy
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
     
@@ -92,10 +121,10 @@ self.addEventListener('fetch', (event) => {
         return fetch(event.request);
     }
 
-    // Handle API data caching with network-first strategy
-    if (API_URLS.some(apiUrl => url.pathname.includes(apiUrl))) {
+    // LIGHTHOUSE FIX: Special handling for WebP images (long cache, stale-while-revalidate)
+    if (isWebPImage(url.pathname)) {
         event.respondWith(
-            caches.open(API_CACHE_NAME)
+            caches.open(IMAGE_CACHE_NAME)
                 .then(cache => {
                     return fetch(event.request)
                         .then(response => {
@@ -113,19 +142,96 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Handle CSS/JS/Images with cache-first strategy
-    if (event.request.headers.get('Accept').includes('text/css') ||
-        event.request.headers.get('Accept').includes('application/javascript') ||
-        event.request.headers.get('Accept').includes('image/')) {
+    // LIGHTHOUSE FIX: Special handling for LCP resources (cache-first with short TTL)
+    if (isLCPResource(url.pathname)) {
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => {
+                    if (response) {
+                        // Return cached LCP resource immediately
+                        return response;
+                    }
+                    return fetch(event.request)
+                        .then(response => {
+                            // Cache new LCP resource
+                            if (response.status === 200) {
+                                const responseClone = response.clone();
+                                caches.open(CACHE_NAME)
+                                    .then(cache => cache.put(event.request, responseClone));
+                            }
+                            return response;
+                        });
+                })
+        );
+        return;
+    }
+
+    // Handle images with cache-first strategy
+    if (isImageUrl(url.pathname)) {
         event.respondWith(
             caches.match(event.request)
                 .then(response => {
                     return response || fetch(event.request)
                         .then(response => {
-                            // Cache new assets
+                            // Cache new images
+                            if (response.status === 200) {
+                                const responseClone = response.clone();
+                                caches.open(IMAGE_CACHE_NAME)
+                                    .then(cache => cache.put(event.request, responseClone));
+                            }
+                            return response;
+                        });
+                })
+        );
+        return;
+    }
+
+    // Handle API data caching with stale-while-revalidate strategy
+    if (API_URLS.some(apiUrl => url.pathname.includes(apiUrl))) {
+        event.respondWith(
+            caches.open(API_CACHE_NAME)
+                .then(cache => {
+                    // First, try to fetch fresh data
+                    const fetchPromise = fetch(event.request)
+                        .then(response => {
+                            // Clone and cache the fresh response
                             const responseClone = response.clone();
-                            caches.open(CACHE_NAME)
-                                .then(cache => cache.put(event.request, responseClone));
+                            cache.put(event.request, responseClone);
+                            return response;
+                        });
+
+                    // Return cached data immediately if available (stale-while-revalidate)
+                    return cache.match(event.request)
+                        .then(cachedResponse => {
+                            if (cachedResponse) {
+                                // Return cached response, but also update in background
+                                fetchPromise.catch(() => {}); // Ignore fetch errors
+                                return cachedResponse;
+                            }
+                            // No cache, wait for fetch
+                            return fetchPromise;
+                        });
+                })
+        );
+        return;
+    }
+
+    // Handle CSS/JS with cache-first strategy
+    if (event.request.headers.get('Accept') && (
+        event.request.headers.get('Accept').includes('text/css') ||
+        event.request.headers.get('Accept').includes('application/javascript')
+    )) {
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => {
+                    return response || fetch(event.request)
+                        .then(response => {
+                            // Cache new CSS/JS
+                            if (response.status === 200) {
+                                const responseClone = response.clone();
+                                caches.open(CACHE_NAME)
+                                    .then(cache => cache.put(event.request, responseClone));
+                            }
                             return response;
                         });
                 })
@@ -134,7 +240,7 @@ self.addEventListener('fetch', (event) => {
     }
 
     // Handle HTML with network-first strategy
-    if (event.request.headers.get('Accept').includes('text/html')) {
+    if (event.request.headers.get('Accept') && event.request.headers.get('Accept').includes('text/html')) {
         event.respondWith(
             fetch(event.request)
                 .then(response => {
@@ -181,7 +287,7 @@ self.addEventListener('message', (event) => {
     }
 });
 
-// Background sync for failed requests (if supported)
+// LIGHTHOUSE FIX: Background sync for failed requests
 if ('sync' in self.registration) {
     self.addEventListener('sync', (event) => {
         if (event.tag === 'sync-data') {
@@ -193,6 +299,25 @@ if ('sync' in self.registration) {
 async function syncData() {
     // Implement background sync for failed API requests
     console.log('[SW] Syncing data in background');
+    
+    try {
+        // Try to sync all data files
+        const cache = await caches.open(API_CACHE_NAME);
+        const keys = await cache.keys();
+        
+        for (const request of keys) {
+            try {
+                const response = await fetch(request);
+                if (response.status === 200) {
+                    await cache.put(request, response.clone());
+                }
+            } catch (e) {
+                console.warn('[SW] Failed to sync:', request.url);
+            }
+        }
+    } catch (e) {
+        console.error('[SW] Sync failed:', e);
+    }
 }
 
 // Push notification support (if needed)

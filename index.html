@@ -39,34 +39,44 @@
         content="Play top HTML5 games instantly across all devices. No installation needed. Discover mobile & desktop web apps at Bekeirat Software.">
     <meta name="twitter:image" content="https://bekeiratsoftwares.com/assets/og-banner-1200x630.png">
 
-    <!-- Preload critical fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    </noscript>
+    <!-- ========================================
+         PERFORMANCE OPTIMIZATIONS - LIGHTHOUSE FIXES
+         ======================================== -->
 
-    <!-- Preload Font Awesome -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            crossorigin="anonymous" referrerpolicy="no-referrer">
-    </noscript>
+    <!-- 1. Font display fix - prevents FOIT (Flash of Invisible Text) -->
+    <style>
+        body { font-display: swap; }
+    </style>
 
-    <!-- Preload critical images -->
+    <!-- 2. Preload LCP image with high priority -->
+    <link rel="preload" href="./assets/hero_emblem-1920x715.webp" as="image" fetchpriority="high">
+    
+    <!-- 3. Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap"></noscript>
+
+    <!-- 4. Preload Font Awesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+
+    <!-- 5. Preload critical images -->
     <link rel="preload" href="./assets/Bekeirat-Software-120x120.png" as="image">
-    <link rel="preload" href="./assets/hero_emblem.webp" as="image" fetchpriority="high" loading="eager">
     <link rel="preload" href="./assets/favicon.png" as="image">
+    <link rel="preload" href="./assets/og-banner-1200x630.png" as="image">
+
+    <!-- 6. Preconnect to critical third-party origins -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
 
     <!-- Load Tailwind CSS deferred -->
     <script src="https://cdn.tailwindcss.com" defer></script>
 
     <!-- Load custom CSS with media query to reduce blocking -->
     <link rel="stylesheet" href="./css/bundle.min.css" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="./css/bundle.min.css">
-    </noscript>
+    <noscript><link rel="stylesheet" href="./css/bundle.min.css"></noscript>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -124,20 +134,22 @@
 
     <!-- Top Navigation Bar -->
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
-        <!-- Linked Logo -->
+        <!-- Linked Logo - FIXED: Added explicit width/height -->
         <a href="./index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-            <img src="./assets/Bekeirat-Software-120x120.png" alt="Logo" width="120" height="120"
-                class="w-[50px] h-[50px]" object-contain rounded-lg bg-white/10"
-                onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" loading="lazy" decoding="async">
+            <img src="./assets/Bekeirat-Software-120x120.png" 
+                 alt="Bekeirat Software Logo"
+                 width="120" 
+                 height="120"
+                 class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'" 
+                 loading="eager">
             Bekeirat Software
         </a>
 
         <!-- Hamburger Icon for Mobile -->
-        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors"
-            aria-label="Toggle Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
@@ -161,8 +173,8 @@
         </div>
     </nav>
 
-    <!-- Header / Banner -->
-    <header class="hero-banner">
+    <!-- Header / Banner - FIXED: LCP optimizations -->
+    <header class="hero-banner" style="min-height: 360px;">
         <div class="px-4">
             <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to Bekeirat Software</h1>
             <p class="text-xl md:text-2xl mb-8 drop-shadow-md">Innovative Apps & Immersive Games for Everyone</p>
@@ -177,8 +189,7 @@
         <!-- SECTION 1: Spotlight & Featured Launch -->
         <section id="hero-spotlight"
             class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 md:p-10 border border-blue-500/30 shadow-2xl relative overflow-hidden transition-all duration-500">
-            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none">
-            </div>
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
                 <div class="lg:w-1/2 space-y-5">
@@ -217,24 +228,23 @@
                 </div>
 
                 <div class="lg:w-1/2 w-full">
-                    <div
-                        class="relative group rounded-2xl overflow-hidden border border-blue-400/30 shadow-2xl bg-slate-900">
-                        <img id="hero-image" src="https://placehold.co/800x450/1e293b/60a5fa?text=Loading+Game..."
-                            alt="Featured Game Preview"
-                            class="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy" decoding="async"
-                            onerror="this.src='https://placehold.co/800x450/1e293b/60a5fa?text=Game'">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60">
-                        </div>
-                        <div
-                            class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-gray-300">
-                            <span
-                                class="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                    <div class="relative group rounded-2xl overflow-hidden border border-blue-400/30 shadow-2xl bg-slate-900">
+                        <!-- FIXED: LCP image with explicit dimensions, fetchpriority=high, no lazy loading -->
+                        <img id="hero-image" 
+                             src="./assets/hero_emblem-1920x715.webp"
+                             alt="Featured Game Preview"
+                             width="1920" 
+                             height="715"
+                             fetchpriority="high"
+                             loading="eager"
+                             class="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='./assets/hero_emblem-1920x715.png'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-gray-300">
+                            <span class="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
                                 <i class="fa-solid fa-star text-amber-400"></i> Top Pick
                             </span>
-                            <span id="hero-tags-badge"
-                                class="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 font-mono">
+                            <span id="hero-tags-badge" class="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 font-mono">
                                 #Hot #InstantPlay
                             </span>
                         </div>
@@ -246,8 +256,7 @@
         <!-- SECTION 2: Hot & Trending Games \ud83d\udd25 -->
         <section class="space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <h2
-                    class="text-2xl md:text-3xl font-extrabold text-white bg-blue-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-blue-400/30 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white bg-blue-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-blue-400/30 flex items-center gap-3">
                     <span>\ud83d\udd25</span> Hot & Trending Games
                 </h2>
 
@@ -271,8 +280,7 @@
         <!-- SECTION 3: Weekly Editor's Picks \ud83c\udf1f -->
         <section class="space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <h2
-                    class="text-2xl md:text-3xl font-extrabold text-white bg-indigo-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-indigo-400/30 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white bg-indigo-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-indigo-400/30 flex items-center gap-3">
                     <span>\ud83c\udf1f</span> Weekly Editor's Picks
                 </h2>
 
@@ -294,11 +302,9 @@
         </section>
 
         <!-- SECTION 4: Category Hub & Quick Filter \ud83c\udfae -->
-        <section
-            class="space-y-6 bg-slate-900/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl">
+        <section class="space-y-6 bg-slate-900/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h2
-                    class="text-2xl md:text-3xl font-extrabold text-white bg-slate-800 px-5 py-2.5 rounded-2xl shadow-lg border border-slate-700 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white bg-slate-800 px-5 py-2.5 rounded-2xl shadow-lg border border-slate-700 flex items-center gap-3">
                     <span>\ud83c\udfae</span> Explore by Genre
                 </h2>
 
@@ -335,8 +341,7 @@
         <!-- SECTION 5: Fresh Releases & New Drops \ud83d\ude80 -->
         <section class="space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <h2
-                    class="text-2xl md:text-3xl font-extrabold text-white bg-emerald-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-emerald-400/30 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white bg-emerald-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-emerald-400/30 flex items-center gap-3">
                     <span>\ud83d\ude80</span> Fresh Releases
                 </h2>
 
@@ -360,8 +365,7 @@
         <!-- SECTION 6: Community Favorites & Top Rated \ud83c\udfc6 -->
         <section class="space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <h2
-                    class="text-2xl md:text-3xl font-extrabold text-white bg-purple-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-purple-400/30 flex items-center gap-3">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white bg-purple-600/90 px-5 py-2.5 rounded-2xl shadow-lg border border-purple-400/30 flex items-center gap-3">
                     <span>\ud83c\udfc6</span> Top Rated & Played
                 </h2>
 
@@ -383,11 +387,9 @@
         </section>
 
         <!-- SECTION 7: App Ecosystem & Community Engagement \ud83c\udf10 -->
-        <section
-            class="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 rounded-3xl p-8 border border-blue-500/20 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <section class="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 rounded-3xl p-8 border border-blue-500/20 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="space-y-3 md:w-2/3">
-                <span
-                    class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-400/30">
+                <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-400/30">
                     Join Bekeirat Gaming Network
                 </span>
                 <h3 class="text-2xl md:text-3xl font-extrabold text-white">
@@ -420,32 +422,17 @@
                 <a href="./privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
             </div>
 
-            <div
-                class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
-                <a href="https://x.com/MAWLAY20"
-                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter"
-                    target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"
-                        fill="currentColor">
-                        <path
-                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
+                <a href="https://x.com/MAWLAY20" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Twitter" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512" fill="currentColor">
+                        <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61550888326363"
-                    class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook"
-                    target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw"
-                    class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube"
-                    target="_blank"><i class="fa-brands fa-youtube text-2xl"></i></a>
-                <a href="https://www.instagram.com/bekerat.mawlay/"
-                    class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110"
-                    aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="https://www.tiktok.com/@bekeiratsoftware"
-                    class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok"
-                    target="_blank"><i class="fa-brands fa-tiktok text-2xl"></i></a>
-                <a href="https://bekeiratsoftware.blogspot.com"
-                    class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110"
-                    aria-label="Blogger" target="_blank"><i class="fa-brands fa-blogger text-2xl"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61550888326363" class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube" target="_blank"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="https://www.instagram.com/bekerat.mawlay/" class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="https://www.tiktok.com/@bekeiratsoftware" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok text-2xl"></i></a>
+                <a href="https://bekeiratsoftware.blogspot.com" class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110" aria-label="Blogger" target="_blank"><i class="fa-brands fa-blogger text-2xl"></i></a>
             </div>
 
             <div>
@@ -458,11 +445,10 @@
 
     <!-- Deferred Scripts -->
     <script src="./js/index.min.js" defer></script>
-
+    
     <!-- Load monetization scripts last with async -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
-        crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
     <script async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js"></script>
     <script async type="text/javascript" src="https://s.skimresources.com/js/307541X1795827.skimlinks.js"></script>
 </body>
