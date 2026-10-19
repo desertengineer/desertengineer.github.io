@@ -432,7 +432,18 @@
     </footer>
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
-    <script src="./js/index.js" defer></script>
+    <script src="./js/index_optimized.js" defer></script>
+    <!-- Fallback to original if optimized fails -->
+    <script>
+        window.addEventListener('load', function() {
+            // Register service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw_optimized.js', { scope: '/' })
+                    .then(reg => console.log('[SW] Registration successful'))
+                    .catch(err => console.warn('[SW] Registration failed:', err));
+            }
+        });
+    </script>
     <script type="text/javascript" src="https://s.skimresources.com/js/307541X1795827.skimlinks.js" defer></script>
 </body>
 

@@ -1,0 +1,401 @@
+{
+  "categories": [
+    {
+      "name": "Adventure",
+      "count": 2566,
+      "file": "Adventure.json"
+    },
+    {
+      "name": "Racing",
+      "count": 2193,
+      "file": "Racing.json"
+    },
+    {
+      "name": "Clicker",
+      "count": 740,
+      "file": "Clicker.json"
+    },
+    {
+      "name": "Puzzle",
+      "count": 11582,
+      "file": "Puzzle.json"
+    },
+    {
+      "name": "Hypercasual",
+      "count": 3396,
+      "file": "Hypercasual.json"
+    },
+    {
+      "name": "2 Player",
+      "count": 41,
+      "file": "2_Player.json"
+    },
+    {
+      "name": "Arcade",
+      "count": 4404,
+      "file": "Arcade.json"
+    },
+    {
+      "name": "Shooting",
+      "count": 1684,
+      "file": "Shooting.json"
+    },
+    {
+      "name": "Sports",
+      "count": 1037,
+      "file": "Sports.json"
+    },
+    {
+      "name": "Stickman",
+      "count": 281,
+      "file": "Stickman.json"
+    },
+    {
+      "name": "Multiplayer",
+      "count": 310,
+      "file": "Multiplayer.json"
+    },
+    {
+      "name": "Girls",
+      "count": 3480,
+      "file": "Girls.json"
+    },
+    {
+      "name": "Action",
+      "count": 1579,
+      "file": "Action.json"
+    },
+    {
+      "name": "Boys",
+      "count": 620,
+      "file": "Boys.json"
+    },
+    {
+      "name": "Cooking",
+      "count": 227,
+      "file": "Cooking.json"
+    },
+    {
+      "name": "Soccer",
+      "count": 119,
+      "file": "Soccer.json"
+    },
+    {
+      "name": "3D",
+      "count": 228,
+      "file": "3D.json"
+    },
+    {
+      "name": ".IO",
+      "count": 136,
+      "file": ".IO.json"
+    },
+    {
+      "name": "Unknown",
+      "count": 210,
+      "file": "Unknown.json"
+    },
+    {
+      "name": "Baby Hazel",
+      "count": 71,
+      "file": "Baby_Hazel.json"
+    },
+    {
+      "name": "Bejeweled",
+      "count": 37,
+      "file": "Bejeweled.json"
+    },
+    {
+      "name": "Strategy",
+      "count": 96,
+      "file": "Strategy.json"
+    },
+    {
+      "name": "Mouse",
+      "count": 6,
+      "file": "Mouse.json"
+    },
+    {
+      "name": "Simulation",
+      "count": 244,
+      "file": "Simulation.json"
+    },
+    {
+      "name": "Kids",
+      "count": 8,
+      "file": "Kids.json"
+    },
+    {
+      "name": "Skill",
+      "count": 27,
+      "file": "Skill.json"
+    },
+    {
+      "name": ".Io",
+      "count": 18,
+      "file": ".Io.json"
+    },
+    {
+      "name": "Match-3",
+      "count": 213,
+      "file": "Match-3.json"
+    },
+    {
+      "name": "Number",
+      "count": 1,
+      "file": "Number.json"
+    },
+    {
+      "name": "Funny",
+      "count": 33,
+      "file": "Funny.json"
+    },
+    {
+      "name": "Idle",
+      "count": 1,
+      "file": "Idle.json"
+    },
+    {
+      "name": "Merge",
+      "count": 97,
+      "file": "Merge.json"
+    },
+    {
+      "name": "Bubble Shooter",
+      "count": 115,
+      "file": "Bubble_Shooter.json"
+    },
+    {
+      "name": "Cozy",
+      "count": 6,
+      "file": "Cozy.json"
+    },
+    {
+      "name": "Cards",
+      "count": 90,
+      "file": "Cards.json"
+    },
+    {
+      "name": "Hidden-Object",
+      "count": 1,
+      "file": "Hidden-Object.json"
+    },
+    {
+      "name": "Car",
+      "count": 21,
+      "file": "Car.json"
+    },
+    {
+      "name": "Animals",
+      "count": 3,
+      "file": "Animals.json"
+    },
+    {
+      "name": "Platform",
+      "count": 2,
+      "file": "Platform.json"
+    },
+    {
+      "name": "Cool-Games",
+      "count": 1,
+      "file": "Cool-Games.json"
+    },
+    {
+      "name": "Classic",
+      "count": 2,
+      "file": "Classic.json"
+    },
+    {
+      "name": "Obby",
+      "count": 3,
+      "file": "Obby.json"
+    },
+    {
+      "name": "Tycoon",
+      "count": 8,
+      "file": "Tycoon.json"
+    },
+    {
+      "name": "Ragdoll",
+      "count": 1,
+      "file": "Ragdoll.json"
+    },
+    {
+      "name": "Food",
+      "count": 2,
+      "file": "Food.json"
+    },
+    {
+      "name": "Running",
+      "count": 5,
+      "file": "Running.json"
+    },
+    {
+      "name": "Minecraft",
+      "count": 1,
+      "file": "Minecraft.json"
+    },
+    {
+      "name": "Horror",
+      "count": 5,
+      "file": "Horror.json"
+    },
+    {
+      "name": "Music",
+      "count": 1,
+      "file": "Music.json"
+    },
+    {
+      "name": "Story",
+      "count": 2,
+      "file": "Story.json"
+    },
+    {
+      "name": "Zombie",
+      "count": 1,
+      "file": "Zombie.json"
+    },
+    {
+      "name": "Make-Up",
+      "count": 1,
+      "file": "Make-Up.json"
+    },
+    {
+      "name": "Decoration",
+      "count": 2,
+      "file": "Decoration.json"
+    },
+    {
+      "name": "Quiz",
+      "count": 46,
+      "file": "Quiz.json"
+    },
+    {
+      "name": "Educational",
+      "count": 134,
+      "file": "Educational.json"
+    },
+    {
+      "name": "Survival",
+      "count": 1,
+      "file": "Survival.json"
+    },
+    {
+      "name": "Dragon",
+      "count": 1,
+      "file": "Dragon.json"
+    },
+    {
+      "name": "Management",
+      "count": 2,
+      "file": "Management.json"
+    },
+    {
+      "name": "Monster-Truck",
+      "count": 1,
+      "file": "Monster-Truck.json"
+    },
+    {
+      "name": "Gun",
+      "count": 1,
+      "file": "Gun.json"
+    },
+    {
+      "name": "Snake",
+      "count": 1,
+      "file": "Snake.json"
+    },
+    {
+      "name": "Matching",
+      "count": 1,
+      "file": "Matching.json"
+    },
+    {
+      "name": "Trivia",
+      "count": 1,
+      "file": "Trivia.json"
+    },
+    {
+      "name": "Math",
+      "count": 1,
+      "file": "Math.json"
+    },
+    {
+      "name": "Casual",
+      "count": 1454,
+      "file": "Casual.json"
+    },
+    {
+      "name": "Agility",
+      "count": 257,
+      "file": "Agility.json"
+    },
+    {
+      "name": "Mahjong",
+      "count": 127,
+      "file": "Mahjong.json"
+    },
+    {
+      "name": "Basketball",
+      "count": 24,
+      "file": "Basketball.json"
+    },
+    {
+      "name": "Boardgames",
+      "count": 55,
+      "file": "Boardgames.json"
+    },
+    {
+      "name": "Football",
+      "count": 32,
+      "file": "Football.json"
+    },
+    {
+      "name": "Dress-up",
+      "count": 759,
+      "file": "Dress-up.json"
+    },
+    {
+      "name": "Racing & Driving",
+      "count": 247,
+      "file": "Racing_&_Driving.json"
+    },
+    {
+      "name": "Care",
+      "count": 132,
+      "file": "Care.json"
+    },
+    {
+      "name": "Battle",
+      "count": 113,
+      "file": "Battle.json"
+    },
+    {
+      "name": "Shooter",
+      "count": 78,
+      "file": "Shooter.json"
+    },
+    {
+      "name": "Art",
+      "count": 449,
+      "file": "Art.json"
+    },
+    {
+      "name": "Jigsaw",
+      "count": 25,
+      "file": "Jigsaw.json"
+    },
+    {
+      "name": "Jumping",
+      "count": 5,
+      "file": "Jumping.json"
+    },
+    {
+      "name": "Training",
+      "count": 1,
+      "file": "Training.json"
+    }
+  ],
+  "total_games": 39906,
+  "generated": true
+}

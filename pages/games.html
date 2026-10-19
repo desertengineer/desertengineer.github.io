@@ -182,7 +182,18 @@
     </footer>
 
     <!-- App Scripts -->
-    <script src="../js/games.js" defer></script>
+    <script src="../js/games_optimized.js" defer></script>
+    <!-- Fallback to original if optimized fails -->
+    <script>
+        window.addEventListener('load', function() {
+            // Register service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw_optimized.js', { scope: '/' })
+                    .then(reg => console.log('[SW] Registration successful'))
+                    .catch(err => console.warn('[SW] Registration failed:', err));
+            }
+        });
+    </script>
 </body>
 
 </html>
