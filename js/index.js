@@ -1,13 +1,8 @@
 let globalCatalog = [];
 const autoScrollTimers = {};
 
-const AD_CONFIG = {
-    googlePublisherId: 'ca-pub-2658659289706339',
-    enableAdSense: false
-};
-
 const CACHE_KEY = 'bekeirat_homepage_catalog';
-const CACHE_TTL = 12 * 60 * 60 * 1000; // 12 Hours
+const CACHE_TTL = 12 * 60 * 60 * 1000;
 
 function normalizeClasses(raw) {
     if (!raw && raw !== 0) return [];
@@ -18,23 +13,22 @@ function normalizeClasses(raw) {
 }
 
 function hasClass(game, className) {
-    if (!className || !game || !Array.isArray(game.classificationTokens)) return false;
+    if (!className || !game || !game.classificationTokens) return false;
     const want = String(className).trim().toLowerCase();
-    return game.classificationTokens.includes(want);
+    return Array.isArray(game.classificationTokens) && game.classificationTokens.includes(want);
 }
 
-function triggerAdSensePush() {
+function trimToArray(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    return String(value).split(/[,\|/;]/).map(v => v.trim()).filter(Boolean);
+}
+
+function safeSetItem(key, value) {
     try {
-        if (typeof window !== 'undefined' && AD_CONFIG.enableAdSense) {
-            const adElements = document.querySelectorAll('.adsbygoogle:not([data-adsbygoogle-status])');
-            adElements.forEach((el) => {
-                if (el.offsetWidth > 0 || el.offsetHeight > 0) {
-                    (window.adsbygoogle = window.adsbygoogle || []).push({});
-                }
-            });
-        }
+        sessionStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
-        console.warn('AdSense push suppressed:', e);
+        console.warn('[Homepage] Session save failed:', e);
     }
 }
 
@@ -54,14 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadHomepageData() {
-    // 1. Check client-side localStorage cache
     try {
         const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
             const { timestamp, data } = JSON.parse(cached);
             if (Date.now() - timestamp < CACHE_TTL && Array.isArray(data) && data.length > 0) {
                 globalCatalog = data;
-                console.log('[Homepage] Loaded catalog from localStorage cache');
                 renderHomepageSections();
                 return;
             }
@@ -70,29 +62,27 @@ async function loadHomepageData() {
         console.warn('[Homepage] Cache read error:', e);
     }
 
-    // 2. Fetch today's file or fallback directly using Promise.race/fast fallbacks
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-    const primaryPath = `./data/all_${fileNumber}.json`;
+    const primaryPath = './data/all_' + fileNumber + '.json';
 
     let rawData = null;
 
     try {
-        const res = await fetch(primaryPath);
+        const res = await fetch(primaryPath, { cache: 'force-cache' });
         if (res.ok) {
             rawData = await res.json();
         }
     } catch (e) {
-        console.warn(`Primary fetch error for ${primaryPath}:`, e);
+        console.warn('[Homepage] Primary fetch error:', e);
     }
 
-    // Fast backup request if primary fails
     if (!rawData || !Array.isArray(rawData)) {
         const fallbacks = ['./data/all.json', './all.json'];
         for (const fb of fallbacks) {
             try {
-                const res = await fetch(fb);
+                const res = await fetch(fb, { cache: 'force-cache' });
                 if (res.ok) {
                     rawData = await res.json();
                     break;
@@ -102,26 +92,29 @@ async function loadHomepageData() {
     }
 
     if (rawData && Array.isArray(rawData)) {
-        globalCatalog = rawData.map((item, idx) => {
+        globalCatalog = rawData.slice(0, 120).map((item, idx) => {
             const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
             const idVal = item.id || item.Id || `game-${idx}`;
+
             return {
                 id: idVal,
-                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : "Untitled Game"),
+                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game'),
                 category: item.Category || item.category || 'arcade',
                 description: item.Description || item.description || '',
                 classificationRaw: rawClass,
                 classificationTokens: normalizeClasses(rawClass),
-                tags: Array.isArray(item.Tags) ? item.Tags : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()) : []),
+                tags: trimToArray(item.Tags),
                 thumb: item.Image || item.thumb || item.thumbnail || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
                 play: item.Play || item.play || item.Url || item.url || '',
-                url: `./pages/game.html?id=${encodeURIComponent(idVal)}`
+                url: './pages/game.html?id=' + encodeURIComponent(idVal)
             };
         });
 
         try {
             localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: globalCatalog }));
-        } catch (e) {}
+        } catch (e) {
+            console.warn('[Homepage] Cache save failed:', e);
+        }
     } else {
         console.warn('[Homepage] Using mock game data fallback');
         globalCatalog = generateMockGames();
@@ -134,24 +127,22 @@ function renderHomepageSections() {
     renderHeroSection();
 
     const trending = globalCatalog.filter(g => hasClass(g, 'Hot'));
-    renderCarousel('trending-carousel', trending.length > 0 ? trending : globalCatalog.slice(0, 15), '🔥 HOT');
+    renderCarousel('trending-carousel', trending.length > 0 ? trending.slice(0, 12) : globalCatalog.slice(0, 12), '🔥 HOT');
     if (trending.length > 0) setupCarouselAutoScroll('trending-carousel', 3200);
 
     const editors = globalCatalog.filter(g => hasClass(g, 'Editorial Picks') || hasClass(g, 'Exclusive'));
-    renderCarousel('editors-carousel', editors.length > 0 ? editors : globalCatalog.slice(10, 25), '🌟 PICK');
+    renderCarousel('editors-carousel', editors.length > 0 ? editors.slice(0, 12) : globalCatalog.slice(10, 22), '🌟 PICK');
     if (editors.length > 0) setupCarouselAutoScroll('editors-carousel', 3800);
 
     filterHomepageCategory('all');
 
     const fresh = globalCatalog.filter(g => hasClass(g, 'Newest'));
-    renderCarousel('fresh-carousel', fresh.length > 0 ? fresh : globalCatalog.slice(20, 35), '🚀 NEW');
+    renderCarousel('fresh-carousel', fresh.length > 0 ? fresh.slice(0, 12) : globalCatalog.slice(20, 32), '🚀 NEW');
     if (fresh.length > 0) setupCarouselAutoScroll('fresh-carousel', 3500);
 
     const topRated = globalCatalog.filter(g => hasClass(g, 'Top') || hasClass(g, 'Most Popular'));
-    renderCarousel('toprated-carousel', topRated.length > 0 ? topRated : globalCatalog.slice(5, 20), '🏆 TOP', true);
+    renderCarousel('toprated-carousel', topRated.length > 0 ? topRated.slice(0, 12) : globalCatalog.slice(5, 17), '🏆 TOP', true);
     if (topRated.length > 0) setupCarouselAutoScroll('toprated-carousel', 4000);
-
-    triggerAdSensePush();
 }
 
 function renderHeroSection() {
@@ -178,7 +169,7 @@ function renderHeroSection() {
     }
 
     if (heroDescription) {
-        heroDescription.textContent = featured.description || 
+        heroDescription.textContent = featured.description ||
             `Experience ${featured.title} today! Play this top-rated ${featured.category || 'arcade'} game directly in your browser with instant load times.`;
     }
 
@@ -193,12 +184,12 @@ function renderHeroSection() {
     if (heroPlayBtn) {
         heroPlayBtn.href = featured.url;
         heroPlayBtn.onclick = () => {
-            try { sessionStorage.setItem('current_game_data', JSON.stringify(featured)); } catch (e) {}
+            safeSetItem('current_game_data', featured);
         };
     }
 
     if (heroCategoryBadge) {
-        heroCategoryBadge.textContent = featured.category ? `${featured.category.toUpperCase()} GAME` : 'HTML5 GAME';
+        heroCategoryBadge.textContent = featured.category ? (featured.category.toUpperCase() + ' GAME') : 'HTML5 GAME';
     }
 
     if (heroTagsBadge) {
@@ -207,30 +198,31 @@ function renderHeroSection() {
             : [featured.category || 'Featured', 'BrowserGame'];
 
         heroTagsBadge.innerHTML = tags.map(t =>
-            `<a href="./pages/games.html" class="hover:text-blue-400 transition-colors z-30 cursor-pointer relative">#${t.replace(/\s+/g, '')}</a>`
+            '<a href="./pages/games.html" class="hover:text-blue-400 transition-colors z-30 cursor-pointer relative">#' + (String(t).replace(/\\s+/g, '')) + '</a>'
         ).join(' ');
     }
 
     if (heroBadge) {
-        heroBadge.innerHTML = `<i class="fa-solid fa-fire text-amber-400"></i> ${currentDayName}'s Featured Pick`;
+        heroBadge.innerHTML = '<i class=\"fa-solid fa-fire text-amber-400\"></i> ' + currentDayName + '\'s Featured Pick';
     }
 }
 
 function scrollCarousel(carouselId, distance) {
     const container = document.getElementById(carouselId);
-    if (container) {
-        container.scrollBy({ left: distance, behavior: 'smooth' });
-    }
+    if (!container) return;
+    container.scrollBy({ left: distance, behavior: 'smooth' });
 }
 
 function startAutoScroll(carouselId, intervalMs = 3500) {
     stopAutoScroll(carouselId);
+
     const container = document.getElementById(carouselId);
     if (!container) return;
 
     autoScrollTimers[carouselId] = setInterval(() => {
         const scrollStep = 220;
         const maxScroll = container.scrollWidth - container.clientWidth;
+
         if (container.scrollLeft >= maxScroll - 15) {
             container.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
@@ -262,15 +254,16 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
     if (!container) return;
 
     if (!games || games.length === 0) {
-        container.innerHTML = `<div class="text-sm text-gray-500 py-8 text-center w-full">No games available at the moment.</div>`;
+        container.innerHTML = '<div class=\"text-sm text-gray-500 py-8 text-center w-full\">No games available at the moment.</div>';
         return;
     }
 
     const cardsHtml = games.map((game, idx) => `
         <a href="${game.url}" onclick="saveGameSession('${game.id}')"
-           class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg flex flex-col h-full">
+           class="carousel-card flex-none w-48 sm:w-52 bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group duration-300 shadow-lg flex flex-col"
+           style="min-width: 220px;">
             <div class="relative aspect-square overflow-hidden bg-slate-950 shrink-0">
-                <img src="${game.thumb}" 
+                <img src="${game.thumb}"
                      alt="${game.title}"
                      loading="lazy"
                      decoding="async"
@@ -279,7 +272,7 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
                      onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
                 <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-cyan-400 border border-cyan-500/30 uppercase">
-                    ${showRank ? `#${idx + 1}` : badgeText}
+                    ${showRank ? '#' + (idx + 1) : badgeText}
                 </span>
             </div>
             <div class="p-3 bg-slate-900 flex items-center justify-between gap-2 flex-1">
@@ -299,7 +292,7 @@ function renderCarousel(containerId, games, badgeText, showRank = false) {
 function saveGameSession(gameId) {
     const game = globalCatalog.find(g => String(g.id) === String(gameId));
     if (game) {
-        try { sessionStorage.setItem('current_game_data', JSON.stringify(game)); } catch (e) {}
+        safeSetItem('current_game_data', JSON.stringify(game));
     }
 }
 
@@ -317,12 +310,12 @@ function filterHomepageCategory(category, element = null) {
     if (!hubGrid) return;
 
     const catKey = String(category || 'all').toLowerCase();
-    const filtered = catKey === 'all' 
+    const filtered = catKey === 'all'
         ? globalCatalog.slice(0, 12)
         : globalCatalog.filter(g => String(g.category).toLowerCase().includes(catKey)).slice(0, 12);
 
     if (filtered.length === 0) {
-        hubGrid.innerHTML = `<div class="col-span-full text-sm text-gray-400 py-8 text-center">No games found for genre "${category}".</div>`;
+        hubGrid.innerHTML = '<div class=\"col-span-full text-sm text-gray-400 py-8 text-center\">No games found for genre \"' + category + '\".</div>';
         return;
     }
 
@@ -345,7 +338,7 @@ function filterHomepageCategory(category, element = null) {
 function generateMockGames() {
     const cats = ['puzzle', 'arcade', 'action', 'racing', 'girls'];
     const mock = [];
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 1; i <= 18; i++) {
         const cat = cats[i % cats.length];
         mock.push({
             id: `mock-${i}`,
@@ -354,7 +347,7 @@ function generateMockGames() {
             description: `Play instant ${cat} browser games on Bekeirat Software.`,
             thumb: `https://picsum.photos/seed/game-${i}/400/400`,
             classificationTokens: ['hot', 'top', 'newest'],
-            url: `./pages/game.html?id=mock-${i}`
+            url: './pages/game.html?id=mock-' + i
         });
     }
     return mock;
