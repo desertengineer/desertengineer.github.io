@@ -37,33 +37,31 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    </noscript>
 
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script defer src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
 
     <link rel="stylesheet" href="./css/index.css">
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){ dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-XCGXELT421');
     </script>
 
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof wortise !== 'undefined') {
-                wortise.init('9e41f1c5-2c86-4e03-a850-1a946e84fea4');
-            }
-        });
-    </script>
+    <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
 
     <script type="application/ld+json">
     {
@@ -106,7 +104,6 @@
 </head>
 
 <body class="bg-[#0b0f19] text-gray-100 flex flex-col min-h-screen font-sans antialiased">
-
     <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
         <a href="./index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
@@ -164,7 +161,7 @@
                             🚀 Featured Daily Game
                         </span>
                         <span id="hero-category-badge"
-                            class="px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
+                            class="px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 uppercase">
                             Instant Play
                         </span>
                     </div>
@@ -410,13 +407,17 @@
 
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
-    <script src="./js/index.js" defer></script>
+    <script defer src="./js/index.js"></script>
     <script>
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw_optimized.js', { scope: '/' })
-                    .then(() => console.log('[SW] Registration successful'))
-                    .catch(err => console.warn('[SW] Registration failed:', err));
+                    .then(function () {
+                        console.log('[SW] Registration successful');
+                    })
+                    .catch(function (err) {
+                        console.warn('[SW] Registration failed:', err);
+                    });
             }
         });
     </script>

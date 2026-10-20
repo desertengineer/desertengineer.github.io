@@ -1,8 +1,8 @@
 let globalCatalog = [];
 const autoScrollTimers = {};
-
 const CACHE_KEY = 'bekeirat_homepage_catalog';
 const CACHE_TTL = 12 * 60 * 60 * 1000;
+const MAX_INITIAL_ITEMS = 80;
 
 function normalizeClasses(raw) {
     if (!raw && raw !== 0) return [];
@@ -32,6 +32,14 @@ function safeSetItem(key, value) {
     }
 }
 
+function scheduleIdleTask(callback) {
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(callback);
+    } else {
+        setTimeout(callback, 150);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
@@ -53,7 +61,7 @@ async function loadHomepageData() {
         if (cached) {
             const { timestamp, data } = JSON.parse(cached);
             if (Date.now() - timestamp < CACHE_TTL && Array.isArray(data) && data.length > 0) {
-                globalCatalog = data;
+                globalCatalog = data.slice(0, MAX_INITIAL_ITEMS);
                 renderHomepageSections();
                 return;
             }
@@ -92,7 +100,7 @@ async function loadHomepageData() {
     }
 
     if (rawData && Array.isArray(rawData)) {
-        globalCatalog = rawData.slice(0, 120).map((item, idx) => {
+        globalCatalog = rawData.slice(0, MAX_INITIAL_ITEMS).map((item, idx) => {
             const rawClass = item.Class ?? item.class ?? item.classification ?? item.Classification ?? '';
             const idVal = item.id || item.Id || `game-${idx}`;
 
@@ -121,6 +129,13 @@ async function loadHomepageData() {
     }
 
     renderHomepageSections();
+
+    scheduleIdleTask(() => {
+        if (globalCatalog.length < 200) {
+            // No large additional data load on first pass.
+            // Keep initial interaction fast.
+        }
+    });
 }
 
 function renderHomepageSections() {

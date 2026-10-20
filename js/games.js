@@ -1,8 +1,8 @@
 const CONFIG = {
     dataPaths: [],
-    itemsPerPage: 24,
+    itemsPerPage: 12,
     defaultCategory: 'all',
-    virtualScrollThreshold: 12
+    virtualScrollThreshold: 6
 };
 
 let dataCache = {};
@@ -144,7 +144,7 @@ function loadMasterData() {
 
         const cachedData = await getCachedData();
         if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
-            globalCatalog = cachedData.slice(0, 1600);
+            globalCatalog = cachedData.slice(0, 400);
             resolve();
             return;
         }
@@ -208,7 +208,7 @@ function loadMasterData() {
                 globalCatalog.push(...processed);
             }
 
-            globalCatalog = globalCatalog.slice(0, 1600);
+            globalCatalog = globalCatalog.slice(0, 400);
             setCachedData(globalCatalog);
         }
 
@@ -276,7 +276,7 @@ function populateCategoryMenu() {
 
     const categories = Object.entries(counts)
         .map(([key, info]) => ({ key, name: info.name, count: info.count }))
-        .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+        .sort((a, b) => b.count - b.count || a.name.localeCompare(b.name));
 
     nav.innerHTML = '';
 
@@ -528,84 +528,4 @@ function renderGrid() {
 }
 
 function renderPagination(totalPages) {
-    const container = document.getElementById('pagination-controls');
-    if (!container) return;
-    container.innerHTML = '';
-    if (totalPages <= 1) return;
-
-    const createBtn = (label, page, isActive = false, isDisabled = false) => {
-        const btn = document.createElement('button');
-        btn.innerHTML = label;
-        btn.disabled = isDisabled;
-        let baseClass = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ';
-        if (isDisabled) baseClass += 'bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800';
-        else if (isActive) baseClass += 'bg-cyan-500 text-black font-bold shadow-lg shadow-cyan-500/20';
-        else baseClass += 'bg-[#12141f] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800/90';
-        btn.className = baseClass;
-        btn.onclick = function () {
-            if (!isDisabled && page !== currentPage) {
-                currentPage = page;
-                renderGrid();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        };
-        return btn;
-    };
-
-    container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
-    container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
-
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    if (endPage - startPage + 1 < maxVisiblePages) startPage = Math.max(1, endPage - maxVisiblePages + 1);
-
-    for (let p = startPage; p <= endPage; p++) container.appendChild(createBtn(p.toString(), p, p === currentPage));
-
-    container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
-    container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
-}
-
-function renderEmptyState(message) {
-    const grid = document.getElementById('main-games-grid');
-    if (!grid) return;
-    grid.innerHTML = '<div class=\"col-span-full py-12 text-center text-gray-400 bg-[#12141f] rounded-2xl border border-gray-800\"><svg class=\"w-12 h-12 mx-auto text-gray-600 mb-3\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg><p class=\"text-sm font-medium text-gray-300 px-4\">' + message + '</p></div>';
-}
-
-function reshuffleGrid() {
-    if (dataCache[activeCategory]) {
-        currentDataset = shuffleArray(dataCache[activeCategory].slice());
-        currentPage = 1;
-        buildSubCategoryTags();
-        renderGrid();
-    }
-}
-
-function escapeHtml(s) {
-    return String(s || '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-}
-
-function generateMockGames(category = 'all') {
-    const cats = ['puzzle', 'arcade', 'action', 'racing', 'kids', 'multiplayer', 'adventure', 'strategy'];
-    const games = [];
-    for (let i = 1; i <= 20; i++) {
-        const cat = category === 'all' ? cats[i % cats.length] : category;
-        const id = `${cat}-game-${i}`;
-        games.push({
-            id,
-            title: `${cat.charAt(0).toUpperCase() + cat.slice(1)} Game ${i}`,
-            description: `Play ${cat} game ${i} instantly in your browser.`,
-            url: '#',
-            category: cat,
-            categoryKey: normalizeKey(cat),
-            tags: [cat, i % 2 === 0 ? 'arcade' : 'classic'],
-            thumb: `https://picsum.photos/seed/${cat}-${i}/400/400`
-        });
-    }
-    return games;
-}
+    const container = document.getElementById('pagination
