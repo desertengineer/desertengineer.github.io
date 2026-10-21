@@ -411,7 +411,7 @@
     <script>
         window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw_optimized.js', { scope: '/' })
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
                     .then(function () {
                         console.log('[SW] Registration successful');
                     })
