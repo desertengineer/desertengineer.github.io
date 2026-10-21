@@ -133,52 +133,30 @@ function initializeDayBasedDataPath() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-    CONFIG.dataPaths = ['../data/all_' + fileNumber + '.json'];
-    console.log('[Games Page] Loading day file:', CONFIG.dataPaths[0]);
+    CONFIG.dataPaths = [`/data/all_${fileNumber}.json`, '/data/all.json'];
 }
 
-function loadMasterData() {
-    return new Promise(async (resolve) => {
-        const dayFilePath = CONFIG.dataPaths[0];
-        const fallbackPaths = ['../data/all.json', '../all.json'].filter(path => path !== dayFilePath);
+async function loadMasterData() {
+    const cachedData = getCachedData();
+    if (Array.isArray(cachedData) && cachedData.length > 0) {
+        globalCatalog = cachedData.slice(0, 400);
+        return;
+    }
 
-        const cachedData = await getCachedData();
-        if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
-            globalCatalog = cachedData.slice(0, 400);
-            resolve();
-            return;
-        }
-
-        let rawData = null;
-
+    for (const url of CONFIG.dataPaths) {
         try {
-            const res = await fetch(dayFilePath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
-            if (res.ok) {
-                rawData = await res.json();
-            }
-        } catch (e) {
-            console.warn('[Games Page] Error loading main file:', e);
-        }
+            const res = await fetch(url, {
+                cache: 'no-store',
+                headers: { Accept: 'application/json' }
+            });
 
-        if (!rawData || !Array.isArray(rawData)) {
-            for (const fallbackPath of fallbackPaths) {
-                try {
-                    const res = await fetch(fallbackPath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
-                    if (res.ok) {
-                        rawData = await res.json();
-                        break;
-                    }
-                } catch (e) {}
-            }
-        }
+            if (!res.ok) continue;
 
-        if (rawData && Array.isArray(rawData)) {
-            globalCatalog = [];
+            const rawData = await res.json();
+            if (!Array.isArray(rawData) || rawData.length === 0) continue;
 
-            const chunkSize = 50;
-            for (let i = 0; i < rawData.length; i += chunkSize) {
-                const chunk = rawData.slice(i, i + chunkSize);
-                const processed = chunk.map((item, idx) => {
+            globalCatalog = rawData
+                .map((item, idx) => {
                     const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
                     const category = String(categoryRaw).trim() || 'uncategorized';
                     const tagsArray = Array.isArray(item.Tags)
@@ -186,34 +164,37 @@ function loadMasterData() {
                         : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
 
                     return {
-                        id: item.id || item.Id || `game-${i}-${idx}`,
-                        title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (i + idx + 1)),
+                        id: item.id || item.Id || `game-${idx}`,
+                        title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (idx + 1)),
                         description: item.Description || item.description || '',
                         instructions: item.Instructions || item.instructions || '',
                         play: item.Play || item.play || '',
-                        url: item.Url || item.url || item.gameUrl || './game.html?id=' + encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`),
-                        category: category,
+                        url: item.Url || item.url || item.gameUrl || './game.html?id=' + encodeURIComponent(item.id || item.Id || `game-${idx}`),
+                        category,
                         categoryKey: normalizeKey(category),
                         tags: tagsArray.map(t => String(t).toLowerCase()),
-                        thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-                        width: item.Width || item.width || '1280',
-                        height: item.Height || item.height || '720',
-                        video: item.Video || item.video || '',
-                        gender: item.Gender || item.gender || '',
-                        languages: item.Languages || item.languages || '',
-                        embed: item.Embed || item.embed || ''
+                        thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game'
                     };
-                });
+                })
+                .slice(0, 400);
 
-                globalCatalog.push(...processed);
-            }
-
-            globalCatalog = globalCatalog.slice(0, 400);
             setCachedData(globalCatalog);
+            return;
+        } catch (e) {
+            console.warn('[Games Page] Failed to load:', url, e);
         }
+    }
 
-        resolve();
-    });
+    console.error('[Games Page] No valid game data could be loaded.');
+    const grid = document.getElementById('main-games-grid');
+    if (grid) {
+        grid.innerHTML = `
+            <div class="col-span-full py-20 text-center text-gray-400">
+                <p class="text-red-400 font-semibold">Unable to load game catalog.</p>
+                <p class="text-xs mt-2">Please refresh the page or try again later.</p>
+            </div>
+        `;
+    }
 }
 
 function initVirtualScrolling() {
@@ -528,4 +509,33 @@ function renderGrid() {
 }
 
 function renderPagination(totalPages) {
-    const container = document.getElementById('pagination
+    const container = document.getElementById('pagination-controls');
+    if (!container) return;
+    container.innerHTML = '';
+    if (totalPages <= 1) return;
+
+    const createBtn = (label, page, isActive = false, isDisabled = false) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = label;
+        btn.disabled = isDisabled;
+        let baseClass = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ";
+        if (isDisabled) baseClass += "bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800";
+        else if (isActive) baseClass += "bg-cyan-500 text-black font-bold shadow-lg shadow-cyan-500/20";
+        else baseClass += "bg-[#12141f] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800/90";
+        btn.className = baseClass;
+        btn.onclick = () => { if (!isDisabled && page !== currentPage) { currentPage = page; renderGrid(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
+        return btn;
+    };
+
+    container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
+    container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
+
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    if (endPage - startPage + 1 < maxVisiblePages) startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+    for (let p = startPage; p <= endPage; p++) container.appendChild(createBtn(p.toString(), p, p === currentPage));
+    container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
+    container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
+}
