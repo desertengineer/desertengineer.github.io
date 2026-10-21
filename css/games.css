@@ -3,7 +3,10 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
+    margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -20,6 +23,22 @@ body {
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
 }
 
+main,
+section,
+aside,
+.flex-1,
+#category-menu,
+#tags-filter-bar,
+#main-games-grid,
+#pagination-controls {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#category-menu {
+    overflow-x: hidden;
+}
+
 .game-card {
     display: flex;
     flex-direction: column;
@@ -28,6 +47,7 @@ body {
     overflow: hidden;
     background: #12141f;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    min-width: 0;
 }
 
 .game-card:hover {
@@ -39,6 +59,7 @@ body {
     display: block;
     width: 100%;
     min-height: 250px;
+    min-width: 0;
     border-radius: 1rem;
     background: linear-gradient(135deg, rgba(27,31,40,0.8), rgba(18,20,27,0.9));
     border: 1px solid rgba(255,255,255,0.08);
@@ -48,6 +69,7 @@ body {
     position: relative;
     overflow: hidden;
     transition: all 0.2s ease;
+    max-width: 100%;
 }
 
 #category-menu .cat-btn:hover {
@@ -70,12 +92,14 @@ body {
     height: 2rem;
     border-radius: 0.75rem;
     background: rgba(255,255,255,0.04);
+    flex-shrink: 0;
 }
 
 #tags-filter-bar {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    white-space: nowrap;
 }
 
 #tags-filter-bar::-webkit-scrollbar {
@@ -88,6 +112,7 @@ body {
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.04);
     color: #e5e7eb;
+    max-width: 100%;
 }
 
 .tag-pill.active {
@@ -98,6 +123,16 @@ body {
 
 #main-games-grid {
     min-height: 280px;
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+#pagination-controls {
+    width: 100%;
+    max-width: 100%;
 }
 
 #pagination-controls button {
@@ -107,6 +142,13 @@ body {
 #pagination-controls button:hover:not(:disabled) {
     background: rgba(6,182,212,0.14);
     color: white;
+}
+
+@media (max-width: 1024px) {
+    .lg\:w-72 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
 
 @media (max-width: 768px) {
