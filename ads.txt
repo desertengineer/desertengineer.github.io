@@ -81,6 +81,7 @@ spotxchange.com, 238406, RESELLER, 7842df1d2fe2db34
 spotx.tv, 238406, RESELLER, 7842df1d2fe2db34
 
 # --- Playgama Lines ---
+inventorypartnerdomain=playgama‌.com
 playgama.com, p_8249edec-80aa-43a7-859b-a20442eb3ac9, DIRECT
 
 # --- Wortise Integration Lines ---
