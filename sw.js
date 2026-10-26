@@ -2,7 +2,10 @@
  * Bekeirat Software - Service Worker
  * Caches critical assets for offline use and improved performance
  */
-
+/**
+ * Service Worker for Bekeirat Software 26-Oct 2026
+ */
+// Define cache names and assets to cache
 const CACHE_NAME = 'bekeirat-v2';
 const ASSETS_TO_CACHE = [
     '/',
