@@ -38,12 +38,17 @@ self.addEventListener('fetch', (event) => {
 
     const url = new URL(request.url);
 
-    // Do not cache cross-origin resources or ads
     if (url.origin !== location.origin) {
         return;
     }
 
-    // HTML and navigation should be network-first
+    // Always bypass versioned assets so browser sees latest code immediately
+    if (url.searchParams.has('v')) {
+        event.respondWith(fetch(request));
+        return;
+    }
+
+    // Navigation should be network-first
     if (request.mode === 'navigate') {
         event.respondWith(
             fetch(request)
@@ -57,7 +62,7 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // JSON and API-like resources: network-first, short-lived
+    // JSON should not be cached aggressively
     if (url.pathname.endsWith('.json')) {
         event.respondWith(
             fetch(request)
@@ -71,7 +76,7 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // JS, CSS, images: stale-while-revalidate, but no long cache
+    // JS/CSS/images: use cache first but refresh in background
     if (/\.(js|css|png|jpg|jpeg|gif|webp|svg)$/.test(url.pathname)) {
         event.respondWith(
             caches.match(request).then((cached) => {
@@ -89,7 +94,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Default: network-first for everything else
     event.respondWith(
         fetch(request)
             .then((response) => {
@@ -97,10 +101,6 @@ self.addEventListener('fetch', (event) => {
                 caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
                 return response;
             })
-            .catch(() => cachedMatchOrFallback(request))
+            .catch(() => caches.match(request).then((cached) => cached || Response.error()))
     );
 });
-
-function cachedMatchOrFallback(request) {
-    return caches.match(request).then((cached) => cached || Response.error());
-}
