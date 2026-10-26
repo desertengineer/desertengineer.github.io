@@ -50,15 +50,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
 
-    <link rel="stylesheet" href="./css/index.css">
-
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-XCGXELT421"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-XCGXELT421');
-    </script>
+    <link rel="stylesheet" href="./css/index.css?v=2026-10-26-1">
+    <script defer src="./js/index.js?v=2026-10-26-1"></script>
 
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
     <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
@@ -412,12 +405,9 @@
     <script>
         window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then(function () {
-                        console.log('[SW] Registration successful');
-                    })
-                    .catch(function (err) {
-                        console.warn('[SW] Registration failed:', err);
+                navigator.serviceWorker.register('./sw.js?v=2026-10-26-1', { scope: '/' })
+                    .catch(function () {
+                        console.warn('[SW] Registration skipped');
                     });
             }
         });
