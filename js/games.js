@@ -139,7 +139,7 @@ function initializeDayBasedDataPath() {
 async function loadMasterData() {
     const cachedData = getCachedData();
     if (Array.isArray(cachedData) && cachedData.length > 0) {
-        globalCatalog = cachedData.slice(0, 400);
+        globalCatalog = cachedData;
         return;
     }
 
@@ -155,9 +155,14 @@ async function loadMasterData() {
             const rawData = await res.json();
             if (!Array.isArray(rawData) || rawData.length === 0) continue;
 
-            globalCatalog = rawData
-                .map((item, idx) => {
-                    const rawId = item.id || item.Id || `game-${idx}`;
+            globalCatalog = [];
+
+            const chunkSize = 200;
+            for (let i = 0; i < rawData.length; i += chunkSize) {
+                const chunk = rawData.slice(i, i + chunkSize);
+
+                const processed = chunk.map((item, idx) => {
+                    const rawId = item.id || item.Id || `game-${i + idx}`;
                     const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
                     const category = String(categoryRaw).trim() || 'uncategorized';
                     const tagsArray = Array.isArray(item.Tags)
@@ -168,7 +173,7 @@ async function loadMasterData() {
 
                     return {
                         id: rawId,
-                        title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (idx + 1)),
+                        title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (i + idx + 1)),
                         description: item.Description || item.description || '',
                         instructions: item.Instructions || item.instructions || '',
                         play: item.Play || item.play || item.Url || item.url || '',
@@ -185,8 +190,10 @@ async function loadMasterData() {
                         languages: item.Languages || item.languages || '',
                         embed: item.Embed || item.embed || ''
                     };
-                })
-                .slice(0, 400);
+                });
+
+                globalCatalog.push(...processed);
+            }
 
             setCachedData(globalCatalog);
             return;
@@ -348,7 +355,10 @@ function switchCategory(category, element = null) {
         return;
     }
 
-    const filtered = (activeCategory === 'all') ? globalCatalog.slice() : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
+    const filtered = (activeCategory === 'all')
+        ? globalCatalog.slice()
+        : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
+
     dataCache[activeCategory] = filtered.slice();
     currentDataset = shuffleArray(filtered.slice());
 
@@ -548,4 +558,15 @@ function renderPagination(totalPages) {
     for (let p = startPage; p <= endPage; p++) container.appendChild(createBtn(p.toString(), p, p === currentPage));
     container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
     container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
+}
+
+function renderEmptyState(message) {
+    const gridContainer = document.getElementById('main-games-grid');
+    if (!gridContainer) return;
+
+    gridContainer.innerHTML = `
+        <div class="col-span-full py-20 text-center text-gray-400">
+            <p class="text-red-400 font-semibold">${message}</p>
+        </div>
+    `;
 }
