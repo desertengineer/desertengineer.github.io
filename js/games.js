@@ -1,3 +1,7 @@
+const APP_VERSION = '2026-10-26-1';
+const CACHE_KEY = 'bekeiratGamesData_' + APP_VERSION;
+const CACHE_TTL = 30 * 60 * 1000; // 30 minutes max
+
 const CONFIG = {
     dataPaths: [],
     itemsPerPage: 12,
@@ -13,12 +17,6 @@ let activeSubCategory = 'all';
 let searchQuery = '';
 let currentPage = 1;
 let observer = null;
-
-const CACHE_CONFIG = {
-    key: 'bekeiratGamesData',
-    ttl: 24 * 60 * 60 * 1000,
-    enabled: true
-};
 
 function normalizeKey(s) {
     return String(s || '').trim().toLowerCase();
@@ -76,10 +74,10 @@ function tagGradient(tag) {
 function getCachedData() {
     if (!CACHE_CONFIG.enabled) return null;
     try {
-        const cached = localStorage.getItem(CACHE_CONFIG.key);
+        const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
             const { data, timestamp } = JSON.parse(cached);
-            if (Date.now() - timestamp < CACHE_CONFIG.ttl) {
+            if (Date.now() - timestamp < CACHE_TTL) {
                 return data;
             }
         }
@@ -92,7 +90,7 @@ function getCachedData() {
 function setCachedData(data) {
     if (!CACHE_CONFIG.enabled) return;
     try {
-        localStorage.setItem(CACHE_CONFIG.key, JSON.stringify({
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
             data,
             timestamp: Date.now()
         }));
@@ -122,7 +120,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('orientationchange', updateSidebarTopOffset);
 
     initializeDayBasedDataPath();
-
     await loadMasterData();
     populateCategoryMenu();
     switchCategory(CONFIG.defaultCategory);
@@ -133,7 +130,10 @@ function initializeDayBasedDataPath() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-    CONFIG.dataPaths = [`/data/all_${fileNumber}.json`, '/data/all.json'];
+    CONFIG.dataPaths = [
+        `/data/all_${fileNumber}.json?v=${APP_VERSION}`,
+        `/data/all.json?v=${APP_VERSION}`
+    ];
 }
 
 async function loadMasterData() {
