@@ -12,7 +12,7 @@ self.addEventListener('install', (event) => {
                 '/css/games.css',
                 '/js/index.js',
                 '/js/games.js',
-                '/assets/Bekeirat-Software-120x120.png'
+                '/assets/Bekeirat-Software-120x120.webp' 
             ]);
         })
     );
@@ -42,13 +42,11 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Always bypass versioned assets so browser sees latest code immediately
     if (url.searchParams.has('v')) {
         event.respondWith(fetch(request));
         return;
     }
 
-    // Navigation should be network-first
     if (request.mode === 'navigate') {
         event.respondWith(
             fetch(request)
@@ -62,7 +60,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // JSON should not be cached aggressively
     if (url.pathname.endsWith('.json')) {
         event.respondWith(
             fetch(request)
@@ -76,7 +73,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // JS/CSS/images: use cache first but refresh in background
     if (/\.(js|css|png|jpg|jpeg|gif|webp|svg)$/.test(url.pathname)) {
         event.respondWith(
             caches.match(request).then((cached) => {
