@@ -1,6 +1,6 @@
 const APP_VERSION = '2026-10-26-1';
 const CACHE_KEY = 'bekeiratGamesData_' + APP_VERSION;
-const CACHE_TTL = 30 * 60 * 1000; // 30 minutes max
+const CACHE_TTL = 30 * 60 * 1000;
 
 const CONFIG = {
     dataPaths: [],
@@ -72,7 +72,6 @@ function tagGradient(tag) {
 }
 
 function getCachedData() {
-    if (!CACHE_CONFIG.enabled) return null;
     try {
         const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
@@ -88,7 +87,6 @@ function getCachedData() {
 }
 
 function setCachedData(data) {
-    if (!CACHE_CONFIG.enabled) return;
     try {
         localStorage.setItem(CACHE_KEY, JSON.stringify({
             data,
@@ -130,6 +128,7 @@ function initializeDayBasedDataPath() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
+
     CONFIG.dataPaths = [
         `/data/all_${fileNumber}.json?v=${APP_VERSION}`,
         `/data/all.json?v=${APP_VERSION}`
