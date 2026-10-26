@@ -157,23 +157,33 @@ async function loadMasterData() {
 
             globalCatalog = rawData
                 .map((item, idx) => {
+                    const rawId = item.id || item.Id || `game-${idx}`;
                     const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
                     const category = String(categoryRaw).trim() || 'uncategorized';
                     const tagsArray = Array.isArray(item.Tags)
                         ? item.Tags.map(t => String(t).trim()).filter(Boolean)
                         : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
 
+                    const gamePageUrl = 'https://bekeiratsoftwares.com/pages/game.html?id=' + encodeURIComponent(rawId);
+
                     return {
-                        id: item.id || item.Id || `game-${idx}`,
+                        id: rawId,
                         title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (idx + 1)),
                         description: item.Description || item.description || '',
                         instructions: item.Instructions || item.instructions || '',
-                        play: item.Play || item.play || '',
-                        url: item.Url || item.url || item.gameUrl || './game.html?id=' + encodeURIComponent(item.id || item.Id || `game-${idx}`),
-                        category,
+                        play: item.Play || item.play || item.Url || item.url || '',
+                        url: gamePageUrl,
+                        gamePageUrl: gamePageUrl,
+                        category: category,
                         categoryKey: normalizeKey(category),
                         tags: tagsArray.map(t => String(t).toLowerCase()),
-                        thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game'
+                        thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
+                        width: item.Width || item.width || '1280',
+                        height: item.Height || item.height || '720',
+                        video: item.Video || item.video || '',
+                        gender: item.Gender || item.gender || '',
+                        languages: item.Languages || item.languages || '',
+                        embed: item.Embed || item.embed || ''
                     };
                 })
                 .slice(0, 400);
