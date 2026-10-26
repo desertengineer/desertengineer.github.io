@@ -217,8 +217,11 @@
         window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('../sw.js?v=2026-10-26-1', { scope: '/' })
-                    .catch(function () {
-                        console.warn('[SW] Registration skipped');
+                    .then(function () {
+                        console.log('[SW] Registration successful');
+                    })
+                    .catch(function (err) {
+                        console.warn('[SW] Registration failed:', err);
                     });
             }
         });
