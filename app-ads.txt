@@ -715,3 +715,7 @@ zetaglobal.net, 808, RESELLER
 zetaglobal.net, 989, RESELLER
 zmaticoo.com, 114122, RESELLER
 zoomd.com, 88478941, RESELLER
+target.my.com, 13033031, reseller
+openx.com, 559912325, reseller, 6a698e2ec38604c6
+video.unrulymedia.com, 2464975885, reseller
+sharethrough.com, 5791, reseller, 060d053dcf45cbf3
