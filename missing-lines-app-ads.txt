@@ -1,0 +1,106 @@
+pubmatic.com, 166063, reseller, 5d62403b186f2ace
+target.my.com, 13033031, reseller
+webeyemob.com, 80067, reseller
+uis.mobfox.com, 2290, reseller, 5529a3d1f59865be
+rubiconproject.com, 24400, reseller, 0bfd66d529a55807
+openx.com, 559912325, reseller, 6a698e2ec38604c6
+triplelift.com, 14127, reseller, 6c33edb13117fd86
+sharethrough.com, 5eq7zf1q, reseller, d53b998a7bd4ecd2
+smaato.com, 1100047713, reseller, 07bcf65f187117b4
+smartadserver.com, 4342, reseller, 060d053dcf45cbf3
+advlion.com, 3144, reseller
+themediagrid.com, fwn84j, direct, 9fac4a4a87c2a44f
+bidedge.io, 12427296, reseller
+triplelift.com, 14900, reseller, 6c33edb13117fd86
+copper6.com, 764121, reseller
+nativo.com, 5958, reseller, 59521ca7cc5e9fee
+inmobi.com, 21dafc7bf4da4c399c6916da78462fb4, reseller, 83e75a7ae333ca9d
+openx.com, 540709535, reseller, 6a698e2ec38604c6
+zetaglobal.net, 989, reseller
+rubiconproject.com, 27052, reseller, 0bfd66d529a55807
+playdigo.com, 2048, reseller, 92011346d63d3c30
+thebrave.io, 1234765, reseller, c25b2154543746ac
+media.net, 8cuiv8d19, reseller
+rubiconproject.com, 19396, reseller, 0bfd66d529a55807
+pubeasy.io, 110047, reseller
+trustedstack.com, ts28k5yy0, reseller
+lijit.com, 465542, reseller, fafdf38b16bf6b2b
+kidoz.net, 15568, reseller, a109366414b7335e
+triplelift.com, 14901, reseller, 6c33edb13117fd86
+pgamssp.com, 67f939e4ab77600bf50713d6, reseller
+rubiconproject.com, 24852, reseller, 0bfd66d529a55807
+adagio.io, 1529, reseller
+rubiconproject.com, 19116, reseller, 0bfd66d529a55807
+consumable.com, 2001689, reseller, aefcd3d2f45b5070
+smaato.com, 1100059282, reseller, 07bcf65f187117b4
+pubmatic.com, 164125, reseller, 5d62403b186f2ace
+apester.com, 91071, reseller
+triplelift.com, 11457, reseller, 6c33edb13117fd86
+rubiconproject.com, 27784, reseller, 0bfd66d529a55807
+axonix.com, 59204, reseller
+themediagrid.com, jaz4ri, reseller, 35d5010d7789b49d
+criteo.com, b-072730, reseller, 9fac4a4a87c2a44f
+app-stock.com, 509221, reseller, ed8c126ea5971415
+smaato.com, 1100059563, reseller, 07bcf65f187117b4
+videoheroes.tv, 212747, reseller, 064bc410192443d8
+bidmachine.io, 1447, reseller
+toponad.com, 168240066616ab, reseller, 1d49fe424a1a456d
+rubiconproject.com, 28169, reseller, 0bfd66d529a55807
+twist.win, tw2400538, reseller
+themediagrid.com, sjyvmz, reseller, 35d5010d7789b49d
+triplelift.com, 9342, reseller, 6c33edb13117fd86
+pinklion.io, 190976892, reseller
+bigo.sg, tef1q2vbni, reseller
+smartadserver.com, 4568, reseller, 060d053dcf45cbf3
+zetaglobal.net, 808, reseller
+rubiconproject.com, 25872, reseller, 0bfd66d529a55807
+indexexchange.com, 215209, reseller, 50b1c356f2c5c8fc
+media.net, 8cu9b72o6, reseller
+apexflowsdk.com, 1083, reseller
+rubiconproject.com, 28075, reseller, 0bfd66d529a55807
+video.unrulymedia.com, 817753694, reseller
+adwmg.com, 101277, reseller, c9688a22012618e7
+appnexus.com, 17973, reseller, f5ab79cb980f11d1
+adform.com, 3386, reseller, 9f5210a2f0999e32
+richaudience.com, h44h1ypblk, reseller
+rubiconproject.com, 13510, reseller
+appnexus.com, 8233, reseller
+adform.com, 1942, reseller
+lijit.com, 583722, reseller, fafdf38b16bf6b2b
+rubiconproject.com, 27963, reseller, 0bfd66d529a55807
+adorphic.com, 4054, reseller
+triplelift.com, 13567, reseller, 6c33edb13117fd86
+zetaglobal.net, 748, reseller
+themediagrid.com, godnc4, reseller, 9fac4a4a87c2a44f
+ignitemediatech.com, pub_11154, reseller
+bidmachine.io, 1700, reseller
+bold-win.com, 1162, reseller, 71746737d0bab951
+triplelift.com, 14699, reseller, 6c33edb13117fd86
+appnexus.com, 12622, reseller
+bluexad.ai, 2064614586140594176, reseller
+bidplay.ai, 2607009, reseller
+taipeidigital.com, 01012311678, reseller
+metup.it, ajxf6r118a9m6catvk, reseller
+triplelift.com, 14864, reseller, 6c33edb13117fd86
+uis.mobfox.com, 2568, reseller, 5529a3d1f59865be
+improvedigital.com, 2417, reseller
+wovenaudience.com, 1008, reseller
+rubiconproject.com, 28673, reseller, 0bfd66d529a55807
+triplelift.com, 14858, reseller, 6c33edb13117fd86
+newtonsmobi.com, 6aa7783282d8f1ca, reseller
+seedtag.com, 674f42e4de70100007eeab9d, reseller
+smartadserver.com, 5791, reseller, 060d053dcf45cbf3
+sharethrough.com, 5791, reseller, 060d053dcf45cbf3
+pubmatic.com, 156500, reseller, 5d62403b186f2ace
+insticator.com, e2d3e33c-9911-477a-8ae2-f059870c67c0, reseller, b3511ffcafb23a32
+improvedigital.com, 2975, reseller
+optimanetwork.com, 20001, reseller
+conversantmedia.com, 100772, reseller, 03113cd04947736d
+zetaglobal.net, 551, reseller
+smaato.com, 1100059948, reseller, 07bcf65f187117b4
+appnexus.com, 12690, reseller
+rubiconproject.com, 22544, reseller, 0bfd66d529a55807
+smoot.ai, 100118, reseller
+lijit.com, 497492, reseller, fafdf38b16bf6b2b
+rubiconproject.com, 26324, reseller, 0bfd66d529a55807
+bidmatic.io, b-c0fec, reseller
