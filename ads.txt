@@ -109,3 +109,7 @@ video.unrulymedia.com, 2564526802, RESELLER, 6f752381ad5ec0e5
 wortise.com, 9e41f1c5-2c86-4e03-a850-1a946e84fea4, DIRECT
 xad.com, 958, RESELLER, 81cbf0a75a5e0e9a
 yahoo.com, 58905, RESELLER, e1a5b5b6e3255540
+#Google#
+google.com, pub-1912561085588771, DIRECT, f08c47fec0942fa0
+google.com, pub-4537341636281998, DIRECT, f08c47fec0942fa0
+google.com, pub-1912561085588771, RESELLER, f08c47fec0942fa0
