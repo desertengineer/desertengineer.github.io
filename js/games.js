@@ -1,8 +1,8 @@
 const CONFIG = {
     dataPaths: [],
-    itemsPerPage: 12,
+    itemsPerPage: 30,
     defaultCategory: 'all',
-    virtualScrollThreshold: 6
+    virtualScrollThreshold: 8
 };
 
 let dataCache = {};
@@ -16,7 +16,7 @@ let observer = null;
 
 const CACHE_CONFIG = {
     key: 'bekeiratGamesData',
-    ttl: 24 * 60 * 60 * 1000,
+    ttl: 12 * 60 * 60 * 1000,
     enabled: true
 };
 
@@ -79,7 +79,7 @@ function getCachedData() {
         const cached = localStorage.getItem(CACHE_CONFIG.key);
         if (cached) {
             const { data, timestamp } = JSON.parse(cached);
-            if (Date.now() - timestamp < CACHE_CONFIG.ttl) {
+            if (Date.now() - timestamp < CACHE_CONFIG.ttl && Array.isArray(data) && data.length > 0) {
                 return data;
             }
         }
@@ -122,98 +122,79 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('orientationchange', updateSidebarTopOffset);
 
     initializeDayBasedDataPath();
+    initVirtualScrolling();
 
     await loadMasterData();
     populateCategoryMenu();
     switchCategory(CONFIG.defaultCategory);
-    initVirtualScrolling();
 });
 
 function initializeDayBasedDataPath() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-    CONFIG.dataPaths = ['../data/all_' + fileNumber + '.json'];
-    console.log('[Games Page] Loading day file:', CONFIG.dataPaths[0]);
+    CONFIG.dataPaths = ['../data/all_' + fileNumber + '.json', './data/all_' + fileNumber + '.json'];
 }
 
-function loadMasterData() {
-    return new Promise(async (resolve) => {
-        const dayFilePath = CONFIG.dataPaths[0];
-        const fallbackPaths = ['../data/all.json', '../all.json'].filter(path => path !== dayFilePath);
+async function loadMasterData() {
+    const cachedData = getCachedData();
+    if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
+        globalCatalog = cachedData;
+        return;
+    }
 
-        const cachedData = await getCachedData();
-        if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
-            globalCatalog = cachedData.slice(0, 400);
-            resolve();
-            return;
-        }
+    let rawData = null;
+    const pathsToTry = [
+        ...CONFIG.dataPaths,
+        '../data/all.json',
+        './data/all.json',
+        '../all.json',
+        './all.json'
+    ];
 
-        let rawData = null;
-
+    for (const path of pathsToTry) {
         try {
-            const res = await fetch(dayFilePath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
+            const res = await fetch(path, { cache: 'force-cache' });
             if (res.ok) {
                 rawData = await res.json();
+                if (Array.isArray(rawData) && rawData.length > 0) {
+                    break;
+                }
             }
         } catch (e) {
-            console.warn('[Games Page] Error loading main file:', e);
+            console.warn('[Games Page] Fetch error for ' + path + ':', e);
         }
+    }
 
-        if (!rawData || !Array.isArray(rawData)) {
-            for (const fallbackPath of fallbackPaths) {
-                try {
-                    const res = await fetch(fallbackPath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
-                    if (res.ok) {
-                        rawData = await res.json();
-                        break;
-                    }
-                } catch (e) {}
-            }
-        }
+    if (rawData && Array.isArray(rawData)) {
+        globalCatalog = rawData.map((item, idx) => {
+            const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'arcade';
+            const category = String(categoryRaw).trim() || 'arcade';
+            const tagsArray = Array.isArray(item.Tags)
+                ? item.Tags.map(t => String(t).trim()).filter(Boolean)
+                : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
 
-        if (rawData && Array.isArray(rawData)) {
-            globalCatalog = [];
+            const idVal = item.id || item.Id || `game-${idx}`;
 
-            const chunkSize = 50;
-            for (let i = 0; i < rawData.length; i += chunkSize) {
-                const chunk = rawData.slice(i, i + chunkSize);
-                const processed = chunk.map((item, idx) => {
-                    const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
-                    const category = String(categoryRaw).trim() || 'uncategorized';
-                    const tagsArray = Array.isArray(item.Tags)
-                        ? item.Tags.map(t => String(t).trim()).filter(Boolean)
-                        : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
+            return {
+                id: idVal,
+                title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (idx + 1)),
+                description: item.Description || item.description || '',
+                instructions: item.Instructions || item.instructions || '',
+                play: item.Play || item.play || '',
+                url: './game.html?id=' + encodeURIComponent(idVal),
+                category: category,
+                categoryKey: normalizeKey(category),
+                tags: tagsArray.map(t => String(t).toLowerCase()),
+                thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game'
+            };
+        });
 
-                    return {
-                        id: item.id || item.Id || `game-${i}-${idx}`,
-                        title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (i + idx + 1)),
-                        description: item.Description || item.description || '',
-                        instructions: item.Instructions || item.instructions || '',
-                        play: item.Play || item.play || '',
-                        url: item.Url || item.url || item.gameUrl || './game.html?id=' + encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`),
-                        category: category,
-                        categoryKey: normalizeKey(category),
-                        tags: tagsArray.map(t => String(t).toLowerCase()),
-                        thumb: item.Image || item.thumb || item.thumbnail || item.image || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game',
-                        width: item.Width || item.width || '1280',
-                        height: item.Height || item.height || '720',
-                        video: item.Video || item.video || '',
-                        gender: item.Gender || item.gender || '',
-                        languages: item.Languages || item.languages || '',
-                        embed: item.Embed || item.embed || ''
-                    };
-                });
-
-                globalCatalog.push(...processed);
-            }
-
-            globalCatalog = globalCatalog.slice(0, 400);
-            setCachedData(globalCatalog);
-        }
-
-        resolve();
-    });
+        setCachedData(globalCatalog);
+    } else {
+        console.warn('[Games Page] Using fallback mock data');
+        globalCatalog = generateMockGames();
+    }
 }
 
 function initVirtualScrolling() {
@@ -229,8 +210,8 @@ function initVirtualScrolling() {
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '50px'
+            threshold: 0.05,
+            rootMargin: '100px'
         });
     }
 }
@@ -238,29 +219,38 @@ function initVirtualScrolling() {
 function renderGameCard(container, gameId) {
     const game = currentDataset.find(g => String(g.id) === String(gameId));
     if (!game) {
-        container.innerHTML = '<div class=\"text-center py-4 text-xs text-gray-500\">Game not found</div>';
+        container.innerHTML = '<div class="text-center py-4 text-xs text-gray-500">Game not found</div>';
         return;
     }
 
     const thumb = game.thumb || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game';
 
     container.innerHTML = `
-        <a href="${game.url}" class="game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col">
+        <a href="${game.url}" onclick="saveGameSession('${game.id}')" class="game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col h-full">
             <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0a0b10]">
                 <img src="${thumb}" alt="${game.title}" loading="lazy" decoding="async"
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                      onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#12141f] via-transparent to-transparent opacity-80"></div>
-                <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-cyan-400 border border-cyan-500/30 capitalize">${game.title}</span>
+                <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-cyan-400 border border-cyan-500/30 capitalize">${game.category}</span>
             </div>
-            <div class="p-3.5 bg-[#12141f] flex items-center justify-between flex-1">
+            <div class="p-3.5 bg-[#12141f] flex items-center justify-between gap-2 flex-1">
                 <h3 class="font-bold text-xs sm:text-sm text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${game.title}">${game.title}</h3>
-                <div class="p-1.5 rounded-lg bg-gray-800/80 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-400 transition-all">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.3" /></svg>
+                <div class="p-1.5 rounded-lg bg-gray-800/80 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-400 transition-all shrink-0">
+                    <i class="fa-solid fa-play text-xs"></i>
                 </div>
             </div>
         </a>
     `;
+}
+
+function saveGameSession(gameId) {
+    const game = globalCatalog.find(g => String(g.id) === String(gameId));
+    if (game) {
+        try {
+            sessionStorage.setItem('current_game_data', JSON.stringify(game));
+        } catch (e) {}
+    }
 }
 
 function populateCategoryMenu() {
@@ -268,15 +258,15 @@ function populateCategoryMenu() {
     if (!nav) return;
 
     const counts = globalCatalog.reduce((acc, g) => {
-        const key = g.categoryKey || 'uncategorized';
-        acc[key] = acc[key] || { name: g.category || 'Uncategorized', count: 0 };
+        const key = g.categoryKey || 'arcade';
+        acc[key] = acc[key] || { name: g.category || 'Arcade', count: 0 };
         acc[key].count++;
         return acc;
     }, {});
 
     const categories = Object.entries(counts)
         .map(([key, info]) => ({ key, name: info.name, count: info.count }))
-        .sort((a, b) => b.count - b.count || a.name.localeCompare(b.name));
+        .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
     nav.innerHTML = '';
 
@@ -319,7 +309,7 @@ function createCategoryButton(categoryKey, label, count, isActive = false) {
 
     btn.dataset.category = normalizeKey(label === 'All Games' ? 'all' : categoryKey);
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    btn.setAttribute('aria-label', '' + emoji + ' ' + span.textContent);
+    btn.setAttribute('aria-label', emoji + ' ' + span.textContent);
 
     btn.addEventListener('click', function () {
         switchCategory(btn.dataset.category, btn);
@@ -351,15 +341,18 @@ function switchCategory(category, element = null) {
     }
 
     if (dataCache[activeCategory]) {
-        currentDataset = shuffleArray(dataCache[activeCategory].slice());
+        currentDataset = dataCache[activeCategory].slice();
         buildSubCategoryTags();
         renderGrid();
         return;
     }
 
-    const filtered = (activeCategory === 'all') ? globalCatalog.slice() : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
+    const filtered = (activeCategory === 'all')
+        ? globalCatalog.slice()
+        : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
+
     dataCache[activeCategory] = filtered.slice();
-    currentDataset = shuffleArray(filtered.slice());
+    currentDataset = filtered.slice();
 
     buildSubCategoryTags();
     renderGrid();
@@ -490,7 +483,7 @@ function renderGrid() {
     if (observer && pageItems.length > CONFIG.virtualScrollThreshold) {
         pageItems.forEach(game => {
             const placeholder = document.createElement('div');
-            placeholder.className = 'game-card-placeholder';
+            placeholder.className = 'game-card-placeholder min-h-[220px] rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse';
             placeholder.dataset.gameId = game.id;
             gridContainer.appendChild(placeholder);
             observer.observe(placeholder);
@@ -498,28 +491,10 @@ function renderGrid() {
     } else {
         const fragment = document.createDocumentFragment();
         pageItems.forEach(game => {
-            const card = document.createElement('a');
-            card.href = game.url || '#';
-            card.className = 'game-card group cursor-pointer bg-[#12141f] rounded-2xl overflow-hidden border border-gray-800/90 hover:border-cyan-500/50 transition-all duration-300 flex flex-col';
-            const thumb = game.thumb || 'https://placehold.co/400x400/1e293b/60a5fa?text=Bekeirat+Game';
-
-            card.innerHTML = `
-                <div class="game-thumb-container relative w-full aspect-square overflow-hidden bg-[#0a0b10]">
-                    <img src="${thumb}" alt="${game.title}" loading="lazy" decoding="async"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                         onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text=${encodeURIComponent(game.title)}'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#12141f] via-transparent to-transparent opacity-80"></div>
-                    <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-cyan-400 border border-cyan-500/30 capitalize">${game.title}</span>
-                </div>
-                <div class="p-3.5 bg-[#12141f] flex items-center justify-between flex-1">
-                    <h3 class="font-bold text-xs sm:text-sm text-gray-200 group-hover:text-cyan-400 transition-colors truncate" title="${game.title}">${game.title}</h3>
-                    <div class="p-1.5 rounded-lg bg-gray-800/80 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-400 transition-all">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.3" /></svg>
-                    </div>
-                </div>
-            `;
-
-            fragment.appendChild(card);
+            const cardWrapper = document.createElement('div');
+            cardWrapper.className = 'w-full';
+            renderGameCard(cardWrapper, game.id);
+            fragment.appendChild(cardWrapper);
         });
         gridContainer.appendChild(fragment);
     }
@@ -528,4 +503,73 @@ function renderGrid() {
 }
 
 function renderPagination(totalPages) {
-    const container = document.getElementById('pagination
+    const container = document.getElementById('pagination-controls');
+    if (!container) return;
+    container.innerHTML = '';
+    if (totalPages <= 1) return;
+
+    const createBtn = (label, page, isActive = false, isDisabled = false) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = label;
+        btn.disabled = isDisabled;
+        let baseClass = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ";
+        if (isDisabled) baseClass += "bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800";
+        else if (isActive) baseClass += "bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/20";
+        else baseClass += "bg-[#12141f] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800/90";
+        btn.className = baseClass;
+        btn.onclick = () => {
+            if (!isDisabled && page !== currentPage) {
+                currentPage = page;
+                renderGrid();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+        return btn;
+    };
+
+    container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
+    container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
+
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    if (endPage - startPage + 1 < maxVisiblePages) startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+    for (let p = startPage; p <= endPage; p++) container.appendChild(createBtn(p.toString(), p, p === currentPage));
+    container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
+    container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
+}
+
+function renderEmptyState(message) {
+    const grid = document.getElementById('main-games-grid');
+    if (!grid) return;
+    grid.innerHTML = `<div class="col-span-full py-12 text-center text-gray-400 bg-[#12141f] rounded-2xl border border-gray-800"><p class="text-sm font-medium text-gray-300 px-4">${message}</p></div>`;
+}
+
+function reshuffleGrid() {
+    if (dataCache[activeCategory]) {
+        currentDataset = shuffleArray(dataCache[activeCategory].slice());
+        currentPage = 1;
+        buildSubCategoryTags();
+        renderGrid();
+    }
+}
+
+function generateMockGames() {
+    const cats = ['puzzle', 'arcade', 'action', 'racing', 'girls'];
+    const mock = [];
+    for (let i = 1; i <= 24; i++) {
+        const cat = cats[i % cats.length];
+        mock.push({
+            id: `mock-${i}`,
+            title: `${cat.toUpperCase()} Challenge ${i}`,
+            category: cat,
+            categoryKey: normalizeKey(cat),
+            description: `Instant ${cat} browser game.`,
+            thumb: `https://picsum.photos/seed/game-${i}/400/400`,
+            tags: [cat, 'featured'],
+            url: './game.html?id=mock-' + i
+        });
+    }
+    return mock;
+}
