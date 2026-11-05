@@ -437,7 +437,7 @@
     <script>
         window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js?v=2026-10-26-1', { scope: '/' })
+                navigator.serviceWorker.register('./sw.js', { scope: '/' })
                     .catch(function () {
                         console.warn('[SW] Registration skipped');
                     });
