@@ -1,6 +1,7 @@
-const APP_VERSION = '2026-10-26-1';
-const CACHE_KEY = 'bekeirat_homepage_catalog_' + APP_VERSION;
-const CACHE_TTL = 30 * 60 * 1000; // 30 minutes max
+let globalCatalog = [];
+const autoScrollTimers = {};
+const CACHE_KEY = 'bekeirat_homepage_catalog';
+const CACHE_TTL = 12 * 60 * 60 * 1000;
 const MAX_INITIAL_ITEMS = 80;
 
 function normalizeClasses(raw) {
@@ -72,15 +73,12 @@ async function loadHomepageData() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-    const primaryPath = './data/all_' + fileNumber + '.json?v=' + APP_VERSION;
+    const primaryPath = './data/all_' + fileNumber + '.json';
 
     let rawData = null;
 
     try {
-        const res = await fetch(primaryPath, {
-            cache: 'no-store',
-            headers: { Accept: 'application/json' }
-        });
+        const res = await fetch(primaryPath, { cache: 'force-cache' });
         if (res.ok) {
             rawData = await res.json();
         }
@@ -89,13 +87,10 @@ async function loadHomepageData() {
     }
 
     if (!rawData || !Array.isArray(rawData)) {
-        const fallbacks = ['./data/all.json?v=' + APP_VERSION, './all.json?v=' + APP_VERSION];
+        const fallbacks = ['./data/all.json', './all.json'];
         for (const fb of fallbacks) {
             try {
-                const res = await fetch(fb, {
-                    cache: 'no-store',
-                    headers: { Accept: 'application/json' }
-                });
+                const res = await fetch(fb, { cache: 'force-cache' });
                 if (res.ok) {
                     rawData = await res.json();
                     break;
@@ -138,6 +133,7 @@ async function loadHomepageData() {
     scheduleIdleTask(() => {
         if (globalCatalog.length < 200) {
             // No large additional data load on first pass.
+            // Keep initial interaction fast.
         }
     });
 }

@@ -1,7 +1,3 @@
-const APP_VERSION = '2026-10-26-1';
-const CACHE_KEY = 'bekeiratGamesData_' + APP_VERSION;
-const CACHE_TTL = 30 * 60 * 1000;
-
 const CONFIG = {
     dataPaths: [],
     itemsPerPage: 12,
@@ -17,6 +13,12 @@ let activeSubCategory = 'all';
 let searchQuery = '';
 let currentPage = 1;
 let observer = null;
+
+const CACHE_CONFIG = {
+    key: 'bekeiratGamesData',
+    ttl: 24 * 60 * 60 * 1000,
+    enabled: true
+};
 
 function normalizeKey(s) {
     return String(s || '').trim().toLowerCase();
@@ -72,11 +74,12 @@ function tagGradient(tag) {
 }
 
 function getCachedData() {
+    if (!CACHE_CONFIG.enabled) return null;
     try {
-        const cached = localStorage.getItem(CACHE_KEY);
+        const cached = localStorage.getItem(CACHE_CONFIG.key);
         if (cached) {
             const { data, timestamp } = JSON.parse(cached);
-            if (Date.now() - timestamp < CACHE_TTL) {
+            if (Date.now() - timestamp < CACHE_CONFIG.ttl) {
                 return data;
             }
         }
@@ -87,8 +90,9 @@ function getCachedData() {
 }
 
 function setCachedData(data) {
+    if (!CACHE_CONFIG.enabled) return;
     try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
+        localStorage.setItem(CACHE_CONFIG.key, JSON.stringify({
             data,
             timestamp: Date.now()
         }));
@@ -118,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('orientationchange', updateSidebarTopOffset);
 
     initializeDayBasedDataPath();
+
     await loadMasterData();
     populateCategoryMenu();
     switchCategory(CONFIG.defaultCategory);
@@ -128,56 +133,65 @@ function initializeDayBasedDataPath() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const fileNumber = dayOfWeek === 0 ? 7 : dayOfWeek;
-
-    CONFIG.dataPaths = [
-        `/data/all_${fileNumber}.json?v=${APP_VERSION}`,
-        `/data/all.json?v=${APP_VERSION}`
-    ];
+    CONFIG.dataPaths = ['../data/all_' + fileNumber + '.json'];
+    console.log('[Games Page] Loading day file:', CONFIG.dataPaths[0]);
 }
 
-async function loadMasterData() {
-    const cachedData = getCachedData();
-    if (Array.isArray(cachedData) && cachedData.length > 0) {
-        globalCatalog = cachedData;
-        return;
-    }
+function loadMasterData() {
+    return new Promise(async (resolve) => {
+        const dayFilePath = CONFIG.dataPaths[0];
+        const fallbackPaths = ['../data/all.json', '../all.json'].filter(path => path !== dayFilePath);
 
-    for (const url of CONFIG.dataPaths) {
+        const cachedData = await getCachedData();
+        if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
+            globalCatalog = cachedData.slice(0, 400);
+            resolve();
+            return;
+        }
+
+        let rawData = null;
+
         try {
-            const res = await fetch(url, {
-                cache: 'no-store',
-                headers: { Accept: 'application/json' }
-            });
+            const res = await fetch(dayFilePath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
+            if (res.ok) {
+                rawData = await res.json();
+            }
+        } catch (e) {
+            console.warn('[Games Page] Error loading main file:', e);
+        }
 
-            if (!res.ok) continue;
+        if (!rawData || !Array.isArray(rawData)) {
+            for (const fallbackPath of fallbackPaths) {
+                try {
+                    const res = await fetch(fallbackPath, { cache: 'force-cache', headers: { Accept: 'application/json' } });
+                    if (res.ok) {
+                        rawData = await res.json();
+                        break;
+                    }
+                } catch (e) {}
+            }
+        }
 
-            const rawData = await res.json();
-            if (!Array.isArray(rawData) || rawData.length === 0) continue;
-
+        if (rawData && Array.isArray(rawData)) {
             globalCatalog = [];
 
-            const chunkSize = 200;
+            const chunkSize = 50;
             for (let i = 0; i < rawData.length; i += chunkSize) {
                 const chunk = rawData.slice(i, i + chunkSize);
-
                 const processed = chunk.map((item, idx) => {
-                    const rawId = item.id || item.Id || `game-${i + idx}`;
                     const categoryRaw = item.Category ?? item.category ?? item.cat ?? 'uncategorized';
                     const category = String(categoryRaw).trim() || 'uncategorized';
                     const tagsArray = Array.isArray(item.Tags)
                         ? item.Tags.map(t => String(t).trim()).filter(Boolean)
                         : (item.Tags ? String(item.Tags).split(',').map(t => t.trim()).filter(Boolean) : []);
 
-                    const gamePageUrl = 'https://bekeiratsoftwares.com/pages/game.html?id=' + encodeURIComponent(rawId);
-
                     return {
-                        id: rawId,
+                        id: item.id || item.Id || `game-${i}-${idx}`,
                         title: item.Title ? item.Title.trim() : (item.title ? item.title.trim() : 'Untitled Game ' + (i + idx + 1)),
                         description: item.Description || item.description || '',
                         instructions: item.Instructions || item.instructions || '',
-                        play: item.Play || item.play || item.Url || item.url || '',
-                        url: gamePageUrl,
-                        gamePageUrl: gamePageUrl,
+                        play: item.Play || item.play || '',
+                        url: item.Url || item.url || item.gameUrl || './game.html?id=' + encodeURIComponent(item.id || item.Id || `game-${i}-${idx}`),
                         category: category,
                         categoryKey: normalizeKey(category),
                         tags: tagsArray.map(t => String(t).toLowerCase()),
@@ -194,23 +208,12 @@ async function loadMasterData() {
                 globalCatalog.push(...processed);
             }
 
+            globalCatalog = globalCatalog.slice(0, 400);
             setCachedData(globalCatalog);
-            return;
-        } catch (e) {
-            console.warn('[Games Page] Failed to load:', url, e);
         }
-    }
 
-    console.error('[Games Page] No valid game data could be loaded.');
-    const grid = document.getElementById('main-games-grid');
-    if (grid) {
-        grid.innerHTML = `
-            <div class="col-span-full py-20 text-center text-gray-400">
-                <p class="text-red-400 font-semibold">Unable to load game catalog.</p>
-                <p class="text-xs mt-2">Please refresh the page or try again later.</p>
-            </div>
-        `;
-    }
+        resolve();
+    });
 }
 
 function initVirtualScrolling() {
@@ -354,10 +357,7 @@ function switchCategory(category, element = null) {
         return;
     }
 
-    const filtered = (activeCategory === 'all')
-        ? globalCatalog.slice()
-        : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
-
+    const filtered = (activeCategory === 'all') ? globalCatalog.slice() : globalCatalog.filter(g => normalizeKey(g.category) === activeCategory);
     dataCache[activeCategory] = filtered.slice();
     currentDataset = shuffleArray(filtered.slice());
 
@@ -528,44 +528,4 @@ function renderGrid() {
 }
 
 function renderPagination(totalPages) {
-    const container = document.getElementById('pagination-controls');
-    if (!container) return;
-    container.innerHTML = '';
-    if (totalPages <= 1) return;
-
-    const createBtn = (label, page, isActive = false, isDisabled = false) => {
-        const btn = document.createElement('button');
-        btn.innerHTML = label;
-        btn.disabled = isDisabled;
-        let baseClass = "px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ";
-        if (isDisabled) baseClass += "bg-gray-900 text-gray-600 cursor-not-allowed border border-gray-800";
-        else if (isActive) baseClass += "bg-cyan-500 text-black font-bold shadow-lg shadow-cyan-500/20";
-        else baseClass += "bg-[#12141f] text-gray-300 hover:bg-gray-800 hover:text-white border border-gray-800/90";
-        btn.className = baseClass;
-        btn.onclick = () => { if (!isDisabled && page !== currentPage) { currentPage = page; renderGrid(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
-        return btn;
-    };
-
-    container.appendChild(createBtn('&laquo; First', 1, false, currentPage === 1));
-    container.appendChild(createBtn('&lsaquo; Prev', currentPage - 1, false, currentPage === 1));
-
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    if (endPage - startPage + 1 < maxVisiblePages) startPage = Math.max(1, endPage - maxVisiblePages + 1);
-
-    for (let p = startPage; p <= endPage; p++) container.appendChild(createBtn(p.toString(), p, p === currentPage));
-    container.appendChild(createBtn('Next &rsaquo;', currentPage + 1, false, currentPage === totalPages));
-    container.appendChild(createBtn('Last &raquo;', totalPages, false, currentPage === totalPages));
-}
-
-function renderEmptyState(message) {
-    const gridContainer = document.getElementById('main-games-grid');
-    if (!gridContainer) return;
-
-    gridContainer.innerHTML = `
-        <div class="col-span-full py-20 text-center text-gray-400">
-            <p class="text-red-400 font-semibold">${message}</p>
-        </div>
-    `;
-}
+    const container = document.getElementById('pagination
