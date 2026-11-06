@@ -249,7 +249,7 @@ function saveGameSession(gameId) {
     if (game) {
         try {
             sessionStorage.setItem('current_game_data', JSON.stringify(game));
-        } catch (e) {}
+        } catch (e) { }
     }
 }
 
@@ -472,32 +472,25 @@ function renderGrid() {
     if (startEl) startEl.textContent = totalItems > 0 ? (startIndex + 1).toLocaleString() : 0;
     if (endEl) endEl.textContent = endIndex.toLocaleString();
 
-    gridContainer.innerHTML = '';
+    // Use a DocumentFragment to update DOM in one single batch (eliminates flicker)
+    const fragment = document.createDocumentFragment();
+    const tempContainer = document.createElement('div');
 
     if (pageItems.length === 0) {
-        renderEmptyState('No games found matching your search or category criteria.');
+        gridContainer.innerHTML = `<div class="col-span-full py-12 text-center text-gray-400 bg-[#12141f] rounded-2xl border border-gray-800"><p class="text-sm font-medium text-gray-300 px-4">No games found matching your search or category criteria.</p></div>`;
         renderPagination(1);
         return;
     }
 
-    if (observer && pageItems.length > CONFIG.virtualScrollThreshold) {
-        pageItems.forEach(game => {
-            const placeholder = document.createElement('div');
-            placeholder.className = 'game-card-placeholder min-h-[220px] rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse';
-            placeholder.dataset.gameId = game.id;
-            gridContainer.appendChild(placeholder);
-            observer.observe(placeholder);
-        });
-    } else {
-        const fragment = document.createDocumentFragment();
-        pageItems.forEach(game => {
-            const cardWrapper = document.createElement('div');
-            cardWrapper.className = 'w-full';
-            renderGameCard(cardWrapper, game.id);
-            fragment.appendChild(cardWrapper);
-        });
-        gridContainer.appendChild(fragment);
-    }
+    pageItems.forEach(game => {
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'w-full';
+        renderGameCard(cardWrapper, game.id);
+        fragment.appendChild(cardWrapper);
+    });
+
+    gridContainer.innerHTML = '';
+    gridContainer.appendChild(fragment);
 
     renderPagination(totalPages);
 }
