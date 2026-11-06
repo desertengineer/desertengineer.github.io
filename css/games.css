@@ -103,7 +103,7 @@ body {
 .flex.flex.flex-col.lg
  {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
 }
 
 #pagination-controls button {
