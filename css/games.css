@@ -100,7 +100,7 @@ body {
     min-height: 280px;
 }
 
-.flex.flex.flex-col.lg
+div.flex.flex.flex-col
  {
     display: flex;
     flex-wrap: wrap !important;
