@@ -100,6 +100,12 @@ body {
     min-height: 280px;
 }
 
+.flex.flex.flex-col.lg
+ {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 #pagination-controls button {
     transition: all 0.2s ease;
 }
