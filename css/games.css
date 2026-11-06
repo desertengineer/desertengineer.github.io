@@ -1,4 +1,6 @@
-/* Games page specific styling */
+/* ==========================================================================
+   Base & Layout Alignment
+   ========================================================================== */
 * {
     box-sizing: border-box;
 }
@@ -10,8 +12,25 @@ html {
 body {
     background-color: #0b0f19;
     color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
 }
 
+/* Prevent horizontal overflow on the page */
+main {
+    max-width: 1440px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+}
+
+.flex-1 {
+    min-width: 0;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
 .navbar {
     background-color: rgba(15, 23, 42, 0.95);
     position: sticky;
@@ -20,13 +39,13 @@ body {
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
 }
 
+/* ==========================================================================
+   Games Grid & Cards (Flicker-Free Optimization)
+   ========================================================================== */
 #main-games-grid {
-    contain: layout style paint;
-}
-
-.game-card {
-    will-change: transform;
-    backface-visibility: hidden;
+    min-height: 280px;
+    contain: layout style;
+    content-visibility: auto;
 }
 
 .game-card {
@@ -36,6 +55,9 @@ body {
     border-radius: 1rem;
     overflow: hidden;
     background: #12141f;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -53,6 +75,9 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* ==========================================================================
+   Sidebar Category Menu
+   ========================================================================== */
 #category-menu .cat-btn {
     position: relative;
     overflow: hidden;
@@ -81,6 +106,9 @@ body {
     background: rgba(255, 255, 255, 0.04);
 }
 
+/* ==========================================================================
+   Tags Filter Bar
+   ========================================================================== */
 #tags-filter-bar {
     overflow-x: auto;
     scrollbar-width: none;
@@ -105,10 +133,9 @@ body {
     border-color: #22d3ee !important;
 }
 
-#main-games-grid {
-    min-height: 280px;
-}
-
+/* ==========================================================================
+   Pagination Controls
+   ========================================================================== */
 #pagination-controls button {
     transition: all 0.2s ease;
 }
@@ -118,8 +145,9 @@ body {
     color: white;
 }
 
-
-
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
 @media (max-width: 768px) {
     .game-card {
         min-height: 200px;
