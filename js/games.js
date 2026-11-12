@@ -109,6 +109,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mobileMenu = document.getElementById('mobile-menu');
     if (hamburgerBtn && mobileMenu) {
         hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    } const categoryToggle = document.getElementById('category-menu-toggle');
+    const categoryMenu = document.getElementById('category-menu');
+
+    if (categoryToggle && categoryMenu) {
+        categoryToggle.addEventListener('click', () => {
+            const isExpanded = categoryToggle.getAttribute('aria-expanded') === 'true';
+            categoryToggle.setAttribute('aria-expanded', String(!isExpanded));
+            categoryMenu.classList.toggle('hidden', isExpanded);
+        });
+
+        // Close the menu after choosing a category on mobile.
+        categoryMenu.addEventListener('click', (event) => {
+            if (
+                event.target.closest('.cat-btn') &&
+                window.matchMedia('(max-width: 1023px)').matches
+            ) {
+                categoryMenu.classList.add('hidden');
+                categoryToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
 
     function updateSidebarTopOffset() {
