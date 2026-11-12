@@ -113,22 +113,38 @@
         </svg>
     </button>
 
-    <div class="hidden md:flex space-x-2 items-center">
-        <a href="./index.html" class="nav-btn bg-blue-600 text-white">Home</a>
-        <a href="./pages/about.html" class="nav-btn">About Us</a>
-        <a href="./pages/games.html" class="nav-btn">Games</a>
-        <a href="./pages/contact us.html" class="nav-btn">Contacts</a>
-    </div>
+    <nav class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between">
+        <a href="./index.html"
+            class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+            <img src="./assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software logo"
+                class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10">
+            <span>Bekeirat Software</span>
+        </a>
 
-    <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner hidden">
-        <nav class="flex flex-col">
-            <a href="./index.html" class="mobile-btn text-blue-400 font-bold">Home</a>
-            <a href="./pages/about.html" class="mobile-btn">About Us</a>
-            <a href="./pages/games.html" class="mobile-btn">Games</a>
-            <a href="./pages/contact us.html" class="mobile-btn border-none">Contacts</a>
-        </nav>
-    </div>
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-blue-400 transition-colors"
+            aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
 
+        <div class="hidden md:flex space-x-2 items-center">
+            <a href="./index.html" class="nav-btn bg-blue-600 text-white">Home</a>
+            <a href="./pages/about.html" class="nav-btn">About Us</a>
+            <a href="./pages/games.html" class="nav-btn">Games</a>
+            <a href="./pages/contact us.html" class="nav-btn">Contacts</a>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu-container md:hidden mt-4 -mx-4 px-4 pb-2 shadow-inner hidden">
+            <nav class="flex flex-col">
+                <a href="./index.html" class="mobile-btn text-blue-400 font-bold">Home</a>
+                <a href="./pages/about.html" class="mobile-btn">About Us</a>
+                <a href="./pages/games.html" class="mobile-btn">Games</a>
+                <a href="./pages/contact us.html" class="mobile-btn border-none">Contacts</a>
+            </nav>
+        </div>
+    </nav>
 
     <header class="hero-banner">
         <div class="px-4">
@@ -214,67 +230,68 @@
         </section>
 
         <!-- NEW SECTION: Self-Developed / In-House Games Showcase -->
-        <section
-            class="space-y-6 bg-gradient-to-br from-indigo-950/60 via-slate-900 to-slate-950 p-6 md:p-8 rounded-3xl border border-indigo-500/30 shadow-2xl relative overflow-hidden">
+        <section id="original-games"
+            class="space-y-6 bg-gradient-to-br from-indigo-950/60 via-slate-900 to-slate-950 p-6 md:p-8 rounded-3xl border border-indigo-500/30 shadow-2xl">
             <div
-                class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-indigo-500/20 pb-4">
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-500/20 pb-4">
                 <div>
-                    <div
-                        class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-1">
-                        <i class="fa-solid fa-code"></i> Developed by Bekeirat Software
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
-                        <span>🧩</span> Our Original Games
+                    <p class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-1">
+                        <i class="fa-solid fa-code" aria-hidden="true"></i>
+                        Developed by Bekeirat Software
+                    </p>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">
+                        🧩 Our Original Games
                     </h2>
                 </div>
-                <span
-                    class="text-xs text-gray-400 bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700 self-start md:self-auto">
-                    Instant Play • Store and APK download
-                </span>
+
+                <div class="flex items-center gap-2 self-start sm:self-auto">
+                    <button type="button" onclick="scrollCarousel('original-games-carousel', -380)"
+                        aria-label="Scroll original games left" aria-controls="original-games-carousel"
+                        class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700 transition-all">
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" onclick="scrollCarousel('original-games-carousel', 380)"
+                        aria-label="Scroll original games right" aria-controls="original-games-carousel"
+                        class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700 transition-all">
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1: Magic Block Blitz 2026 -->
-                <div
-                    class="bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/60 transition-all group duration-300 shadow-xl flex flex-col">
-                    <div class="relative aspect-video overflow-hidden bg-slate-950">
-                        <img src="./Apps/EnBlocks2026/assets/screenshot-1-1366x768.png" alt="Magic Block Blitz 2026"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            onerror="this.src='https://placehold.co/600x340/1e1b4b/60a5fa?text=Magic+Block+Blitz+2026'">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-70">
+            <div id="original-games-carousel" class="carousel-container flex gap-6 overflow-x-auto pb-4"
+                aria-label="Original games">
+
+                <article
+                    class="flex-none w-[320px] sm:w-[360px] bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/60 transition-all shadow-xl">
+                    <a href="./Apps/EnBlocks2026/index.html" class="block">
+                        <div class="relative aspect-video overflow-hidden bg-slate-950">
+                            <img src="./Apps/EnBlocks2026/assets/screenshot-1-1366x768.png" alt="Magic Block Blitz 2026"
+                                class="w-full h-full object-cover" loading="lazy">
+                            <span
+                                class="absolute top-3 left-3 text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-indigo-600 text-white uppercase">
+                                Original Game
+                            </span>
                         </div>
-                        <span
-                            class="absolute top-3 left-3 text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-indigo-600/90 text-white shadow-md uppercase">
-                            Original Game
-                        </span>
-                    </div>
-                    <div class="p-5 flex flex-col justify-between flex-1 space-y-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
-                                Magic Block Blitz 2026
-                            </h3>
-                            <p class="text-xs text-gray-400 line-clamp-2 mt-1">
-                                Ultimate block-matching strategy game to test spatial skills, quick thinking, and combo
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-white">Magic Block Blitz 2026</h3>
+                            <p class="text-sm text-gray-400 mt-2">
+                                A block-matching strategy game that tests spatial skills, quick thinking, and combo
                                 logic.
                             </p>
+                            <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-indigo-300">
+                                Play game <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                            </span>
                         </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-800">
-                            <a href="./Apps/EnBlocks2026/index.html"
-                                class="w-full text-center py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-all shadow-md flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-play text-xs"></i> Play Game Page
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    </a>
+                </article>
 
-                <!--TO DO-- Card 2: EnTiles 2048 -->
+                <!-- Add additional app/game cards here using the same article structure. -->
             </div>
         </section>
 
         <!-- Ads Containers -->
         <div id="inmobi-ad-container"> </div>
-        <div id="wortise:BANNER_ID" style="min-width: 600px; min-height: 150px;"></div>
+        <!-- <div id="wortise:BANNER_ID" style="min-width: 600px; min-height: 150px;"></div> -->
 
         <!-- Hot & Trending Games -->
         <section class="space-y-4">
@@ -2036,7 +2053,8 @@
                 scrolling="no"
                 src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-2658659289706339&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;abgtt=6&amp;lmt=1794470412&amp;plat=3%3A16%2C4%3A16%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32%2C44%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fbekeiratsoftwares.com%2F&amp;pra=5&amp;aiof=14&amp;asro=0&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;uach=WyJXaW5kb3dzIiwiMTkuMC4wIiwieDg2IiwiIiwiMTU3LjAuODEwMy41MSIsbnVsbCwwLG51bGwsIjY0IixbWyJOb3QtQS5CcmFuZCIsIjk5LjAuMC4wIl0sWyJHb29nbGUgQ2hyb21lIiwiMTU3LjAuODEwMy41MSJdLFsiQ2hyb21pdW0iLCIxNTcuMC44MTAzLjUxIl1dLDBd&amp;dt=1794471641127&amp;bpp=5&amp;bdt=1395&amp;idt=325&amp;shv=r20261111&amp;mjsv=m202611060101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie_enabled=1&amp;eoidce=1&amp;nras=1&amp;correlator=1718556857575&amp;frm=20&amp;pv=2&amp;u_tz=120&amp;u_his=2&amp;u_h=864&amp;u_w=1536&amp;u_ah=864&amp;u_aw=1536&amp;u_cd=24&amp;u_sd=1.25&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1521&amp;bih=742&amp;scr_x=0&amp;scr_y=0&amp;eid=95404665%2C95408908%2C95409066%2C122882118%2C122882143%2C95405499&amp;oid=2&amp;pvsid=309713695920361&amp;tmod=1151777993&amp;uas=0&amp;nvt=2&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1536%2C0%2C1536%2C864%2C1536%2C742&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=364"
                 data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement"
-                data-load-complete="true"></iframe></div>
+                data-load-complete="true"></iframe>
+        </div>
     </ins><iframe src="https://supply.inmobicdn.net/template-rewrite/web-sdk/webSdkSignals/build_id-103/runtime.html"
         allow="autoplay; fullscreen" class="inmobi-runtime-iframe" style="display: none;"></iframe>
     <div id="inmobi-sdk-container" style="position: relative;"></div>
