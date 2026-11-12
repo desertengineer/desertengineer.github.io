@@ -1,9 +1,10 @@
 .hub-header {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
     text-align: center !important;
     margin: 0 !important;
-    top: 65px !important;
-    position: sticky !important;
-    z-index: 50 !important;
+    padding: 1.5rem 1rem !important;
 }
 
 .hub-header h1 {
@@ -13,7 +14,6 @@
     margin: 0 !important;
 }
 
-/* Mobile Responsive Adjustments */
 @media (max-width: 480px) {
     .hub-header h1 {
         font-size: 2rem !important;
