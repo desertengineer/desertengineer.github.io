@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 
 <head>
@@ -21,7 +21,9 @@
     <!-- Typography & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
 
@@ -30,7 +32,8 @@
 
     <!-- Monetization -->
     <meta name="google-adsense-account" content="ca-pub-2658659289706339">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2658659289706339"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
         wortise.init('a106ead9-c426-42c8-9963-76b53c9aa9de')
     </script>
@@ -40,17 +43,24 @@
             font-family: 'Inter', sans-serif;
             background-color: #0b0f19;
         }
-        h1, h2, h3, .font-poppins {
+
+        h1,
+        h2,
+        h3,
+        .font-poppins {
             font-family: 'Poppins', sans-serif;
         }
+
         .game-frame-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
             background: #000;
             border-radius: 1rem;
             overflow: hidden;
         }
+
         .game-frame-wrapper iframe {
             position: absolute;
             top: 0;
@@ -64,11 +74,12 @@
 
 <body class="text-gray-100 min-h-screen flex flex-col antialiased">
     <!-- Top Navigation Bar -->
-    <nav class="px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f] sticky top-0 z-50 shadow-md">
+    <nav
+        class="px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800/80 bg-[#12141f] sticky top-0 z-50 shadow-md">
         <a href="../index.html"
             class="flex items-center gap-3 text-2xl font-bold tracking-wider text-blue-400 hover:text-blue-300 transition-colors font-poppins">
-            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
-                width="45" height="45" class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10"
+            <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo" width="45" height="45"
+                class="w-[45px] h-[45px] object-contain rounded-lg bg-white/10"
                 onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
             Bekeirat Software
         </a>
@@ -103,24 +114,31 @@
     <main class="flex-grow w-full max-w-6xl mx-auto px-4 py-8 space-y-8" id="app-container">
         <div id="loading-message" class="flex flex-col items-center justify-center py-32">
             <i class="fa-solid fa-circle-notch fa-spin text-5xl text-blue-500 mb-6 drop-shadow-lg"></i>
-            <span class="text-2xl font-semibold font-poppins text-gray-300 tracking-wide">Loading Game Environment...</span>
+            <span class="text-2xl font-semibold font-poppins text-gray-300 tracking-wide">Loading Game
+                Environment...</span>
         </div>
-
+        <script defer="" src="https://app.inmobi.com/web-sdk?publisherId=aa246c5c4ccf40128ffe9929344209e7"
+            data-mode="auto" data-container="inmobi-ad-container">
+            </script>
         <div id="game-content" class="hidden space-y-6">
             <!-- Header Info -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#12141f] p-6 rounded-2xl border border-gray-800 shadow-xl">
+            <div
+                class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#12141f] p-6 rounded-2xl border border-gray-800 shadow-xl">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <span id="game-category-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-400/30">Arcade</span>
+                        <span id="game-category-badge"
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-400/30">Arcade</span>
                         <span id="game-tags-badge" class="text-xs text-gray-400 font-mono">#HTML5 #InstantPlay</span>
                     </div>
                     <h1 id="game-title" class="text-2xl md:text-4xl font-black text-white">Game Title</h1>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleFullscreen()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-blue-600 text-gray-200 hover:text-white border border-slate-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <button onclick="toggleFullscreen()"
+                        class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-blue-600 text-gray-200 hover:text-white border border-slate-700 text-sm font-semibold transition-all flex items-center gap-2">
                         <i class="fa-solid fa-expand"></i> Fullscreen
                     </button>
-                    <a href="./games.html" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-200 border border-slate-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <a href="./games.html"
+                        class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-200 border border-slate-700 text-sm font-semibold transition-all flex items-center gap-2">
                         <i class="fa-solid fa-arrow-left"></i> Back to Hub
                     </a>
                 </div>
@@ -194,7 +212,7 @@
                         gameData = parsed;
                     }
                 }
-            } catch (e) {}
+            } catch (e) { }
 
             // 2. Check localStorage catalogs
             if (!gameData && gameId) {
@@ -208,7 +226,7 @@
                             gameData = list.find(g => String(g.id) === String(gameId));
                             if (gameData) break;
                         }
-                    } catch (e) {}
+                    } catch (e) { }
                 }
             }
 
@@ -235,7 +253,7 @@
                             }
                         }
                     }
-                } catch (e) {}
+                } catch (e) { }
             }
 
             if (gameData) {
