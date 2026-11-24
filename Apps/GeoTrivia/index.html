@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#38bdf8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link id="dynamic-favicon" rel="icon" href="" />
+  <title>Geography Trivia - Bekeirat Software</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body class="landing-light-mode">
+  <div id="dynamic-bg-layer" class="dynamic-bg-layer" aria-hidden="true"></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <div id="safe-area-view" class="safe-area-view">
+    <!-- Side Drawer -->
+    <div id="drawer-backdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
+    <aside id="side-drawer" class="side-drawer" aria-label="Settings and Information">
+      <div class="drawer-header">
+        <h2 data-i18n="settingsTitle">SETTINGS &amp; INFO</h2>
+        <button id="close-drawer-btn" class="icon-btn focusable" aria-label="Close Menu">✕</button>
+      </div>
+
+      <div class="drawer-content">
+        <div class="control-group">
+          <div class="control-row">
+            <span data-i18n="sfxMute">SFX Audio</span>
+            <button id="sfx-mute-btn" class="toggle-btn focusable" aria-pressed="false">ON</button>
+          </div>
+          <div class="control-col">
+            <label for="sfx-volume-slider">
+              <span data-i18n="sfxVolume">SFX Volume</span>: <strong id="sfx-volume-val">80%</strong>
+            </label>
+            <input type="range" id="sfx-volume-slider" class="focusable" min="0" max="100" value="80" />
+          </div>
+
+          <div class="control-row">
+            <span data-i18n="ambientMute">Ambient Music</span>
+            <button id="ambient-mute-btn" class="toggle-btn focusable" aria-pressed="false">ON</button>
+          </div>
+          <div class="control-col">
+            <label for="ambient-volume-slider">
+              <span data-i18n="ambientVolume">Ambient Volume</span>: <strong id="ambient-volume-val">45%</strong>
+            </label>
+            <input type="range" id="ambient-volume-slider" class="focusable" min="0" max="100" value="45" />
+          </div>
+        </div>
+
+        <hr class="drawer-divider" />
+
+        <nav class="drawer-links">
+          <button class="drawer-link-btn focusable" data-external-url="https://bekeiratsoftwares.com/pages/about.html">
+            <span data-i18n="aboutUs">About Us</span>
+            <span>↗</span>
+          </button>
+          <button class="drawer-link-btn focusable" data-external-url="https://bekeiratsoftwares.com/privacy">
+            <span data-i18n="privacyPolicy">Privacy Policy</span>
+            <span>↗</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="drawer-footer">
+        <small>Keyboard • Mouse • Xbox Gamepad</small>
+      </div>
+    </aside>
+
+    <!-- Language Modal -->
+    <div id="language-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card crystallic-border">
+        <div class="modal-header">
+          <h3 data-i18n="selectLanguage">Select Language</h3>
+          <button id="close-lang-btn" class="icon-btn focusable" aria-label="Close Language Picker">✕</button>
+        </div>
+        <div id="language-options-list" class="language-options-list"></div>
+      </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div id="notifications-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card crystallic-border">
+        <div class="modal-header">
+          <h3 data-i18n="notifications">NOTIFICATIONS</h3>
+          <button id="close-notif-btn" class="icon-btn focusable" aria-label="Close Notifications">✕</button>
+        </div>
+        <div class="modal-body" id="notif-list">
+          <div class="notif-item">🌍 Multi-topic level progression (Levels 1–10) active.</div>
+          <div class="notif-item">🏆 Earn trophies &amp; bonus points for clearing all topics per level.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad / Reward Toast Banner -->
+    <div id="toast-banner" class="toast-banner hidden" role="status" aria-live="polite"></div>
+
+    <!-- Screen 1: Home Screen (No bottom banner ad) -->
+    <section id="screen-home" class="screen active" aria-label="Home Screen">
+      <header class="top-nav-bar">
+        <button id="open-drawer-btn" class="icon-btn crystal-chip focusable" aria-label="Open Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <button id="lang-flag-btn" class="lang-flag-btn crystal-chip focusable" aria-label="Change Language">
+          <img id="active-lang-flag-img" src="" alt="Active Language Flag" />
+          <span id="active-lang-code">EN</span>
+        </button>
+
+        <button id="open-notif-btn" class="icon-btn crystal-chip focusable" aria-label="Notifications">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+      </header>
+
+      <main class="home-main">
+        <div class="hero-container">
+          <div class="hero-icon-wrapper">
+            <img id="hero-app-icon" src="" alt="Geography Trivia App Icon" width="512" height="512" />
+          </div>
+          <h1 id="home-app-title" class="game-title" data-i18n="appTitle">GEOGRAPHY TRIVIA</h1>
+        </div>
+
+        <nav class="home-menu-buttons">
+          <button class="crystal-3d-btn btn-play focusable" data-nav="screen-play">
+            <span class="btn-icon">▶</span>
+            <span class="btn-label" data-i18n="play">PLAY</span>
+          </button>
+          <button class="crystal-3d-btn btn-bonus focusable" data-nav="screen-bonus">
+            <span class="btn-icon">★</span>
+            <span class="btn-label" data-i18n="bonusGames">BONUS GAMES</span>
+          </button>
+          <button class="crystal-3d-btn btn-missions focusable" data-nav="screen-missions">
+            <span class="btn-icon">🎯</span>
+            <span class="btn-label" data-i18n="missions">MISSIONS</span>
+          </button>
+          <button class="crystal-3d-btn btn-leaderboard focusable" data-nav="screen-leaderboard">
+            <span class="btn-icon">🏆</span>
+            <span class="btn-label" data-i18n="leaderboard">LEADERBOARD</span>
+          </button>
+        </nav>
+      </main>
+
+      <footer class="app-footer" data-i18n="footer">
+        Bekeirat Software - 2026
+      </footer>
+    </section>
+
+    <!-- Screen 2: Play Screen -->
+    <section id="screen-play" class="screen hidden" aria-label="Play Screen">
+      <header class="sub-header">
+        <button class="back-btn crystal-chip focusable" data-nav="screen-home">
+          <span>←</span>
+          <span data-i18n="home">HOME</span>
+        </button>
+
+        <button id="open-achievements-btn" class="play-stats crystal-chip accent-blue focusable" title="Open Achievements">
+          <span><span data-i18n="level">LEVEL</span>: <strong id="play-level">1</strong></span>
+          <span class="divider">|</span>
+          <span><span data-i18n="score">SCORE</span>: <strong id="play-score">50</strong></span>
+          <span class="badge-tag">🏅</span>
+        </button>
+
+        <div class="topic-pill crystal-chip accent-yellow" id="play-topic-badge">CAPITALS</div>
+      </header>
+
+      <main class="play-main">
+        <div id="quiz-loader" class="loader hidden" data-i18n="loadingQuiz">Loading Trivia Data...</div>
+        <article id="quiz-card" class="quiz-card soft-palette-card">
+          <div id="question-square-box" class="question-square-box">
+            <img id="question-image" src="" alt="Geography Clue" width="600" height="600" decoding="sync" />
+          </div>
+
+          <h2 id="question-prompt" class="question-prompt" data-i18n="defaultPrompt">Identify this geography feature:</h2>
+
+          <div class="choices-wrapper">
+            <div class="choices-toolbar">
+              <button id="level-progress-btn" type="button" class="level-progress-btn focusable" aria-live="polite">
+                Level 1: 0/0
+              </button>
+              <button id="tv-bypass-btn" type="button" class="tv-icon-btn focusable" title="Watch Video to Bypass Question" aria-label="Watch Video to Bypass Question">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <rect x="2" y="6" width="20" height="14" rx="2"></rect>
+                  <polyline points="8 2 12 6 16 2"></polyline>
+                  <polygon points="10 10 15 13 10 16"></polygon>
+                </svg>
+                <span data-i18n="tvBypass">SKIP</span>
+              </button>
+            </div>
+            <div id="choices-grid" class="choices-grid"></div>
+          </div>
+        </article>
+      </main>
+    </section>
+
+    <!-- Screen 3: Bonus Games (2x6 Gold Theme) -->
+    <section id="screen-bonus" class="screen hidden theme-gold" aria-label="Bonus Games Screen">
+      <header class="sub-header">
+        <button class="back-btn gold-chip focusable" data-nav="screen-home">
+          <span>←</span>
+          <span data-i18n="home">HOME</span>
+        </button>
+        <h2 class="screen-heading gold-text" data-i18n="bonusGames">BONUS GAMES</h2>
+        <span class="gold-chip">12</span>
+      </header>
+      <main class="scroll-main">
+        <div id="bonus-grid" class="bonus-grid-2x6"></div>
+      </main>
+    </section>
+
+    <!-- Screen 4: Missions (1x6 Cyber-Blue Theme) -->
+    <section id="screen-missions" class="screen hidden theme-cyber" aria-label="Missions Screen">
+      <header class="sub-header">
+        <button class="back-btn cyber-chip focusable" data-nav="screen-home">
+          <span>←</span>
+          <span data-i18n="home">HOME</span>
+        </button>
+        <h2 class="screen-heading cyber-text" data-i18n="missions">MISSIONS</h2>
+        <span class="cyber-chip" id="missions-progress-badge">0 / 6</span>
+      </header>
+      <main class="scroll-main">
+        <div id="missions-list" class="missions-grid-1x6"></div>
+      </main>
+    </section>
+
+    <!-- Screen 5: Leaderboard -->
+    <section id="screen-leaderboard" class="screen hidden" aria-label="Leaderboard Screen">
+      <header class="sub-header">
+        <button class="back-btn crystal-chip focusable" data-nav="screen-home">
+          <span>←</span>
+          <span data-i18n="home">HOME</span>
+        </button>
+        <h2 class="screen-heading" data-i18n="leaderboard">LEADERBOARD</h2>
+        <button id="reset-scores-btn" class="icon-btn crystal-chip focusable" title="Reset Scores">↻</button>
+      </header>
+      <main class="scroll-main">
+        <div class="leaderboard-summary soft-palette-card">
+          <div>
+            <small data-i18n="personalBest">YOUR BEST SCORE</small>
+            <div id="lb-personal-best" class="big-stat">50</div>
+          </div>
+          <div>
+            <small data-i18n="maxLevel">MAX LEVEL REACHED</small>
+            <div id="lb-max-level" class="big-stat">1</div>
+          </div>
+        </div>
+        <div id="leaderboard-list" class="leaderboard-list"></div>
+      </main>
+    </section>
+
+    <!-- Screen 6: Achievements Screen -->
+    <section id="screen-achievements" class="screen hidden" aria-label="Achievements Screen">
+      <header class="sub-header">
+        <button class="back-btn crystal-chip focusable" data-nav="screen-play">
+          <span>←</span>
+          <span data-i18n="backToPlay">PLAY</span>
+        </button>
+        <h2 class="screen-heading soft-blue-text" data-i18n="achievementsTitle">ACHIEVEMENTS</h2>
+        <button id="open-rewards-btn" class="rewards-nav-btn focusable">
+          <span>🎁</span>
+          <span data-i18n="rewardAwards">REWARD AWARDS</span>
+        </button>
+      </header>
+      <main class="scroll-main">
+        <div class="achievements-stats soft-palette-card">
+          <div>
+            <small data-i18n="score">SCORE</small>
+            <div id="ach-current-score" class="big-stat">50</div>
+          </div>
+          <div>
+            <small data-i18n="trophiesEarned">TROPHIES</small>
+            <div id="ach-trophy-count" class="big-stat accent-green-text">0 / 10</div>
+          </div>
+          <div>
+            <small data-i18n="bonusEarned">LEVEL BONUS</small>
+            <div id="ach-bonus-total" class="big-stat accent-orange-text">0</div>
+          </div>
+        </div>
+        <div id="trophies-grid" class="trophies-grid"></div>
+      </main>
+    </section>
+
+    <!-- Screen 7: Reward Awards Screen -->
+    <section id="screen-rewards" class="screen hidden" aria-label="Reward Awards Screen">
+      <header class="sub-header">
+        <button class="back-btn crystal-chip focusable" data-nav="screen-achievements">
+          <span>←</span>
+          <span data-i18n="achievementsTitle">ACHIEVEMENTS</span>
+        </button>
+        <h2 class="screen-heading soft-yellow-text" data-i18n="rewardAwards">REWARD AWARDS</h2>
+        <button id="tv-topup-btn" type="button" class="tv-icon-btn focusable" title="Watch Video to Top Up Score" aria-label="Watch Video to Top Up Score">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="2" y="6" width="20" height="14" rx="2"></rect>
+            <polyline points="8 2 12 6 16 2"></polyline>
+            <polygon points="10 10 15 13 10 16"></polygon>
+          </svg>
+          <span data-i18n="tvTopUp">+PTS</span>
+        </button>
+      </header>
+      <main class="scroll-main">
+        <div class="rewards-banner soft-palette-card">
+          <p id="rewards-pool-info" class="rewards-pool-info"></p>
+          <div class="rewards-score-pill">
+            <span data-i18n="score">SCORE</span>: <strong id="rewards-current-score">50</strong>
+          </div>
+        </div>
+        <div id="awards-grid" class="awards-grid"></div>
+      </main>
+    </section>
+
+    <!-- Shared Bottom Banner Ad Slot (Visible on all screens except Home) -->
+    <footer id="bottom-banner-ad-slot" class="bottom-banner-ad-slot hidden" aria-label="Banner Advertisement">
+      <div id="banner-ad-container" class="banner-ad-container">
+        <span class="banner-ad-label">BANNER AD</span>
+        <span id="banner-ad-placement-text" class="banner-ad-placement">320×50 / Responsive Ad Slot</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
