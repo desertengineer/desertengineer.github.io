@@ -1,9 +1,9 @@
-const CACHE_NAME = 'bekeirat-geo-trivia-4lang-v1';
+const CACHE_NAME = 'bekeirat-geo-trivia-4lang-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',
-  './styles.css',
-  './app.js'
+  './index.css',
+  './index.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -24,6 +24,23 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  const isJson = event.request.url.endsWith('.json');
+
+  if (isJson) {
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          if (res && res.status === 200) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {

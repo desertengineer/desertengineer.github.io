@@ -88,6 +88,8 @@
       backgrounds: 'Commons/Backgrounds',
       langFlags: 'Commons/LangFlags',
       achievements: 'Commons/Achievements',
+      bonusGamesIcons: 'Commons/BonusGamesIcons',
+      missionsIcons: 'Commons/MissionsIcons',
       topics: 'Topics'
     },
     assets: {
@@ -330,6 +332,40 @@
 
   function encodeSeg(seg) {
     return encodeURIComponent(seg);
+  }
+
+  function getAppFileUrl(fileName) {
+    const appDir = appConfig.directories?.app || 'Geography_Trivia_App';
+    const segments = appDir.split('/').filter(Boolean).map(encodeSeg).join('/');
+    return `${REPO_BASE}/${segments}/${encodeSeg(fileName)}`;
+  }
+
+  function getBonusGameIconUrl(imageField, index = 0) {
+    const fallbackFile = `MyGame${index + 1}.jpg`;
+    const candidate = imageField || fallbackFile;
+    if (/^https?:\/\//i.test(candidate) || candidate.startsWith('./') || candidate.startsWith('/') || candidate.startsWith('data:')) {
+      return candidate;
+    }
+    const iconsDir = appConfig.directories?.bonusGamesIcons || 'Commons/BonusGamesIcons';
+    const segments = iconsDir.split('/').filter(Boolean).map(encodeSeg).join('/');
+    return `${REPO_BASE}/${segments}/${encodeSeg(candidate)}`;
+  }
+
+  function getMissionIconUrl(imageField, index = 0) {
+    const fallbackFile = `mission_${index + 1}.png`;
+    const candidate = imageField || fallbackFile;
+    if (/^https?:\/\//i.test(candidate) || candidate.startsWith('./') || candidate.startsWith('/') || candidate.startsWith('data:')) {
+      return candidate;
+    }
+    const iconsDir = appConfig.directories?.missionsIcons || 'Commons/MissionsIcons';
+    const segments = iconsDir.split('/').filter(Boolean).map(encodeSeg).join('/');
+    return `${REPO_BASE}/${segments}/${encodeSeg(candidate)}`;
+  }
+
+  function resolveLocalizedField(val, lang = activeLang, fallback = '') {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    return val[lang] || val.En || Object.values(val).find((v) => Boolean(v)) || fallback;
   }
 
   function getCommonsAudioUrl(fileName) {
@@ -583,6 +619,9 @@
     flagImg.src = getLangFlagUrl(activeLang);
     document.getElementById('active-lang-code').textContent = activeLang.toUpperCase();
 
+    if (!document.getElementById('screen-bonus').classList.contains('hidden')) {
+      initBonusScreen();
+    }
     renderMissionsScreen();
     renderAchievementsScreen();
     renderRewardsScreen();
@@ -918,38 +957,85 @@
   }
 
   /* ============================================================================
-   * BONUS GAMES, MISSIONS & LEADERBOARD
+   * BONUS GAMES & MISSIONS (LOADED FROM Geography_Trivia_App/ & Commons/)
    * ========================================================================== */
+  let loadedMissionsCatalog = null;
+
   async function initBonusScreen() {
     const grid = document.getElementById('bonus-grid');
+    if (!grid) return;
     grid.innerHTML = '';
 
-    const primaryTopic = appConfig.selectedTopics?.[0] || 'landmarks';
-    const url = `${REPO_BASE}/${appConfig.directories.topics}/${primaryTopic}/bonus_games.json`;
-    const fetched = await safeFetchJson(url, []);
-    const list = Array.isArray(fetched) ? fetched.slice(0, 12) : [];
+    const url = getAppFileUrl('bonus_games.json');
+    const fetched = await safeFetchJson(url, null);
+
+    const rawGames = Array.isArray(fetched)
+      ? fetched
+      : Array.isArray(fetched?.games)
+        ? fetched.games
+        : [];
+
+    const list = rawGames.slice(0, 12);
 
     for (let i = 0; i < 12; i++) {
-      const game = list[i] || { title: `Bonus ${i + 1}`, image: '', url: 'https://bekeiratsoftwares.com' };
+      const game = list[i] || {
+        id: `bonus-placeholder-${i + 1}`,
+        title: `${t('bonusGames')} #${i + 1}`,
+        description: '',
+        image: `MyGame${i + 1}.jpg`,
+        url: '',
+        isPlaceholder: true
+      };
+
       const card = document.createElement('div');
       card.className = 'bonus-card focusable';
       card.tabIndex = 0;
 
-      const img = document.createElement('img');
-      img.alt = game.title || '';
-      if (game.image) img.src = game.image;
+      // Keep original game title untranslated
+      const gameTitle = typeof game.title === 'string'
+        ? game.title
+        : (game.title?.En || `${t('bonusGames')} #${i + 1}`);
 
-      const title = document.createElement('div');
-      title.className = 'bonus-card-title';
-      title.textContent = game.title || `#${i + 1}`;
+      // Translate only the short description
+      const gameDesc = resolveLocalizedField(game.description || game.shortDescription, activeLang, '');
+      const imgSrc = getBonusGameIconUrl(game.image, i);
 
-      card.appendChild(img);
-      card.appendChild(title);
+      const topRow = document.createElement('div');
+      topRow.className = 'bonus-card-top';
+
+      const imgBox = document.createElement('div');
+      imgBox.className = 'bonus-card-img-box';
+      if (imgSrc) {
+        const img = document.createElement('img');
+        img.alt = gameTitle;
+        img.loading = 'lazy';
+        img.src = imgSrc;
+        img.onerror = () => {
+          img.style.display = 'none';
+        };
+        imgBox.appendChild(img);
+      }
+
+      const descBox = document.createElement('div');
+      descBox.className = 'bonus-card-desc-box';
+      descBox.textContent = gameDesc;
+
+      topRow.appendChild(imgBox);
+      topRow.appendChild(descBox);
+
+      const titleBar = document.createElement('div');
+      titleBar.className = 'bonus-card-title-bar';
+      titleBar.textContent = gameTitle;
+
+      card.appendChild(topRow);
+      card.appendChild(titleBar);
 
       const openGame = () => {
+        if (game.isPlaceholder || !game.url) return;
         markMissionComplete('m2');
-        openExternalLink(game.url || 'https://bekeiratsoftwares.com');
+        openExternalLink(game.url);
       };
+
       card.addEventListener('click', openGame);
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -962,13 +1048,68 @@
     }
   }
 
+  async function loadMissionsJson() {
+    const url = getAppFileUrl('missions.json');
+    const fetched = await safeFetchJson(url, null);
+    loadedMissionsCatalog = fetched;
+    return fetched;
+  }
+
+  function normalizeMissionEntries(rawMissions) {
+    const sourceList = Array.isArray(rawMissions)
+      ? rawMissions
+      : Array.isArray(rawMissions?.missions)
+        ? rawMissions.missions
+        : [];
+
+    const baseItems = sourceList.length > 0 ? sourceList.slice(0, 6) : DeviceVars.missions.slice(0, 6);
+
+    return baseItems.map((item, idx) => {
+      const id = item.id || `m${idx + 1}`;
+      const savedState = DeviceVars.missions.find((m) => m.id === id);
+      const completed = Boolean(savedState?.completed ?? item.completed);
+      const localizedTitle = item.title
+        ? resolveLocalizedField(item.title, activeLang, `Mission ${idx + 1}`)
+        : t(item.titleKey || `mission${idx + 1}`);
+      const localizedDesc = item.description
+        ? resolveLocalizedField(item.description, activeLang, '')
+        : '';
+
+      return {
+        id,
+        title: localizedTitle,
+        description: localizedDesc,
+        image: item.image || `mission_${idx + 1}.png`,
+        url: item.url || '',
+        targetScreen: item.targetScreen || 'screen-play',
+        completed
+      };
+    });
+  }
+
   function markMissionComplete(id) {
-    const m = DeviceVars.missions.find((item) => item.id === id);
-    if (m && !m.completed) {
-      m.completed = true;
+    let changed = false;
+
+    const existing = DeviceVars.missions.find((item) => item.id === id);
+    if (existing && !existing.completed) {
+      existing.completed = true;
+      changed = true;
+    } else if (!existing) {
+      DeviceVars.missions.push({ id, titleKey: id, completed: true });
+      changed = true;
+    }
+
+    if (changed) {
       saveDeviceVars();
       renderMissionsScreen();
     }
+  }
+
+  async function initMissionsScreen() {
+    if (!loadedMissionsCatalog) {
+      await loadMissionsJson();
+    }
+    renderMissionsScreen();
   }
 
   function renderMissionsScreen() {
@@ -976,22 +1117,35 @@
     if (!list) return;
     list.innerHTML = '';
 
-    const items = DeviceVars.missions.slice(0, 6);
+    const items = normalizeMissionEntries(loadedMissionsCatalog);
     const doneCount = items.filter((m) => m.completed).length;
-    document.getElementById('missions-progress-badge').textContent = `${doneCount} / 6`;
+    const badgeEl = document.getElementById('missions-progress-badge');
+    if (badgeEl) {
+      badgeEl.textContent = `${doneCount} / ${items.length}`;
+    }
 
-    items.forEach((m) => {
+    items.forEach((m, idx) => {
       const strip = document.createElement('div');
       strip.className = 'mission-strip';
 
       const thumb = document.createElement('img');
       thumb.className = 'mission-thumb';
-      thumb.alt = t(m.titleKey);
+      thumb.alt = m.title;
+      const thumbSrc = getMissionIconUrl(m.image, idx);
+      if (thumbSrc) {
+        thumb.src = thumbSrc;
+        thumb.onerror = () => {
+          thumb.style.display = 'none';
+        };
+      } else {
+        thumb.style.display = 'none';
+      }
 
       const info = document.createElement('div');
       info.className = 'mission-info';
       info.innerHTML = `
-        <div class="mission-title">${t(m.titleKey)}</div>
+        <div class="mission-title">${m.title}</div>
+        ${m.description ? `<div class="mission-desc">${m.description}</div>` : ''}
         <div class="mission-status">${m.completed ? t('statusCompleted') : t('statusPending')}</div>
       `;
 
@@ -1000,7 +1154,12 @@
       btn.textContent = m.completed ? t('missionDone') : t('missionGo');
       btn.addEventListener('click', () => {
         playSfx(560, 'sine', 0.1);
-        if (!m.completed) navigateTo('screen-play');
+        if (m.completed) return;
+        if (m.url) {
+          openExternalLink(m.url);
+        } else if (m.targetScreen) {
+          navigateTo(m.targetScreen);
+        }
       });
 
       strip.appendChild(thumb);
@@ -1010,6 +1169,9 @@
     });
   }
 
+  /* ============================================================================
+   * LEADERBOARD SCREEN
+   * ========================================================================== */
   function renderLeaderboardScreen() {
     saveDeviceVars();
     document.getElementById('lb-personal-best').textContent = DeviceVars.highScore;
@@ -1080,7 +1242,7 @@
     } else if (screenId === 'screen-bonus') {
       initBonusScreen();
     } else if (screenId === 'screen-missions') {
-      renderMissionsScreen();
+      initMissionsScreen();
     } else if (screenId === 'screen-leaderboard') {
       markMissionComplete('m3');
       renderLeaderboardScreen();
@@ -1334,6 +1496,7 @@
     updateHud();
 
     buildLevelPoolsAndStart();
+    loadMissionsJson();
 
     requestAnimationFrame(loop120Fps);
 
