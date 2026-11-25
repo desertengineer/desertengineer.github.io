@@ -542,7 +542,7 @@
     ambientAudio.volume = Math.max(0, Math.min(1, DeviceVars.ambientVolume / 100));
 
     if (!DeviceVars.ambientMuted && ambientAudio.src) {
-      ambientAudio.play().catch(() => {});
+      ambientAudio.play().catch(() => { });
     } else {
       ambientAudio.pause();
     }
@@ -564,7 +564,7 @@
         ambientAudio.play().then(() => {
           window.removeEventListener('pointerdown', unlock);
           window.removeEventListener('keydown', unlock);
-        }).catch(() => {});
+        }).catch(() => { });
       }
     };
     window.addEventListener('pointerdown', unlock);
@@ -934,6 +934,17 @@
     }
   }
 
+  function getRewardIconUrl(index = 0, imageField = '') {
+    const fallbackFile = `reward_${index + 1}.png`;
+    const candidate = imageField || fallbackFile;
+    if (/^https?:\/\//i.test(candidate) || candidate.startsWith('./') || candidate.startsWith('/') || candidate.startsWith('data:')) {
+      return candidate;
+    }
+    const rewardsDir = appConfig.directories?.rewards || 'Commons/Rewards';
+    const segments = rewardsDir.split('/').filter(Boolean).map(encodeSeg).join('/');
+    return `${REPO_BASE}/${segments}/${encodeSeg(candidate)}`;
+  }
+
   function renderRewardsScreen() {
     const grid = document.getElementById('awards-grid');
     if (!grid) return;
@@ -943,15 +954,23 @@
       `${WEEKLY_REWARD_POOL.periodLabel} (Top ${WEEKLY_REWARD_POOL.topPoolSize}) — Reach score threshold & enter top pool`;
 
     grid.innerHTML = '';
-    WEEKLY_REWARD_POOL.awards.forEach((aw) => {
+    WEEKLY_REWARD_POOL.awards.forEach((aw, idx) => {
       const eligible = DeviceVars.currentScore >= aw.minScore;
+      const iconUrl = getRewardIconUrl(idx, aw.image);
       const card = document.createElement('div');
       card.className = `award-card ${eligible ? 'eligible' : ''}`;
       card.innerHTML = `
+        <img class="reward-icon" src="${iconUrl}" alt="${aw.name}" loading="eager" decoding="async" />
         <div class="award-title">${aw.name}</div>
         <div class="award-req">${aw.tier} • ${aw.minScore} ${t('score')}</div>
         <small>${eligible ? '✓ Threshold Met' : `Need +${aw.minScore - DeviceVars.currentScore}`}</small>
       `;
+      const imgEl = card.querySelector('.reward-icon');
+      if (imgEl) {
+        imgEl.onerror = () => {
+          imgEl.style.display = 'none';
+        };
+      }
       grid.appendChild(card);
     });
   }
@@ -1501,7 +1520,7 @@
     requestAnimationFrame(loop120Fps);
 
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js').catch(() => { });
     }
   }
 
