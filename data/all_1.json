@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "GM15490",
     "Title": "Roll The Ball 2",
     "Description": "One of the best brain storming puzzle game / puzzles games An addictive slide puzzle game which refresh your brain.A classic challenging puzzle game for people of all ages.This game will train your visual memory, intelligence, and mental speed and help you solve puzzles more easily.Let your brain learn and develop problem-solving skills with this game",
@@ -16,7 +17,8 @@
     "Embed": "<iframe src='https://html5.gamemonetize.co/3mah9ucb7f4d8ac4y7i4wr5crp35hbzk/' allow='fullscreen; accelerometer; camera; clipboard-read; clipboard-write; screen-wake-lock; speaker-selection; web-share; geolocation; gyroscope; microphone; xr-spatial-tracking; autoplay; encrypted-media; picture-in-picture; payment; publickey-credentials-get; publickey-credentials-create; storage-access; attribution-reporting; browsing-topics' frameborder='0' width='720' height='1280'></iframe>",
     "Class": "Newest",
     "Index": null
-  }, {
+  }, 
+  {
     "id": "GM14788",
     "Title": "Woodoku Online",
     "Description": "Woodoku is a casual game. Your goal is to put the blocks into the box and fill them and then eliminate them after filling them horizontally or vertically, testing your patience and carefulness. Consider whether the rest of the material can be filled later, and there is enough space for the next round of material. There are three modes to choose from. Have a good time.",
@@ -91,7 +93,7 @@
   }, {
     "id": "GM14072",
     "Title": "word search master",
-    "Description": "word search is an amazing puzzle game which can help you to improve your grammar skills to another level.",
+    "Description": "Word search is an amazing puzzle game which can help you to improve your grammar skills to another level.",
     "Instructions": "try to guess right word by link each character with other",
     "Play": "https://html5.gamemonetize.co/u7ti9w3gyptxe28lofyj630xvcx1kzge/",
     "Url": "https://html5.gamemonetize.co/u7ti9w3gyptxe28lofyj630xvcx1kzge/",
@@ -145,7 +147,7 @@
   },  {
     "id": "GM13241",
     "Title": "Math Kids Game",
-    "Description": "Math Kids is a free learning game designed to teach children numbers and mathematics. your kids will love to play, and the more they do the better their math skills will become ,",
+    "Description": "Math Kids is a free learning game designed to teach children numbers and mathematics. Your kids will love to play, and the more they do the better their math skills will become.",
     "Instructions": "Using mouse in desktop or touch in mobile device to chose the right answer ",
     "Play": "https://html5.gamemonetize.co/fyml8cprx4ps40odrt8nfycr9oaypnr4/",
     "Url": "https://html5.gamemonetize.co/fyml8cprx4ps40odrt8nfycr9oaypnr4/",
