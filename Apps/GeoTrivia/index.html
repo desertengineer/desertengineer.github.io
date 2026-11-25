@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#38bdf8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link id="dynamic-favicon" rel="icon" href="" />
   <title>Geography Trivia - Bekeirat Software</title>
   <link rel="stylesheet" href="index.css" />
+
+  <!-- 3rd party monetization-->
   <script type="text/javascript" async src="https://cdn.resources.wortise.com/sdk/web/web-sdk.js">
     wortise.init('a106ead9-c426-42c8-9963-76b53c9aa9de')
-</script>
+  </script>
+  <meta name='admaven-placement' content=BqHw9qTa6>
+  <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
+
 <body class="landing-light-mode">
   <div id="dynamic-bg-layer" class="dynamic-bg-layer" aria-hidden="true"></div>
   <canvas id="bg-canvas"></canvas>
@@ -164,7 +171,8 @@
           <span data-i18n="home">HOME</span>
         </button>
 
-        <button id="open-achievements-btn" class="play-stats crystal-chip accent-blue focusable" title="Open Achievements">
+        <button id="open-achievements-btn" class="play-stats crystal-chip accent-blue focusable"
+          title="Open Achievements">
           <span><span data-i18n="level">LEVEL</span>: <strong id="play-level">1</strong></span>
           <span class="divider">|</span>
           <span><span data-i18n="score">SCORE</span>: <strong id="play-score">50</strong></span>
@@ -181,14 +189,16 @@
             <img id="question-image" src="" alt="Geography Clue" width="600" height="600" decoding="sync" />
           </div>
 
-          <h2 id="question-prompt" class="question-prompt" data-i18n="defaultPrompt">Identify this geography feature:</h2>
+          <h2 id="question-prompt" class="question-prompt" data-i18n="defaultPrompt">Identify this geography feature:
+          </h2>
 
           <div class="choices-wrapper">
             <div class="choices-toolbar">
               <button id="level-progress-btn" type="button" class="level-progress-btn focusable" aria-live="polite">
                 Level 1: 0/0
               </button>
-              <button id="tv-bypass-btn" type="button" class="tv-icon-btn focusable" title="Watch Video to Bypass Question" aria-label="Watch Video to Bypass Question">
+              <button id="tv-bypass-btn" type="button" class="tv-icon-btn focusable"
+                title="Watch Video to Bypass Question" aria-label="Watch Video to Bypass Question">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <rect x="2" y="6" width="20" height="14" rx="2"></rect>
                   <polyline points="8 2 12 6 16 2"></polyline>
@@ -298,7 +308,8 @@
           <span data-i18n="achievementsTitle">ACHIEVEMENTS</span>
         </button>
         <h2 class="screen-heading soft-yellow-text" data-i18n="rewardAwards">REWARD AWARDS</h2>
-        <button id="tv-topup-btn" type="button" class="tv-icon-btn focusable" title="Watch Video to Top Up Score" aria-label="Watch Video to Top Up Score">
+        <button id="tv-topup-btn" type="button" class="tv-icon-btn focusable" title="Watch Video to Top Up Score"
+          aria-label="Watch Video to Top Up Score">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <rect x="2" y="6" width="20" height="14" rx="2"></rect>
             <polyline points="8 2 12 6 16 2"></polyline>
@@ -318,15 +329,24 @@
       </main>
     </section>
 
-    <!-- Shared Bottom Banner Ad Slot (Visible on all screens except Home) -->
+    <!-- Shared Bottom Banner Ad Slots (Visible on all screens except Home) -->
     <footer id="bottom-banner-ad-slot" class="bottom-banner-ad-slot hidden" aria-label="Banner Advertisement">
       <div id="banner-ad-container" class="banner-ad-container">
         <span class="banner-ad-label">AD</span>
-        <div id="wortise:BANNER_ID" style="min-width: 300px; min-height: 100px;"></div> 
+        <div id="wortise:BANNER_ID" style="min-width: 300px; min-height: 100px;"></div>
+
       </div>
     </footer>
   </div>
 
   <script src="index.js"></script>
+  <!-- 3rd party monetization scripts -->
+  <script type="text/javascript">
+    aclib.runAutoTag({
+      zoneId: 'bbvms7rm5n',
+    });
+  </script>
+
 </body>
+
 </html>
