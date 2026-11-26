@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>Game Details | Bekeirat Software</title>
+
+  <meta id="meta-description" name="description"
+    content="Play games designed and developed in-house by Bekeirat Software.">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/Bekeirat-Software-120x120.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/Bekeirat-Software-120x120.png">
+  <link rel="shortcut icon" href="../assets/Bekeirat-Software-120x120.png">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+
+  <link rel="canonical" href="https://bekeiratsoftwares.com/pages/bs-game.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/index.css">
+
+  <style>
+    .snap-slider {
+      display: flex !important;
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+      scroll-behavior: smooth !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+    }
+
+    .snap-slider::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    .slider-item {
+      flex: 0 0 100% !important;
+      scroll-snap-align: center !important;
+    }
+
+    @keyframes goldGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgba(234, 179, 8, 0.9);
+        transform: scale(1.02);
+      }
+    }
+
+    .animate-gold-glow {
+      animation: goldGlow 2s infinite ease-in-out;
+    }
+
+    #bs-play-stage:fullscreen {
+      border-radius: 0;
+      border: none;
+      max-width: none;
+    }
+  </style>
+</head>
+
+<body class="bg-[#0b0f19] text-gray-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- Unified Navigation Bar -->
+  <nav
+    class="navbar px-4 md:px-8 py-4 flex flex-wrap items-center justify-between border-b border-gray-800 bg-[#12141f] sticky top-0 z-50 shadow-md">
+    <a href="../index.html"
+      class="flex items-center gap-3 text-2xl font-bold tracking-wider text-indigo-400 hover:text-indigo-300 transition-colors">
+      <img src="../assets/Bekeirat-Software-120x120.png" alt="Bekeirat Software Logo"
+        class="w-[50px] h-[50px] object-contain rounded-lg bg-white/10"
+        onerror="this.src='https://placehold.co/120x120/1e293b/60a5fa?text=BS'">
+      Bekeirat Software
+    </a>
+
+    <button id="hamburger-btn" class="md:hidden text-white focus:outline-none hover:text-indigo-400 transition-colors"
+      aria-label="Toggle Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+
+    <div class="hidden md:flex space-x-2 items-center">
+      <a href="../index.html" class="nav-btn px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-indigo-600 hover:text-white transition-all">Home</a>
+      <a href="./about.html" class="nav-btn px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-indigo-600 hover:text-white transition-all">About Us</a>
+      <a href="./games.html" class="nav-btn px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-indigo-600 hover:text-white transition-all">Games</a>
+      <a href="./original-games.html" class="nav-btn px-4 py-2 rounded-lg font-bold bg-indigo-600 text-white shadow-md">Original Games</a>
+      <a href="./contact us.html" class="nav-btn px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-indigo-600 hover:text-white transition-all">Contacts</a>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu-container hidden md:hidden w-full mt-4 pb-2 border-t border-gray-800">
+      <nav class="flex flex-col space-y-1">
+        <a href="../index.html" class="mobile-btn px-4 py-2.5 text-gray-300 hover:bg-gray-800 rounded-lg">Home</a>
+        <a href="./about.html" class="mobile-btn px-4 py-2.5 text-gray-300 hover:bg-gray-800 rounded-lg">About Us</a>
+        <a href="./games.html" class="mobile-btn px-4 py-2.5 text-gray-300 hover:bg-gray-800 rounded-lg">Games</a>
+        <a href="./original-games.html" class="mobile-btn px-4 py-2.5 text-indigo-400 font-bold bg-gray-800/60 rounded-lg">Original Games</a>
+        <a href="./contact us.html" class="mobile-btn px-4 py-2.5 text-gray-300 hover:bg-gray-800 rounded-lg">Contacts</a>
+      </nav>
+    </div>
+  </nav>
+
+  <main id="main-content" class="flex-1 max-w-[1400px] w-full mx-auto px-4 md:px-8 py-8 space-y-8">
+
+    <!-- Loading state -->
+    <div id="bs-game-loading" class="flex flex-col items-center justify-center py-32">
+      <i class="fa-solid fa-circle-notch fa-spin text-5xl text-indigo-500 mb-6 drop-shadow-lg"></i>
+      <span class="text-xl font-semibold font-poppins text-gray-300 tracking-wide">Loading game details…</span>
+    </div>
+
+    <!-- Not-found state -->
+    <div id="bs-game-notfound" class="hidden flex-col items-center justify-center py-32 text-center">
+      <i class="fa-solid fa-gamepad text-6xl text-slate-700 mb-6"></i>
+      <h1 class="text-2xl md:text-3xl font-black text-white mb-3">Game Not Found</h1>
+      <p class="text-gray-400 mb-8">The game you are looking for is not in our in-house collection (yet).</p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="./original-games.html"
+          class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left text-sm"></i> Back to Original Games
+        </a>
+        <a href="./games.html"
+          class="bg-slate-800 hover:bg-slate-700 text-gray-200 font-semibold px-6 py-3 rounded-xl border border-slate-700 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-compass text-sm"></i> Explore Full Catalog
+        </a>
+      </div>
+    </div>
+
+    <!-- Detail content rendered by js/bs-games.js from data/BS_Games.json (?id=BS###) -->
+    <div id="bs-game-detail" class="space-y-8"></div>
+  </main>
+
+  <!-- Unified Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center border-t border-gray-800">
+    <div class="max-w-4xl mx-auto flex flex-col items-center">
+      <div class="mb-8">
+        <a href="../privacy/" class="hover:text-white transition-colors underline">Privacy Policy</a>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-sm">
+        <a href="https://x.com/MAWLAY20" class="text-gray-400 hover:text-white transition-transform hover:scale-110"
+          aria-label="Twitter" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512" fill="currentColor">
+            <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61550888326363" class="text-gray-400 hover:text-blue-500 transition-transform hover:scale-110" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook text-xl"></i></a>
+        <a href="https://www.youtube.com/channel/UC-Uc56yi4Ep6_CC1SajWdZw" class="text-gray-400 hover:text-red-500 transition-transform hover:scale-110" aria-label="YouTube" target="_blank" rel="noopener"><i class="fa-brands fa-youtube text-xl"></i></a>
+        <a href="https://www.instagram.com/bekerat.mawlay/" class="text-gray-400 hover:text-pink-500 transition-transform hover:scale-110" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram text-xl"></i></a>
+        <a href="https://www.tiktok.com/@bekeiratsoftware" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="TikTok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok text-xl"></i></a>
+        <a href="https://bekeiratsoftware.blogspot.com" class="text-gray-400 hover:text-orange-500 transition-transform hover:scale-110" aria-label="Blogger" target="_blank" rel="noopener"><i class="fa-brands fa-blogger text-xl"></i></a>
+      </div>
+
+      <div>
+        <p class="text-sm">&copy; <span id="current-year"></span> Bekeirat Software. All rights reserved.</p>
+        <p class="text-xs mt-2 text-gray-500">Designed and built for apps and games excellence.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a id="back-top" href="#main-content" aria-label="Back to top"
+    class="fixed bottom-6 right-6 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg transition-all hidden">⬆️ Top</a>
+
+  <!-- Lightbox Modal -->
+  <div id="bs-lightbox" class="hidden fixed inset-0 z-[80] bg-black/90 items-center justify-center p-4">
+    <button id="bs-lightbox-close" type="button"
+      class="absolute top-5 right-8 text-white text-4xl font-bold cursor-pointer hover:text-indigo-400"
+      aria-label="Close zoomed view">&times;</button>
+    <img id="bs-lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-xl shadow-2xl" src="" alt="Zoomed View">
+  </div>
+
+  <!-- In-House Games Live-Play Popup (opens the game inside the site, maximize via Fullscreen API) -->
+  <div id="bs-play-popup" class="hidden fixed inset-0 z-[90] bg-black/90 backdrop-blur-md p-2 md:p-6" role="dialog"
+    aria-modal="true" aria-label="Live game player">
+    <div id="bs-play-stage"
+      class="relative w-full h-full max-w-5xl mx-auto rounded-2xl overflow-hidden border border-indigo-500/40 bg-slate-950 shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between gap-2 px-3 py-2 bg-slate-900 border-b border-slate-800 shrink-0">
+        <span id="bs-play-title" class="text-sm font-bold text-gray-200 truncate">Game</span>
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="bs-play-maximize" type="button"
+            class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-600 text-gray-200 hover:text-white flex items-center justify-center transition-all"
+            aria-label="Maximize game screen">
+            <i class="fa-solid fa-expand text-sm"></i>
+          </button>
+          <button id="bs-play-close" type="button"
+            class="w-9 h-9 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold flex items-center justify-center transition-all shadow-lg"
+            aria-label="Close game">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+      <iframe id="bs-play-frame" src="about:blank" title="Live game player" class="w-full flex-1 border-0 bg-black"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const yearSpan = document.getElementById('current-year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      }
+    });
+  </script>
+  <script defer src="../js/bs-games.js"></script>
+</body>
+
+</html>

@@ -135,6 +135,7 @@
             <a href="./index.html" class="nav-btn bg-blue-600 text-white">Home</a>
             <a href="./pages/about.html" class="nav-btn">About Us</a>
             <a href="./pages/games.html" class="nav-btn">Games</a>
+            <a href="./pages/original-games.html" class="nav-btn text-indigo-300">Original Games</a>
             <a href="./pages/contact us.html" class="nav-btn">Contacts</a>
         </div>
 
@@ -143,6 +144,7 @@
                 <a href="./index.html" class="mobile-btn text-blue-400 font-bold">Home</a>
                 <a href="./pages/about.html" class="mobile-btn">About Us</a>
                 <a href="./pages/games.html" class="mobile-btn">Games</a>
+                <a href="./pages/original-games.html" class="mobile-btn">Original Games</a>
                 <a href="./pages/contact us.html" class="mobile-btn border-none">Contacts</a>
             </nav>
         </div>
@@ -254,6 +256,10 @@
                 </div>
 
                 <div class="flex items-center gap-2 self-start sm:self-auto">
+                    <a href="./pages/original-games.html"
+                        class="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-indigo-300 hover:text-indigo-200 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 px-4 py-2.5 rounded-xl transition-all">
+                        View All <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+                    </a>
                     <button type="button" onclick="scrollCarousel('original-games-carousel', -380)"
                         aria-label="Scroll original games left" aria-controls="original-games-carousel"
                         class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-300 flex items-center justify-center border border-slate-700/80 transition-all">
@@ -270,9 +276,11 @@
             <div id="original-games-carousel" class="carousel-container flex gap-6 overflow-x-auto pb-4"
                 aria-label="Original games">
 
+                <!-- Rendered by js/bs-games.js from data/BS_Games.json.
+                     Static fallback card shown until the data loads (or if JS is disabled). -->
                 <article
                     class="flex-none w-[320px] sm:w-[360px] bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/60 transition-all shadow-xl">
-                    <a href="./Apps/EnBlocks2026/index.html" class="block">
+                    <a href="./pages/bs-game.html?id=BS001" class="block">
                         <div class="relative aspect-video overflow-hidden bg-slate-950">
                             <img src="./Apps/EnBlocks2026/assets/screenshot-1-1366x768.png" alt="Magic Block Blitz 2026"
                                 class="w-full h-full object-cover" loading="lazy">
@@ -288,13 +296,11 @@
                                 logic.
                             </p>
                             <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-indigo-300">
-                                Play game <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                View game <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                             </span>
                         </div>
                     </a>
                 </article>
-
-                <!-- Add additional app/game cards here using the same article structure. -->
             </div>
         </section>
 
@@ -2031,6 +2037,33 @@
     <a id="back-top" href="#main-content" aria-label="Back to top">⬆️ Back to Top</a>
 
     <script defer="" src="./js/index.js"></script>
+    <script defer="" src="./js/bs-games.js"></script>
+
+    <!-- In-House Games Live-Play Popup (opens the game inside the site, maximize via Fullscreen API) -->
+    <div id="bs-play-popup" class="hidden fixed inset-0 z-[90] bg-black/90 backdrop-blur-md p-2 md:p-6" role="dialog"
+        aria-modal="true" aria-label="Live game player">
+        <div id="bs-play-stage"
+            class="relative w-full h-full max-w-5xl mx-auto rounded-2xl overflow-hidden border border-indigo-500/40 bg-slate-950 shadow-2xl flex flex-col">
+            <div class="flex items-center justify-between gap-2 px-3 py-2 bg-slate-900 border-b border-slate-800 shrink-0">
+                <span id="bs-play-title" class="text-sm font-bold text-gray-200 truncate">Game</span>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="bs-play-maximize" type="button"
+                        class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-600 text-gray-200 hover:text-white flex items-center justify-center transition-all"
+                        aria-label="Maximize game screen">
+                        <i class="fa-solid fa-expand text-sm"></i>
+                    </button>
+                    <button id="bs-play-close" type="button"
+                        class="w-9 h-9 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold flex items-center justify-center transition-all shadow-lg"
+                        aria-label="Close game">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            <iframe id="bs-play-frame" src="about:blank" title="Live game player" class="w-full flex-1 border-0 bg-black"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowfullscreen></iframe>
+        </div>
+    </div>
 
     <!-- InMobi & Service Worker Scripts -->
     <script defer="" src="https://app.inmobi.com/web-sdk?publisherId=aa246c5c4ccf40128ffe9929344209e7" data-mode="auto"
