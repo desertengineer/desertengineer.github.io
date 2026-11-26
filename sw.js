@@ -12,7 +12,7 @@
  * with "Cache-Control: no-cache", and register it with updateViaCache:'none'.
  */
 
-const VERSION = 'v3-20261126a';
+const VERSION = 'v3-20261126b';
 const STATIC_CACHE = `bk-static-${VERSION}`;
 const PAGES_CACHE = `bk-pages-${VERSION}`;
 const DATA_CACHE = `bk-data-${VERSION}`;
