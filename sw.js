@@ -1,215 +1,355 @@
 /**
- * Bekeirat Software - Service Worker
- * Caches critical assets for offline use and improved performance
+ * Bekeirat Software - Service Worker (v3)
+ *
+ * Goals
+ *  1. Fast repeat visits.
+ *  2. The essential site (home, games hub, game player shell, about, contact,
+ *     catalog data) still renders when the visitor is offline OR the host /
+ *     backend is failing (5xx, timeouts).
+ *  3. Never interfere with ads, analytics or consent traffic.
+ *
+ * Deploy checklist: bump VERSION on every release, serve this file as /sw.js
+ * with "Cache-Control: no-cache", and register it with updateViaCache:'none'.
  */
 
-const CACHE_NAME = 'bekeirat-v2';
-const ASSETS_TO_CACHE = [
+const VERSION = 'v3-20261126';
+const STATIC_CACHE = `bk-static-${VERSION}`;
+const PAGES_CACHE = `bk-pages-${VERSION}`;
+const DATA_CACHE = `bk-data-${VERSION}`;
+const CURRENT_CACHES = [STATIC_CACHE, PAGES_CACHE, DATA_CACHE];
+
+const OFFLINE_URL = '/offline.html';
+const NAV_TIMEOUT_MS = 4000;
+const DATA_TIMEOUT_MS = 5000;
+const MAX_STATIC_ENTRIES = 200;
+
+// Pages: best-effort precache (one missing file must not break install).
+const PRECACHE_PAGES = [
     '/',
     '/index.html',
     '/pages/games.html',
     '/pages/game.html',
     '/pages/about.html',
-    '/pages/contact us.html',
-    '/css/bundle.min.css',
-    '/js/index.min.js',
-    '/js/games.min.js',
+    '/pages/contact us.html'
+];
+
+// Same-origin static files your pages actually load.
+const PRECACHE_STATIC = [
+    '/css/index.css',
+    '/css/games.css',
+    '/js/index.js',
+    '/js/games.js',
     '/assets/favicon.png',
     '/assets/Bekeirat-Software-120x120.png',
-    '/assets/hero_emblem-1920x715.png',
-    '/assets/og-banner-1200x630.png',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@700&display=swap',
+    '/assets/hero_emblem-1920x715.png'
+];
+
+// Catalog data. Swap for a slim file (e.g. top 40 games) if all.json is large.
+const PRECACHE_DATA = ['/data/all.json'];
+
+// Third-party files the page needs in order to LOOK right. Tailwind's CDN
+// script generates your CSS at runtime, so without it the offline page is
+// unstyled. (Compile Tailwind locally and you can drop this entry.)
+const PRECACHE_THIRD_PARTY = [
+    'https://cdn.tailwindcss.com',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://cdn.tailwindcss.com'
+    'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap'
 ];
 
-// Cache API responses for game data
-const API_CACHE_NAME = 'bekeirat-api-v1';
-const API_URLS = [
-    '/data/all_1.json',
-    '/data/all_2.json',
-    '/data/all_3.json',
-    '/data/all_4.json',
-    '/data/all_5.json',
-    '/data/all_6.json',
-    '/data/all_7.json',
-    '/data/all.json',
-    '../data/all_1.json',
-    '../data/all_2.json',
-    '../data/all_3.json',
-    '../data/all_4.json',
-    '../data/all_5.json',
-    '../data/all_6.json',
-    '../data/all_7.json',
-    '../data/all.json'
-];
+// Only these third-party hosts are ever cached. Ad, analytics and consent
+// hosts are deliberately absent, so they always go straight to the network.
+const THIRD_PARTY_HOSTS = new Set([
+    'cdn.tailwindcss.com',
+    'cdnjs.cloudflare.com',
+    'fonts.googleapis.com',
+    'fonts.gstatic.com'
+]);
 
-// Install event - cache core assets
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('[SW] Caching core assets');
-                return cache.addAll(ASSETS_TO_CACHE);
-            })
-            .then(() => {
-                console.log('[SW] Core assets cached successfully');
-                return self.skipWaiting(); // Activate immediately
-            })
-            .catch(error => {
-                console.error('[SW] Cache failed:', error);
-            })
-    );
-});
+const PLACEHOLDER_SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">' +
+    '<rect width="320" height="180" fill="#12141f"/>' +
+    '<text x="160" y="95" fill="#64748b" font-family="sans-serif" font-size="14" text-anchor="middle">' +
+    'Image unavailable</text></svg>';
 
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME && cacheName !== API_CACHE_NAME) {
-                        console.log('[SW] Deleting old cache:', cacheName);
-                        return caches.delete(cacheName);
-                    }
-                    return Promise.resolve();
-                })
-            );
-        })
-        .then(() => {
-            console.log('[SW] Service Worker activated');
-            return self.clients.claim(); // Take control of all clients
-        })
-    );
-});
+/* ------------------------------ helpers ------------------------------ */
 
-// Fetch event - serve cached assets
-self.addEventListener('fetch', (event) => {
-    const url = new URL(event.request.url);
-    
-    // Skip non-GET requests
-    if (event.request.method !== 'GET') {
-        return fetch(event.request);
-    }
+const delay = (ms) => new Promise((resolve) => setTimeout(() => resolve(null), ms));
 
-    // Handle API data caching with network-first strategy
-    if (API_URLS.some(apiUrl => url.pathname.includes(apiUrl))) {
-        event.respondWith(
-            caches.open(API_CACHE_NAME)
-                .then(cache => {
-                    return fetch(event.request)
-                        .then(response => {
-                            // Clone and cache the response
-                            const responseClone = response.clone();
-                            cache.put(event.request, responseClone);
-                            return response;
-                        })
-                        .catch(() => {
-                            // Return cached response if network fails
-                            return cache.match(event.request);
-                        });
-                })
-        );
-        return;
-    }
-
-    // Handle CSS/JS/Images with cache-first strategy
-    if (event.request.headers.get('Accept').includes('text/css') ||
-        event.request.headers.get('Accept').includes('application/javascript') ||
-        event.request.headers.get('Accept').includes('image/')) {
-        event.respondWith(
-            caches.match(event.request)
-                .then(response => {
-                    return response || fetch(event.request)
-                        .then(response => {
-                            // Cache new assets
-                            const responseClone = response.clone();
-                            caches.open(CACHE_NAME)
-                                .then(cache => cache.put(event.request, responseClone));
-                            return response;
-                        });
-                })
-        );
-        return;
-    }
-
-    // Handle HTML with network-first strategy
-    if (event.request.headers.get('Accept').includes('text/html')) {
-        event.respondWith(
-            fetch(event.request)
-                .then(response => {
-                    // Cache successful HTML responses
-                    if (response.status === 200) {
-                        const responseClone = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(cache => cache.put(event.request, responseClone));
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    // Return cached HTML if network fails
-                    return caches.match(event.request) || 
-                           caches.match('/index.html') ||
-                           new Response('<h1>Offline</h1><p>Please check your connection.</p>', {
-                               headers: { 'Content-Type': 'text/html' }
-                           });
-                })
-        );
-        return;
-    }
-
-    // Default: try cache, fallback to network
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-    );
-});
-
-// Message event - handle messages from clients
-self.addEventListener('message', (event) => {
-    if (event.data.action === 'skipWaiting') {
-        self.skipWaiting();
-    }
-    if (event.data.action === 'clearCache') {
-        caches.keys().then(cacheNames => {
-            cacheNames.forEach(cacheName => {
-                caches.delete(cacheName);
-            });
-        });
-    }
-});
-
-// Background sync for failed requests (if supported)
-if ('sync' in self.registration) {
-    self.addEventListener('sync', (event) => {
-        if (event.tag === 'sync-data') {
-            event.waitUntil(syncData());
-        }
+// A response that followed a redirect (e.g. Cloudflare Pages /games.html ->
+// /games) cannot be served to a navigation. Rebuild it as a clean response.
+async function cleanResponse(res) {
+    if (!res.redirected) return res;
+    const body = await res.blob();
+    return new Response(body, {
+        status: res.status,
+        statusText: res.statusText,
+        headers: res.headers
     });
 }
 
-async function syncData() {
-    // Implement background sync for failed API requests
-    console.log('[SW] Syncing data in background');
+async function putClean(cache, key, res) {
+    await cache.put(key, await cleanResponse(res));
 }
 
-// Push notification support (if needed)
-self.addEventListener('push', (event) => {
-    const data = event.data.json();
-    event.waitUntil(
-        self.registration.showNotification(data.title, {
-            body: data.body,
-            icon: data.icon || '/assets/favicon.png',
-            data: data.url || '/'
-        })
+async function fetchAndPut(cacheName, url, crossOrigin = false) {
+    const req = new Request(url, crossOrigin ? { mode: 'no-cors' } : { cache: 'reload' });
+    const res = await fetch(req);
+    const ok = res.status === 200 || (crossOrigin && res.type === 'opaque');
+    if (!ok) throw new Error(`${url} -> ${res.status}`);
+    const cache = await caches.open(cacheName);
+    await putClean(cache, url, res);
+}
+
+async function trimCache(name, max) {
+    const cache = await caches.open(name);
+    const keys = await cache.keys();
+    for (let i = 0; i < keys.length - max; i++) {
+        await cache.delete(keys[i]);
+    }
+}
+
+function pageKey(url) {
+    // Ignore query strings (utm, fbclid, ?id=) so the cache stays bounded and
+    // game.html?id=123 falls back to the cached game.html shell.
+    return new Request(url.origin + url.pathname);
+}
+
+function pageCandidates(url) {
+    const p = url.pathname;
+    const list = [p];
+    if (p.endsWith('/')) list.push(p + 'index.html');
+    else if (p.endsWith('.html')) list.push(p.slice(0, -5));
+    else list.push(p + '.html');
+    return list.map((x) => url.origin + x);
+}
+
+async function matchPage(cache, url) {
+    for (const candidate of pageCandidates(url)) {
+        const hit = await cache.match(candidate);
+        if (hit) return hit;
+    }
+    return null;
+}
+
+function offlineResponse() {
+    return new Response(
+        '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+        '<title>Offline | Bekeirat Software</title>' +
+        '<body style="font-family:sans-serif;background:#0b0f19;color:#f3f4f6;text-align:center;padding:4rem 1rem">' +
+        '<h1>You are offline</h1><p>Please check your connection and try again.</p>',
+        { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
     );
+}
+
+function placeholderImage() {
+    return new Response(PLACEHOLDER_SVG, {
+        status: 200,
+        headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-store' }
+    });
+}
+
+/* ------------------------------ install ------------------------------ */
+
+self.addEventListener('install', (event) => {
+    event.waitUntil((async () => {
+        // The offline page is the only REQUIRED precache entry. If it fails,
+        // install fails and the browser retries on the next visit.
+        const pages = await caches.open(PAGES_CACHE);
+        await pages.add(new Request(OFFLINE_URL, { cache: 'reload' }));
+
+        // Everything else is best-effort.
+        await Promise.allSettled([
+            ...PRECACHE_PAGES.map((u) => fetchAndPut(PAGES_CACHE, u)),
+            ...PRECACHE_STATIC.map((u) => fetchAndPut(STATIC_CACHE, u)),
+            ...PRECACHE_DATA.map((u) => fetchAndPut(DATA_CACHE, u)),
+            ...PRECACHE_THIRD_PARTY.map((u) => fetchAndPut(STATIC_CACHE, u, true))
+        ]);
+
+        await self.skipWaiting();
+    })());
 });
 
-self.addEventListener('notificationclick', (event) => {
-    event.notification.close();
-    if (event.notification.data) {
-        clients.openWindow(event.notification.data);
+/* ------------------------------ activate ----------------------------- */
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil((async () => {
+        const names = await caches.keys();
+        await Promise.all(
+            names
+                .filter((n) => (n.startsWith('bk-') && !CURRENT_CACHES.includes(n)) || n.startsWith('bekeirat'))
+                .map((n) => caches.delete(n))
+        );
+        await trimCache(STATIC_CACHE, MAX_STATIC_ENTRIES);
+        await self.clients.claim();
+    })());
+});
+
+/* ------------------------------- fetch ------------------------------- */
+
+self.addEventListener('fetch', (event) => {
+    const req = event.request;
+
+    // Let the browser handle anything we should not touch (POST, video Range
+    // requests, etc.).
+    if (req.method !== 'GET' || req.headers.has('range')) return;
+
+    const url = new URL(req.url);
+    const sameOrigin = url.origin === self.location.origin;
+
+    // 1) Page navigations: network-first with timeout, then cache, then offline page.
+    if (req.mode === 'navigate') {
+        if (sameOrigin) event.respondWith(handleNavigation(event));
+        return;
+    }
+
+    // 2) Catalog data: network-first (always revalidated), cache fallback.
+    if (sameOrigin && url.pathname.startsWith('/data/') && url.pathname.endsWith('.json')) {
+        event.respondWith(handleData(event));
+        return;
+    }
+
+    // 3) Same-origin static files: stale-while-revalidate.
+    if (sameOrigin) {
+        if (['style', 'script', 'image', 'font', 'manifest'].includes(req.destination)) {
+            event.respondWith(handleStatic(event, false));
+        }
+        return;
+    }
+
+    // 4) Allowlisted third-party assets (Tailwind, Font Awesome, fonts).
+    if (THIRD_PARTY_HOSTS.has(url.hostname)) {
+        event.respondWith(handleStatic(event, true));
+        return;
+    }
+
+    // 5) Remote images (game thumbnails): network only, placeholder on failure.
+    //    Not cached: opaque responses are padded to ~7 MB each in quota.
+    if (req.destination === 'image') {
+        event.respondWith(fetch(req).catch(() => placeholderImage()));
+        return;
+    }
+
+    // 6) Everything else (ads, analytics, consent, game frames): untouched.
+});
+
+async function handleNavigation(event) {
+    const req = event.request;
+    const url = new URL(req.url);
+    const cache = await caches.open(PAGES_CACHE);
+
+    const net = fetch(req);
+    net.catch(() => { /* handled below; avoids an unhandled rejection */ });
+
+    try {
+        const res = await Promise.race([net, delay(NAV_TIMEOUT_MS)]);
+        if (res) {
+            if (res.ok) event.waitUntil(putClean(cache, pageKey(url), res.clone()));
+            // Redirects (opaqueredirect) and 4xx pass through; 5xx falls back to cache.
+            if (res.status < 500) return res;
+        } else {
+            // Slow network: prefer a cached copy; if none, keep waiting.
+            const cached = await matchPage(cache, url);
+            if (cached) return cached;
+            return await net;
+        }
+    } catch (_) {
+        // Offline or network error: fall through to the cache.
+    }
+
+    return (await matchPage(cache, url)) ||
+           (await cache.match(OFFLINE_URL)) ||
+           offlineResponse();
+}
+
+async function handleData(event) {
+    const req = event.request;
+    const url = new URL(req.url);
+    const key = new Request(url.origin + url.pathname);
+    const cache = await caches.open(DATA_CACHE);
+
+    try {
+        // 'no-cache' = always revalidate with the server (cheap with ETag),
+        // overriding the page code's cache:'force-cache'.
+        const net = fetch(req, { cache: 'no-cache' });
+        net.catch(() => {});
+        const res = await Promise.race([net, delay(DATA_TIMEOUT_MS)]);
+        if (res) {
+            if (res.ok) {
+                event.waitUntil(cache.put(key, res.clone()));
+                return res;
+            }
+        } else {
+            const cached = await cache.match(key);
+            if (cached) return cached;
+            const late = await net;
+            if (late.ok) {
+                event.waitUntil(cache.put(key, late.clone()));
+                return late;
+            }
+        }
+    } catch (_) {
+        // Offline or server error: fall through.
+    }
+
+    // Exact file from cache, otherwise ANY cached catalog file so the hub
+    // still shows games (e.g. Tuesday's file is missing but Monday's exists).
+    const exact = await cache.match(key);
+    if (exact) return exact;
+    const keys = await cache.keys();
+    if (keys.length) {
+        const any = await cache.match(keys[0]);
+        if (any) return any;
+    }
+
+    return new Response('[]', {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+async function handleStatic(event, allowOpaque) {
+    const req = event.request;
+    const cache = await caches.open(STATIC_CACHE);
+    const cached = await cache.match(req);
+
+    const refresh = fetch(req, allowOpaque ? undefined : { cache: 'no-cache' })
+        .then((res) => {
+            const cacheable = res.status === 200 || (allowOpaque && res.type === 'opaque');
+            if (cacheable) {
+                event.waitUntil(
+                    cache.put(req, res.clone()).then(() => trimCache(STATIC_CACHE, MAX_STATIC_ENTRIES))
+                );
+            }
+            return res;
+        })
+        .catch(() => null);
+
+    if (cached) {
+        event.waitUntil(refresh); // update in the background
+        return cached;
+    }
+
+    const res = await refresh;
+    if (res) return res;
+    if (req.destination === 'image') return placeholderImage();
+    return new Response('', { status: 504, statusText: 'Offline' });
+}
+
+/* ------------------------------ messages ----------------------------- */
+
+self.addEventListener('message', (event) => {
+    const action = event.data && event.data.action;
+    if (action === 'skipWaiting') {
+        self.skipWaiting();
+    } else if (action === 'clearCache') {
+        event.waitUntil(
+            caches.keys().then((names) =>
+                Promise.all(names.filter((n) => n.startsWith('bk-')).map((n) => caches.delete(n)))
+            )
+        );
     }
 });
+
+// Push notifications and background sync from the old file were removed:
+// nothing on the site subscribes to them, and the old push handler threw on
+// empty payloads. Re-add them only when a feature actually needs them.
