@@ -2042,7 +2042,7 @@
         });
         window.addEventListener('load', function () {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw_optimized.js', { scope: '/' }).catch(function (err) {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function (err) {
                     console.warn('[SW] Registration failed:', err);
                 });
             }
