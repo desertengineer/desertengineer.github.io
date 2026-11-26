@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "publisher": "Bekeirat Software",
+  "lastUpdated": "2026-02-06",
+  "games": [
+    {
+      "id": "BS001",
+      "slug": "enblocks2026",
+      "title": "Magic Block Blitz 2026",
+      "shortDescription": "A block-matching strategy game that tests spatial skills, quick thinking, and combo logic.",
+      "description": [
+        "Welcome to Magic Block Blitz 2026, the ultimate block-matching strategy game designed to test your spatial skills, logic, and quick thinking!",
+        "Whether you want a relaxing mental workout or an exhilarating high-score challenge, Magic Block Blitz 2026 delivers endless hours of satisfying gameplay. Drag, drop, and place colorful magical blocks onto the grid to clear complete rows and columns."
+      ],
+      "genre": "Puzzle / Strategy",
+      "category": "Puzzle",
+      "tags": ["puzzle", "strategy", "blocks", "brain", "offline"],
+      "version": "1.1.0",
+      "releaseDate": "2026-01-10",
+      "rating": "Everyone",
+      "languages": ["English", "Arabic"],
+      "featured": true,
+      "playOnline": true,
+      "orientation": "portrait",
+      "folder": "Apps/EnBlocks2026",
+      "detailPage": "Apps/EnBlocks2026/index.html",
+      "privacyPolicy": "Apps/EnBlocks2026/privacy/",
+      "icon": "Apps/EnBlocks2026/assets/manifest-icon-512.any.png",
+      "thumbnail": "Apps/EnBlocks2026/assets/screenshot-1-1366x768.png",
+      "banner": "Apps/EnBlocks2026/assets/screenshot-1-1366x768.png",
+      "play": {
+        "available": true,
+        "url": "Apps/EnBlocks2026/play/index.html"
+      },
+      "screenshots": [
+        { "src": "Apps/EnBlocks2026/assets/screenshot-1-1366x768.png", "alt": "Magic Block Blitz 2026 gameplay screen" },
+        { "src": "Apps/EnBlocks2026/assets/screenshot-2-1366x768.png", "alt": "Magic Block Blitz 2026 gameplay screen 2" },
+        { "src": "Apps/EnBlocks2026/assets/screenshot-3-1366x768.png", "alt": "Magic Block Blitz 2026 gameplay screen 3" },
+        { "src": "Apps/EnBlocks2026/assets/screenshot-10-768x1366.png", "alt": "Magic Block Blitz 2026 portrait mode" }
+      ],
+      "trailers": [
+        { "title": "Brain Training", "url": "https://www.dropbox.com/scl/fi/f26cy7yticae9juwnnzic/Brain-Training-1.mp4?rlkey=tiy6ge2bl0t5pxb699dd3p6sv&st=xw070pjk&raw=1" },
+        { "title": "Satisfying Combo", "url": "https://www.dropbox.com/scl/fi/qcwccxl3ry6p40ezjdpwq/Satisfying-Combo.mp4?rlkey=tluiwjml9z222p36gw5vsfbzk&st=t4m6s3t0&raw=1" }
+      ],
+      "features": [
+        { "icon": "🎮", "title": "Classic & Blitz Modes", "text": "Play at your own pace in Classic Mode or race against the clock in Blitz Mode." },
+        { "icon": "🏆", "title": "Satisfying Combos", "text": "Clear multiple lines simultaneously to trigger spectacular magic visual effects and score multipliers." },
+        { "icon": "🧠", "title": "Brain-Boosting Puzzles", "text": "Easy to learn, but challenging to master! Train your focus and logic with every drop." },
+        { "icon": "🔗", "title": "Offline Play", "text": "No Wi-Fi or active internet connection required — enjoy puzzle fun anytime." }
+      ],
+      "stores": [
+        { "platform": "android", "type": "download", "label": "Download Android APK", "url": "https://github.com/desertengineer/releases/raw/main/MagicBlockBlitz2026.apk" },
+        { "platform": "windows", "type": "store", "label": "Get on Microsoft Store", "url": "https://apps.microsoft.com/detail/9ngnkgg8dfqz" },
+        { "platform": "itch", "type": "store", "label": "Play or Buy on Itch.io", "url": "https://mawlay.itch.io/en-blocks-2026" }
+      ]
+    },
+    {
+      "id": "BS002",
+      "slug": "entiles2048",
+      "title": "Tile Master 2048",
+      "shortDescription": "The classic 2048 tile-merging challenge, rebuilt with smooth controls and clean design.",
+      "description": [
+        "Welcome to Tile Master 2048, the ultimate puzzle game designed to test your spatial skills, logic, and quick thinking!",
+        "Swipe or use the arrow keys to merge matching tiles, grow your numbers, and chase the legendary 2048 tile. Simple rules, endlessly deep strategy."
+      ],
+      "genre": "Puzzle",
+      "category": "Puzzle",
+      "tags": ["puzzle", "numbers", "2048", "casual", "offline"],
+      "version": "1.0.0",
+      "releaseDate": "2025-11-01",
+      "rating": "Everyone",
+      "languages": ["English", "Arabic"],
+      "featured": false,
+      "playOnline": true,
+      "orientation": "portrait",
+      "folder": "Apps/EnTiles2048",
+      "detailPage": "Apps/EnTiles2048/index.html",
+      "privacyPolicy": "Apps/EnTiles2048/EnTiles2048_privacy_policy.html",
+      "icon": "Apps/EnTiles2048/assets/manifest-icon-512.any.png",
+      "thumbnail": "Apps/EnTiles2048/assets/Screenshot-1.png",
+      "banner": "Apps/EnTiles2048/assets/Screenshot-1.png",
+      "play": {
+        "available": true,
+        "url": "Apps/EnTiles2048/play/index.html"
+      },
+      "screenshots": [
+        { "src": "Apps/EnTiles2048/assets/Screenshot-1.png", "alt": "Tile Master 2048 gameplay screen" },
+        { "src": "Apps/EnTiles2048/assets/Screenshot-2.png", "alt": "Tile Master 2048 gameplay screen 2" },
+        { "src": "Apps/EnTiles2048/assets/Screenshot-3.png", "alt": "Tile Master 2048 gameplay screen 3" }
+      ],
+      "trailers": [],
+      "features": [
+        { "icon": "🔢", "title": "Classic 2048 Rules", "text": "Merge matching tiles and grow your board to reach the 2048 tile and beyond." },
+        { "icon": "📱", "title": "Touch & Keyboard", "text": "Play with swipes on mobile or arrow keys on desktop." },
+        { "icon": "🔗", "title": "Offline Play", "text": "Fully playable without an internet connection." }
+      ],
+      "stores": []
+    },
+    {
+      "id": "BS003",
+      "slug": "geotrivia",
+      "title": "Geography Trivia",
+      "shortDescription": "A quiz game that puts your world knowledge to the test — capitals, flags, maps, and more.",
+      "description": [
+        "Geography Trivia is an in-house quiz game by Bekeirat Software that puts your knowledge of the world to the test.",
+        "Answer questions about countries, capitals, flags, and landmarks, track your streak, and learn something new with every round."
+      ],
+      "genre": "Quiz / Trivia",
+      "category": "Quiz",
+      "tags": ["quiz", "trivia", "geography", "education", "learning"],
+      "version": "1.0.0",
+      "releaseDate": "2025-09-15",
+      "rating": "Everyone",
+      "languages": ["English", "Arabic"],
+      "featured": false,
+      "playOnline": true,
+      "orientation": "portrait",
+      "folder": "Apps/GeoTrivia",
+      "detailPage": "Apps/GeoTrivia/index.html",
+      "privacyPolicy": "",
+      "icon": "assets/Bekeirat-Software-120x120.png",
+      "thumbnail": "assets/gamepad.svg",
+      "banner": "assets/Social_Preview_1200×630.png",
+      "play": {
+        "available": true,
+        "url": "Apps/GeoTrivia/index.html"
+      },
+      "screenshots": [],
+      "trailers": [],
+      "features": [
+        { "icon": "🌍", "title": "World-Wide Questions", "text": "Capitals, flags, maps, and landmarks from every continent." },
+        { "icon": "🔥", "title": "Streak System", "text": "Build your streak and beat your personal best." },
+        { "icon": "🎓", "title": "Learn As You Play", "text": "Every answer teaches you something new about our planet." }
+      ],
+      "stores": []
+    }
+  ]
+}
