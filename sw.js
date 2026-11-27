@@ -12,7 +12,7 @@
  * with "Cache-Control: no-cache", and register it with updateViaCache:'none'.
  */
 
-const VERSION = 'v3-20261126b';
+const VERSION = 'v3-20261127a';
 const STATIC_CACHE = `bk-static-${VERSION}`;
 const PAGES_CACHE = `bk-pages-${VERSION}`;
 const DATA_CACHE = `bk-data-${VERSION}`;
@@ -41,7 +41,7 @@ const PRECACHE_STATIC = [
     '/js/games.js',
     '/assets/favicon.png',
     '/assets/Bekeirat-Software-120x120.png',
-    '/assets/hero_emblem-1920x715.png'
+    '/assets/hero_emblem-1250x320.png'
 ];
 
 // Catalog data. Swap for a slim file (e.g. top 40 games) if all.json is large.

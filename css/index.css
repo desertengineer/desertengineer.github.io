@@ -83,7 +83,7 @@ button, input {
 }
 
 .hero-banner {
-    background: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.9)), url('./assets/hero_emblem-1920x715.png');
+    background: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.9)), url('./assets/hero_emblem-1250x320.png');
     background-color: #0f172a;
     background-size: cover;
     background-position: center;
