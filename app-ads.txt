@@ -27,6 +27,7 @@ google.com, pub-1912561085588771, DIRECT, f08c47fec0942fa0
 google.com, pub-4537341636281998, DIRECT, f08c47fec0942fa0
 google.com, pub-1912561085588771, RESELLER, f08c47fec0942fa0
 facebook.com, 693822236624995, DIRECT, c3e20eee3f780d68
+facebook.com, 966214866336703, DIRECT, c3e20eee3f780d68
 vungle.com, 61e5debc97db9400178b0529, DIRECT, c107d686becd2d77
 
 #Media net#
